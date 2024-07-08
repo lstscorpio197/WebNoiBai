@@ -1,0 +1,8 @@
+﻿label.error{
+    color:red;
+    font-size:14px;
+    font-weight:100!important;
+}
+input.error, select.error, textarea.error {
+    border: 1px solid red !important;
+}

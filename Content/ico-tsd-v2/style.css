@@ -1,0 +1,240 @@
+@font-face {
+    font-family: 'icomoon';
+    src: url('fonts/icomoon.eot?ckg3yk');
+    src: url('fonts/icomoon.eot?ckg3yk#iefix') format('embedded-opentype'), url('fonts/icomoon.ttf?ckg3yk') format('truetype'), url('fonts/icomoon.woff?ckg3yk') format('woff'), url('fonts/icomoon.svg?ckg3yk#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'icomoon' !important;
+    speak: never;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    font-size: 18px;
+    vertical-align: bottom;
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-add-ico-tsd:before {
+    content: "\e900";
+}
+
+.icon-audit-ico-tsd:before {
+    content: "\e901";
+}
+
+.icon-bell-ico-tsd:before {
+    content: "\e902";
+}
+
+.icon-calendar-ico-tsd:before {
+    content: "\e903";
+}
+
+.icon-caretdown-ico-tsd:before {
+    content: "\e904";
+}
+
+.icon-caretright-ico-tsd:before {
+    content: "\e905";
+}
+
+.icon-status-ico-tsd:before {
+    content: "\e906";
+}
+
+.icon-checkstroke-ico-tsd:before {
+    content: "\e907";
+}
+
+.icon-close-ico-tsd:before {
+    content: "\e908";
+}
+
+.icon-container-ico-tsd:before {
+    content: "\e909";
+}
+
+.icon-control-ico-tsd:before {
+    content: "\e90a";
+}
+
+.icon-count-ico-tsd:before {
+    content: "\e90b";
+}
+
+.icon-declaration-ico-tsd:before {
+    content: "\e90c";
+}
+
+.icon-delete-ico-tsd:before {
+    content: "\e90d";
+}
+
+.icon-doubleleft-ico-tsd:before {
+    content: "\e90e";
+}
+
+.icon-doubleright-ico-tsd:before {
+    content: "\e90f";
+}
+
+.icon-dropdown-ico-tsd:before {
+    content: "\e910";
+}
+
+.icon-edit-ico-tsd:before {
+    content: "\e911";
+}
+
+.icon-exit-ico-tsd:before {
+    content: "\e912";
+}
+
+.icon-exitstroke-ico-tsd:before {
+    content: "\e913";
+}
+
+.icon-export-ico-tsd:before {
+    content: "\e914";
+}
+
+.icon-eye-ico-tsd:before {
+    content: "\e915";
+}
+
+.icon-fileadd-ico-tsd:before {
+    content: "\e916";
+}
+
+.icon-fileprotect-ico-tsd:before {
+    content: "\e917";
+}
+
+.icon-folderopen-ico-tsd:before {
+    content: "\e918";
+}
+
+.icon-forward-ico-tsd:before {
+    content: "\e919";
+}
+
+.icon-fundprojectionscreen-ico-tsd:before {
+    content: "\e91a";
+}
+
+.icon-home-ico-tsd:before {
+    content: "\e91b";
+}
+
+.icon-import-ico-tsd:before {
+    content: "\e91c";
+}
+
+.icon-left-ico-tsd:before {
+    content: "\e91d";
+}
+
+.icon-logout-ico-tsd:before {
+    content: "\e91e";
+}
+
+.icon-management-ico-tsd:before {
+    content: "\e91f";
+}
+
+.icon-menufold-ico-tsd:before {
+    content: "\e920";
+}
+
+.icon-menu-ico-tsd:before {
+    content: "\e921";
+}
+
+.icon-more-ico-tsd:before {
+    content: "\e922";
+}
+
+.icon-newline-ico-tsd:before {
+    content: "\e923";
+}
+
+.icon-notification-ico-tsd:before {
+    content: "\e924";
+}
+
+.icon-notificationstroke-ico-tsd:before {
+    content: "\e925";
+}
+
+.icon-partition-ico-tsd:before {
+    content: "\e926";
+}
+
+.icon-piechart-ico-tsd:before {
+    content: "\e927";
+}
+
+.icon-print-ico-tsd:before {
+    content: "\e928";
+}
+
+.icon-questioncircle-ico-tsd:before {
+    content: "\e929";
+}
+
+.icon-retweet-ico-tsd:before {
+    content: "\e92a";
+}
+
+.icon-right-ico-tsd:before {
+    content: "\e92b";
+}
+
+.icon-rollback-ico-tsd:before {
+    content: "\e92c";
+}
+
+.icon-save-ico-tsd:before {
+    content: "\e92d";
+}
+
+.icon-search-ico-tsd:before {
+    content: "\e92e";
+}
+
+.icon-setting-ico-tsd:before {
+    content: "\e92f";
+}
+
+.icon-status-ico-tsd:before {
+    content: "\e930";
+}
+
+.icon-translate-ico-tsd:before {
+    content: "\e931";
+}
+
+.icon-usergroupadd-ico-tsd:before {
+    content: "\e932";
+}
+
+.icon-user-ico-tsd:before {
+    content: "\e933";
+}
+
+.icon-warning-ico-tsd:before {
+    content: "\e934";
+}
+
+.icon-warningstroke-ico-tsd:before {
+    content: "\e935";
+}
