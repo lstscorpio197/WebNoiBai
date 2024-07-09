@@ -1,8 +1,9 @@
 ﻿@using Newtonsoft.Json
-@using WebNoiBai.Common;
+@using WebNoiBai.Models
+@using WebNoiBai.Common
 @{
     string controllerName = "";
-    string userName = (string)Session[AppConst.UserSession];
+    USER us = Session[AppConst.UserSession] as USER;
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -72,7 +73,7 @@
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link white" data-bs-toggle="dropdown" href="#">
-                        <div class="inline-block white" title="@userName"><i class="icon-user-ico-tsd"></i><span class="ml8 mr8" id="UsFullName">@userName</span><i class="icon-caretdown-ico-tsd"></i></div>
+                        <div class="inline-block white" title="@us.HoTen"><i class="icon-user-ico-tsd"></i><span class="ml8 mr8" id="UsFullName">@us.HoTen</span><i class="icon-caretdown-ico-tsd"></i></div>
                     </a>
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="border: none!important; margin-top: 3px;">
                         <div class="dropdown-item" style="border-radius:5px;font-size:14px;background-color: #fff!important;padding: .5rem 1rem!important; border-top: 1px solid rgba(0,0,0,.15);">

@@ -1,25 +1,44 @@
 ﻿
 <nav class="mt-2">
     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+
+        @*Hệ thống*@
         <li class="nav-item has-treeview">
             <a href="#" class="nav-link ">
-                <i class="nav-icon fas fa-tags"></i> <p>Menu cha <i class="right fa fa-angle-left"></i></p>
+                <i class="nav-icon fas fa-tags"></i> <p>Quản trị hệ thống<i class="right fa fa-angle-left"></i></p>
             </a>
 
             <ul class="nav nav-treeview">
-                <li class="nav-item" title="Menu con 1">
-                    <a href="#" class="nav-link">
-                        <p style="padding-left: 26px;line-height: 18px">Menu con 1</p>
+                <li class="nav-item" title="Quản lý phòng ban">
+                    <a href="/SPhongBan" class="nav-link">
+                        <p style="padding-left: 26px;line-height: 18px">Quản lý phòng ban</p>
                     </a>
                 </li>
-                <li class="nav-item" title="Menu con 2">
-                    <a href="#" class="nav-link">
-                        <p style="padding-left: 26px;line-height: 18px">Menu con 2</p>
+                <li class="nav-item" title="Quản lý tài khoản">
+                    <a href="/SUser" class="nav-link">
+                        <p style="padding-left: 26px;line-height: 18px">Quản lý tài khoản</p>
                     </a>
                 </li>
             </ul>
         </li>
-        <li class="nav-item">
+
+        @*Danh mục*@
+        <li class="nav-item has-treeview">
+            <a href="#" class="nav-link ">
+                <i class="nav-icon fas fa-tags"></i> <p>Danh mục<i class="right fa fa-angle-left"></i></p>
+            </a>
+
+            <ul class="nav nav-treeview">
+                <li class="nav-item" title="Quản lý phòng ban">
+                    <a href="#" class="nav-link">
+                        <p style="padding-left: 26px;line-height: 18px">Quản lý phòng ban</p>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+        @*Hành khách*@
+        @*<li class="nav-item">
             <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-tags"></i>
                 <p>
@@ -34,6 +53,6 @@
                     Menu đơn 2
                 </p>
             </a>
-        </li>
+        </li>*@
     </ul>
 </nav>

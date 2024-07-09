@@ -1,0 +1,480 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SystemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="SPermission">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Controller" Type="nvarchar" MaxLength="20" />
+          <Property Name="Action" Type="nvarchar" MaxLength="20" />
+          <Property Name="ViewName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Enable" Type="int" />
+        </EntityType>
+        <EntityType Name="SPhongBan">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ma" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Ten" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="GhiChu" Type="nvarchar" MaxLength="500" />
+          <Property Name="Enable" Type="int" />
+        </EntityType>
+        <EntityType Name="SRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ma" Type="nvarchar" MaxLength="50" />
+          <Property Name="Ten" Type="nvarchar" MaxLength="200" />
+          <Property Name="GhiChu" Type="nvarchar" MaxLength="500" />
+          <Property Name="Enable" Type="int" />
+        </EntityType>
+        <EntityType Name="SRolePermission">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="RoleId" Type="int" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="PermissionId" Type="int" />
+          <Property Name="IsGranted" Type="int" />
+        </EntityType>
+        <EntityType Name="SUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="HoTen" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="NgaySinh" Type="datetime" />
+          <Property Name="GioiTinh" Type="nvarchar" MaxLength="5" />
+          <Property Name="ChucVu" Type="int" />
+          <Property Name="IsActived" Type="int" />
+          <Property Name="SDT" Type="nvarchar" MaxLength="13" />
+          <Property Name="PhongBan" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SUserRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_SRolePermission_SPermission">
+          <End Role="SPermission" Type="Self.SPermission" Multiplicity="0..1" />
+          <End Role="SRolePermission" Type="Self.SRolePermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SPermission">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SRolePermission">
+              <PropertyRef Name="PermissionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SRolePermission_SRole">
+          <End Role="SRole" Type="Self.SRole" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SRolePermission" Type="Self.SRolePermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SRole">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SRolePermission">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SRolePermission_SUser">
+          <End Role="SUser" Type="Self.SUser" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SRolePermission" Type="Self.SRolePermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SRolePermission">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SUser_SPhongBan">
+          <End Role="SPhongBan" Type="Self.SPhongBan" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SUser" Type="Self.SUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SPhongBan">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SUser">
+              <PropertyRef Name="PhongBan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SUserRole_SRole">
+          <End Role="SRole" Type="Self.SRole" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SUserRole" Type="Self.SUserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SRole">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SUserRole">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SUserRole_SUser">
+          <End Role="SUser" Type="Self.SUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SUserRole" Type="Self.SUserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SUserRole">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SystemModelStoreContainer">
+          <EntitySet Name="SPermission" EntityType="Self.SPermission" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SPhongBan" EntityType="Self.SPhongBan" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SRole" EntityType="Self.SRole" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SRolePermission" EntityType="Self.SRolePermission" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SUser" EntityType="Self.SUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SUserRole" EntityType="Self.SUserRole" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_SRolePermission_SPermission" Association="Self.FK_SRolePermission_SPermission">
+            <End Role="SPermission" EntitySet="SPermission" />
+            <End Role="SRolePermission" EntitySet="SRolePermission" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SRolePermission_SRole" Association="Self.FK_SRolePermission_SRole">
+            <End Role="SRole" EntitySet="SRole" />
+            <End Role="SRolePermission" EntitySet="SRolePermission" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SRolePermission_SUser" Association="Self.FK_SRolePermission_SUser">
+            <End Role="SUser" EntitySet="SUser" />
+            <End Role="SRolePermission" EntitySet="SRolePermission" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SUser_SPhongBan" Association="Self.FK_SUser_SPhongBan">
+            <End Role="SPhongBan" EntitySet="SPhongBan" />
+            <End Role="SUser" EntitySet="SUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SUserRole_SRole" Association="Self.FK_SUserRole_SRole">
+            <End Role="SRole" EntitySet="SRole" />
+            <End Role="SUserRole" EntitySet="SUserRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SUserRole_SUser" Association="Self.FK_SUserRole_SUser">
+            <End Role="SUser" EntitySet="SUser" />
+            <End Role="SUserRole" EntitySet="SUserRole" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SystemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="SPermission">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Controller" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Action" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ViewName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Enable" Type="Int32" />
+          <NavigationProperty Name="SRolePermissions" Relationship="Self.FK_SRolePermission_SPermission" FromRole="SPermission" ToRole="SRolePermission" />
+        </EntityType>
+        <EntityType Name="SPhongBan">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ma" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Ten" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="GhiChu" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Enable" Type="Int32" />
+          <NavigationProperty Name="SUsers" Relationship="Self.FK_SUser_SPhongBan" FromRole="SPhongBan" ToRole="SUser" />
+        </EntityType>
+        <EntityType Name="SRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ma" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ten" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="GhiChu" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Enable" Type="Int32" />
+          <NavigationProperty Name="SRolePermissions" Relationship="Self.FK_SRolePermission_SRole" FromRole="SRole" ToRole="SRolePermission" />
+          <NavigationProperty Name="SUserRoles" Relationship="Self.FK_SUserRole_SRole" FromRole="SRole" ToRole="SUserRole" />
+        </EntityType>
+        <EntityType Name="SRolePermission">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="RoleId" Type="Int32" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="PermissionId" Type="Int32" />
+          <Property Name="IsGranted" Type="Int32" />
+          <NavigationProperty Name="SPermission" Relationship="Self.FK_SRolePermission_SPermission" FromRole="SRolePermission" ToRole="SPermission" />
+          <NavigationProperty Name="SRole" Relationship="Self.FK_SRolePermission_SRole" FromRole="SRolePermission" ToRole="SRole" />
+          <NavigationProperty Name="SUser" Relationship="Self.FK_SRolePermission_SUser" FromRole="SRolePermission" ToRole="SUser" />
+        </EntityType>
+        <EntityType Name="SUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="HoTen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NgaySinh" Type="DateTime" Precision="3" />
+          <Property Name="GioiTinh" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="ChucVu" Type="Int32" />
+          <Property Name="IsActived" Type="Int32" />
+          <Property Name="SDT" Type="String" MaxLength="13" FixedLength="false" Unicode="true" />
+          <Property Name="PhongBan" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="SPhongBan" Relationship="Self.FK_SUser_SPhongBan" FromRole="SUser" ToRole="SPhongBan" />
+          <NavigationProperty Name="SRolePermissions" Relationship="Self.FK_SRolePermission_SUser" FromRole="SUser" ToRole="SRolePermission" />
+          <NavigationProperty Name="SUserRoles" Relationship="Self.FK_SUserRole_SUser" FromRole="SUser" ToRole="SUserRole" />
+        </EntityType>
+        <EntityType Name="SUserRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="SRole" Relationship="Self.FK_SUserRole_SRole" FromRole="SUserRole" ToRole="SRole" />
+          <NavigationProperty Name="SUser" Relationship="Self.FK_SUserRole_SUser" FromRole="SUserRole" ToRole="SUser" />
+        </EntityType>
+        <Association Name="FK_SRolePermission_SPermission">
+          <End Role="SPermission" Type="Self.SPermission" Multiplicity="0..1" />
+          <End Role="SRolePermission" Type="Self.SRolePermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SPermission">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SRolePermission">
+              <PropertyRef Name="PermissionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SUser_SPhongBan">
+          <End Role="SPhongBan" Type="Self.SPhongBan" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SUser" Type="Self.SUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SPhongBan">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SUser">
+              <PropertyRef Name="PhongBan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SRolePermission_SRole">
+          <End Role="SRole" Type="Self.SRole" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SRolePermission" Type="Self.SRolePermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SRole">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SRolePermission">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SUserRole_SRole">
+          <End Role="SRole" Type="Self.SRole" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SUserRole" Type="Self.SUserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SRole">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SUserRole">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SRolePermission_SUser">
+          <End Role="SUser" Type="Self.SUser" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SRolePermission" Type="Self.SRolePermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SRolePermission">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SUserRole_SUser">
+          <End Role="SUser" Type="Self.SUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SUserRole" Type="Self.SUserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SUserRole">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SystemEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="SPermissions" EntityType="Self.SPermission" />
+          <EntitySet Name="SPhongBans" EntityType="Self.SPhongBan" />
+          <EntitySet Name="SRoles" EntityType="Self.SRole" />
+          <EntitySet Name="SRolePermissions" EntityType="Self.SRolePermission" />
+          <EntitySet Name="SUsers" EntityType="Self.SUser" />
+          <EntitySet Name="SUserRoles" EntityType="Self.SUserRole" />
+          <AssociationSet Name="FK_SRolePermission_SPermission" Association="Self.FK_SRolePermission_SPermission">
+            <End Role="SPermission" EntitySet="SPermissions" />
+            <End Role="SRolePermission" EntitySet="SRolePermissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SUser_SPhongBan" Association="Self.FK_SUser_SPhongBan">
+            <End Role="SPhongBan" EntitySet="SPhongBans" />
+            <End Role="SUser" EntitySet="SUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SRolePermission_SRole" Association="Self.FK_SRolePermission_SRole">
+            <End Role="SRole" EntitySet="SRoles" />
+            <End Role="SRolePermission" EntitySet="SRolePermissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SUserRole_SRole" Association="Self.FK_SUserRole_SRole">
+            <End Role="SRole" EntitySet="SRoles" />
+            <End Role="SUserRole" EntitySet="SUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SRolePermission_SUser" Association="Self.FK_SRolePermission_SUser">
+            <End Role="SUser" EntitySet="SUsers" />
+            <End Role="SRolePermission" EntitySet="SRolePermissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SUserRole_SUser" Association="Self.FK_SUserRole_SUser">
+            <End Role="SUser" EntitySet="SUsers" />
+            <End Role="SUserRole" EntitySet="SUserRoles" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SystemModelStoreContainer" CdmEntityContainer="SystemEntities">
+          <EntitySetMapping Name="SPermissions">
+            <EntityTypeMapping TypeName="SystemModel.SPermission">
+              <MappingFragment StoreEntitySet="SPermission">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Controller" ColumnName="Controller" />
+                <ScalarProperty Name="Action" ColumnName="Action" />
+                <ScalarProperty Name="ViewName" ColumnName="ViewName" />
+                <ScalarProperty Name="Enable" ColumnName="Enable" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SPhongBans">
+            <EntityTypeMapping TypeName="SystemModel.SPhongBan">
+              <MappingFragment StoreEntitySet="SPhongBan">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Ma" ColumnName="Ma" />
+                <ScalarProperty Name="Ten" ColumnName="Ten" />
+                <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
+                <ScalarProperty Name="Enable" ColumnName="Enable" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SRoles">
+            <EntityTypeMapping TypeName="SystemModel.SRole">
+              <MappingFragment StoreEntitySet="SRole">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Ma" ColumnName="Ma" />
+                <ScalarProperty Name="Ten" ColumnName="Ten" />
+                <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
+                <ScalarProperty Name="Enable" ColumnName="Enable" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SRolePermissions">
+            <EntityTypeMapping TypeName="SystemModel.SRolePermission">
+              <MappingFragment StoreEntitySet="SRolePermission">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="PermissionId" ColumnName="PermissionId" />
+                <ScalarProperty Name="IsGranted" ColumnName="IsGranted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SUsers">
+            <EntityTypeMapping TypeName="SystemModel.SUser">
+              <MappingFragment StoreEntitySet="SUser">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="HoTen" ColumnName="HoTen" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="NgaySinh" ColumnName="NgaySinh" />
+                <ScalarProperty Name="GioiTinh" ColumnName="GioiTinh" />
+                <ScalarProperty Name="ChucVu" ColumnName="ChucVu" />
+                <ScalarProperty Name="IsActived" ColumnName="IsActived" />
+                <ScalarProperty Name="SDT" ColumnName="SDT" />
+                <ScalarProperty Name="PhongBan" ColumnName="PhongBan" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SUserRoles">
+            <EntityTypeMapping TypeName="SystemModel.SUserRole">
+              <MappingFragment StoreEntitySet="SUserRole">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

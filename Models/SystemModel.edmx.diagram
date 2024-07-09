@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="528f6c734b44432095ca89d643d4457a" Name="Diagram1" ZoomLevel="72">
+        <EntityTypeShape EntityType="SystemModel.SPermission" Width="1.5" PointX="8" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemModel.SPhongBan" Width="1.5" PointX="0.625" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemModel.SRole" Width="1.5" PointX="4.75" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemModel.SRolePermission" Width="1.5" PointX="6.625" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemModel.SUser" Width="1.5" PointX="2.75" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemModel.SUserRole" Width="1.5" PointX="5.125" PointY="0.5" IsExpanded="true" />
+        <AssociationConnector Association="SystemModel.FK_SRolePermission_SPermission" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemModel.FK_SUser_SPhongBan" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemModel.FK_SRolePermission_SRole" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemModel.FK_SUserRole_SRole" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemModel.FK_SRolePermission_SUser" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemModel.FK_SUserRole_SUser" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
