@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using WebNoiBai.Common;
 using WebNoiBai.Dto;
@@ -78,8 +79,8 @@ namespace WebNoiBai.Controllers.Systems
             {
                 msg = CheckValid(item);
                 if (!msg.IsOk) {
-                    return Json(msg, JsonRequestBehavior.AllowGet);
-                }
+                return Json(msg, JsonRequestBehavior.AllowGet);
+            }
                 db.SPhongBans.Add(item);
                 db.SaveChanges();
                 msg.Message = "Thêm mới thành công";
