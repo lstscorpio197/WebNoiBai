@@ -147,16 +147,28 @@
     <Compile Include="Authorize\AuthorizeAccessRole.cs" />
     <Compile Include="Common\AppConst.cs" />
     <Compile Include="Common\AppEnum.cs" />
-    <Compile Include="Common\WResult.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\DanhMucNghiepVu\SCangHangKhongController.cs" />
+    <Compile Include="Controllers\DanhMucNghiepVu\SHangHangKhongController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\Systems\SPhongBanController.cs" />
+    <Compile Include="Controllers\Systems\SRoleController.cs" />
     <Compile Include="Controllers\Systems\SUserController.cs" />
+    <Compile Include="Dto\User\CreateOrUpdateUserDto.cs" />
     <Compile Include="Dto\SearchDto.cs" />
+    <Compile Include="Dto\User\SUserViewDto.cs" />
+    <Compile Include="Dto\User\UserPermissionDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="WHttpMessage\HttpMessage.cs" />
+    <Compile Include="WHttpMessage\HttpMessageBody.cs" />
+    <Compile Include="WHttpMessage\HttpMessageFooter.cs" />
+    <Compile Include="WHttpMessage\HttpMessageHeader.cs" />
+    <Compile Include="WHttpMessage\HttpMessageNoti.cs" />
+    <Compile Include="WHttpMessage\HttpMessagePagination.cs" />
+    <Compile Include="WHttpMessage\MessageDto.cs" />
     <Compile Include="Models\SPermission.cs">
       <DependentUpon>SystemModel.tt</DependentUpon>
     </Compile>
@@ -1344,6 +1356,8 @@
     <Content Include="Scripts\System\DanhMucDoi.js" />
     <Content Include="Scripts\System\DanhMucPhongBan.js" />
     <Content Include="Scripts\System\QuanLyTaiKhoan.js" />
+    <Content Include="Scripts\System\SRole.js" />
+    <Content Include="Scripts\System\SUser.js" />
     <Content Include="Scripts\validations\ValidateXSS.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -1366,6 +1380,9 @@
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\SPhongBan\Index.cshtml" />
     <Content Include="Views\SUser\Index.cshtml" />
+    <Content Include="Views\SCangHangKhong\Index.cshtml" />
+    <Content Include="Views\SHangHangKhong\Index.cshtml" />
+    <Content Include="Views\SRole\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

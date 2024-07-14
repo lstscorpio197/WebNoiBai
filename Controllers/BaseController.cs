@@ -14,5 +14,14 @@ namespace WebNoiBai.Controllers
         // GET: Base
         public SystemEntities db = new SystemEntities();
         public USER us = new USER();
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
     }
 }

@@ -20,8 +20,8 @@ namespace WebNoiBai.Models
         public Nullable<int> PermissionId { get; set; }
         public Nullable<int> IsGranted { get; set; }
     
-        public virtual SPermission SPermission { get; set; }
         public virtual SRole SRole { get; set; }
         public virtual SUser SUser { get; set; }
+        public virtual SPermission SPermission { get; set; }
     }
 }

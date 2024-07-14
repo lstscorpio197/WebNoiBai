@@ -27,7 +27,7 @@
                     }
                 });
             }
-            MessageBoxHelper.Notification((msgNoti.Code || msgNoti.code || MessageBoxType.ClientError), description, objFocus);           
+            MessageBoxHelper.Notification((msgNoti.Code || msgNoti.code || MessageBoxType.ClientError), description, objFocus);
         }
     },
     SendRequestToServer: function (Url, Type, dataSend, description) {

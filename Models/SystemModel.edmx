@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SystemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="SystemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="SPermission">
           <Key>
             <PropertyRef Name="Id" />
@@ -12,7 +12,8 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Controller" Type="nvarchar" MaxLength="20" />
           <Property Name="Action" Type="nvarchar" MaxLength="20" />
-          <Property Name="ViewName" Type="nvarchar" MaxLength="50" />
+          <Property Name="ControllerName" Type="nvarchar" MaxLength="100" />
+          <Property Name="ActionName" Type="nvarchar" MaxLength="50" />
           <Property Name="Enable" Type="int" />
         </EntityType>
         <EntityType Name="SPhongBan">
@@ -183,22 +184,10 @@
             <End Role="SUserRole" EntitySet="SUserRole" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SystemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="SPermission">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Controller" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="Action" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="ViewName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Enable" Type="Int32" />
-          <NavigationProperty Name="SRolePermissions" Relationship="Self.FK_SRolePermission_SPermission" FromRole="SPermission" ToRole="SRolePermission" />
-        </EntityType>
         <EntityType Name="SPhongBan">
           <Key>
             <PropertyRef Name="Id" />
@@ -231,9 +220,9 @@
           <Property Name="UserId" Type="Int32" />
           <Property Name="PermissionId" Type="Int32" />
           <Property Name="IsGranted" Type="Int32" />
-          <NavigationProperty Name="SPermission" Relationship="Self.FK_SRolePermission_SPermission" FromRole="SRolePermission" ToRole="SPermission" />
           <NavigationProperty Name="SRole" Relationship="Self.FK_SRolePermission_SRole" FromRole="SRolePermission" ToRole="SRole" />
           <NavigationProperty Name="SUser" Relationship="Self.FK_SRolePermission_SUser" FromRole="SRolePermission" ToRole="SUser" />
+          <NavigationProperty Name="SPermission" Relationship="SystemModel.FK_SRolePermission_SPermission" FromRole="SRolePermission" ToRole="SPermission" />
         </EntityType>
         <EntityType Name="SUser">
           <Key>
@@ -264,18 +253,6 @@
           <NavigationProperty Name="SRole" Relationship="Self.FK_SUserRole_SRole" FromRole="SUserRole" ToRole="SRole" />
           <NavigationProperty Name="SUser" Relationship="Self.FK_SUserRole_SUser" FromRole="SUserRole" ToRole="SUser" />
         </EntityType>
-        <Association Name="FK_SRolePermission_SPermission">
-          <End Role="SPermission" Type="Self.SPermission" Multiplicity="0..1" />
-          <End Role="SRolePermission" Type="Self.SRolePermission" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SPermission">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="SRolePermission">
-              <PropertyRef Name="PermissionId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_SUser_SPhongBan">
           <End Role="SPhongBan" Type="Self.SPhongBan" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -347,16 +324,11 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="SystemEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="SPermissions" EntityType="Self.SPermission" />
           <EntitySet Name="SPhongBans" EntityType="Self.SPhongBan" />
           <EntitySet Name="SRoles" EntityType="Self.SRole" />
           <EntitySet Name="SRolePermissions" EntityType="Self.SRolePermission" />
           <EntitySet Name="SUsers" EntityType="Self.SUser" />
           <EntitySet Name="SUserRoles" EntityType="Self.SUserRole" />
-          <AssociationSet Name="FK_SRolePermission_SPermission" Association="Self.FK_SRolePermission_SPermission">
-            <End Role="SPermission" EntitySet="SPermissions" />
-            <End Role="SRolePermission" EntitySet="SRolePermissions" />
-          </AssociationSet>
           <AssociationSet Name="FK_SUser_SPhongBan" Association="Self.FK_SUser_SPhongBan">
             <End Role="SPhongBan" EntitySet="SPhongBans" />
             <End Role="SUser" EntitySet="SUsers" />
@@ -377,24 +349,42 @@
             <End Role="SUser" EntitySet="SUsers" />
             <End Role="SUserRole" EntitySet="SUserRoles" />
           </AssociationSet>
+          <EntitySet Name="SPermissions" EntityType="SystemModel.SPermission" />
+          <AssociationSet Name="FK_SRolePermission_SPermission" Association="SystemModel.FK_SRolePermission_SPermission">
+            <End Role="SPermission" EntitySet="SPermissions" />
+            <End Role="SRolePermission" EntitySet="SRolePermissions" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="SPermission">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Controller" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Action" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ControllerName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ActionName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Enable" Type="Int32" />
+          <NavigationProperty Name="SRolePermissions" Relationship="SystemModel.FK_SRolePermission_SPermission" FromRole="SPermission" ToRole="SRolePermission" />
+        </EntityType>
+        <Association Name="FK_SRolePermission_SPermission">
+          <End Type="SystemModel.SPermission" Role="SPermission" Multiplicity="0..1" />
+          <End Type="SystemModel.SRolePermission" Role="SRolePermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SPermission">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SRolePermission">
+              <PropertyRef Name="PermissionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="SystemModelStoreContainer" CdmEntityContainer="SystemEntities">
-          <EntitySetMapping Name="SPermissions">
-            <EntityTypeMapping TypeName="SystemModel.SPermission">
-              <MappingFragment StoreEntitySet="SPermission">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Controller" ColumnName="Controller" />
-                <ScalarProperty Name="Action" ColumnName="Action" />
-                <ScalarProperty Name="ViewName" ColumnName="ViewName" />
-                <ScalarProperty Name="Enable" ColumnName="Enable" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="SPhongBans">
             <EntityTypeMapping TypeName="SystemModel.SPhongBan">
               <MappingFragment StoreEntitySet="SPhongBan">
@@ -451,6 +441,18 @@
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="RoleId" ColumnName="RoleId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SPermissions">
+            <EntityTypeMapping TypeName="SystemModel.SPermission">
+              <MappingFragment StoreEntitySet="SPermission">
+                <ScalarProperty Name="Enable" ColumnName="Enable" />
+                <ScalarProperty Name="ActionName" ColumnName="ActionName" />
+                <ScalarProperty Name="ControllerName" ColumnName="ControllerName" />
+                <ScalarProperty Name="Action" ColumnName="Action" />
+                <ScalarProperty Name="Controller" ColumnName="Controller" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

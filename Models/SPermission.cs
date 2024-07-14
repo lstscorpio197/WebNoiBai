@@ -23,7 +23,8 @@ namespace WebNoiBai.Models
         public int Id { get; set; }
         public string Controller { get; set; }
         public string Action { get; set; }
-        public string ViewName { get; set; }
+        public string ControllerName { get; set; }
+        public string ActionName { get; set; }
         public Nullable<int> Enable { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

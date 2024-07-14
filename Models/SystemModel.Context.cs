@@ -18,6 +18,7 @@ namespace WebNoiBai.Models
         public SystemEntities()
             : base("name=SystemEntities")
         {
+            Configuration.LazyLoadingEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -25,11 +26,11 @@ namespace WebNoiBai.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<SPermission> SPermissions { get; set; }
         public virtual DbSet<SPhongBan> SPhongBans { get; set; }
         public virtual DbSet<SRole> SRoles { get; set; }
         public virtual DbSet<SRolePermission> SRolePermissions { get; set; }
         public virtual DbSet<SUser> SUsers { get; set; }
         public virtual DbSet<SUserRole> SUserRoles { get; set; }
+        public virtual DbSet<SPermission> SPermissions { get; set; }
     }
 }

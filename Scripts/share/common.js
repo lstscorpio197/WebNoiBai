@@ -178,9 +178,18 @@ function GetFormDataToObject($form) {
             input.value = input.value.trim();
         }
         formObject[input.name] = input.value;
+       
+    })
+    $form.find('input.input-date').each((i, e) => {
+        formObject[e.name] = formatDateFromClientToServerEN(formObject[e.name]);
     })
     $form.find('input:checkbox').each((i, e) => {
         formObject[e.name] = e.checked ? 1 : 0;
+    })
+    $form.find('input:radio').each((i, e) => {
+        let name = e.name;
+        let value = $form.find(`input[name=${name}]:checked`).data('value');
+        formObject[name] = value;
     })
     return formObject;
 }

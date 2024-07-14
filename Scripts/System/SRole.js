@@ -3,7 +3,7 @@ const $footer = $('.frame-footer');
 const $table = $('#TBLDANHSACH');
 const $tableBody = $table.find('tbody');
 const $modal = $('#CHITIET');
-const $router = "SPhongBan";
+const $router = "SRole";
 const $form = $('#ModalForm');
 
 
@@ -33,10 +33,10 @@ $(function () {
                 },
                 messages: {
                     Ma: {
-                        required: "Mã phòng ban không được để trống"
+                        required: "Mã nhóm quyền không được để trống"
                     },
                     Ten: {
-                        required: "Tên phòng ban không được để trống"
+                        required: "Tên nhóm quyền không được để trống"
                     }
                 }
             })
@@ -68,6 +68,7 @@ $(function () {
                             `<td class="text-center"><span>${startIndex}</span></td>` +
                             `<td class="text-center event-handle">` +
                             `<i class="icon-edit-ico-tsd btn-action btnEdit blue mr10" data-id="${item.Id}" data-ma="${item.Ma}" title="Sửa"></i>` +
+                            `<i class="icon-setting-ico-tsd btn-action btnViewRole green mr10" data-id="${item.Id}" title="Phân quyền"></i>` +
                             `<i class="icon-delete-ico-tsd btn-action btnDelete red" data-id="${item.Id}" data-ma="${item.Ma}" title="Xóa"></i>` +
                             `</td>` +
                             `<td class=""><span>${item.Ma}</span></td>` +
@@ -121,7 +122,7 @@ $(function () {
                 var getResponse = AjaxConfigHelper.SendRequestToServer(`/${$router}/CheckExistUser`, "POST", { 'id': id });
                 getResponse.then((res) => {
                     if (res.IsOk) {
-                        ConfirmDeleteWithCondition(res.Body.Data, "Phòng ban đã có tài khoản. Nếu xóa phòng ban thì các tài khoản thuộc phòng ban sẽ bị xóa. Bạn có muốn tiếp tục thực hiện không?", function () {
+                        ConfirmDeleteWithCondition(res.Body.Data, "Nhóm quyền đã có tài khoản. Bạn có muốn tiếp tục thực hiện không?", function () {
                             ConfirmDelete(function () {
                                 var getResponse = AjaxConfigHelper.SendRequestToServer(`/${$router}/Delete`, "POST", { 'id': id });
                                 getResponse.then((res) => {

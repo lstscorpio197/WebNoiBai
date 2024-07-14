@@ -2,19 +2,17 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using WebNoiBai.Common;
 using WebNoiBai.Dto;
 using WebNoiBai.Models;
 using WebNoiBai.WHttpMessage;
 
 namespace WebNoiBai.Controllers.Systems
 {
-    public class SPhongBanController : BaseController
+    public class SRoleController : BaseController
     {
-        // GET: SPhongBan
+        // GET: SRole
         public ActionResult Index()
         {
             return View();
@@ -25,7 +23,7 @@ namespace WebNoiBai.Controllers.Systems
             HttpMessage httpMessage = new HttpMessage(true);
             try
             {
-                var query = db.SPhongBans.AsNoTracking().Where(x => true);
+                var query = db.SRoles.AsNoTracking().Where(x => true);
                 if (!string.IsNullOrEmpty(itemSearch.Ma))
                 {
                     query = query.Where(x => x.Ma == itemSearch.Ma);
@@ -62,7 +60,7 @@ namespace WebNoiBai.Controllers.Systems
             HttpMessage httpMessage = new HttpMessage(true);
             try
             {
-                var item = db.SPhongBans.Find(id);
+                var item = db.SRoles.Find(id);
                 if (item == null)
                 {
                     httpMessage.IsOk = false;
@@ -81,16 +79,17 @@ namespace WebNoiBai.Controllers.Systems
         }
 
         [HttpPost]
-        public JsonResult Create(SPhongBan item)
+        public JsonResult Create(SRole item)
         {
             HttpMessage httpMessage = new HttpMessage(true);
             try
             {
                 httpMessage = CheckValid(item);
-                if (!httpMessage.IsOk) {
-                return Json(httpMessage, JsonRequestBehavior.AllowGet);
-            }
-                db.SPhongBans.Add(item);
+                if (!httpMessage.IsOk)
+                {
+                    return Json(httpMessage, JsonRequestBehavior.AllowGet);
+                }
+                db.SRoles.Add(item);
                 db.SaveChanges();
                 httpMessage.Body.MsgNoti = new HttpMessageNoti("200", null, "Thêm mới thành công");
                 return Json(httpMessage, JsonRequestBehavior.AllowGet);
@@ -104,12 +103,12 @@ namespace WebNoiBai.Controllers.Systems
         }
 
         [HttpPost]
-        public JsonResult Update(SPhongBan item)
+        public JsonResult Update(SRole item)
         {
             HttpMessage httpMessage = new HttpMessage(true);
             try
             {
-                var exist = db.SPhongBans.Find(item.Id);
+                var exist = db.SRoles.Find(item.Id);
                 if (exist == null)
                 {
                     httpMessage.IsOk = false;
@@ -136,14 +135,14 @@ namespace WebNoiBai.Controllers.Systems
             HttpMessage httpMessage = new HttpMessage(true);
             try
             {
-                var item = db.SPhongBans.Find(id);
+                var item = db.SRoles.Find(id);
                 if (item == null)
                 {
                     httpMessage.IsOk = false;
                     httpMessage.Body.MsgNoti = new HttpMessageNoti("400", null, "Không tìm thấy thông tin");
                     return Json(httpMessage, JsonRequestBehavior.AllowGet);
                 }
-                db.SPhongBans.Remove(item);
+                db.SRoles.Remove(item);
                 db.SaveChanges();
                 return Json(httpMessage, JsonRequestBehavior.AllowGet);
             }
@@ -160,7 +159,7 @@ namespace WebNoiBai.Controllers.Systems
             HttpMessage httpMessage = new HttpMessage(true);
             try
             {
-                var item = db.SUsers.AsNoTracking().FirstOrDefault(x=>x.PhongBan == id);
+                var item = db.SUserRoles.AsNoTracking().FirstOrDefault(x => x.RoleId == id);
                 httpMessage.Body.Data = item != null;
                 return Json(httpMessage, JsonRequestBehavior.AllowGet);
             }
@@ -173,7 +172,7 @@ namespace WebNoiBai.Controllers.Systems
         }
 
 
-        private HttpMessage CheckValid(SPhongBan item)
+        private HttpMessage CheckValid(SRole item)
         {
             HttpMessage httpMessage = new HttpMessage(false);
             try
@@ -188,7 +187,7 @@ namespace WebNoiBai.Controllers.Systems
                     httpMessage.Body.MsgNoti = new HttpMessageNoti("400", null, "Vui lòng nhập tên phòng ban");
                     return httpMessage;
                 }
-                var exist = db.SPhongBans.AsNoTracking().FirstOrDefault(x => x.Id != item.Id && x.Ma == item.Ma);
+                var exist = db.SRoles.AsNoTracking().FirstOrDefault(x => x.Id != item.Id && x.Ma == item.Ma);
                 if (exist != null)
                 {
                     httpMessage.Body.MsgNoti = new HttpMessageNoti("400", null, "Mã phòng ban đã tồn tại");

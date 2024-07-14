@@ -1,7 +1,236 @@
-﻿
+﻿@using WebNoiBai.Common
+@using WebNoiBai.Models
 @{
     ViewBag.Title = "Quản lý tài khoản";
+
+    SystemEntities db = new SystemEntities();
+    var lstPhongBan = db.SPhongBans.AsNoTracking().Where(x => x.Enable == 1).ToList();
+    var lstRole = db.SRoles.AsNoTracking().Where(x => x.Enable == 1).ToList();
+
+    int countRole = lstRole.Count();
+    int countRow = countRole / 3;
+    int itemExtend = countRole % 3;
 }
 
-<h2>USer</h2>
+<div class="mx-ecus">
+    <div class="card">
+        <div class="card-header">
+            <div class="card-title bold">@ViewBag.Title</div>
+            <div class="card-right">
+                <button class="btn btn-primary" id="btn-add" type="button" data-bs-toggle="modal" data-bs-target="#CHITIET"><i class="icon-add-ico-tsd"></i><span class="ml8">Thêm mới</span></button>
+            </div>
+        </div>
+        <div class="card-body" style="max-height: 929px;">
+            <div class="frame-header">
+                <div class="frame-search">
+                    <input name="Ma" placeholder="Tên đăng nhập" class="width180px item-search" autocomplete="off" />
+                    <input name="Ten" placeholder="Họ tên" class="item-search wid240px" autocomplete="off" />
+                    <button class="btn btn-primary btnSearch" type="button"><i class="icon-search-ico-tsd"></i></button>
+                </div>
+            </div>
+            <div class="frame-body has-scroll" style="max-height: 739px;">
+                <table class="width100" id="TBLDANHSACH" style="min-width:1600px">
+                    <thead>
+                        <tr>
+                            <th class="width70px text-center">STT</th>
+                            <th class="wid100px text-center">Thao tác</th>
+                            <th class="text-center ">Tên đăng nhập</th>
+                            <th class="text-center ">Họ và tên</th>
+                            <th class="text-center ">Email</th>
+                            <th class="text-center ">Phòng ban</th>
+                            <th class="text-center ">Chức vụ</th>
+                            <th class="text-center wid150px">Kích hoạt</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <div class="frame-footer">
+                @Html.Partial("_PaginationPartial")
+            </div>
+        </div>
+    </div>
+</div>
 
+<div class="modal modal-edit left fade" id="CHITIET" role="dialog" aria-labelledby="exampleModalLabel" data-bs-keyboard="true" aria-bs-hidden="true" data-bs-backdrop="static" style="padding-top: 42px !important;">
+    <div class="modal-dialog modal-md modal-dialog-slideout" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel">
+                    Thông tin tài khoản
+                </h4>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <i class="icon-close-ico-tsd"></i>
+                </button>
+            </div>
+            <div class="modal-body" style="background-color: #FBFBFB">
+                <div class="modal-body-content" style="padding: 16px; background-color: #FFFFFF;height: 100%;">
+                    <form id="ModalForm">
+                        <input name="Id" class="hidden" value="" />
+                        <div class="row">
+                            <div class="col-md-6">Tài khoản <span class="red">*</span></div>
+                            <div class="col-md-6">Họ và tên <span class="red">*</span></div>
+                        </div>
+                        <div class="mt6 mb16 row">
+                            <div class="col-md-6">
+                                <input name="Username" type="text" autocomplete="off" placeholder="Nhập nội dung" class="wid100" maxlength="20" value="" />
+                            </div>
+                            <div class="col-md-6">
+                                <input name="HoTen" type="text" autocomplete="off" placeholder="Nhập nội dung" class="wid100" maxlength="50" value="" />
+                            </div>
+                        </div>
+                        <div class="row is-password-field">
+                            <div class="col-md-6">Mật khẩu <span class="red">*</span></div>
+                            <div class="col-md-6">Xác nhận mật khẩu <span class="red">*</span></div>
+                        </div>
+                        <div class="mt6 mb16 row is-password-field">
+                            <div class="col-md-6">
+                                <input name="Password" type="password" autocomplete="off" placeholder="Nhập nội dung" class="wid100" maxlength="50" value="" />
+                            </div>
+                            <div class="col-md-6">
+                                <input name="ConfirmPassword" type="password" autocomplete="off" placeholder="Nhập nội dung" class="wid100" maxlength="50" value="" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">Ngày sinh</div>
+                            <div class="col-md-6">Giới tính</div>
+                        </div>
+                        <div class="mt6 mb16 row">
+                            <div class="col-md-6">
+                                <div class="inline-block input-group is_Datetimepicker">
+                                    <input name="NgaySinh" placeholder="dd/mm/yyyy" class="w-100 item-search input-date form-control-sm" value="">
+                                    <span class="input-group-addon cursor">
+                                        <span class="icon-calendar-ico-tsd"></span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-md-6 padTop10px radio-group">
+                                <label class="mr8"><input type="radio" class="ace cb" name="GioiTinh" id="M" data-value="Nam" checked><span class="lbl">&nbsp;Nam</span></label>
+                                <label class="ml8"><input type="radio" class="ace cb" name="GioiTinh" id="F" data-value="Nữ"><span class="lbl">&nbsp;Nữ</span></label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">Email <span class="red">*</span></div>
+                            <div class="col-md-6">Điện thoại</div>
+                        </div>
+                        <div class="mt6 mb16 row">
+                            <div class="col-md-6">
+                                <input name="Email" type="text" placeholder="Nhập nội dung" class="wid100" maxlength="255" value="" />
+                            </div>
+                            <div class="col-md-6">
+                                <input name="SDT" type="text" placeholder="Nhập nội dung" class="wid100" maxlength="255" value="" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">Phòng ban <span class="red">*</span></div>
+                            <div class="col-md-6">Chức vụ</div>
+                        </div>
+                        <div class="mt6 mb16 row">
+                            <div class="col-md-6">
+                                <select class="wid100" name="PhongBan">
+                                    <option value="0">--Chọn phòng ban--</option>
+                                    @foreach (var item in lstPhongBan)
+                                    {
+                                        <option value="@item.Id">@item.Ten</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <select class="wid100" name="ChucVu">
+                                    @foreach (var item in LstChucVu.Init.OrderByDescending(x => x.Id))
+                                    {
+                                        <option value="@item.Id" @(item.Id == UserLevel.CongChuc ? "selected" : "")>@item.Name</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label><input type="checkbox" class="ace cb" name="IsActived" checked><span class="lbl">&nbsp;Kích hoạt</span></label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="icon-close-ico-tsd"></i><span class="ml8">Đóng</span></button>
+                <button type="button" class="btn btn-primary" id="btn-save"><i class="icon-save-ico-tsd"></i><span class="ml8">Lưu lại</span></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal modal-edit left fade" id="NHOMQUYEN" role="dialog" aria-labelledby="exampleModalLabel" data-bs-keyboard="true" aria-bs-hidden="true" data-bs-backdrop="static" style="padding-top: 42px !important;">
+    <div class="modal-dialog modal-md modal-dialog-slideout" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel">
+                    Thông tin tài khoản
+                </h4>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <i class="icon-close-ico-tsd"></i>
+                </button>
+            </div>
+            <div class="modal-body" style="background-color: #FBFBFB">
+                <div class="modal-body-content" style="padding: 10px; background-color: #FFFFFF;height: 100%;">
+                    <input name="Id" class="hidden" value="" />
+                    <div class="row mb16">
+                        <div class="col-md-12 border-bottom"><span class="bold">Danh sách nhóm quyền</span> </div>
+                    </div>
+                    <div class="role-frame">
+                        @for (int i = 0; i < countRow; i++)
+                        {
+                            var item = lstRole[i * 3];
+                            var item2 = lstRole[i * 3 + 1];
+                            var item3 = lstRole[i * 3 + 2];
+                            <div class="row mb16">
+                                <div class="col-md-4">
+                                    <label><input type="checkbox" class="ace cb" data-id="@item.Id"><span class="lbl">&nbsp;@item.Ten</span></label>
+                                </div>
+                                <div class="col-md-4">
+                                    <label><input type="checkbox" class="ace cb" data-id="@item2.Id"><span class="lbl">&nbsp;@item2.Ten</span></label>
+                                </div>
+                                <div class="col-md-4">
+                                    <label><input type="checkbox" class="ace cb" data-id="@item3.Id"><span class="lbl">&nbsp;@item3.Ten</span></label>
+                                </div>
+                            </div>
+                        }
+                        @if (itemExtend > 0)
+                        {
+                            <div class="row mb16">
+                                @for (int i = itemExtend; i > 0; i--)
+                                {
+                                    var item = lstRole[countRole - i];
+                                    <div class="col-md-4">
+                                        <label><input type="checkbox" class="ace cb" data-id="@item.Id"><span class="lbl">&nbsp;@item.Ten</span></label>
+                                    </div>
+                                }
+                            </div>
+                        }
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-12">
+                            <a href="#" class="" id="btn-view-permission">Xem danh sách quyền theo nhóm</a>
+                        </div>
+                    </div>
+                    <div class="row mb16">
+                        <div class="col-md-12 border-bottom"><span class="bold">Danh sách quyền theo nhóm</span> </div>
+                    </div>
+                    <div class="permission-frame">
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="icon-close-ico-tsd"></i><span class="ml8">Đóng</span></button>
+                <button type="button" class="btn btn-primary" id="btn-save"><i class="icon-save-ico-tsd"></i><span class="ml8">Lưu lại</span></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Scripts/System/SUser.js"></script>
+}

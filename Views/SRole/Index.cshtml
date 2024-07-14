@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Danh mục phòng ban";
+    ViewBag.Title = "Danh mục nhóm quyền";
 }
 
 <div class="mx-ecus">
@@ -25,8 +25,8 @@
                         <tr>
                             <th class="wid50px text-center">STT</th>
                             <th class="width70px text-center">Thao tác</th>
-                            <th class="text-center wid300px">Mã phòng ban</th>
-                            <th class="text-center wid300px">Tên phòng ban</th>
+                            <th class="text-center wid300px">Mã nhóm quyền</th>
+                            <th class="text-center wid300px">Tên nhóm quyền</th>
                             <th class="text-center wid150px">Hiển thị</th>
                         </tr>
                     </thead>
@@ -46,7 +46,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title" id="exampleModalLabel">
-                    Thông tin phòng ban
+                    Thông tin nhóm quyền
                 </h4>
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                     <i class="icon-close-ico-tsd"></i>
@@ -57,7 +57,7 @@
                     <form id="ModalForm">
                         <input name="Id" class="hidden" value="" />
                         <div class="row">
-                            <div class="col-md-12">Mã phòng ban <span class="red">*</span></div>
+                            <div class="col-md-12">Mã nhóm quyền <span class="red">*</span></div>
                         </div>
                         <div class="mt6 mb16 row">
                             <div class="col-md-12">
@@ -65,7 +65,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-12">Tên phòng ban <span class="red">*</span></div>
+                            <div class="col-md-12">Tên nhóm quyền <span class="red">*</span></div>
                         </div>
                         <div class="mt6 mb16 row">
                             <div class="col-md-12">
@@ -98,5 +98,5 @@
 </div>
 
 @section scripts{
-    <script src="~/Scripts/System/DanhMucPhongBan.js"></script>    
+    <script src="~/Scripts/System/SRole.js"></script>
 }

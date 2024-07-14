@@ -1,7 +1,7 @@
 ﻿const pageLengths = [5,15, 50, 75, 100, 250, 200, 300, 500];
 
 $pagination = {
-    defaltLength : 50,
+    defaltLength : 100,
     Set: ($container, httpMessagePagination, callBack) => {
         for (let prop in httpMessagePagination) {
             $container.find(`span[name=${prop}]`).text(httpMessagePagination[prop]);

@@ -35,11 +35,11 @@ namespace WebNoiBai.Common
 
     public static class UserLevel
     {
-        public static int Admin = 0;
-        public static int ChiCucTruong = 1;
-        public static int PhoChiCucTruong = 2;
-        public static int DoiTruong = 3;
-        public static int DoiPho = 4;
-        public static int CongChuc = 5;
+        public const int Admin = 0;
+        public const int ChiCucTruong = 1;
+        public const int PhoChiCucTruong = 2;
+        public const int DoiTruong = 3;
+        public const int DoiPho = 4;
+        public const int CongChuc = 5;
     }
 }
