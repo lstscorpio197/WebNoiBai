@@ -1,0 +1,111 @@
+﻿
+@{
+    ViewBag.Title = "Danh sách quyền";
+}
+
+<div class="mx-ecus">
+    <div class="card">
+        <div class="card-header">
+            <div class="card-title bold">@ViewBag.Title</div>
+            <div class="card-right">
+                <button class="btn btn-primary" id="btn-generate" type="button"><i class="icon-add-ico-tsd"></i><span class="ml8">Quét Menu</span></button>
+                <button class="btn btn-primary" id="btn-add" type="button" data-bs-toggle="modal" data-bs-target="#CHITIET"><i class="icon-add-ico-tsd"></i><span class="ml8">Thêm mới</span></button>
+            </div>
+        </div>
+        <div class="card-body" style="max-height: 929px;">
+            <div class="frame-header">
+                <div class="frame-search">
+                    <input name="Ma" placeholder="Mã" class="width180px item-search" autocomplete="off" />
+                    <input name="Ten" placeholder="Tên" class="item-search wid240px" autocomplete="off" />
+                    <button class="btn btn-primary btnSearch" type="button"><i class="icon-search-ico-tsd"></i></button>
+                </div>
+            </div>
+            <div class="frame-body has-scroll" style="max-height: 739px;">
+                <table class="width100" id="TBLDANHSACH" style="min-width:1600px">
+                    <thead>
+                        <tr>
+                            <th class="wid50px text-center">STT</th>
+                            <th class="width70px text-center">Thao tác</th>
+                            <th class="text-center wid300px">Chức năng</th>
+                            <th class="text-center wid300px">Quyền</th>
+                            <th class="text-center wid150px">Hiển thị</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <div class="frame-footer">
+                @Html.Partial("_PaginationPartial")
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal modal-edit left fade" id="CHITIET" role="dialog" aria-labelledby="exampleModalLabel" data-bs-keyboard="true" aria-bs-hidden="true" data-bs-backdrop="static" style="padding-top: 42px !important;">
+    <div class="modal-dialog modal-md modal-dialog-slideout" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel">
+                    Thông tin phòng ban
+                </h4>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <i class="icon-close-ico-tsd"></i>
+                </button>
+            </div>
+            <div class="modal-body" style="background-color: #FBFBFB">
+                <div class="modal-body-content" style="padding: 16px; background-color: #FFFFFF;height: 100%;">
+                    <form id="ModalForm">
+                        <input name="Id" class="hidden" value="" />
+                        <div class="row mb16">
+                            <div class="col-md-12">Controller <span class="red">*</span></div>
+                        </div>
+                        <div class="mb16 row">
+                            <div class="col-md-12">
+                                <input name="Controller" type="text" autocomplete="off" placeholder="Nhập nội dung" class="wid100" maxlength="50" value="" />
+                            </div>
+                        </div>
+                        <div class="row mb16">
+                            <div class="col-md-12">Tên chức năng <span class="red">*</span></div>
+                        </div>
+                        <div class="mb16 row">
+                            <div class="col-md-12">
+                                <input name="ControllerName" type="text" placeholder="Nhập nội dung" class="wid100" maxlength="50" value="" autocomplete="off" />
+                            </div>
+                        </div>
+                        <div class="row mb16">
+                            <div class="col-md-12">Action <span class="red">*</span></div>
+                        </div>
+                        <div class="mb16 row">
+                            <div class="col-md-12">
+                                <input name="Action" type="text" autocomplete="off" placeholder="Nhập nội dung" class="wid100" maxlength="50" value="" />
+                            </div>
+                        </div>
+                        <div class="row mb16">
+                            <div class="col-md-12">ActionName <span class="red">*</span></div>
+                        </div>
+                        <div class="mb16 row">
+                            <div class="col-md-12">
+                                <input name="ActionName" type="text" placeholder="Nhập nội dung" class="wid100" maxlength="50" value="" autocomplete="off" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label><input type="checkbox" class="ace cb" name="Enable" checked><span class="lbl">&nbsp;Hiển thị</span></label>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="icon-close-ico-tsd"></i><span class="ml8">Đóng</span></button>
+                <button type="button" class="btn btn-primary" id="btn-save"><i class="icon-save-ico-tsd"></i><span class="ml8">Lưu lại</span></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Scripts/System/SPermission.js"></script>
+}

@@ -1,68 +1,46 @@
-﻿
+﻿@using WebNoiBai.Common
+@{
+    var lstMenuParent = AppMenu.ListMenu.Where(x => x.ParentId == null).ToList();
+
+    var routeValues = System.Web.HttpContext.Current.Request.RequestContext.RouteData.Values;
+    string controller = (string)routeValues["controller"];
+}
+
 <nav class="mt-2">
     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        @foreach (var item in lstMenuParent)
+        {
+            var lstChild = AppMenu.ListMenu.Where(x => x.ParentId == item.Id).ToList();
+            if (item.Type == 0)
+            {
+                <li class="nav-item has-treeview @(lstChild.Where(x=>x.Controller == controller).Any() ? "menu-open" : "") ">
+                    <a href="#" class="nav-link ">
+                        <i class="nav-icon @item.Icon"></i> <p>@item.ControllerName<i class="right fa fa-angle-left"></i></p>
+                    </a>
 
-        @*Hệ thống*@
-        <li class="nav-item has-treeview">
-            <a href="#" class="nav-link ">
-                <i class="nav-icon fas fa-tags"></i> <p>Quản trị hệ thống<i class="right fa fa-angle-left"></i></p>
-            </a>
-
-            <ul class="nav nav-treeview">
-                <li class="nav-item" title="Quản lý phòng ban">
-                    <a href="/SPhongBan" class="nav-link">
-                        <p style="padding-left: 26px;line-height: 18px">Quản lý phòng ban</p>
+                    <ul class="nav nav-treeview">
+                        @foreach (var child in lstChild)
+                        {
+                            <li class="nav-item" title="@child.ControllerName">
+                                <a href="/@child.Controller" class="nav-link">
+                                    <p style="padding-left: 26px;line-height: 18px">@child.ControllerName</p>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </li>
+            }
+            else
+            {
+                <li class="nav-item">
+                    <a href="/@item.Controller" class="nav-link">
+                        <i class="nav-icon @item.Icon"></i>
+                        <p>
+                            @item.ControllerName
+                        </p>
                     </a>
                 </li>
-                <li class="nav-item" title="Quản lý tài khoản">
-                    <a href="/SUser" class="nav-link">
-                        <p style="padding-left: 26px;line-height: 18px">Quản lý tài khoản</p>
-                    </a>
-                </li>
-                <li class="nav-item" title="Quản lý nhóm quyền">
-                    <a href="/SRole" class="nav-link">
-                        <p style="padding-left: 26px;line-height: 18px">Quản lý nhóm quyền</p>
-                    </a>
-                </li>
-            </ul>
-        </li>
-
-        @*Danh mục*@
-        <li class="nav-item has-treeview">
-            <a href="#" class="nav-link ">
-                <i class="nav-icon fas fa-tags"></i> <p>Danh mục<i class="right fa fa-angle-left"></i></p>
-            </a>
-
-            <ul class="nav nav-treeview">
-                <li class="nav-item" title="Cảng hàng không">
-                    <a href="SCangHangKhong" class="nav-link">
-                        <p style="padding-left: 26px;line-height: 18px">Danh sách cảng hàng không</p>
-                    </a>
-                </li>
-                <li class="nav-item" title="Cảng hàng không">
-                    <a href="SHangHangKhong" class="nav-link">
-                        <p style="padding-left: 26px;line-height: 18px">Danh sách hãng hàng không</p>
-                    </a>
-                </li>
-            </ul>
-        </li>
-
-        @*Hành khách*@
-        @*<li class="nav-item">
-            <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-tags"></i>
-                <p>
-                    Menu đơn 1
-                </p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-tags"></i>
-                <p>
-                    Menu đơn 2
-                </p>
-            </a>
-        </li>*@
+            }
+        }
     </ul>
 </nav>

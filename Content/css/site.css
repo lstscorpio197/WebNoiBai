@@ -3168,7 +3168,7 @@ select:focus {
     max-width: 1600px;
 }
 .modal-lg {
-    width: 60% !important;
+    width: 70% !important;
     max-width: 1114px !important;
     height: 728px !important;
 }

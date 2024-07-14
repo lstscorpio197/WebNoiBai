@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -171,6 +172,62 @@ namespace WebNoiBai.Controllers.Systems
             }
         }
 
+        public JsonResult GetListUser(int id) {
+            HttpMessage httpMessage = new HttpMessage(true);
+            try
+            {
+                var lstUserId = db.SUserRoles.AsNoTracking().Where(x => x.RoleId == id).Select(x=>x.UserId).ToList();
+                httpMessage.Body.Data = lstUserId;
+                return Json(httpMessage, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                httpMessage.IsOk = false;
+                httpMessage.Body.MsgNoti = new HttpMessageNoti("500", null, ex.Message);
+                return Json(httpMessage, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public JsonResult UpdateListUser(string strUserId, int id)
+        {
+            HttpMessage httpMessage = new HttpMessage(true);
+            using (var trans = db.Database.BeginTransaction())
+            {
+                try
+                {
+                    var lstUserId = JsonConvert.DeserializeObject<List<int>>(strUserId);
+                    var lstUserIdExist = db.SUserRoles.AsNoTracking().Where(x => x.RoleId == id).Select(x => x.UserId).ToList();
+                    var lstUserAdd = lstUserId.Except(lstUserIdExist).ToList();
+                    var lstUserRemove = lstUserIdExist.Except(lstUserId).ToList();
+
+                    var lstItemRemove = db.SUserRoles.Where(x => x.RoleId == id && lstUserRemove.Contains(x.UserId)).ToList();
+                    foreach (var item in lstItemRemove)
+                    {
+                        db.SUserRoles.Remove(item);
+                    }
+                    db.SaveChanges();
+
+                    var lstItemAdd = lstUserAdd.Select(x=> new SUserRole
+                    {
+                        RoleId = id,
+                        UserId = x
+                    }).ToList();
+                    db.SUserRoles.AddRange(lstItemAdd);
+                    db.SaveChanges();
+
+                    trans.Commit();
+                    return Json(httpMessage, JsonRequestBehavior.AllowGet);
+                }
+                catch (Exception ex)
+                {
+                    trans.Rollback();
+                    httpMessage.IsOk = false;
+                    httpMessage.Body.MsgNoti = new HttpMessageNoti("500", null, ex.Message);
+                    return Json(httpMessage, JsonRequestBehavior.AllowGet);
+                } 
+            }
+        }
 
         private HttpMessage CheckValid(SRole item)
         {

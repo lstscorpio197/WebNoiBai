@@ -1,6 +1,24 @@
-﻿
+﻿@using WebNoiBai.Common
+@using WebNoiBai.Dto.User
+@using WebNoiBai.Models
 @{
     ViewBag.Title = "Danh mục nhóm quyền";
+    SystemEntities db = new SystemEntities();
+    var lstPermission = db.SPermissions.AsNoTracking().Where(x => x.Enable == 1)
+        .GroupBy(x => new { x.ControllerName, x.Controller })
+        .Select(x => new UserPermissionViewDto
+        {
+            ControllerName = x.Key.ControllerName,
+            Controller = x.Key.Controller,
+            LstPermission = x.Select(y => new UserPermissionDto
+            {
+                Action = y.Action,
+                ActionName = y.ActionName,
+                PermissionId = y.Id
+            }).ToList()
+        }).ToList();
+
+    var lstUser = db.SUsers.AsNoTracking().Select(x => new SUserViewDto { Id = x.Id, Username = x.Username, HoTen = x.HoTen, Email = x.Email, PhongBan = x.SPhongBan.Ten, ChucVu = x.ChucVu.Value, IsActived = x.IsActived }).OrderBy(x => x.HoTen).ToList();
 }
 
 <div class="mx-ecus">
@@ -42,7 +60,7 @@
 </div>
 
 <div class="modal modal-edit left fade" id="CHITIET" role="dialog" aria-labelledby="exampleModalLabel" data-bs-keyboard="true" aria-bs-hidden="true" data-bs-backdrop="static" style="padding-top: 42px !important;">
-    <div class="modal-dialog modal-md modal-dialog-slideout" role="document">
+    <div class="modal-dialog modal-lg modal-dialog-slideout" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title" id="exampleModalLabel">
@@ -57,18 +75,14 @@
                     <form id="ModalForm">
                         <input name="Id" class="hidden" value="" />
                         <div class="row">
-                            <div class="col-md-12">Mã nhóm quyền <span class="red">*</span></div>
+                            <div class="col-md-4">Mã nhóm quyền <span class="red">*</span></div>
+                            <div class="col-md-8">Tên nhóm quyền <span class="red">*</span></div>
                         </div>
                         <div class="mt6 mb16 row">
-                            <div class="col-md-12">
+                            <div class="col-md-4">
                                 <input name="Ma" type="text" autocomplete="off" placeholder="Nhập nội dung" class="wid100" maxlength="20" value="" />
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">Tên nhóm quyền <span class="red">*</span></div>
-                        </div>
-                        <div class="mt6 mb16 row">
-                            <div class="col-md-12">
+                            <div class="col-md-8">
                                 <input name="Ten" type="text" placeholder="Nhập nội dung" class="wid100" maxlength="50" value="" autocomplete="off" />
                             </div>
                         </div>
@@ -80,13 +94,79 @@
                                 <textarea name="GhiChu" rows="2" class="wid100" maxlength="500"></textarea>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row mb16">
                             <div class="col-md-12">
                                 <label><input type="checkbox" class="ace cb" name="Enable" checked><span class="lbl">&nbsp;Hiển thị</span></label>
                             </div>
                         </div>
                     </form>
 
+
+                    <div class="row mb10">
+                        <div class="col-md-12 border-bottom">Danh sách quyền</div>
+                    </div>
+                    @foreach (var item in lstPermission)
+                    {
+                        <div class="row mb10">
+                            <div class="col-md-3">@item.ControllerName</div>
+                            <div class="col-md-9">
+                                @foreach (var child in item.LstPermission)
+                                {
+                                    <label class="mr10px"><input type="checkbox" class="ace cb" data-id="@child.PermissionId"><span class="lbl">&nbsp;@child.ActionName</span></label>
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="icon-close-ico-tsd"></i><span class="ml8">Đóng</span></button>
+                <button type="button" class="btn btn-primary" id="btn-save"><i class="icon-save-ico-tsd"></i><span class="ml8">Lưu lại</span></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal modal-edit left fade" id="UserRole" role="dialog" aria-labelledby="exampleModalLabel" data-bs-keyboard="true" aria-bs-hidden="true" data-bs-backdrop="static" style="padding-top: 42px !important;">
+    <div class="modal-dialog modal-md modal-dialog-slideout" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel">
+                    Danh sách tài khoản
+                </h4>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <i class="icon-close-ico-tsd"></i>
+                </button>
+            </div>
+            <div class="modal-body" style="background-color: #FBFBFB">
+                <div class="modal-body-content" style="padding: 16px; background-color: #FFFFFF;height: 100%;">
+                    <input name="Id" class="hidden" value="" />
+
+                    <div class="has-scroll">
+                        <table class="width100" id="tblUser">
+                            <thead>
+                                <tr>
+                                    <th class="text-center"><label><input type="checkbox" class="ace cb" id="CheckAll"><span class="lbl">&nbsp;</span></label></th>
+                                    <th class="text-center">Tài khoản</th>
+                                    <th class="text-center">Họ tên</th>
+                                    <th class="text-center">Chức vụ</th>
+                                    <th class="text-center">Phòng ban</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in lstUser)
+                                {
+                                    <tr>
+                                        <td class="text-center"><label><input type="checkbox" class="ace cb" id="user-@item.Id" data-id="@item.Id"><span class="lbl">&nbsp;</span></label></td>
+                                        <td>@item.Username</td>
+                                        <td>@item.HoTen</td>
+                                        <td>@item.ChucVuTxt</td>
+                                        <td>@item.PhongBan</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">

@@ -3,6 +3,7 @@ const $footer = $('.frame-footer');
 const $table = $('#TBLDANHSACH');
 const $tableBody = $table.find('tbody');
 const $modal = $('#CHITIET');
+const $modalUser = $('#UserRole');
 const $router = "SRole";
 const $form = $('#ModalForm');
 
@@ -68,7 +69,7 @@ $(function () {
                             `<td class="text-center"><span>${startIndex}</span></td>` +
                             `<td class="text-center event-handle">` +
                             `<i class="icon-edit-ico-tsd btn-action btnEdit blue mr10" data-id="${item.Id}" data-ma="${item.Ma}" title="Sửa"></i>` +
-                            `<i class="icon-setting-ico-tsd btn-action btnViewRole green mr10" data-id="${item.Id}" title="Phân quyền"></i>` +
+                            `<i class="icon-setting-ico-tsd btn-action btnViewUser green mr10" data-id="${item.Id}" title="Danh sách tài khoản"></i>` +
                             `<i class="icon-delete-ico-tsd btn-action btnDelete red" data-id="${item.Id}" data-ma="${item.Ma}" title="Xóa"></i>` +
                             `</td>` +
                             `<td class=""><span>${item.Ma}</span></td>` +
@@ -83,6 +84,7 @@ $(function () {
 
                     $page.ViewClick();
                     $page.DeleteClick();
+                    $page.ViewListUser();
                 }
                 else {
 
@@ -140,6 +142,23 @@ $(function () {
                 })
 
             })
+        },
+        ViewListUser: () => {
+            $page.Self.find('.btnViewUser').off('click').on('click', function () {
+                let id = $(this).data('id');
+
+                var getResponse = AjaxConfigHelper.SendRequestToServer(`/${$router}/GetListUser`, "GET", { 'id': id });
+                getResponse.then((res) => {
+                    if (res.IsOk) {
+                        let data = res.Body.Data || [];
+                        for (let id of data) {
+                            $modalUser.find('#tblUser tbody').find(`#user-${id}`).prop('checked', true);
+                        }
+                        $modalUser.find('[name=Id]').val(id);
+                        $modalUser.modal('show');
+                    }
+                })
+            })
         }
     };
 
@@ -187,7 +206,49 @@ $(function () {
         }
     };
 
+    var $UserRole = {
+        init: function () {
+            this.ResetForm();
+            this.Save();
+        },
+        ResetForm: () => {
+            $modalUser.on('hidden.modal.bs', () => {
+                $modalUser.find('input:checkbox').prop('checked', false);
+            })
+        },
+        Save: () => {
+            $modalUser.find('#btn-save').off('click').on('click', () => {
+                let id = $modalUser.find('[name=Id]').val();
+                let lstUserId = [];
+                $modalUser.find('#tblUser tbody').find('input:checkbox').each(function (i, e) {
+                    if (e.checked) {
+                        let userId = $(e).data('id');
+                        if (userId > 0) {
+                            lstUserId.push(userId);
+                        }
+                    }
+                })
+
+                let dataSend = {
+                    strUserId: JSON.stringify(lstUserId),
+                    id:id
+                }
+                
+                var getResponse = AjaxConfigHelper.SendRequestToServer(`/${$router}/UpdateListUser`, "POST", dataSend);
+                getResponse.then((res) => {
+                    if (res.IsOk) {
+                        ToastSuccess('Cập nhật');
+                        $modalUser.modal('hide');
+                    }
+                    else {
+
+                    }
+                })
+            })
+        }
+    }
 
     $page.init();
     $ChiTiet.init();
+    $UserRole.init();
 });

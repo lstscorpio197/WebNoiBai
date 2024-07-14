@@ -3,57 +3,41 @@ const $footer = $('.frame-footer');
 const $table = $('#TBLDANHSACH');
 const $tableBody = $table.find('tbody');
 const $modal = $('#CHITIET');
-const $router = "DanhMucDoi";
+const $router = "SPermission";
 const $form = $('#ModalForm');
 
 
 function DataSearch(pageNum) {
-    this.DepartmentId = $header.find('[name=DepartmentId]').val();
-    this.Code = $header.find('[name=Code]').val().trim();
-    this.Name = $header.find('[name=Name]').val().trim();
+    this.Ma = $header.find('[name=Ma]').val().trim();
+    this.Ten = $header.find('[name=Ten]').val().trim();
     this.PageNum = pageNum || $footer.find('[name=PageNumber]').val();;
-    this.Length = $footer.find('[name=PageLength]').val();
+    this.PageSize = $footer.find('[name=PageLength]').val();
 }
 
 $(function () {
     var $page = {
         init: function () {
-            $page.initSelect();
             $page.initValidate();
             $page.BtnSearchClick();
             $page.GetList(1);
-        },
-        initSelect: function () {
-            var getResponse = AjaxConfigHelper.SendRequestToServer(`/${$router}/GetListForSelect`, "GET", null);
-            getResponse.then((res) => {
-                if (res.IsOk) {
-                    let data = res.Body.Data || {};
-                    let lstOption = data.ListOption || [];
-                    for (option of lstOption) {
-                        $(`select[name=${data.SelectName}]`).append(`<option value="${option.Value}" class="${option.IsShow == 1 ? "" : "hidden"}">${option.Display}</option>`);
-                    }
-                }
-                else {
-
-                }
-            })
+            $page.Generate();
         },
         initValidate: function () {
             $form.validate({
                 rules: {
-                    Code: {
+                    Controller: {
                         required: true
                     },
-                    Name: {
+                    Action: {
                         required: true
                     }
                 },
                 messages: {
-                    Code: {
-                        required: "Mã đội không được để trống"
+                    Controller: {
+                        required: "Controller không được để trống"
                     },
-                    Name: {
-                        required: "Tên đội đầy đủ không được để trống"
+                    Action: {
+                        required: "Action không được để trống"
                     }
                 }
             })
@@ -70,26 +54,25 @@ $(function () {
             var getResponse = AjaxConfigHelper.SendRequestToServer(`/${$router}/GetTable`, "GET", search);
             getResponse.then((res) => {
                 if (res.IsOk) {
-                    let data = res.Body.Data.Items || [];
+                    let data = res.Body.Data || [];
 
                     if (data.length == 0) {
-                        html = `<tr><td class="text-center" colspan="6"><span>Không có bản ghi</span></td></tr>`;
+                        html = `<tr><td class="text-center" colspan="5"><span>Không có bản ghi</span></td></tr>`;
                         $tableBody.html(html);
                         return false;
                     }
 
                     let startIndex = res.Body.Pagination.StartIndex || 1;
                     for (let item of data) {
-                        let htmlShow = item.IsShow == 1 ? '<span class="text-center green"><i class="text-center green icon-status-ico-tsd"></i></span>' : '';
+                        let htmlShow = item.Enable == 1 ? '<span class="text-center green"><i class="text-center green icon-status-ico-tsd"></i></span>' : '<span class="text-center red"><i class="text-center red icon-exit-ico-tsd"></i></span>';
                         html += `<tr class="TR_${item.Id}">` +
                             `<td class="text-center"><span>${startIndex}</span></td>` +
                             `<td class="text-center event-handle">` +
-                            `<i class="icon-edit-ico-tsd btn-action btnEdit blue mr10" data-id="${item.Id}" data-ma="${item.Code}" title="Sửa"></i>` +
-                            `<i class="icon-delete-ico-tsd btn-action btnDelete red" data-id="${item.Id}" data-ma="${item.Code}" title="Xóa"></i>` +
+                            `<i class="icon-edit-ico-tsd btn-action btnEdit blue mr10" data-id="${item.Id}" data-ma="${item.Ma}" title="Sửa"></i>` +
+                            `<i class="icon-delete-ico-tsd btn-action btnDelete red" data-id="${item.Id}" data-ma="${item.Ma}" title="Xóa"></i>` +
                             `</td>` +
-                            `<td class=""><span>${item.DepartmentName}</span></td>` +
-                            `<td class=""><span>${item.Code}</span></td>` +
-                            `<td class=""><span>${item.Name}</span></td>` +
+                            `<td class=""><span>${item.ControllerName}</span></td>` +
+                            `<td class=""><span>${item.ActionName}</span></td>` +
                             `<td class="text-center">${htmlShow}</td>` +
                             `</tr>`;
                         startIndex++;
@@ -115,8 +98,7 @@ $(function () {
                     if (res.IsOk) {
                         let data = res.Body.Data || {};
                         for (let prop in data) {
-                            if (prop == 'IsShow') {
-
+                            if (prop == 'Enable') {
                                 $modal.find(`[name=${prop}]`).prop('checked', data[prop] == 1);
                                 continue;
                             }
@@ -136,38 +118,35 @@ $(function () {
         DeleteClick: () => {
             $page.Self.find('.btnDelete').off('click').on('click', function () {
                 let id = $(this).data('id');
+                ConfirmDelete(function () {
+                    var getResponse = AjaxConfigHelper.SendRequestToServer(`/${$router}/Delete`, "POST", { 'id': id });
+                    getResponse.then((res) => {
+                        if (res.IsOk) {
+                            ToastSuccess("Xóa");
+                            $page.GetList();
+                        }
+                        else {
 
-                var getResponse = AjaxConfigHelper.SendRequestToServer(`/${$router}/CheckExistUser`, "POST", { 'id': id });
-                getResponse.then((res) => {
-                    if (res.IsOk) {
-                        ConfirmDeleteWithCondition(res.Body.Data, "Đội đã có tài khoản. Bạn có muốn tiếp tục thực hiện không?", function () {
-                            ConfirmDeleteWithOption(function () {
-                                var getResponse = AjaxConfigHelper.SendRequestToServer(`/${$router}/DeleteWithUser`, "POST", { 'id': id });
-                                getResponse.then((res) => {
-                                    if (res.IsOk) {
-                                        ToastSuccess("Xóa");
-                                        $page.GetList();
-                                    }
-                                    else {
-
-                                    }
-                                })
-                            }, "Xóa cùng tài khoản", function () {
-                                var getResponse = AjaxConfigHelper.SendRequestToServer(`/${$router}/Delete`, "POST", { 'id': id });
-                                getResponse.then((res) => {
-                                    if (res.IsOk) {
-                                        ToastSuccess("Xóa");
-                                        $page.GetList();
-                                    }
-                                    else {
-
-                                    }
-                                })
-                            },"Chỉ xóa đội")
-                        })
-                    }
+                        }
+                    })
                 })
 
+            })
+        },
+        Generate: () => {
+            $page.Self.find('#btn-generate').off('click').on('click', function () {
+                ConfirmWithCallBack(function () {
+                    var getResponse = AjaxConfigHelper.SendRequestToServer(`/${$router}/Generate`, "POST", null);
+                    getResponse.then((res) => {
+                        if (res.IsOk) {
+                            ToastSuccess("Cập nhật danh sách");
+                            $page.GetList();
+                        }
+                        else {
+
+                        }
+                    })
+                }, "Cập nhật danh sách quyền theo menu?", "blue");
             })
         }
     };

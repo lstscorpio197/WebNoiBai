@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebNoiBai.Authorize;
+using WebNoiBai.Common;
 using WebNoiBai.Models;
 
 namespace WebNoiBai.Controllers
@@ -13,7 +14,7 @@ namespace WebNoiBai.Controllers
     {
         // GET: Base
         public SystemEntities db = new SystemEntities();
-        public USER us = new USER();
+        public USER us = (USER)System.Web.HttpContext.Current.Session[AppConst.UserSession];
 
         protected override void Dispose(bool disposing)
         {

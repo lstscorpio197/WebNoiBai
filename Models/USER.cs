@@ -33,7 +33,7 @@ namespace WebNoiBai.Models
             ChucVu = us.ChucVu;
             PhongBan = us.PhongBan;
 
-            ChucVuText = LstChucVu.Init.FirstOrDefault(x => x.Id == Id)?.Name;
+            ChucVuText = LstChucVu.Init.FirstOrDefault(x => x.Id == ChucVu)?.Name;
             PhongBanText = us.SPhongBan?.Ten;
             LstPermission = GetListPermission(us.Id);
         }

@@ -147,11 +147,13 @@
     <Compile Include="Authorize\AuthorizeAccessRole.cs" />
     <Compile Include="Common\AppConst.cs" />
     <Compile Include="Common\AppEnum.cs" />
+    <Compile Include="Common\AppMenu.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DanhMucNghiepVu\SCangHangKhongController.cs" />
     <Compile Include="Controllers\DanhMucNghiepVu\SHangHangKhongController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\Systems\SPermissionController.cs" />
     <Compile Include="Controllers\Systems\SPhongBanController.cs" />
     <Compile Include="Controllers\Systems\SRoleController.cs" />
     <Compile Include="Controllers\Systems\SUserController.cs" />
@@ -1352,10 +1354,9 @@
     <Content Include="Scripts\share\pagination.js" />
     <Content Include="Scripts\share\validator-addmethod.js" />
     <Content Include="Scripts\site.js" />
-    <Content Include="Scripts\System\DanhMucChucNang.js" />
-    <Content Include="Scripts\System\DanhMucDoi.js" />
     <Content Include="Scripts\System\DanhMucPhongBan.js" />
     <Content Include="Scripts\System\QuanLyTaiKhoan.js" />
+    <Content Include="Scripts\System\SPermission.js" />
     <Content Include="Scripts\System\SRole.js" />
     <Content Include="Scripts\System\SUser.js" />
     <Content Include="Scripts\validations\ValidateXSS.js" />
@@ -1383,6 +1384,7 @@
     <Content Include="Views\SCangHangKhong\Index.cshtml" />
     <Content Include="Views\SHangHangKhong\Index.cshtml" />
     <Content Include="Views\SRole\Index.cshtml" />
+    <Content Include="Views\SPermission\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
