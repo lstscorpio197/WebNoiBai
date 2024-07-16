@@ -8,6 +8,10 @@ namespace WebNoiBai.Common
     public static class AppConst
     {
         public static string UserSession = "USER_SESSION";
+
+
+        public static string KeyGemBoxDocument = "DOVJ-6B74-HTFU-1VVQ";
+        public static string KeyGemBoxSpreadsheet = "ETZX-IT28-33Q6-1HA2";
     }
 
     public class ChucVu

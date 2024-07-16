@@ -98,7 +98,7 @@ $(function () {
                 var getResponse = AjaxConfigHelper.SendRequestToServer(`/${$router}/GetItem`, "GET", { 'id': id });
                 getResponse.then((res) => {
                     if (res.IsOk) {
-                        let data = res.Body.Data || {};
+                        let data = res.Body.Data.Item || {};
                         for (let prop in data) {
                             if (prop == 'Enable') {
                                 $modal.find(`[name=${prop}]`).prop('checked', data[prop] == 1);
@@ -108,6 +108,11 @@ $(function () {
                                 data[prop] = formatDateFrom_StringServer(data[prop]);
                             }
                             $modal.find(`[name=${prop}]`).val(data[prop]);
+                        }
+
+                        let lstPermision = res.Body.Data.LstPermissionId || [];
+                        for (let item of lstPermision) {
+                            $modal.find(`[name=permission-${item}]`).prop('checked', true);
                         }
                         $modal.modal('show');
                     }
@@ -171,7 +176,8 @@ $(function () {
         ResetForm: () => {
             $modal.on('hidden.modal.bs', () => {
                 $form.find('input').val('');
-                $form.find('input:checkbox').prop('checked', true);
+                $modal.find('.permission-frame input:checkbox').prop('checked', false);
+                $form.find('input[name=Enable]').prop('checked', true);
                 $form.find('select').find('option:first-child').prop('selected', true);
                 $form.validate().resetForm();
                 $form.find('.error').removeClass('error');
@@ -182,20 +188,35 @@ $(function () {
                 return false;
             }
             let data = GetFormDataToObject($form);
-            return data;
+
+            let lstPermissionId = [];
+            $modal.find('.permission-frame').find('input:checkbox').each(function (i, e) {
+                if (e.checked) {
+                    let permissionId = $(e).data('id');
+                    if (permissionId > 0) {
+                        lstPermissionId.push(permissionId);
+                    }
+                }
+            })
+
+            let dataSend = {
+                item: data,
+                strPermissionId: JSON.stringify(lstPermissionId)
+            }
+            return dataSend;
         },
         Save: () => {
             $modal.find('#btn-save').off('click').on('click', () => {
                 let data = $ChiTiet.GetDataInput();
                 if (!data)
                     return false;
-                let action = data.Id > 0 ? 'Update' : 'Create';
+                let action = data.item.Id > 0 ? 'Update' : 'Create';
                 var getResponse = AjaxConfigHelper.SendRequestToServer(`/${$router}/${action}`, "POST", data);
                 getResponse.then((res) => {
                     if (res.IsOk) {
-                        let actionSub = data.Id > 0 ? 'Cập nhật' : 'Thêm mới';
+                        let actionSub = data.item.Id > 0 ? 'Cập nhật' : 'Thêm mới';
                         ToastSuccess(actionSub);
-                        $page.GetList(data.Id > 0 ? null : 1);
+                        $page.GetList(data.item.Id > 0 ? null : 1);
                         $modal.modal('hide');
                     }
                     else {

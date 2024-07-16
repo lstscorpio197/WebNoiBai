@@ -54,6 +54,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="GemBox.Spreadsheet, Version=41.3.30.1147, Culture=neutral, PublicKeyToken=b1b72c69714d4847, processorArchitecture=MSIL">
+      <HintPath>packages\GemBox.Spreadsheet.41.3.30.1147\lib\net30\GemBox.Spreadsheet.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -134,6 +137,9 @@
       <Private>True</Private>
       <HintPath>packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="Z.EntityFramework.Extensions, Version=8.103.0.0, Culture=neutral, PublicKeyToken=59b66d028979105b, processorArchitecture=MSIL">
+      <HintPath>packages\Z.EntityFramework.Extensions.8.103.0\lib\net45\Z.EntityFramework.Extensions.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
@@ -148,21 +154,98 @@
     <Compile Include="Common\AppConst.cs" />
     <Compile Include="Common\AppEnum.cs" />
     <Compile Include="Common\AppMenu.cs" />
+    <Compile Include="Common\FileExtend\ExcelFiles.cs" />
+    <Compile Include="Common\FileExtend\ExcelImport.cs" />
+    <Compile Include="Common\FileExtend\SFile.cs" />
+    <Compile Include="Common\General.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DanhMucNghiepVu\SCangHangKhongController.cs" />
     <Compile Include="Controllers\DanhMucNghiepVu\SHangHangKhongController.cs" />
+    <Compile Include="Controllers\DanhMucNghiepVu\SHanhKhachDiLaiNhieuController.cs" />
+    <Compile Include="Controllers\DanhMucNghiepVu\SHanhKhachVIPController.cs" />
+    <Compile Include="Controllers\HanhKhach\DHanhKhachController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\Systems\SPermissionController.cs" />
     <Compile Include="Controllers\Systems\SPhongBanController.cs" />
     <Compile Include="Controllers\Systems\SRoleController.cs" />
     <Compile Include="Controllers\Systems\SUserController.cs" />
+    <Compile Include="Dto\HanhKhach\DHanhKhachSearchDto.cs" />
     <Compile Include="Dto\User\CreateOrUpdateUserDto.cs" />
     <Compile Include="Dto\SearchDto.cs" />
     <Compile Include="Dto\User\SUserViewDto.cs" />
     <Compile Include="Dto\User\UserPermissionDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\cang_hang_khong.cs">
+      <DependentUpon>DataXNCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\canhbao_hanhkhach.cs">
+      <DependentUpon>DataXNCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\chuyenbay_hanhkhach.cs">
+      <DependentUpon>DataXNCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\chuyenbay_hanhkhach_data_backup.cs">
+      <DependentUpon>DataXNCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\chuyenbay_hh.cs">
+      <DependentUpon>DataXNCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\chuyenbay_hh_data_backup.cs">
+      <DependentUpon>DataXNCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\chuyenbay_pnr.cs">
+      <DependentUpon>DataXNCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\chuyenbay_pnr_data_backup.cs">
+      <DependentUpon>DataXNCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\chuyenbay_tobay.cs">
+      <DependentUpon>DataXNCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\chuyenbay_tobay_data_backup.cs">
+      <DependentUpon>DataXNCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\chuyenbay_vandon.cs">
+      <DependentUpon>DataXNCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\chuyenbay_vandon_data_backup.cs">
+      <DependentUpon>DataXNCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DataXNCModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataXNCModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DataXNCModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataXNCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DataXNCModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataXNCModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\hang_hang_khong.cs">
+      <DependentUpon>DataXNCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\hanhkhach_noichuyen.cs">
+      <DependentUpon>DataXNCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\mien_thue.cs">
+      <DependentUpon>DataXNCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SHanhKhachDiLaiNhieu.cs">
+      <DependentUpon>DataXNCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SHanhKhachVIP.cs">
+      <DependentUpon>DataXNCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\warning_history.cs">
+      <DependentUpon>DataXNCModel.tt</DependentUpon>
     </Compile>
     <Compile Include="WHttpMessage\HttpMessage.cs" />
     <Compile Include="WHttpMessage\HttpMessageBody.cs" />
@@ -1097,6 +1180,16 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Models\DataXNCModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DataXNCModel.edmx</DependentUpon>
+      <LastGenOutput>DataXNCModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\DataXNCModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DataXNCModel.edmx</DependentUpon>
+      <LastGenOutput>DataXNCModel.cs</LastGenOutput>
+    </Content>
     <Content Include="Models\SystemModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>SystemModel.Context.cs</LastGenOutput>
@@ -1290,6 +1383,13 @@
     <Content Include="Models\SystemModel.edmx.diagram">
       <DependentUpon>SystemModel.edmx</DependentUpon>
     </Content>
+    <EntityDeploy Include="Models\DataXNCModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>DataXNCModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\DataXNCModel.edmx.diagram">
+      <DependentUpon>DataXNCModel.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\core\bootstrap.min.js" />
     <Content Include="Scripts\core\jquery-3.7.1.min.js" />
@@ -1300,6 +1400,7 @@
     <Content Include="Scripts\dto\HttpMessageClientRequestDto.js" />
     <Content Include="Scripts\dto\MessageDto.js" />
     <Content Include="Scripts\dto\RawDataSignDto.js" />
+    <Content Include="Scripts\HanhKhach\DHanhKhach.js" />
     <Content Include="Scripts\helper\AjaxConfigHelper.js" />
     <Content Include="Scripts\helper\FileHelper.js" />
     <Content Include="Scripts\helper\FormatInputHelper.js" />
@@ -1385,10 +1486,12 @@
     <Content Include="Views\SHangHangKhong\Index.cshtml" />
     <Content Include="Views\SRole\Index.cshtml" />
     <Content Include="Views\SPermission\Index.cshtml" />
+    <Content Include="Views\DHanhKhach\Index.cshtml" />
+    <Content Include="Views\SHanhKhachDiLaiNhieu\Index.cshtml" />
+    <Content Include="Views\SHanhKhachVIP\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\HanhKhach\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>

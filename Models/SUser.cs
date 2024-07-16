@@ -17,8 +17,8 @@ namespace WebNoiBai.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public SUser()
         {
-            this.SRolePermissions = new HashSet<SRolePermission>();
             this.SUserRoles = new HashSet<SUserRole>();
+            this.SRolePermissions = new HashSet<SRolePermission>();
         }
     
         public int Id { get; set; }
@@ -35,8 +35,8 @@ namespace WebNoiBai.Models
     
         public virtual SPhongBan SPhongBan { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SRolePermission> SRolePermissions { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SUserRole> SUserRoles { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SRolePermission> SRolePermissions { get; set; }
     }
 }

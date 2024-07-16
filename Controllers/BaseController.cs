@@ -14,6 +14,7 @@ namespace WebNoiBai.Controllers
     {
         // GET: Base
         public SystemEntities db = new SystemEntities();
+        public DataXNCEntities dbXNC = new DataXNCEntities();
         public USER us = (USER)System.Web.HttpContext.Current.Session[AppConst.UserSession];
 
         protected override void Dispose(bool disposing)
@@ -21,6 +22,7 @@ namespace WebNoiBai.Controllers
             if (disposing)
             {
                 db.Dispose();
+                dbXNC.Dispose();
             }
             base.Dispose(disposing);
         }

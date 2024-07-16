@@ -93,5 +93,30 @@ namespace WebNoiBai.Controllers.Systems
                 return Json(httpMessage, JsonRequestBehavior.AllowGet);
             }
         }
+
+        [HttpPost]
+        public JsonResult Delete(int id)
+        {
+            HttpMessage httpMessage = new HttpMessage(true);
+            try
+            {
+                var item = db.SPermissions.Find(id);
+                if (item == null)
+                {
+                    httpMessage.IsOk = false;
+                    httpMessage.Body.MsgNoti = new HttpMessageNoti("400", null, "Không tìm thấy thông tin");
+                    return Json(httpMessage, JsonRequestBehavior.AllowGet);
+                }
+                db.SPermissions.Remove(item);
+                db.SaveChanges();
+                return Json(httpMessage, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                httpMessage.IsOk = false;
+                httpMessage.Body.MsgNoti = new HttpMessageNoti("500", null, ex.Message);
+                return Json(httpMessage, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

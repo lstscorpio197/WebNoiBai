@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
+using System.Web.DynamicData;
 using System.Web.Mvc;
 using WebNoiBai.Dto;
 using WebNoiBai.Models;
@@ -68,7 +69,8 @@ namespace WebNoiBai.Controllers.Systems
                     httpMessage.Body.MsgNoti = new HttpMessageNoti("400", null, "Không tìm thấy thông tin");
                     return Json(httpMessage, JsonRequestBehavior.AllowGet);
                 }
-                httpMessage.Body.Data = item;
+                var lstPermissionId = db.SRolePermissions.AsNoTracking().Where(x => x.RoleId == item.Id && x.IsGranted == 1).Select(x => x.PermissionId.Value).ToList();
+                httpMessage.Body.Data = new { Item = item, LstPermissionId = lstPermissionId };
                 return Json(httpMessage, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -80,53 +82,97 @@ namespace WebNoiBai.Controllers.Systems
         }
 
         [HttpPost]
-        public JsonResult Create(SRole item)
+        public JsonResult Create(SRole item, string strPermissionId)
         {
             HttpMessage httpMessage = new HttpMessage(true);
-            try
+            using (var trans = db.Database.BeginTransaction())
             {
-                httpMessage = CheckValid(item);
-                if (!httpMessage.IsOk)
+                try
                 {
+                    httpMessage = CheckValid(item);
+                    if (!httpMessage.IsOk)
+                    {
+                        return Json(httpMessage, JsonRequestBehavior.AllowGet);
+                    }
+                    item = db.SRoles.Add(item);
+                    db.SaveChanges();
+
+                    List<int> lstPermissionId = JsonConvert.DeserializeObject<List<int>>(strPermissionId);
+                    if (lstPermissionId.Any())
+                    {
+                        var lstPermissionRole = lstPermissionId.Select(x => new SRolePermission
+                        {
+                            RoleId = item.Id,
+                            PermissionId = x,
+                            IsGranted = 1
+                        }).ToList();
+                        db.SRolePermissions.AddRange(lstPermissionRole);
+                        db.SaveChanges();
+                    }
+
+                    trans.Commit();
+                    httpMessage.Body.MsgNoti = new HttpMessageNoti("200", null, "Thêm mới thành công");
                     return Json(httpMessage, JsonRequestBehavior.AllowGet);
                 }
-                db.SRoles.Add(item);
-                db.SaveChanges();
-                httpMessage.Body.MsgNoti = new HttpMessageNoti("200", null, "Thêm mới thành công");
-                return Json(httpMessage, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                httpMessage.IsOk = false;
-                httpMessage.Body.MsgNoti = new HttpMessageNoti("500", null, ex.Message);
-                return Json(httpMessage, JsonRequestBehavior.AllowGet);
-            }
-        }
-
-        [HttpPost]
-        public JsonResult Update(SRole item)
-        {
-            HttpMessage httpMessage = new HttpMessage(true);
-            try
-            {
-                var exist = db.SRoles.Find(item.Id);
-                if (exist == null)
+                catch (Exception ex)
                 {
+                    trans.Rollback();
                     httpMessage.IsOk = false;
-                    httpMessage.Body.MsgNoti = new HttpMessageNoti("400", null, "Không tìm thấy thông tin");
+                    httpMessage.Body.MsgNoti = new HttpMessageNoti("500", null, ex.Message);
                     return Json(httpMessage, JsonRequestBehavior.AllowGet);
                 }
-                db.Entry(exist).State = EntityState.Detached;
-                db.Entry(item).State = EntityState.Modified;
-                db.SaveChanges();
-                httpMessage.Body.MsgNoti = new HttpMessageNoti("200", null, "Cập nhật thông tin thành công");
-                return Json(httpMessage, JsonRequestBehavior.AllowGet);
             }
-            catch (Exception ex)
+        }
+
+        [HttpPost]
+        public JsonResult Update(SRole item, string strPermissionId)
+        {
+            HttpMessage httpMessage = new HttpMessage(true);
+            using (var trans = db.Database.BeginTransaction())
             {
-                httpMessage.IsOk = false;
-                httpMessage.Body.MsgNoti = new HttpMessageNoti("500", null, ex.Message);
-                return Json(httpMessage, JsonRequestBehavior.AllowGet);
+                try
+                {
+                    var exist = db.SRoles.Find(item.Id);
+                    if (exist == null)
+                    {
+                        httpMessage.IsOk = false;
+                        httpMessage.Body.MsgNoti = new HttpMessageNoti("400", null, "Không tìm thấy thông tin");
+                        return Json(httpMessage, JsonRequestBehavior.AllowGet);
+                    }
+                    db.Entry(exist).State = EntityState.Detached;
+                    db.Entry(item).State = EntityState.Modified;
+                    db.SaveChanges();
+
+                    List<int> lstPermissionId = JsonConvert.DeserializeObject<List<int>>(strPermissionId);
+
+                    var lstPermissionExist = db.SRolePermissions.AsNoTracking().Where(x=>x.RoleId == item.Id && x.IsGranted == 1).Select(x=>x.PermissionId.Value).ToList();
+                    var lstPermissionRemove = lstPermissionExist.Except(lstPermissionId);
+                    var lstItemRemove = db.SRolePermissions.Where(x=>lstPermissionRemove.Contains(x.PermissionId.Value) && x.RoleId == item.Id).ToList();
+                    foreach(var p in lstItemRemove)
+                    {
+                        db.SRolePermissions.Remove(p);
+                    }
+
+                    var lstPermissionRoleAdd = lstPermissionId.Except(lstPermissionExist).Select(x => new SRolePermission
+                    {
+                        RoleId = item.Id,
+                        PermissionId = x,
+                        IsGranted = 1
+                    }).ToList();
+                    db.SRolePermissions.AddRange(lstPermissionRoleAdd);
+                    db.SaveChanges();
+
+                    trans.Commit();
+                    httpMessage.Body.MsgNoti = new HttpMessageNoti("200", null, "Cập nhật thông tin thành công");
+                    return Json(httpMessage, JsonRequestBehavior.AllowGet);
+                }
+                catch (Exception ex)
+                {
+                    trans.Rollback();
+                    httpMessage.IsOk = false;
+                    httpMessage.Body.MsgNoti = new HttpMessageNoti("500", null, ex.Message);
+                    return Json(httpMessage, JsonRequestBehavior.AllowGet);
+                }
             }
         }
 
@@ -172,11 +218,12 @@ namespace WebNoiBai.Controllers.Systems
             }
         }
 
-        public JsonResult GetListUser(int id) {
+        public JsonResult GetListUser(int id)
+        {
             HttpMessage httpMessage = new HttpMessage(true);
             try
             {
-                var lstUserId = db.SUserRoles.AsNoTracking().Where(x => x.RoleId == id).Select(x=>x.UserId).ToList();
+                var lstUserId = db.SUserRoles.AsNoTracking().Where(x => x.RoleId == id).Select(x => x.UserId).ToList();
                 httpMessage.Body.Data = lstUserId;
                 return Json(httpMessage, JsonRequestBehavior.AllowGet);
             }
@@ -208,7 +255,7 @@ namespace WebNoiBai.Controllers.Systems
                     }
                     db.SaveChanges();
 
-                    var lstItemAdd = lstUserAdd.Select(x=> new SUserRole
+                    var lstItemAdd = lstUserAdd.Select(x => new SUserRole
                     {
                         RoleId = id,
                         UserId = x
@@ -225,7 +272,7 @@ namespace WebNoiBai.Controllers.Systems
                     httpMessage.IsOk = false;
                     httpMessage.Body.MsgNoti = new HttpMessageNoti("500", null, ex.Message);
                     return Json(httpMessage, JsonRequestBehavior.AllowGet);
-                } 
+                }
             }
         }
 

@@ -1,0 +1,105 @@
+﻿
+@{
+    ViewBag.Title = "Danh sách hành khách";
+}
+
+<div class="mx-ecus">
+    <div class="card">
+        <div class="card-header">
+            <div class="card-title bold">@ViewBag.Title</div>
+            <div class="card-right">
+                <button class="btn btn-primary" id="btn-add" type="button" data-bs-toggle="modal" data-bs-target="#ImportExcel"><i class="fa fa-file-excel-o"></i><span class="ml8">Import Excel</span></button>
+                <button class="btn btn-success" id="btn-add" type="button"><i class="fa fa-file-excel"></i><span class="ml8">Export Excel</span></button>
+            </div>
+        </div>
+        <div class="card-body" style="max-height: 929px;">
+            <div class="frame-header">
+                <div class="frame-search">
+                    Từ ngày&nbsp;
+                    <div class="inline-block input-group is_Datetimepicker">
+                        <input name="StartDate" placeholder="dd/mm/yyyy" class="wid100px item-search input-date form-control-sm" value="@DateTime.Today.ToString("dd/MM/yyyy")">
+                        <span class="input-group-addon cursor">
+                            <span class="icon-calendar-ico-tsd"></span>
+                        </span>
+                    </div>
+                    &nbsp;đến&nbsp;
+                    <div class="inline-block input-group is_Datetimepicker">
+                        <input name="EndDate" placeholder="dd/mm/yyyy" class="wid100px item-search input-date form-control-sm" value="@DateTime.Today.ToString("dd/MM/yyyy")">
+                        <span class="input-group-addon cursor">
+                            <span class="icon-calendar-ico-tsd"></span>
+                        </span>
+                    </div>
+                    <input class="item-search wid200px" autocomplete="off" name="SoGiayTo" placeholder="Số giấy tờ" />
+                    <input class="item-search wid200px" autocomplete="off" name="SoHieu" placeholder="Số hiệu" />
+                    <button class="btn btn-primary btnSearch" type="button"><i class="icon-search-ico-tsd"></i></button>
+                </div>
+            </div>
+            <div class="frame-body has-scroll" style="max-height: 725px;">
+                <table class="width100" id="TBLDANHSACH" style="min-width:1600px">
+                    <thead>
+                        <tr>
+                            <th class="text-center width50px">STT</th>
+                            <th class="text-center">Số hiệu</th>
+                            <th class="text-center">Ngày bay</th>
+                            <th class="text-center">Họ tên</th>
+                            <th class="text-center">Quốc tịch</th>
+                            <th class="text-center">Số giấy tờ</th>
+                            <th class="text-center">Ngày sinh</th>
+                            <th class="text-center">Mã nơi đi</th>
+                            <th class="text-center">Mã nơi đến</th>
+                            <th class="text-center">Nơi đi</th>
+                            <th class="text-center">Nơi đến</th>
+                            <th class="text-center">Hành lý</th>
+                            <th class="text-center">#</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <div class="frame-footer">
+                @Html.Partial("_PaginationPartial")
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal modal-edit fade" id="ImportExcel" role="dialog" aria-labelledby="exampleModalLabel" data-bs-keyboard="true" aria-bs-hidden="true" data-bs-backdrop="static" style="padding-top: 42px !important;">
+    <div class="modal-dialog modal-md modal-dialog-slideout" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel">
+                    Nhập dữ liệu từ file
+                </h4>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <i class="icon-close-ico-tsd"></i>
+                </button>
+            </div>
+            <div class="modal-body" style="background-color: #FBFBFB">
+                <div class="modal-body-content" style="padding: 16px; background-color: #FFFFFF;height: 100%;">
+                    <div class="row mb16">
+                        
+                        <div class="col-md-6">
+                            <a href="#">Tải file mẫu</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <input type="file" name="File" class="hidden" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"/>
+                            <input type="text" class="wid100" name="FileName" readonly disabled />
+                            <button class="btn btn-secondary btnChonFile">Chọn file</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa fa-times"></i><span class="ml8">&nbsp;Đóng</span></button>
+                <button type="button" class="btn btn-primary" id="btn-import"><i class="fa fa-save"></i><span class="ml8">&nbsp;Lưu lại</span></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Scripts/HanhKhach/DHanhKhach.js"></script>
+}

@@ -102,21 +102,23 @@
                     </form>
 
 
-                    <div class="row mb10">
-                        <div class="col-md-12 border-bottom">Danh sách quyền</div>
-                    </div>
-                    @foreach (var item in lstPermission)
-                    {
+                    <div class="permission-frame">
                         <div class="row mb10">
-                            <div class="col-md-3">@item.ControllerName</div>
-                            <div class="col-md-9">
-                                @foreach (var child in item.LstPermission)
-                                {
-                                    <label class="mr10px"><input type="checkbox" class="ace cb" data-id="@child.PermissionId"><span class="lbl">&nbsp;@child.ActionName</span></label>
-                                }
-                            </div>
+                            <div class="col-md-12 border-bottom">Danh sách quyền</div>
                         </div>
-                    }
+                        @foreach (var item in lstPermission)
+                        {
+                            <div class="row mb10">
+                                <div class="col-md-3">@item.ControllerName</div>
+                                <div class="col-md-9">
+                                    @foreach (var child in item.LstPermission)
+                                    {
+                                        <label class="mr10px"><input type="checkbox" class="ace cb" name="permission-@child.PermissionId" data-id="@child.PermissionId"><span class="lbl">&nbsp;@child.ActionName</span></label>
+                                    }
+                                </div>
+                            </div>
+                        }
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">

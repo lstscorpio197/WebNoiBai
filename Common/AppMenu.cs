@@ -11,13 +11,17 @@ namespace WebNoiBai.Common
         public static List<Menu> ListMenu = new List<Menu>
         {
             new Menu(1,null,"QT","Quản trị",0),
-            new Menu(2,1,"SPhongBan","Quản lý phòng ban"),
-            new Menu(3,1,"SUser","Quản lý tài khoản"),
-            new Menu(4,1,"SRole","Quản lý nhóm quyền"),
-            new Menu(5,1,"SPermission","Quản lý quyền"),
-            new Menu(6,null,"DM","Danh mục",0),
-            new Menu(7,6,"SCangHangKhong","Danh sách cảng hàng không"),
-            new Menu(8,6,"SHangHangKhong","Danh sách hãng hàng không"),
+            new Menu(0,1,"SPhongBan","Quản lý phòng ban"),
+            new Menu(0,1,"SUser","Quản lý tài khoản"),
+            new Menu(0,1,"SRole","Quản lý nhóm quyền"),
+            new Menu(0,1,"SPermission","Quản lý quyền"),
+            new Menu(2,null,"DM","Danh mục",0),
+            new Menu(0,2,"SCangHangKhong","Danh sách cảng hàng không"),
+            new Menu(0,2,"SHangHangKhong","Danh sách hãng hàng không"),
+            new Menu(0,2,"SHanhKhachDiLaiNhieu","Hành khách đi lại nhiều"),
+            new Menu(0,2,"SHanhKhachVIP","Hành khách VIP"),
+            new Menu(3,null,"HK","Quản lý hành khách",0),
+            new Menu(0,3,"DHanhKhach","Danh sách hành khách"),
         };
 
         public static List<Action> ListActionDefault = new List<Action>
