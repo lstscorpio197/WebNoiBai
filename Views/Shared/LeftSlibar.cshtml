@@ -21,7 +21,7 @@
                     <ul class="nav nav-treeview">
                         @foreach (var child in lstChild)
                         {
-                            <li class="nav-item" title="@child.ControllerName">
+                            <li class="nav-item @(controller == child.Controller ? "active" : "")" title="@child.ControllerName">
                                 <a href="/@child.Controller" class="nav-link">
                                     <p style="padding-left: 26px;line-height: 18px">@child.ControllerName</p>
                                 </a>
@@ -32,7 +32,7 @@
             }
             else
             {
-                <li class="nav-item">
+                <li class="nav-item @(controller == item.Controller ? "active" : "")">
                     <a href="/@item.Controller" class="nav-link">
                         <i class="nav-icon @item.Icon"></i>
                         <p>

@@ -93,25 +93,25 @@ $(document).ready(function () {
         validate: function () {
             $userInfo.self.find('form').validate({
                 rules: {
-                    UserName: {
+                    Username: {
                         required: true
                     },
-                    FullName: {
+                    HoTen: {
                         required: true
                     },
                     Email: {
                         required: true,
                         email: true
                     },
-                    Phone: {
+                    SDT: {
                         phone: true
                     }
                 },
                 messages: {
-                    UserName: {
+                    Username: {
                         required: "Tài khoản không được để trống"
                     },
-                    FullName: {
+                    HoTen: {
                         required: "Tên đầy đủ không được để trống"
                     },
                     Email: {
@@ -122,18 +122,14 @@ $(document).ready(function () {
         },
         showModal: function () {
             $userInfo.self.on('shown.bs.modal', function () {
-                
-            })
-        },
-        hideModal: function () {
-            $userInfo.self.on('shown.bs.modal', function () {
-                var getResponse = AjaxConfigHelper.SendRequestToServer(`/User/GetUserInfo`, "GET", null);
+                var getResponse = AjaxConfigHelper.SendRequestToServer(`/Account/GetUserCurrent`, "GET", null);
                 getResponse.then((res) => {
                     if (res.IsOk) {
                         data = res.Body.Data || {};
                         for (let prop in data) {
                             if (prop.indexOf('Time') > -1 || prop.indexOf('Ngay') > -1 || prop.indexOf('day') > -1) {
-                                data[prop] = formatDateFrom_StringServer(data[prop]);
+
+                                data[prop] = formatDateFromServer(data[prop]);
                             }
                             $userInfo.self.find(`[name=${prop}]`).val(data[prop]);
                         }
@@ -141,12 +137,17 @@ $(document).ready(function () {
                 })
             })
         },
+        hideModal: function () {
+            $userInfo.self.on('shown.bs.modal', function () {
+
+            })
+        },
         getData: function () {
             if (!$userInfo.self.find('form').valid()) {
                 return false;
             }
             let data = GetFormDataToObject($userInfo.self.find('form'));
-            data.Birthday = formatDateFromClientToServerEN(data.Birthday);
+            /*data.Birthday = formatDateFromClientToServerEN(data.Birthday);*/
             return data;
         },
         save: function () {
@@ -154,13 +155,13 @@ $(document).ready(function () {
                 let data = $userInfo.getData();
                 if (!data)
                     return false;
-                var getResponse = AjaxConfigHelper.SendRequestToServer(`/User/UpdateUserInfo`, "POST", { 'us': data });
+                var getResponse = AjaxConfigHelper.SendRequestToServer(`/Account/UpdateUserInfo`, "POST", { 'itemUpdate': data });
                 getResponse.then((res) => {
                     if (res.IsOk) {
                         ToastSuccess("Cập nhật");
 
                         $('#UsFullName').text(data.FullName);
-                        $('#UsFullName').closest('div').attr('title',data.FullName);
+                        $('#UsFullName').closest('div').attr('title', data.FullName);
 
                         $userInfo.self.modal('hide');
                     }
@@ -184,7 +185,7 @@ $(document).ready(function () {
                         required: true,
                         noSpace: true
                     },
-                    
+
                     NewPassword: {
                         required: true,
                         noSpace: true
@@ -235,10 +236,10 @@ $(document).ready(function () {
                 if (!data)
                     return false;
 
-                var getResponse = AjaxConfigHelper.SendRequestToServer(`/User/ChangePassword`, "POST", { 'us': data });
+                var getResponse = AjaxConfigHelper.SendRequestToServer(`/Account/ChangePassword`, "POST", { 'itemPass': data });
                 getResponse.then((res) => {
                     if (res.IsOk) {
-                        ToastSuccess("Cập nhật");
+                        ToastSuccess("Đổi mật khẩu");
                         $changePass.self.modal('hide');
                     }
                 })

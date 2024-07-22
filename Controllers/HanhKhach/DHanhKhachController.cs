@@ -29,7 +29,7 @@ namespace WebNoiBai.Controllers.HanhKhach
             try
             {
                 var query = GetQuery(itemSearch);
-                var result = query.OrderBy(x => x.SYS_DATE).Skip(itemSearch.Skip).Take(itemSearch.PageSize).ToList();
+                var result = query.OrderBy(x => x.FLIGHTDATE).ThenBy(x=>x.IDCHUYENBAY).Skip(itemSearch.Skip).Take(itemSearch.PageSize).ToList();
                 httpMessage.Body.Data = result;
                 httpMessage.Body.Pagination = new HttpMessagePagination
                 {

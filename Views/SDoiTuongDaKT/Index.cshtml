@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Danh mục hãng hàng không";
+    ViewBag.Title = "Đối tượng đã kiểm tra";
 }
 
 <div class="mx-ecus">
@@ -14,9 +14,9 @@
         <div class="card-body" style="max-height: 929px;">
             <div class="frame-header">
                 <div class="frame-search">
-                    <input name="Ma" placeholder="Mã" class="width180px item-search" autocomplete="off" />
-                    <input name="Ten" placeholder="Tên" class="item-search wid240px" autocomplete="off" />
-                    <button class="btn btn-primary btnSearch" type="button"><i class="icon-search-ico-tsd"></i></button>
+                    <input name="Ma" placeholder="Số giấy tờ" class="width180px item-search" autocomplete="off" />
+                    <input name="Ten" placeholder="Họ tên" class="item-search wid240px" autocomplete="off" />
+                    <button class="btn btn-primary btnSearch" type="button"><i class="fa fa-search"></i></button>
                 </div>
             </div>
             <div class="frame-body has-scroll" style="max-height: 739px;">
@@ -25,10 +25,12 @@
                         <tr>
                             <th class="wid50px text-center">STT</th>
                             <th class="width70px text-center">Thao tác</th>
-                            <th class="text-center ">Mã cảng</th>
-                            <th class="text-center ">Tên cảng</th>
-                            <th class="text-center ">Quốc gia</th>
-                            <th class="text-center">Hiển thị</th>
+                            <th class="text-center">Họ và tên</th>
+                            <th class="text-center">Số giấy tờ</th>
+                            <th class="text-center">Ngày sinh</th>
+                            <th class="text-center">Giới tính</th>
+                            <th class="text-center">Ngày kiểm tra</th>
+                            <th class="text-center">Kết quả kiểm tra</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -47,7 +49,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title" id="exampleModalLabel">
-                    Thông tin phòng ban
+                    Thông tin đối tượng
                 </h4>
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                     <i class="icon-close-ico-tsd"></i>
@@ -56,42 +58,83 @@
             <div class="modal-body" style="background-color: #FBFBFB">
                 <div class="modal-body-content" style="padding: 16px; background-color: #FFFFFF;height: 100%;">
                     <form id="ModalForm">
-                        <input name="id" class="hidden" value="" />
-                        <div class="row">
-                            <div class="col-md-6">Mã hãng <span class="red">*</span></div>
-                            <div class="col-md-6">Mã nước <span class="red">*</span></div>
+                        <input name="Id" class="hidden" value="" />
+                        <div class="row mb6">
+                            <div class="col-md-12">Họ tên<span class="red">*</span></div>
                         </div>
-                        <div class="mt6 mb16 row">
-                            <div class="col-md-6">
-                                <input name="FI_MAHANGHK" type="text" placeholder="Nhập nội dung" class="wid100" maxlength="50" value="" autocomplete="off" />
-                            </div>
-                            <div class="col-md-6">
-                                <input name="FI_NUOC" type="text" placeholder="Nhập nội dung" class="wid100" maxlength="50" value="" autocomplete="off" />
+                        <div class="mb16 row">
+                            <div class="col-md-12">
+                                <input name="HoTen" type="text" autocomplete="off" placeholder="Nhập nội dung" class="wid100" value="" />
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-12">Tên hãng <span class="red">*</span></div>
+
+                        <div class="row mb6">
+                            <div class="col-md-8">Số giấy tờ <span class="red">*</span></div>
+                            <div class="col-md-4">Loại giấy tờ <span class="red">*</span></div>
+                        </div>
+                        <div class="mb16 row">
+                            <div class="col-md-8">
+                                <input name="SoGiayTo" type="text" placeholder="Nhập nội dung" class="wid100" maxlength="50" value="" autocomplete="off" />
+                            </div>
+                            <div class="col-md-4">
+                                <input name="LoaiGiayTo" type="text" placeholder="Nhập nội dung" class="wid100" maxlength="50" value="" autocomplete="off" />
+                            </div>
+                        </div>
+
+                        <div class="row mb6">
+                            <div class="col-md-4">Ngày sinh</div>
+                            <div class="col-md-4">Giới tính</div>
+                            <div class="col-md-4">Quốc tịch</div>
+                        </div>
+                        <div class="mb16 row">
+                            <div class="col-md-4">
+                                <div class="inline-block input-group is_Datetimepicker">
+                                    <input name="NgaySinh" placeholder="dd/mm/yyyy" class="w-100 item-search input-date form-control-sm" value="">
+                                    <span class="input-group-addon cursor">
+                                        <span class="icon-calendar-ico-tsd"></span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-md-4 padTop10px radio-group">
+                                <label class="mr8"><input type="radio" class="ace cb" name="GioiTinh" id="M" data-value="M" checked><span class="lbl">&nbsp;Nam</span></label>
+                                <label class="ml8"><input type="radio" class="ace cb" name="GioiTinh" id="F" data-value="F"><span class="lbl">&nbsp;Nữ</span></label>
+                            </div>
+                            <div class="col-md-4">
+                                <input name="QuocTich" type="text" autocomplete="off" placeholder="Nhập nội dung" class="wid100" value="" />
+                            </div>
+                        </div>
+
+                        <div class="row mb6">
+                            <div class="col-md-4">
+                                Ngày kiểm tra
+                            </div>
+                        </div>
+                        <div class="row mb16">
+                            <div class="col-md-4">
+                                <div class="inline-block input-group is_Datetimepicker">
+                                    <input name="NgayKT" placeholder="dd/mm/yyyy" class="w-100 item-search input-date form-control-sm" value="">
+                                    <span class="input-group-addon cursor">
+                                        <span class="icon-calendar-ico-tsd"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb6">
+                            <div class="col-md-12">Kết quả kiểm tra <span class="red">*</span></div>
                         </div>
                         <div class="mt6 mb16 row">
                             <div class="col-md-12">
-                                <input name="FI_TENHANGHANGKHONG" type="text" placeholder="Nhập nội dung" class="wid100" maxlength="50" value="" autocomplete="off" />
+                                <textarea name="KetQuaKT" rows="2" class="wid100" maxlength="4000"></textarea>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6">Mã IATA <span class="red">*</span></div>
-                            <div class="col-md-6">Mã ICAO</div>
+
+                        <div class="row mb6">
+                            <div class="col-md-12">Ghi chú</div>
                         </div>
                         <div class="mt6 mb16 row">
-                            <div class="col-md-6">
-                                <input name="FI_MAIATA" type="text" autocomplete="off" placeholder="Nhập nội dung" class="wid100" maxlength="20" value="" />
-                            </div>
-                            <div class="col-md-6">
-                                <input name="FI_MAICAO" type="text" autocomplete="off" placeholder="Nhập nội dung" class="wid100" maxlength="20" value="" />
-                            </div>
-                        </div>
-                        <div class="row">
                             <div class="col-md-12">
-                                <label><input type="checkbox" class="ace cb" name="FI_HOATDONG" checked><span class="lbl">&nbsp;Hoạt động</span></label>
+                                <textarea name="GhiChu" rows="2" class="wid100" maxlength="500"></textarea>
                             </div>
                         </div>
                     </form>
@@ -99,8 +142,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="icon-close-ico-tsd"></i><span class="ml8">Đóng</span></button>
-                <button type="button" class="btn btn-primary" id="btn-save"><i class="icon-save-ico-tsd"></i><span class="ml8">Lưu lại</span></button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa fa-times"></i><span class="ml8">Đóng</span></button>
+                <button type="button" class="btn btn-primary" id="btn-save"><i class="fa fa-save"></i><span class="ml8">Lưu lại</span></button>
             </div>
         </div>
     </div>
@@ -113,7 +156,7 @@
         const $table = $('#TBLDANHSACH');
         const $tableBody = $table.find('tbody');
         const $modal = $('#CHITIET');
-        const $router = "SHangHangKhong";
+        const $router = "SDoiTuongDaKT";
         const $form = $('#ModalForm');
 
 
@@ -134,19 +177,37 @@
                 initValidate: function () {
                     $form.validate({
                         rules: {
-                            FI_MAHANGHK: {
+                            HoTen: {
                                 required: true
                             },
-                            FI_TENHANGHANGKHONG: {
+                            SoGiayTo: {
+                                required: true
+                            },
+                            LoaiGiayTo: {
+                                required: true
+                            },
+                            KetQuaKT: {
+                                required: true
+                            },
+                            NgayKT: {
                                 required: true
                             }
                         },
                         messages: {
-                            FI_MAHANGHK: {
-                                required: "Mã hãng không được để trống"
+                            HoTen: {
+                                required: "Họ tên không được để trống"
                             },
-                            FI_TENHANGHANGKHONG: {
-                                required: "Tên cảng không được để trống"
+                            SoGiayTo: {
+                                required: "Số giấy tờ không được để trống"
+                            },
+                            LoaiGiayTo: {
+                                required: "Loại giấy tờ không được để trống"
+                            },
+                            KetQuaKT: {
+                                required: "Vui lòng nhập kết quả kiểm tra"
+                            },
+                            NgayKT: {
+                                required: "Vui lòng nhập ngày kiểm tra"
                             }
                         }
                     })
@@ -166,24 +227,26 @@
                             let data = res.Body.Data || [];
 
                             if (data.length == 0) {
-                                html = `<tr><td class="text-center" colspan="6"><span>Không có bản ghi</span></td></tr>`;
+                                html = `<tr><td class="text-center" colspan="8"><span>Không có bản ghi</span></td></tr>`;
                                 $tableBody.html(html);
                                 return false;
                             }
 
                             let startIndex = res.Body.Pagination.StartIndex || 1;
                             for (let item of data) {
-                                let htmlShow = item.FI_HOATDONG == 1 ? '<span class="text-center green"><i class="text-center green icon-status-ico-tsd"></i></span>' : '<span class="text-center red"><i class="text-center red icon-exit-ico-tsd"></i></span>';
-                                html += `<tr class="TR_${item.id}">` +
+                                let htmlShow = item.Enable == 1 ? '<span class="text-center green"><i class="text-center green icon-status-ico-tsd"></i></span>' : '<span class="text-center red"><i class="text-center red icon-exit-ico-tsd"></i></span>';
+                                html += `<tr class="TR_${item.Id}">` +
                                     `<td class="text-center">${startIndex}</td>` +
                                     `<td class="text-center event-handle">` +
-                                    `<i class="icon-edit-ico-tsd btn-action btnEdit blue mr10" data-id="${item.id}" title="Sửa"></i>` +
-                                    `<i class="icon-delete-ico-tsd btn-action btnDelete red" data-id="${item.id}" title="Xóa"></i>` +
+                                    `<i class="icon-edit-ico-tsd btn-action btnEdit blue mr10" data-id="${item.Id}" title="Sửa"></i>` +
+                                    `<i class="icon-delete-ico-tsd btn-action btnDelete red" data-id="${item.Id}" title="Xóa"></i>` +
                                     `</td>` +
-                                    `<td class="">${item.FI_MAHANGHK}</td>` +
-                                    `<td class="">${item.FI_TENHANGHANGKHONG}</td>` +
-                                    `<td class="">${item.FI_NUOC}</td>` +
-                                    `<td class="text-center">${htmlShow}</td>` +
+                                    `<td class="">${item.HoTen}</td>` +
+                                    `<td class="">${item.SoGiayTo}</td>` +
+                                    `<td class="">${formatDateFromServer(item.NgaySinh)}</td>` +
+                                    `<td class="">${item.GioiTinh}</td>` +
+                                    `<td class="">${formatDateFromServer(item.NgayKT)}</td>` +
+                                    `<td class="">${item.KetQuaKT}</td>` +
                                     `</tr>`;
                                 startIndex++;
                             }
@@ -213,7 +276,7 @@
                                         continue;
                                     }
                                     if (prop.indexOf('Time') > -1 || prop.indexOf('Ngay') > -1) {
-                                        data[prop] = formatDateFrom_StringServer(data[prop]);
+                                        data[prop] = formatDateFromServer(data[prop]);
                                     }
                                     $modal.find(`[name=${prop}]`).val(data[prop]);
                                 }
@@ -229,26 +292,18 @@
                     $page.Self.find('.btnDelete').off('click').on('click', function () {
                         let id = $(this).data('id');
 
-                        var getResponse = AjaxConfigHelper.SendRequestToServer(`/${$router}/CheckExistUser`, "POST", { 'id': id });
-                        getResponse.then((res) => {
-                            if (res.IsOk) {
-                                ConfirmDeleteWithCondition(res.Body.Data, "Phòng ban đã có tài khoản. Nếu xóa phòng ban thì các tài khoản thuộc phòng ban sẽ bị xóa. Bạn có muốn tiếp tục thực hiện không?", function () {
-                                    ConfirmDelete(function () {
-                                        var getResponse = AjaxConfigHelper.SendRequestToServer(`/${$router}/Delete`, "POST", { 'id': id });
-                                        getResponse.then((res) => {
-                                            if (res.IsOk) {
-                                                ToastSuccess("Xóa");
-                                                $page.GetList();
-                                            }
-                                            else {
+                        ConfirmDelete(function () {
+                            var getResponse = AjaxConfigHelper.SendRequestToServer(`/${$router}/Delete`, "POST", { 'id': id });
+                            getResponse.then((res) => {
+                                if (res.IsOk) {
+                                    ToastSuccess("Xóa");
+                                    $page.GetList();
+                                }
+                                else {
 
-                                            }
-                                        })
-                                    })
-                                })
-                            }
+                                }
+                            })
                         })
-
                     })
                 }
             };
@@ -262,6 +317,7 @@
                 ResetForm: () => {
                     $modal.on('hidden.modal.bs', () => {
                         $form.find('input').val('');
+                        $form.find('textarea').val('');
                         $form.find('input:checkbox').prop('checked', true);
                         $form.find('select').find('option:first-child').prop('selected', true);
                         $form.validate().resetForm();
@@ -280,13 +336,13 @@
                         let data = $ChiTiet.GetDataInput();
                         if (!data)
                             return false;
-                        let action = data.FI_ID > 0 ? 'Update' : 'Create';
+                        let action = data.Id > 0 ? 'Update' : 'Create';
                         var getResponse = AjaxConfigHelper.SendRequestToServer(`/${$router}/${action}`, "POST", data);
                         getResponse.then((res) => {
                             if (res.IsOk) {
-                                let actionSub = data.FI_ID > 0 ? 'Cập nhật' : 'Thêm mới';
+                                let actionSub = data.Id > 0 ? 'Cập nhật' : 'Thêm mới';
                                 ToastSuccess(actionSub);
-                                $page.GetList(data.FI_ID > 0 ? null : 1);
+                                $page.GetList(data.Id > 0 ? null : 1);
                                 $modal.modal('hide');
                             }
                             else {

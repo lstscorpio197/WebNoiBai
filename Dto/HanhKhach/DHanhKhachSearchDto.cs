@@ -14,7 +14,7 @@ namespace WebNoiBai.Dto.HanhKhach
         public string NoiDi {  get; set; }
         public string NoiDen {  get; set; }
         public int? ObjectType {  get; set; }
-
+        public string HoTen {  get; set; }
         public int PageNum { get; set; } = 1;
         public int PageSize { get; set; } = 100;
 

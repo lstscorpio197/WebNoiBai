@@ -452,6 +452,53 @@
           <Property Name="noi_di" Type="nvarchar" MaxLength="45" />
           <Property Name="noi_den" Type="nvarchar" MaxLength="45" />
         </EntityType>
+        <EntityType Name="SChuyenBay">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ChuyenBay" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="GioKhoiHanh_Gio" Type="int" Nullable="false" />
+          <Property Name="GioKhoiHanh_Phut" Type="int" />
+          <Property Name="GioKetThuc_Gio" Type="int" Nullable="false" />
+          <Property Name="GioKetThuc_Phut" Type="int" />
+        </EntityType>
+        <EntityType Name="SDoiTuongDaKT">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="decimal" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HoTen" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="SoGiayTo" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="LoaiGiayTo" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="NgaySinh" Type="datetime" />
+          <Property Name="GioiTinh" Type="nvarchar" MaxLength="5" />
+          <Property Name="QuocTich" Type="nvarchar" MaxLength="20" />
+          <Property Name="GhiChu" Type="nvarchar" MaxLength="4000" />
+          <Property Name="KetQuaKT" Type="nvarchar" MaxLength="4000" Nullable="false" />
+          <Property Name="NgayKT" Type="datetime" Nullable="false" />
+          <Property Name="NgayTao" Type="datetime" />
+          <Property Name="NguoiTao" Type="nvarchar" MaxLength="50" />
+          <Property Name="NgaySua" Type="datetime" />
+          <Property Name="NguoiSua" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="SDoiTuongTrongDiem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="decimal" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HoTen" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="SoGiayTo" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="LoaiGiayTo" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="NgaySinh" Type="datetime" />
+          <Property Name="GioiTinh" Type="nvarchar" MaxLength="5" />
+          <Property Name="QuocTich" Type="nvarchar" MaxLength="20" />
+          <Property Name="GhiChu" Type="nvarchar" MaxLength="4000" />
+          <Property Name="NgayTao" Type="datetime" />
+          <Property Name="NguoiTao" Type="nvarchar" MaxLength="50" />
+          <Property Name="NgaySua" Type="datetime" />
+          <Property Name="NguoiSua" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="SHanhKhachDiLaiNhieu">
           <Key>
             <PropertyRef Name="Id" />
@@ -470,6 +517,32 @@
           <Property Name="NguoiSua" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="SHanhKhachVIP">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="decimal" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HoTen" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="SoGiayTo" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="LoaiGiayTo" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="NgaySinh" Type="datetime" />
+          <Property Name="GioiTinh" Type="nvarchar" MaxLength="5" />
+          <Property Name="QuocTich" Type="nvarchar" MaxLength="20" />
+          <Property Name="GhiChu" Type="nvarchar" MaxLength="4000" />
+          <Property Name="NgayTao" Type="datetime" />
+          <Property Name="NguoiTao" Type="nvarchar" MaxLength="50" />
+          <Property Name="NgaySua" Type="datetime" />
+          <Property Name="NguoiSua" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="SNuocRuiRo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MaNuoc" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="MaSanBay" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="GhiChu" Type="nvarchar" MaxLength="2000" />
+        </EntityType>
+        <EntityType Name="STheoDoiDacBiet">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -525,8 +598,13 @@
           <EntitySet Name="hang_hang_khong" EntityType="Self.hang_hang_khong" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="hanhkhach_noichuyen" EntityType="Self.hanhkhach_noichuyen" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="mien_thue" EntityType="Self.mien_thue" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SChuyenBay" EntityType="Self.SChuyenBay" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SDoiTuongDaKT" EntityType="Self.SDoiTuongDaKT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SDoiTuongTrongDiem" EntityType="Self.SDoiTuongTrongDiem" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SHanhKhachDiLaiNhieu" EntityType="Self.SHanhKhachDiLaiNhieu" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SHanhKhachVIP" EntityType="Self.SHanhKhachVIP" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SNuocRuiRo" EntityType="Self.SNuocRuiRo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="STheoDoiDacBiet" EntityType="Self.STheoDoiDacBiet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="warning_history" EntityType="Self.warning_history" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -1022,6 +1100,11 @@
           <EntitySet Name="warning_history" EntityType="Self.warning_history" />
           <EntitySet Name="SHanhKhachDiLaiNhieux" EntityType="DataXNCModel.SHanhKhachDiLaiNhieu" />
           <EntitySet Name="SHanhKhachVIPs" EntityType="DataXNCModel.SHanhKhachVIP" />
+          <EntitySet Name="SChuyenBays" EntityType="DataXNCModel.SChuyenBay" />
+          <EntitySet Name="SDoiTuongTrongDiems" EntityType="DataXNCModel.SDoiTuongTrongDiem" />
+          <EntitySet Name="SDoiTuongDaKTs" EntityType="DataXNCModel.SDoiTuongDaKT" />
+          <EntitySet Name="SNuocRuiRoes" EntityType="DataXNCModel.SNuocRuiRo" />
+          <EntitySet Name="STheoDoiDacBiets" EntityType="DataXNCModel.STheoDoiDacBiet" />
         </EntityContainer>
         <EntityType Name="SHanhKhachDiLaiNhieu">
           <Key>
@@ -1041,6 +1124,79 @@
           <Property Name="NguoiSua" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="SHanhKhachVIP">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HoTen" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SoGiayTo" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="LoaiGiayTo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="NgaySinh" Type="DateTime" Precision="3" />
+          <Property Name="GioiTinh" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="QuocTich" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="GhiChu" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="NgayTao" Type="DateTime" Precision="3" />
+          <Property Name="NguoiTao" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NgaySua" Type="DateTime" Precision="3" />
+          <Property Name="NguoiSua" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="SChuyenBay">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ChuyenBay" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="GioKhoiHanh_Gio" Type="Int32" Nullable="false" />
+          <Property Name="GioKhoiHanh_Phut" Type="Int32" />
+          <Property Name="GioKetThuc_Gio" Type="Int32" Nullable="false" />
+          <Property Name="GioKetThuc_Phut" Type="Int32" />
+        </EntityType>
+        <EntityType Name="SDoiTuongTrongDiem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HoTen" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SoGiayTo" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="LoaiGiayTo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="NgaySinh" Type="DateTime" Precision="3" />
+          <Property Name="GioiTinh" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="QuocTich" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="GhiChu" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="NgayTao" Type="DateTime" Precision="3" />
+          <Property Name="NguoiTao" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NgaySua" Type="DateTime" Precision="3" />
+          <Property Name="NguoiSua" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="SDoiTuongDaKT">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HoTen" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SoGiayTo" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="LoaiGiayTo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="NgaySinh" Type="DateTime" Precision="3" />
+          <Property Name="GioiTinh" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="QuocTich" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="GhiChu" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="KetQuaKT" Type="String" Nullable="false" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="NgayKT" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="NgayTao" Type="DateTime" Precision="3" />
+          <Property Name="NguoiTao" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NgaySua" Type="DateTime" Precision="3" />
+          <Property Name="NguoiSua" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="SNuocRuiRo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MaNuoc" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="MaSanBay" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="GhiChu" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="STheoDoiDacBiet">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -1565,6 +1721,84 @@
           <EntitySetMapping Name="SHanhKhachVIPs">
             <EntityTypeMapping TypeName="DataXNCModel.SHanhKhachVIP">
               <MappingFragment StoreEntitySet="SHanhKhachVIP">
+                <ScalarProperty Name="NguoiSua" ColumnName="NguoiSua" />
+                <ScalarProperty Name="NgaySua" ColumnName="NgaySua" />
+                <ScalarProperty Name="NguoiTao" ColumnName="NguoiTao" />
+                <ScalarProperty Name="NgayTao" ColumnName="NgayTao" />
+                <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
+                <ScalarProperty Name="QuocTich" ColumnName="QuocTich" />
+                <ScalarProperty Name="GioiTinh" ColumnName="GioiTinh" />
+                <ScalarProperty Name="NgaySinh" ColumnName="NgaySinh" />
+                <ScalarProperty Name="LoaiGiayTo" ColumnName="LoaiGiayTo" />
+                <ScalarProperty Name="SoGiayTo" ColumnName="SoGiayTo" />
+                <ScalarProperty Name="HoTen" ColumnName="HoTen" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SChuyenBays">
+            <EntityTypeMapping TypeName="DataXNCModel.SChuyenBay">
+              <MappingFragment StoreEntitySet="SChuyenBay">
+                <ScalarProperty Name="GioKetThuc_Phut" ColumnName="GioKetThuc_Phut" />
+                <ScalarProperty Name="GioKetThuc_Gio" ColumnName="GioKetThuc_Gio" />
+                <ScalarProperty Name="GioKhoiHanh_Phut" ColumnName="GioKhoiHanh_Phut" />
+                <ScalarProperty Name="GioKhoiHanh_Gio" ColumnName="GioKhoiHanh_Gio" />
+                <ScalarProperty Name="ChuyenBay" ColumnName="ChuyenBay" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SDoiTuongTrongDiems">
+            <EntityTypeMapping TypeName="DataXNCModel.SDoiTuongTrongDiem">
+              <MappingFragment StoreEntitySet="SDoiTuongTrongDiem">
+                <ScalarProperty Name="NguoiSua" ColumnName="NguoiSua" />
+                <ScalarProperty Name="NgaySua" ColumnName="NgaySua" />
+                <ScalarProperty Name="NguoiTao" ColumnName="NguoiTao" />
+                <ScalarProperty Name="NgayTao" ColumnName="NgayTao" />
+                <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
+                <ScalarProperty Name="QuocTich" ColumnName="QuocTich" />
+                <ScalarProperty Name="GioiTinh" ColumnName="GioiTinh" />
+                <ScalarProperty Name="NgaySinh" ColumnName="NgaySinh" />
+                <ScalarProperty Name="LoaiGiayTo" ColumnName="LoaiGiayTo" />
+                <ScalarProperty Name="SoGiayTo" ColumnName="SoGiayTo" />
+                <ScalarProperty Name="HoTen" ColumnName="HoTen" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SDoiTuongDaKTs">
+            <EntityTypeMapping TypeName="DataXNCModel.SDoiTuongDaKT">
+              <MappingFragment StoreEntitySet="SDoiTuongDaKT">
+                <ScalarProperty Name="NguoiSua" ColumnName="NguoiSua" />
+                <ScalarProperty Name="NgaySua" ColumnName="NgaySua" />
+                <ScalarProperty Name="NguoiTao" ColumnName="NguoiTao" />
+                <ScalarProperty Name="NgayTao" ColumnName="NgayTao" />
+                <ScalarProperty Name="NgayKT" ColumnName="NgayKT" />
+                <ScalarProperty Name="KetQuaKT" ColumnName="KetQuaKT" />
+                <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
+                <ScalarProperty Name="QuocTich" ColumnName="QuocTich" />
+                <ScalarProperty Name="GioiTinh" ColumnName="GioiTinh" />
+                <ScalarProperty Name="NgaySinh" ColumnName="NgaySinh" />
+                <ScalarProperty Name="LoaiGiayTo" ColumnName="LoaiGiayTo" />
+                <ScalarProperty Name="SoGiayTo" ColumnName="SoGiayTo" />
+                <ScalarProperty Name="HoTen" ColumnName="HoTen" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SNuocRuiRoes">
+            <EntityTypeMapping TypeName="DataXNCModel.SNuocRuiRo">
+              <MappingFragment StoreEntitySet="SNuocRuiRo">
+                <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
+                <ScalarProperty Name="MaSanBay" ColumnName="MaSanBay" />
+                <ScalarProperty Name="MaNuoc" ColumnName="MaNuoc" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="STheoDoiDacBiets">
+            <EntityTypeMapping TypeName="DataXNCModel.STheoDoiDacBiet">
+              <MappingFragment StoreEntitySet="STheoDoiDacBiet">
                 <ScalarProperty Name="NguoiSua" ColumnName="NguoiSua" />
                 <ScalarProperty Name="NgaySua" ColumnName="NgaySua" />
                 <ScalarProperty Name="NguoiTao" ColumnName="NguoiTao" />

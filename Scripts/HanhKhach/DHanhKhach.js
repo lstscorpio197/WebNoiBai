@@ -11,6 +11,8 @@ const $form = $('#ModalForm');
 function DataSearch(pageNum) {
     this.StartDate = formatDateFromClientToServerEN($header.find('[name=StartDate]').val());
     this.EndDate = formatDateFromClientToServerEN($header.find('[name=EndDate]').val());
+    this.SoGiayTo = $header.find('[name=SoGiayTo]').val();
+    this.SoHieu = $header.find('[name=SoHieu]').val();
     this.PageNum = pageNum || $footer.find('[name=PageNumber]').val();
     this.PageSize = $footer.find('[name=PageLength]').val();
 }
@@ -51,9 +53,9 @@ $(function () {
                             `<td class="text-center">${item.QUOCTICH}</td>` +
                             `<td class="">${item.SOGIAYTO}</td>` +
                             `<td class="text-center">${formatDateFromServer(item.NGAYSINH)}</td>` +
+                            `<td class="text-center">${item.NOIDI}</td>` +
                             `<td class="text-center">${item.MANOIDI}</td>` +
                             `<td class="text-center">${item.MANOIDEN}</td>` +
-                            `<td class="text-center">${item.NOIDI}</td>` +
                             `<td class="text-center">${item.NOIDEN}</td>` +
                             `<td class="">${item.HANHLY}</td>` +
                             `<td class="text-center"><span data-id="${item.SOGIAYTO}" data-chuyenbay="${item.ID_CHUYENBAY}" class="fa fa-exclamation-triangle add-warning cursor" style="color:#ffc107;"></span></td>` +

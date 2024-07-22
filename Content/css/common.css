@@ -117,3 +117,42 @@
     .dropdown-item:hover i {
         color: var(--bs-primary);
     }
+
+
+
+#overlay {
+    position: fixed; /* Sit on top of the page content */
+    display: none; /* Hidden by default */
+    width: 100%; /* Full width (cover the whole page) */
+    height: 100%; /* Full height (cover the whole page) */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.18); /* Black background with opacity */
+    z-index: 9999; /* Specify a stack order in case you're using a different order for other elements */
+}
+
+#spinner {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    display: none; /* Hidden by default */
+    border: 9px solid #f3f3f3; /* Light grey */
+    border-top: 9px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 90px;
+    height: 90px;
+    animation: spin 1.2s linear infinite;
+    z-index: 9999;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

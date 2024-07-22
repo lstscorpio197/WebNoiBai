@@ -4,16 +4,17 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using WebNoiBai.Dto.DanhMuc;
+using WebNoiBai.Common;
 using WebNoiBai.Dto;
+using WebNoiBai.Dto.DanhMuc;
 using WebNoiBai.Models;
 using WebNoiBai.WHttpMessage;
 
 namespace WebNoiBai.Controllers.DanhMucNghiepVu
 {
-    public class SCangHangKhongController : BaseController
+    public class SChuyenBayController : BaseController
     {
-        // GET: SCangHangKhong
+        // GET: SChuyenBay
         public ActionResult Index()
         {
             return View();
@@ -24,16 +25,20 @@ namespace WebNoiBai.Controllers.DanhMucNghiepVu
             HttpMessage httpMessage = new HttpMessage(true);
             try
             {
-                var query = dbXNC.cang_hang_khong.AsNoTracking().Where(x => true);
+                var query = dbXNC.SChuyenBays.AsNoTracking().Where(x => true);
                 if (!string.IsNullOrEmpty(itemSearch.Ma))
                 {
-                    query = query.Where(x => x.FI_MAIATA == itemSearch.Ma);
+                    query = query.Where(x => x.ChuyenBay.Contains(itemSearch.Ma));
                 }
-                if (!string.IsNullOrEmpty(itemSearch.Ten))
+                var result = query.Select(x=>new ChuyenBayDto
                 {
-                    query = query.Where(x => x.FI_TENCANG.Contains(itemSearch.Ten));
-                }
-                var result = query.OrderBy(x => x.FI_ID).Skip(itemSearch.Skip).Take(itemSearch.PageSize).ToList();
+                    Id = x.Id,
+                    ChuyenBay = x.ChuyenBay,
+                    GioKhoiHanh_Gio = x.GioKhoiHanh_Gio,
+                    GioKhoiHanh_Phut = x.GioKhoiHanh_Phut,
+                    GioKetThuc_Gio = x.GioKetThuc_Gio,
+                    GioKetThuc_Phut = x.GioKetThuc_Phut
+                }).OrderBy(x => x.Id).Skip(itemSearch.Skip).Take(itemSearch.PageSize).ToList();
                 httpMessage.Body.Data = result;
                 httpMessage.Body.Pagination = new HttpMessagePagination
                 {
@@ -57,7 +62,7 @@ namespace WebNoiBai.Controllers.DanhMucNghiepVu
             HttpMessage httpMessage = new HttpMessage(true);
             try
             {
-                var item = dbXNC.cang_hang_khong.Find(id);
+                var item = dbXNC.SChuyenBays.Find(id);
                 if (item == null)
                 {
                     httpMessage.IsOk = false;
@@ -76,7 +81,7 @@ namespace WebNoiBai.Controllers.DanhMucNghiepVu
         }
 
         [HttpPost]
-        public JsonResult Create(cang_hang_khong item)
+        public JsonResult Create(SChuyenBay item)
         {
             HttpMessage httpMessage = new HttpMessage(true);
             try
@@ -86,7 +91,7 @@ namespace WebNoiBai.Controllers.DanhMucNghiepVu
                 {
                     return Json(httpMessage, JsonRequestBehavior.AllowGet);
                 }
-                dbXNC.cang_hang_khong.Add(item);
+                dbXNC.SChuyenBays.Add(item);
                 dbXNC.SaveChanges();
                 httpMessage.Body.MsgNoti = new HttpMessageNoti("200", null, "Thêm mới thành công");
                 return Json(httpMessage, JsonRequestBehavior.AllowGet);
@@ -100,12 +105,12 @@ namespace WebNoiBai.Controllers.DanhMucNghiepVu
         }
 
         [HttpPost]
-        public JsonResult Update(cang_hang_khong item)
+        public JsonResult Update(SChuyenBay item)
         {
             HttpMessage httpMessage = new HttpMessage(true);
             try
             {
-                var exist = dbXNC.cang_hang_khong.Find(item.FI_ID);
+                var exist = dbXNC.SChuyenBays.Find(item.Id);
                 if (exist == null)
                 {
                     httpMessage.IsOk = false;
@@ -132,15 +137,15 @@ namespace WebNoiBai.Controllers.DanhMucNghiepVu
             HttpMessage httpMessage = new HttpMessage(true);
             try
             {
-                var item = dbXNC.cang_hang_khong.Find(id);
+                var item = dbXNC.SChuyenBays.Find(id);
                 if (item == null)
                 {
                     httpMessage.IsOk = false;
                     httpMessage.Body.MsgNoti = new HttpMessageNoti("400", null, "Không tìm thấy thông tin");
                     return Json(httpMessage, JsonRequestBehavior.AllowGet);
                 }
-
-                dbXNC.cang_hang_khong.Remove(item);
+                
+                dbXNC.SChuyenBays.Remove(item);
                 dbXNC.SaveChanges();
                 return Json(httpMessage, JsonRequestBehavior.AllowGet);
             }
@@ -152,20 +157,20 @@ namespace WebNoiBai.Controllers.DanhMucNghiepVu
             }
         }
 
-        private HttpMessage CheckValid(cang_hang_khong item)
+        private HttpMessage CheckValid(SChuyenBay item)
         {
             HttpMessage httpMessage = new HttpMessage(false);
             try
             {
-                if (string.IsNullOrEmpty(item.FI_MAIATA))
+                if (string.IsNullOrEmpty(item.ChuyenBay))
                 {
-                    httpMessage.Body.MsgNoti = new HttpMessageNoti("400", null, "Vui lòng nhập mã IATA");
+                    httpMessage.Body.MsgNoti = new HttpMessageNoti("400", null, "Vui lòng nhập họ tên");
                     return httpMessage;
                 }
-                var exist = dbXNC.cang_hang_khong.AsNoTracking().FirstOrDefault(x => x.FI_ID != item.FI_ID && x.FI_MAIATA == item.FI_MAIATA);
+                var exist = dbXNC.SChuyenBays.AsNoTracking().FirstOrDefault(x => x.Id != item.Id && x.ChuyenBay == item.ChuyenBay);
                 if (exist != null)
                 {
-                    httpMessage.Body.MsgNoti = new HttpMessageNoti("400", null, "Mã IATA này đã tồn tại");
+                    httpMessage.Body.MsgNoti = new HttpMessageNoti("400", null, "Chuyến bay này đã tồn tại");
                     return httpMessage;
                 }
                 httpMessage.IsOk = true;

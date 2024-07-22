@@ -1603,6 +1603,7 @@ input[disabled], textarea[disabled], select[disabled] {
 
 .mx-ecus .frame-search {
     text-align: right;
+    margin-bottom:12px;
     /*float: right;*/
 }
 
@@ -1614,7 +1615,6 @@ input[disabled], textarea[disabled], select[disabled] {
     padding: 9px 12px;
     vertical-align: top;
     border-radius: 2px !important;
-    margin-bottom: 12px;
 }
 
 .frame-search .extral {
@@ -1629,6 +1629,7 @@ input[disabled], textarea[disabled], select[disabled] {
     display: flex;
     column-gap: 8px;
     flex-wrap: wrap;
+    align-items:baseline;
 }
 
     .frame-search .datetimepicker {
@@ -1647,7 +1648,6 @@ input[disabled], textarea[disabled], select[disabled] {
 
     .frame-search .item-search {
         width: 120px;
-        margin-bottom: 12px;
         display: inline-block;
         margin-right: 0px;
         /*font-family: 'Inter Regular', 'Inter Medium', 'Inter Semi Bold', 'Inter Bold';*/
@@ -2015,7 +2015,7 @@ ul.navbar-nav.ml-auto { /*background-color:#e5eef3*/
     /*padding-left: 32px !important;*/
 }
 
-.sidebar-dark-primary .nav-treeview > .nav-item > .nav-link {
+.sidebar-dark-primary .nav-treeview > .nav-item:not(.active) > .nav-link {
     color: #4A525A !important;
 }
     .sidebar-dark-primary .nav-treeview > .nav-item > .nav-link:hover {
@@ -2575,6 +2575,23 @@ input[type=radio].ace + .lbl::before {
             background-color: transparent !important;
             position: relative
         }
+
+        .main-sidebar .sidebar ul.nav-sidebar li.nav-item ul li.active::after {
+            content: "";
+            display: inline-block;
+            position: absolute;
+            width: 5px;
+            left: 20px;
+            /*right: 0px;*/
+            top: 18px;
+            border: 1px solid transparent;
+            border-left: 1px dotted #006699;
+            /*border-right: 1px dotted #0078d4;*/
+            border-width: 6px;
+        }
+            .main-sidebar .sidebar ul.nav-sidebar li.nav-item ul li.active .nav-link {
+                color: #0A8DD0;
+            }
 
     .main-sidebar .brand-link {
         display: none;

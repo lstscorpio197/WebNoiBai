@@ -10,18 +10,27 @@ namespace WebNoiBai.Common
     {
         public static List<Menu> ListMenu = new List<Menu>
         {
-            new Menu(1,null,"QT","Quản trị",0),
+            new Menu(1,null,"QT","Quản trị",0,"fa fa-cogs"),
             new Menu(0,1,"SPhongBan","Quản lý phòng ban"),
             new Menu(0,1,"SUser","Quản lý tài khoản"),
             new Menu(0,1,"SRole","Quản lý nhóm quyền"),
             new Menu(0,1,"SPermission","Quản lý quyền"),
-            new Menu(2,null,"DM","Danh mục",0),
+            new Menu(2,null,"DM","Danh mục",0, "fa fa-list"),
             new Menu(0,2,"SCangHangKhong","Danh sách cảng hàng không"),
             new Menu(0,2,"SHangHangKhong","Danh sách hãng hàng không"),
+            new Menu(0,2,"SChuyenBay","Danh mục chuyến bay"),
+            new Menu(0,2,"SNuocRuiRo","Danh sách các nước có rủi ro cao"),
             new Menu(0,2,"SHanhKhachDiLaiNhieu","Hành khách đi lại nhiều"),
             new Menu(0,2,"SHanhKhachVIP","Hành khách VIP"),
-            new Menu(3,null,"HK","Quản lý hành khách",0),
+            new Menu(0,2,"SDoiTuongTrongDiem","Đối tượng trọng điểm"),
+            new Menu(0,2,"STheoDoiDacBiet","Đối tượng theo dõi đặc biệt"),
+            new Menu(0,2,"SDoiTuongDaKT","Đối tượng đã kiểm tra"),
+            new Menu(3,null,"HK","Quản lý hành khách",0,"fa fa-users"),
             new Menu(0,3,"DHanhKhach","Danh sách hành khách"),
+            new Menu(0,3,"DHKHoChieuNuocNgoai","Hành khách HC nước ngoài"),
+            new Menu(0,3,"DDatCho","Thông tin đặt chỗ"),
+            new Menu(0,3,"DNoiChuyen","Hành khách nối chuyến"),
+            new Menu(4,null,"BC","Báo cáo thống kê",0,"fa fa-dashboard"),
         };
 
         public static List<Action> ListActionDefault = new List<Action>

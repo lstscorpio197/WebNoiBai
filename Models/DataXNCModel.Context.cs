@@ -43,5 +43,10 @@ namespace WebNoiBai.Models
         public virtual DbSet<warning_history> warning_history { get; set; }
         public virtual DbSet<SHanhKhachDiLaiNhieu> SHanhKhachDiLaiNhieux { get; set; }
         public virtual DbSet<SHanhKhachVIP> SHanhKhachVIPs { get; set; }
+        public virtual DbSet<SChuyenBay> SChuyenBays { get; set; }
+        public virtual DbSet<SDoiTuongTrongDiem> SDoiTuongTrongDiems { get; set; }
+        public virtual DbSet<SDoiTuongDaKT> SDoiTuongDaKTs { get; set; }
+        public virtual DbSet<SNuocRuiRo> SNuocRuiRoes { get; set; }
+        public virtual DbSet<STheoDoiDacBiet> STheoDoiDacBiets { get; set; }
     }
 }

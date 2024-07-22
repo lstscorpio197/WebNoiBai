@@ -20,7 +20,7 @@
                 </div>
             </div>
             <div class="frame-body has-scroll" style="max-height: 739px;">
-                <table class="width100" id="TBLDANHSACH" style="min-width:1600px">
+                <table class="width100" id="TBLDANHSACH">
                     <thead>
                         <tr>
                             <th class="wid50px text-center">STT</th>
@@ -278,6 +278,7 @@
                 ResetForm: () => {
                     $modal.on('hidden.modal.bs', () => {
                         $form.find('input').val('');
+                        $form.find('textarea').val('');
                         $form.find('input:checkbox').prop('checked', true);
                         $form.find('select').find('option:first-child').prop('selected', true);
                         $form.validate().resetForm();

@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Danh mục hãng hàng không";
+    ViewBag.Title = "Danh mục chuyến bay";
 }
 
 <div class="mx-ecus">
@@ -14,9 +14,8 @@
         <div class="card-body" style="max-height: 929px;">
             <div class="frame-header">
                 <div class="frame-search">
-                    <input name="Ma" placeholder="Mã" class="width180px item-search" autocomplete="off" />
-                    <input name="Ten" placeholder="Tên" class="item-search wid240px" autocomplete="off" />
-                    <button class="btn btn-primary btnSearch" type="button"><i class="icon-search-ico-tsd"></i></button>
+                    <input name="Ma" placeholder="Chuyến bay" class="width180px item-search" autocomplete="off" />
+                    <button class="btn btn-primary btnSearch" type="button"><i class="fa fa-search"></i></button>
                 </div>
             </div>
             <div class="frame-body has-scroll" style="max-height: 739px;">
@@ -25,10 +24,9 @@
                         <tr>
                             <th class="wid50px text-center">STT</th>
                             <th class="width70px text-center">Thao tác</th>
-                            <th class="text-center ">Mã cảng</th>
-                            <th class="text-center ">Tên cảng</th>
-                            <th class="text-center ">Quốc gia</th>
-                            <th class="text-center">Hiển thị</th>
+                            <th class="text-center">Chuyến bay</th>
+                            <th class="text-center">Giờ khởi hành</th>
+                            <th class="text-center">Giờ hạ cánh</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -47,7 +45,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title" id="exampleModalLabel">
-                    Thông tin phòng ban
+                    Thông tin hành khách
                 </h4>
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                     <i class="icon-close-ico-tsd"></i>
@@ -56,42 +54,28 @@
             <div class="modal-body" style="background-color: #FBFBFB">
                 <div class="modal-body-content" style="padding: 16px; background-color: #FFFFFF;height: 100%;">
                     <form id="ModalForm">
-                        <input name="id" class="hidden" value="" />
-                        <div class="row">
-                            <div class="col-md-6">Mã hãng <span class="red">*</span></div>
-                            <div class="col-md-6">Mã nước <span class="red">*</span></div>
+                        <input name="Id" class="hidden" value="" />
+                        <div class="row mb6">
+                            <div class="col-md-12">Chuyến bay<span class="red">*</span></div>
                         </div>
-                        <div class="mt6 mb16 row">
-                            <div class="col-md-6">
-                                <input name="FI_MAHANGHK" type="text" placeholder="Nhập nội dung" class="wid100" maxlength="50" value="" autocomplete="off" />
-                            </div>
-                            <div class="col-md-6">
-                                <input name="FI_NUOC" type="text" placeholder="Nhập nội dung" class="wid100" maxlength="50" value="" autocomplete="off" />
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">Tên hãng <span class="red">*</span></div>
-                        </div>
-                        <div class="mt6 mb16 row">
+                        <div class="mb16 row">
                             <div class="col-md-12">
-                                <input name="FI_TENHANGHANGKHONG" type="text" placeholder="Nhập nội dung" class="wid100" maxlength="50" value="" autocomplete="off" />
+                                <input name="ChuyenBay" type="text" autocomplete="off" placeholder="Nhập nội dung" class="wid100" value="" />
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6">Mã IATA <span class="red">*</span></div>
-                            <div class="col-md-6">Mã ICAO</div>
+
+                        <div class="row mb6">
+                            <div class="col-md-6">Giờ khởi hành (24h)<span class="red">*</span></div>
+                            <div class="col-md-6">Giờ hạ cánh (24)<span class="red">*</span></div>
                         </div>
-                        <div class="mt6 mb16 row">
+                        <div class="mb16 row">
                             <div class="col-md-6">
-                                <input name="FI_MAIATA" type="text" autocomplete="off" placeholder="Nhập nội dung" class="wid100" maxlength="20" value="" />
+                                <input name="GioKhoiHanh_Gio" type="text" placeholder="00" class="width75px" maxlength="2" max="24" value="00" autocomplete="off" />&nbsp;h&nbsp;
+                                <input name="GioKhoiHanh_Phut" type="text" placeholder="00" class="width75px" maxlength="2" max="60" value="00" autocomplete="off" />&nbsp;phút
                             </div>
                             <div class="col-md-6">
-                                <input name="FI_MAICAO" type="text" autocomplete="off" placeholder="Nhập nội dung" class="wid100" maxlength="20" value="" />
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <label><input type="checkbox" class="ace cb" name="FI_HOATDONG" checked><span class="lbl">&nbsp;Hoạt động</span></label>
+                                <input name="GioKetThuc_Gio" type="text" placeholder="00" class="width75px" maxlength="2" max="24" value="00" autocomplete="off" />&nbsp;h&nbsp;
+                                <input name="GioKetThuc_Phut" type="text" placeholder="00" class="width75px" maxlength="2" max="60" value="00" autocomplete="off" />&nbsp;phút
                             </div>
                         </div>
                     </form>
@@ -99,8 +83,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="icon-close-ico-tsd"></i><span class="ml8">Đóng</span></button>
-                <button type="button" class="btn btn-primary" id="btn-save"><i class="icon-save-ico-tsd"></i><span class="ml8">Lưu lại</span></button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa fa-times"></i><span class="ml8">Đóng</span></button>
+                <button type="button" class="btn btn-primary" id="btn-save"><i class="fa fa-save"></i><span class="ml8">Lưu lại</span></button>
             </div>
         </div>
     </div>
@@ -113,13 +97,12 @@
         const $table = $('#TBLDANHSACH');
         const $tableBody = $table.find('tbody');
         const $modal = $('#CHITIET');
-        const $router = "SHangHangKhong";
+        const $router = "SChuyenBay";
         const $form = $('#ModalForm');
 
 
         function DataSearch(pageNum) {
             this.Ma = $header.find('[name=Ma]').val().trim();
-            this.Ten = $header.find('[name=Ten]').val().trim();
             this.PageNum = pageNum || $footer.find('[name=PageNumber]').val();;
             this.PageSize = $footer.find('[name=PageLength]').val();
         }
@@ -134,19 +117,25 @@
                 initValidate: function () {
                     $form.validate({
                         rules: {
-                            FI_MAHANGHK: {
+                            ChuyenBay: {
                                 required: true
                             },
-                            FI_TENHANGHANGKHONG: {
+                            GioKhoiHanh_Gio: {
+                                required: true
+                            },
+                            GioKetThuc_Gio: {
                                 required: true
                             }
                         },
                         messages: {
-                            FI_MAHANGHK: {
-                                required: "Mã hãng không được để trống"
+                            ChuyenBay: {
+                                required: "Vui lòng nhập thông tin chuyến bay"
                             },
-                            FI_TENHANGHANGKHONG: {
-                                required: "Tên cảng không được để trống"
+                            GioKhoiHanh_Gio: {
+                                required: "Vui lòng nhập giờ khởi hành"
+                            },
+                            GioKetThuc_Gio: {
+                                required: "Vui lòng nhập giờ hạ cánh"
                             }
                         }
                     })
@@ -166,24 +155,23 @@
                             let data = res.Body.Data || [];
 
                             if (data.length == 0) {
-                                html = `<tr><td class="text-center" colspan="6"><span>Không có bản ghi</span></td></tr>`;
+                                html = `<tr><td class="text-center" colspan="5"><span>Không có bản ghi</span></td></tr>`;
                                 $tableBody.html(html);
                                 return false;
                             }
 
                             let startIndex = res.Body.Pagination.StartIndex || 1;
                             for (let item of data) {
-                                let htmlShow = item.FI_HOATDONG == 1 ? '<span class="text-center green"><i class="text-center green icon-status-ico-tsd"></i></span>' : '<span class="text-center red"><i class="text-center red icon-exit-ico-tsd"></i></span>';
-                                html += `<tr class="TR_${item.id}">` +
+                                let htmlShow = item.Enable == 1 ? '<span class="text-center green"><i class="text-center green icon-status-ico-tsd"></i></span>' : '<span class="text-center red"><i class="text-center red icon-exit-ico-tsd"></i></span>';
+                                html += `<tr class="TR_${item.Id}">` +
                                     `<td class="text-center">${startIndex}</td>` +
                                     `<td class="text-center event-handle">` +
-                                    `<i class="icon-edit-ico-tsd btn-action btnEdit blue mr10" data-id="${item.id}" title="Sửa"></i>` +
-                                    `<i class="icon-delete-ico-tsd btn-action btnDelete red" data-id="${item.id}" title="Xóa"></i>` +
+                                    `<i class="icon-edit-ico-tsd btn-action btnEdit blue mr10" data-id="${item.Id}" title="Sửa"></i>` +
+                                    `<i class="icon-delete-ico-tsd btn-action btnDelete red" data-id="${item.Id}" title="Xóa"></i>` +
                                     `</td>` +
-                                    `<td class="">${item.FI_MAHANGHK}</td>` +
-                                    `<td class="">${item.FI_TENHANGHANGKHONG}</td>` +
-                                    `<td class="">${item.FI_NUOC}</td>` +
-                                    `<td class="text-center">${htmlShow}</td>` +
+                                    `<td class="">${item.ChuyenBay}</td>` +
+                                    `<td class="">${item.GioKhoiHanh}</td>` +
+                                    `<td class="">${item.GioKetThuc}</td>` +
                                     `</tr>`;
                                 startIndex++;
                             }
@@ -213,7 +201,7 @@
                                         continue;
                                     }
                                     if (prop.indexOf('Time') > -1 || prop.indexOf('Ngay') > -1) {
-                                        data[prop] = formatDateFrom_StringServer(data[prop]);
+                                        data[prop] = formatDateFromServer(data[prop]);
                                     }
                                     $modal.find(`[name=${prop}]`).val(data[prop]);
                                 }
@@ -229,26 +217,18 @@
                     $page.Self.find('.btnDelete').off('click').on('click', function () {
                         let id = $(this).data('id');
 
-                        var getResponse = AjaxConfigHelper.SendRequestToServer(`/${$router}/CheckExistUser`, "POST", { 'id': id });
-                        getResponse.then((res) => {
-                            if (res.IsOk) {
-                                ConfirmDeleteWithCondition(res.Body.Data, "Phòng ban đã có tài khoản. Nếu xóa phòng ban thì các tài khoản thuộc phòng ban sẽ bị xóa. Bạn có muốn tiếp tục thực hiện không?", function () {
-                                    ConfirmDelete(function () {
-                                        var getResponse = AjaxConfigHelper.SendRequestToServer(`/${$router}/Delete`, "POST", { 'id': id });
-                                        getResponse.then((res) => {
-                                            if (res.IsOk) {
-                                                ToastSuccess("Xóa");
-                                                $page.GetList();
-                                            }
-                                            else {
+                        ConfirmDelete(function () {
+                            var getResponse = AjaxConfigHelper.SendRequestToServer(`/${$router}/Delete`, "POST", { 'id': id });
+                            getResponse.then((res) => {
+                                if (res.IsOk) {
+                                    ToastSuccess("Xóa");
+                                    $page.GetList();
+                                }
+                                else {
 
-                                            }
-                                        })
-                                    })
-                                })
-                            }
+                                }
+                            })
                         })
-
                     })
                 }
             };
@@ -280,13 +260,13 @@
                         let data = $ChiTiet.GetDataInput();
                         if (!data)
                             return false;
-                        let action = data.FI_ID > 0 ? 'Update' : 'Create';
+                        let action = data.Id > 0 ? 'Update' : 'Create';
                         var getResponse = AjaxConfigHelper.SendRequestToServer(`/${$router}/${action}`, "POST", data);
                         getResponse.then((res) => {
                             if (res.IsOk) {
-                                let actionSub = data.FI_ID > 0 ? 'Cập nhật' : 'Thêm mới';
+                                let actionSub = data.Id > 0 ? 'Cập nhật' : 'Thêm mới';
                                 ToastSuccess(actionSub);
-                                $page.GetList(data.FI_ID > 0 ? null : 1);
+                                $page.GetList(data.Id > 0 ? null : 1);
                                 $modal.modal('hide');
                             }
                             else {

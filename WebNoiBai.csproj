@@ -158,19 +158,30 @@
     <Compile Include="Common\FileExtend\ExcelImport.cs" />
     <Compile Include="Common\FileExtend\SFile.cs" />
     <Compile Include="Common\General.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DanhMucNghiepVu\SCangHangKhongController.cs" />
+    <Compile Include="Controllers\DanhMucNghiepVu\SChuyenBayController.cs" />
+    <Compile Include="Controllers\DanhMucNghiepVu\SDoiTuongDaKTController.cs" />
+    <Compile Include="Controllers\DanhMucNghiepVu\SDoiTuongTrongDiemController.cs" />
     <Compile Include="Controllers\DanhMucNghiepVu\SHangHangKhongController.cs" />
     <Compile Include="Controllers\DanhMucNghiepVu\SHanhKhachDiLaiNhieuController.cs" />
     <Compile Include="Controllers\DanhMucNghiepVu\SHanhKhachVIPController.cs" />
+    <Compile Include="Controllers\DanhMucNghiepVu\SNuocRuiRoController.cs" />
+    <Compile Include="Controllers\DanhMucNghiepVu\STheoDoiDacBietController.cs" />
+    <Compile Include="Controllers\HanhKhach\DDatChoController.cs" />
     <Compile Include="Controllers\HanhKhach\DHanhKhachController.cs" />
+    <Compile Include="Controllers\HanhKhach\DHKHoChieuNuocNgoaiController.cs" />
+    <Compile Include="Controllers\HanhKhach\DNoiChuyenController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\Systems\SPermissionController.cs" />
     <Compile Include="Controllers\Systems\SPhongBanController.cs" />
     <Compile Include="Controllers\Systems\SRoleController.cs" />
     <Compile Include="Controllers\Systems\SUserController.cs" />
+    <Compile Include="Dto\DanhMuc\ChuyenBayDto.cs" />
     <Compile Include="Dto\HanhKhach\DHanhKhachSearchDto.cs" />
+    <Compile Include="Dto\User\ChangePasswordDto.cs" />
     <Compile Include="Dto\User\CreateOrUpdateUserDto.cs" />
     <Compile Include="Dto\SearchDto.cs" />
     <Compile Include="Dto\User\SUserViewDto.cs" />
@@ -238,10 +249,25 @@
     <Compile Include="Models\mien_thue.cs">
       <DependentUpon>DataXNCModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SChuyenBay.cs">
+      <DependentUpon>DataXNCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SDoiTuongDaKT.cs">
+      <DependentUpon>DataXNCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SDoiTuongTrongDiem.cs">
+      <DependentUpon>DataXNCModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\SHanhKhachDiLaiNhieu.cs">
       <DependentUpon>DataXNCModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SHanhKhachVIP.cs">
+      <DependentUpon>DataXNCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SNuocRuiRo.cs">
+      <DependentUpon>DataXNCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\STheoDoiDacBiet.cs">
       <DependentUpon>DataXNCModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\warning_history.cs">
@@ -1489,9 +1515,18 @@
     <Content Include="Views\DHanhKhach\Index.cshtml" />
     <Content Include="Views\SHanhKhachDiLaiNhieu\Index.cshtml" />
     <Content Include="Views\SHanhKhachVIP\Index.cshtml" />
+    <Content Include="Views\SChuyenBay\Index.cshtml" />
+    <Content Include="Views\SDoiTuongTrongDiem\Index.cshtml" />
+    <Content Include="Views\DDatCho\Index.cshtml" />
+    <Content Include="Views\DHKHoChieuNuocNgoai\Index.cshtml" />
+    <Content Include="Views\SDoiTuongDaKT\Index.cshtml" />
+    <Content Include="Views\STheoDoiDacBiet\Index.cshtml" />
+    <Content Include="Views\DNoiChuyen\Index.cshtml" />
+    <Content Include="Views\SNuocRuiRo\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Account\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
