@@ -5,7 +5,7 @@ using System.Web;
 
 namespace WebNoiBai.Dto.HanhKhach
 {
-    public class DHanhKhachSearchDto
+    public class DHanhKhachSearchDto : SearchDto
     {
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
@@ -13,12 +13,12 @@ namespace WebNoiBai.Dto.HanhKhach
         public string SoHieu { get; set; }
         public string NoiDi {  get; set; }
         public string NoiDen {  get; set; }
-        public int? ObjectType {  get; set; }
-        public string HoTen {  get; set; }
-        public int PageNum { get; set; } = 1;
-        public int PageSize { get; set; } = 100;
+        public int? ObjectType { get; set; }
+        public string QuocTich {  get; set; }
 
-        public int Skip => (PageNum - 1) * PageSize;
+
+        public int? SoLan { get; set; } = 1;
+        public string HoTen {  get; set; }
         public List<string> LstSoGiayTo => SoGiayTo?.Replace(";",",").Split(',').ToList() ?? new List<string>();
         public List<string> LstSoHieu => SoHieu?.Replace(";",",").Split(',').ToList() ?? new List<string>();
 

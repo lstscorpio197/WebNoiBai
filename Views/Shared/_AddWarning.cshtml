@@ -1,0 +1,110 @@
+﻿
+<div class="modal modal-edit left fade" id="ObjectWarning" role="dialog" aria-labelledby="exampleModalLabel" data-bs-keyboard="true" aria-bs-hidden="true" data-bs-backdrop="static" style="padding-top: 42px !important;">
+    <div class="modal-dialog modal-md modal-dialog-slideout" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel">
+                    Thông tin
+                </h4>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <i class="icon-close-ico-tsd"></i>
+                </button>
+            </div>
+            <div class="modal-body" style="background-color: #FBFBFB">
+                <div class="modal-body-content" style="padding: 16px; background-color: #FFFFFF;height: 100%;">
+                    <form id="ObjectWarningForm">
+                        <div class="row mb6">
+                            <div class="col-md-12">Loại hành khách/đối tượng<span class="red">*</span></div>
+                        </div>
+                        <div class="mb16 row">
+                            <div class="col-md-12">
+                                <select class="wid100" name="Type">
+                                    <option value="STheoDoi">Đối tượng theo dõi</option>
+                                    <option value="SHanhKhachDiLaiNhieu">Hành khách đi lại nhiều lần</option>
+                                    <option value="SDoiTuongTrongDiem">Đối tượng trọng điểm</option>
+                                    <option value="STheoDoiDacBiet">Đối tượng theo dõi đặc biệt</option>
+                                    <option value="SDoiTuongDaKT">Đối tượng đã kiểm tra</option>
+                                    <option value="SHanhKhachVIP">Hành khách VIP</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb6">
+                            <div class="col-md-12">Họ tên<span class="red">*</span></div>
+                        </div>
+                        <div class="mb16 row">
+                            <div class="col-md-12">
+                                <input name="HoTen" type="text" autocomplete="off" placeholder="Nhập nội dung" class="wid100" value="" readonly />
+                            </div>
+                        </div>
+
+                        <div class="row mb6">
+                            <div class="col-md-8">Số giấy tờ <span class="red">*</span></div>
+                            <div class="col-md-4">Loại giấy tờ <span class="red">*</span></div>
+                        </div>
+                        <div class="mb16 row">
+                            <div class="col-md-8">
+                                <input name="SoGiayTo" type="text" placeholder="Nhập nội dung" class="wid100" maxlength="50" value="" autocomplete="off" readonly />
+                            </div>
+                            <div class="col-md-4">
+                                <input name="LoaiGiayTo" type="text" placeholder="Nhập nội dung" class="wid100" maxlength="50" value="" autocomplete="off" readonly />
+                            </div>
+                        </div>
+
+                        <div class="row mb6">
+                            <div class="col-md-4">Ngày sinh</div>
+                            <div class="col-md-4">Giới tính</div>
+                            <div class="col-md-4">Quốc tịch</div>
+                        </div>
+                        <div class="mb16 row">
+                            <div class="col-md-4">
+                                <div class="inline-block input-group is_Datetimepicker">
+                                    <input name="NgaySinh" placeholder="dd/mm/yyyy" class="w-100 item-search input-date form-control-sm" value="" readonly disabled>
+                                    <span class="input-group-addon cursor">
+                                        <span class="icon-calendar-ico-tsd"></span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-md-4 padTop10px radio-group">
+                                <label class="mr8"><input type="radio" class="ace cb" name="GioiTinh" id="M" data-value="M" readonly disabled><span class="lbl">&nbsp;Nam</span></label>
+                                <label class="ml8"><input type="radio" class="ace cb" name="GioiTinh" id="F" data-value="F" readonly disabled><span class="lbl">&nbsp;Nữ</span></label>
+                            </div>
+                            <div class="col-md-4">
+                                <input name="QuocTich" type="text" autocomplete="off" placeholder="Nhập nội dung" class="wid100" value="" readonly />
+                            </div>
+                        </div>
+
+                        <div class="row mb6">
+                            <div class="col-md-12">Dấu hiệu rủi ro</div>
+                        </div>
+                        <div class="mt6 mb16 row">
+                            <div class="col-md-12">
+                                <textarea name="DauHieuRuiRo" rows="2" class="wid100" maxlength="500"></textarea>
+                            </div>
+                        </div>
+                        <div class="row mb6">
+                            <div class="col-md-12">Yêu cầu nghiệp vụ</div>
+                        </div>
+                        <div class="mt6 mb16 row">
+                            <div class="col-md-12">
+                                <textarea name="YeuCauNghiepVu" rows="2" class="wid100" maxlength="500"></textarea>
+                            </div>
+                        </div>
+                        <div class="row mb6">
+                            <div class="col-md-12">Ghi chú</div>
+                        </div>
+                        <div class="mt6 mb16 row">
+                            <div class="col-md-12">
+                                <textarea name="GhiChu" rows="2" class="wid100" maxlength="500"></textarea>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="icon-close-ico-tsd"></i><span class="ml8">Đóng</span></button>
+                <button type="button" class="btn btn-primary" id="btn-save"><i class="icon-save-ico-tsd"></i><span class="ml8">Lưu lại</span></button>
+            </div>
+        </div>
+    </div>
+</div>

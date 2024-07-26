@@ -12,7 +12,7 @@ namespace WebNoiBai.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class SHanhKhachDiLaiNhieu
+    public partial class SHuongDanVien
     {
         public decimal Id { get; set; }
         public string HoTen { get; set; }
@@ -26,7 +26,5 @@ namespace WebNoiBai.Models
         public string NguoiTao { get; set; }
         public Nullable<System.DateTime> NgaySua { get; set; }
         public string NguoiSua { get; set; }
-        public string DauHieuRuiRo { get; set; }
-        public string YeuCauNghiepVu { get; set; }
     }
 }

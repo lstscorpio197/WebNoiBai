@@ -1,8 +1,10 @@
 ﻿using GemBox.Spreadsheet;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
+using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -29,7 +31,7 @@ namespace WebNoiBai.Controllers.HanhKhach
             try
             {
                 var query = GetQuery(itemSearch);
-                var result = query.OrderBy(x => x.FLIGHTDATE).ThenBy(x=>x.IDCHUYENBAY).Skip(itemSearch.Skip).Take(itemSearch.PageSize).ToList();
+                var result = query.Skip(itemSearch.Skip).Take(itemSearch.PageSize).ToList();
                 httpMessage.Body.Data = result;
                 httpMessage.Body.Pagination = new HttpMessagePagination
                 {
@@ -48,6 +50,30 @@ namespace WebNoiBai.Controllers.HanhKhach
             }
         }
 
+        public JsonResult GetItem(string sogiayto, long idchuyenbay)
+        {
+            HttpMessage httpMessage = new HttpMessage(true);
+            try
+            {
+                var item = dbXNC.chuyenbay_hanhkhach.FirstOrDefault(x => x.SOGIAYTO == sogiayto && x.IDCHUYENBAY == idchuyenbay);
+                if (item == null)
+                {
+                    httpMessage.IsOk = false;
+                    httpMessage.Body.MsgNoti = new HttpMessageNoti("400", null, "Không tìm thấy thông tin");
+                    return Json(httpMessage, JsonRequestBehavior.AllowGet);
+                }
+
+                httpMessage.Body.Data = new { HoTen = (item.HO + " " + item.TENDEM + " " + item.TEN).Trim(), SoGiayTo = item.SOGIAYTO, LoaiGiayTo = item.LOAIGIAYTO, NgaySinh = item.NGAYSINH, GioiTinh = item.GIOITINH, QuocTich = item.QUOCTICH };
+                return Json(httpMessage, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                httpMessage.IsOk = false;
+                httpMessage.Body.MsgNoti = new HttpMessageNoti("500", null, ex.Message);
+                return Json(httpMessage, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         public async Task<JsonResult> ImportExcel()
         {
             HttpMessage httpMessage = new HttpMessage(true);
@@ -56,7 +82,7 @@ namespace WebNoiBai.Controllers.HanhKhach
                 try
                 {
                     var files = Request.Files;
-                    if(files.Count == 0)
+                    if (files.Count == 0)
                     {
                         httpMessage.IsOk = false;
                         httpMessage.Body.MsgNoti = new HttpMessageNoti("500", null, "Vui lòng chọn file");
@@ -101,7 +127,7 @@ namespace WebNoiBai.Controllers.HanhKhach
                     httpMessage.IsOk = false;
                     httpMessage.Body.MsgNoti = new HttpMessageNoti("500", null, ex.Message);
                     return Json(httpMessage, JsonRequestBehavior.AllowGet);
-                } 
+                }
             }
         }
 
@@ -110,7 +136,50 @@ namespace WebNoiBai.Controllers.HanhKhach
             HttpMessage httpMessage = new HttpMessage(true);
             try
             {
+                SpreadsheetInfo.SetLicense(AppConst.KeyGemBoxSpreadsheet);
+                var workbook = ExcelFile.Load(Server.MapPath("/FileTemp/DS_HanhKhach.xlsx"));
+                var workSheet = workbook.Worksheets[0];
 
+                var query = GetQuery(itemSearch);
+                var result = query.ToList();
+                int row = 5;
+                int stt = 1;
+                if (result.Any())
+                {
+                    foreach (var item in result)
+                    {
+                        workSheet.Cells["A" + row].SetValue(stt);
+                        workSheet.Cells["B" + row].SetValue(item.FLIGHTDATE_TXT);
+                        workSheet.Cells["C" + row].SetValue(item.SOHIEU);
+                        workSheet.Cells["D" + row].SetValue(item.MADATCHO);
+                        workSheet.Cells["E" + row].SetValue(item.HOTEN);
+                        workSheet.Cells["F" + row].SetValue(item.GIOITINH_TXT);
+                        workSheet.Cells["G" + row].SetValue(item.QUOCTICH);
+                        workSheet.Cells["H" + row].SetValue(item.NGAYSINH_TXT);
+                        workSheet.Cells["I" + row].SetValue(item.LOAIGIAYTO);
+                        workSheet.Cells["J" + row].SetValue(item.SOGIAYTO);
+                        workSheet.Cells["K" + row].SetValue(item.NOIDI);
+                        workSheet.Cells["L" + row].SetValue(item.MANOIDI);
+                        workSheet.Cells["M" + row].SetValue(item.MANOIDEN);
+                        workSheet.Cells["N" + row].SetValue(item.NOIDEN);
+                        workSheet.Cells["O" + row].SetValue(item.HANHLY);
+
+                        stt++;
+                        row++;
+                    }
+                }
+
+                var range = workSheet.Cells.GetSubrange("A4", "O" + (row - 1));
+                range.Style.Borders.SetBorders(MultipleBorders.All, SpreadsheetColor.FromName(ColorName.Black), LineStyle.Thin);
+                // xuất tài liệu thành tệp tin
+                string handle = Guid.NewGuid().ToString();
+                var stream = new MemoryStream();
+                workbook.Save(stream, SaveOptions.XlsxDefault);
+                stream.Position = 0;
+                System.Web.HttpContext.Current.Cache.Insert(handle, stream.ToArray());
+                byte[] data = stream.ToArray() as byte[];
+
+                httpMessage.Body.Data = new { FileGuid = handle, FileName = string.Format("DS_HanhKhach_{0}_{1}.xlsx", itemSearch.StartDate?.ToString("yyyyMMdd"), itemSearch.EndDate?.ToString("yyyyMMdd")) };
                 return Json(httpMessage, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -138,7 +207,7 @@ namespace WebNoiBai.Controllers.HanhKhach
             }
         }
 
-        private IQueryable<chuyenbay_hanhkhach> GetQuery(DHanhKhachSearchDto itemSearch)
+        private IQueryable<DHanhKhachViewDto> GetQuery(DHanhKhachSearchDto itemSearch)
         {
             DateTime startDate = itemSearch.StartDate?.AddDays(-1) ?? DateTime.Today.AddDays(-1);
             DateTime endDate = itemSearch.EndDate?.AddDays(1) ?? DateTime.Today.AddDays(1);
@@ -151,6 +220,14 @@ namespace WebNoiBai.Controllers.HanhKhach
             {
                 query = query.Where(x => itemSearch.LstSoHieu.Contains(x.SOHIEU));
             }
+            if (!string.IsNullOrEmpty(itemSearch.HoTen))
+            {
+                var arrHoTen = itemSearch.HoTen.Split(' ');
+                foreach (var item in arrHoTen)
+                {
+                    query = query.Where(x => x.HO.Contains(item) || x.TENDEM.Contains(item) || x.TEN.Contains(item));
+                }
+            }
             if (!string.IsNullOrEmpty(itemSearch.NoiDi))
             {
                 query = query.Where(x => x.NOIDI == itemSearch.NoiDi);
@@ -159,7 +236,66 @@ namespace WebNoiBai.Controllers.HanhKhach
             {
                 query = query.Where(x => x.NOIDEN == itemSearch.NoiDen);
             }
-            return query;
+            if (!string.IsNullOrEmpty(itemSearch.QuocTich))
+            {
+                query = query.Where(x => x.QUOCTICH == itemSearch.QuocTich);
+            }
+            switch (itemSearch.ObjectType)
+            {
+                case 0://Đi lại nhiều
+                    query = from a in query
+                            join b in dbXNC.SHanhKhachDiLaiNhieux on a.SOGIAYTO equals b.SoGiayTo
+                            select a;
+                    break;
+                case 1://VIP
+                    query = from a in query
+                            join b in dbXNC.SHanhKhachVIPs on a.SOGIAYTO equals b.SoGiayTo
+                            select a;
+                    break;
+                case 2://Trọng điểm
+                    query = from a in query
+                            join b in dbXNC.SDoiTuongTrongDiems on a.SOGIAYTO equals b.SoGiayTo
+                            select a;
+                    break;
+                case 3://Theo dõi đặc biệt
+                    query = from a in query
+                            join b in dbXNC.STheoDoiDacBiets on a.SOGIAYTO equals b.SoGiayTo
+                            select a;
+                    break;
+                case 4://Đã kiểm tra
+                    query = from a in query
+                            join b in dbXNC.SDoiTuongDaKTs on a.SOGIAYTO equals b.SoGiayTo
+                            select a;
+                    break;
+                case 5://Đối tượng theo dõi
+                    query = from a in query
+                            join b in dbXNC.canhbao_hanhkhach on a.SOGIAYTO equals b.so_giay_to
+                            select a;
+                    break;
+                default:
+                    break;
+            }
+
+            return query.Select(x => new DHanhKhachViewDto
+            {
+                FLIGHTDATE = x.FLIGHTDATE,
+                GIOITINH = x.GIOITINH,
+                HANHLY = x.HANHLY,
+                HO = x.HO,
+                IDCHUYENBAY = x.IDCHUYENBAY,
+                MADATCHO = x.MADATCHO,
+                MANOIDEN = x.MANOIDEN,
+                MANOIDI = x.MANOIDI,
+                NGAYSINH = x.NGAYSINH,
+                NOIDEN = x.NOIDEN,
+                NOIDI = x.NOIDI,
+                QUOCTICH = x.QUOCTICH,
+                SOGIAYTO = x.SOGIAYTO,
+                LOAIGIAYTO = x.LOAIGIAYTO,
+                SOHIEU = x.SOHIEU,
+                TEN = x.TEN,
+                TENDEM = x.TENDEM
+            }).OrderBy(x => x.FLIGHTDATE).ThenBy(x => x.IDCHUYENBAY);
         }
 
         private List<ExcelImport> GetListColumnImportExcel()

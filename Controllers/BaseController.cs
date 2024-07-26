@@ -26,5 +26,21 @@ namespace WebNoiBai.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public ActionResult Download(string fileGuid, string fileName)
+        {
+            var dataCache = System.Web.HttpContext.Current.Cache.Get(fileGuid);
+            if (dataCache != null)
+            {
+                byte[] data = dataCache as byte[];
+                System.Web.HttpContext.Current.Cache.Remove(fileGuid);
+
+                return File(data, "application/octet-stream", fileName);
+            }
+            else
+            {
+                return new EmptyResult();
+            }
+        }
     }
 }

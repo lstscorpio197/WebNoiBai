@@ -9,7 +9,7 @@
           <Key>
             <PropertyRef Name="FI_ID" />
           </Key>
-          <Property Name="FI_ID" Type="int" Nullable="false" />
+          <Property Name="FI_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FI_TENCANG" Type="nvarchar" MaxLength="100" />
           <Property Name="FI_NUOC" Type="nvarchar" MaxLength="45" />
           <Property Name="FI_MANUOC" Type="nvarchar" MaxLength="5" />
@@ -377,7 +377,7 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FI_TENHANGHANGKHONG" Type="nvarchar" MaxLength="45" />
           <Property Name="FI_NUOC" Type="nvarchar" MaxLength="45" />
           <Property Name="FI_MAICAO" Type="nvarchar" MaxLength="5" />
@@ -493,6 +493,8 @@
           <Property Name="NgaySinh" Type="datetime" />
           <Property Name="GioiTinh" Type="nvarchar" MaxLength="5" />
           <Property Name="QuocTich" Type="nvarchar" MaxLength="20" />
+          <Property Name="DauHieuRuiRo" Type="nvarchar" MaxLength="4000" />
+          <Property Name="YeuCauNghiepVu" Type="nvarchar" MaxLength="4000" />
           <Property Name="GhiChu" Type="nvarchar" MaxLength="4000" />
           <Property Name="NgayTao" Type="datetime" />
           <Property Name="NguoiTao" Type="nvarchar" MaxLength="50" />
@@ -510,6 +512,8 @@
           <Property Name="NgaySinh" Type="datetime" />
           <Property Name="GioiTinh" Type="nvarchar" MaxLength="5" />
           <Property Name="QuocTich" Type="nvarchar" MaxLength="20" />
+          <Property Name="DauHieuRuiRo" Type="nvarchar" MaxLength="4000" />
+          <Property Name="YeuCauNghiepVu" Type="nvarchar" MaxLength="4000" />
           <Property Name="GhiChu" Type="nvarchar" MaxLength="4000" />
           <Property Name="NgayTao" Type="datetime" />
           <Property Name="NguoiTao" Type="nvarchar" MaxLength="50" />
@@ -517,6 +521,23 @@
           <Property Name="NguoiSua" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="SHanhKhachVIP">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="decimal" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HoTen" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="SoGiayTo" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="LoaiGiayTo" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="NgaySinh" Type="datetime" />
+          <Property Name="GioiTinh" Type="nvarchar" MaxLength="5" />
+          <Property Name="QuocTich" Type="nvarchar" MaxLength="20" />
+          <Property Name="GhiChu" Type="nvarchar" MaxLength="4000" />
+          <Property Name="NgayTao" Type="datetime" />
+          <Property Name="NguoiTao" Type="nvarchar" MaxLength="50" />
+          <Property Name="NgaySua" Type="datetime" />
+          <Property Name="NguoiSua" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="SHuongDanVien">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -542,6 +563,25 @@
           <Property Name="MaSanBay" Type="nvarchar" MaxLength="5" Nullable="false" />
           <Property Name="GhiChu" Type="nvarchar" MaxLength="2000" />
         </EntityType>
+        <EntityType Name="STheoDoi">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="decimal" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HoTen" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="SoGiayTo" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="LoaiGiayTo" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="NgaySinh" Type="datetime" />
+          <Property Name="GioiTinh" Type="nvarchar" MaxLength="5" />
+          <Property Name="QuocTich" Type="nvarchar" MaxLength="20" />
+          <Property Name="DauHieuRuiRo" Type="nvarchar" MaxLength="4000" />
+          <Property Name="YeuCauNghiepVu" Type="nvarchar" MaxLength="4000" />
+          <Property Name="GhiChu" Type="nvarchar" MaxLength="4000" />
+          <Property Name="NgayTao" Type="datetime" />
+          <Property Name="NguoiTao" Type="nvarchar" MaxLength="50" />
+          <Property Name="NgaySua" Type="datetime" />
+          <Property Name="NguoiSua" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="STheoDoiDacBiet">
           <Key>
             <PropertyRef Name="Id" />
@@ -553,6 +593,8 @@
           <Property Name="NgaySinh" Type="datetime" />
           <Property Name="GioiTinh" Type="nvarchar" MaxLength="5" />
           <Property Name="QuocTich" Type="nvarchar" MaxLength="20" />
+          <Property Name="DauHieuRuiRo" Type="nvarchar" MaxLength="4000" />
+          <Property Name="YeuCauNghiepVu" Type="nvarchar" MaxLength="4000" />
           <Property Name="GhiChu" Type="nvarchar" MaxLength="4000" />
           <Property Name="NgayTao" Type="datetime" />
           <Property Name="NguoiTao" Type="nvarchar" MaxLength="50" />
@@ -603,7 +645,9 @@
           <EntitySet Name="SDoiTuongTrongDiem" EntityType="Self.SDoiTuongTrongDiem" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SHanhKhachDiLaiNhieu" EntityType="Self.SHanhKhachDiLaiNhieu" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SHanhKhachVIP" EntityType="Self.SHanhKhachVIP" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SHuongDanVien" EntityType="Self.SHuongDanVien" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SNuocRuiRo" EntityType="Self.SNuocRuiRo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="STheoDoi" EntityType="Self.STheoDoi" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="STheoDoiDacBiet" EntityType="Self.STheoDoiDacBiet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="warning_history" EntityType="Self.warning_history" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
@@ -1105,6 +1149,8 @@
           <EntitySet Name="SDoiTuongDaKTs" EntityType="DataXNCModel.SDoiTuongDaKT" />
           <EntitySet Name="SNuocRuiRoes" EntityType="DataXNCModel.SNuocRuiRo" />
           <EntitySet Name="STheoDoiDacBiets" EntityType="DataXNCModel.STheoDoiDacBiet" />
+          <EntitySet Name="STheoDois" EntityType="DataXNCModel.STheoDoi" />
+          <EntitySet Name="SHuongDanViens" EntityType="DataXNCModel.SHuongDanVien" />
         </EntityContainer>
         <EntityType Name="SHanhKhachDiLaiNhieu">
           <Key>
@@ -1122,6 +1168,8 @@
           <Property Name="NguoiTao" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="NgaySua" Type="DateTime" Precision="3" />
           <Property Name="NguoiSua" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DauHieuRuiRo" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="YeuCauNghiepVu" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="SHanhKhachVIP">
           <Key>
@@ -1167,6 +1215,8 @@
           <Property Name="NguoiTao" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="NgaySua" Type="DateTime" Precision="3" />
           <Property Name="NguoiSua" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DauHieuRuiRo" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="YeuCauNghiepVu" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="SDoiTuongDaKT">
           <Key>
@@ -1197,6 +1247,44 @@
           <Property Name="GhiChu" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="STheoDoiDacBiet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HoTen" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SoGiayTo" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="LoaiGiayTo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="NgaySinh" Type="DateTime" Precision="3" />
+          <Property Name="GioiTinh" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="QuocTich" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="GhiChu" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="NgayTao" Type="DateTime" Precision="3" />
+          <Property Name="NguoiTao" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NgaySua" Type="DateTime" Precision="3" />
+          <Property Name="NguoiSua" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DauHieuRuiRo" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="YeuCauNghiepVu" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="STheoDoi">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HoTen" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SoGiayTo" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="LoaiGiayTo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="NgaySinh" Type="DateTime" Precision="3" />
+          <Property Name="GioiTinh" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="QuocTich" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="DauHieuRuiRo" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="YeuCauNghiepVu" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="GhiChu" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="NgayTao" Type="DateTime" Precision="3" />
+          <Property Name="NguoiTao" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NgaySua" Type="DateTime" Precision="3" />
+          <Property Name="NguoiSua" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="SHuongDanVien">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -1703,6 +1791,8 @@
           <EntitySetMapping Name="SHanhKhachDiLaiNhieux">
             <EntityTypeMapping TypeName="DataXNCModel.SHanhKhachDiLaiNhieu">
               <MappingFragment StoreEntitySet="SHanhKhachDiLaiNhieu">
+                <ScalarProperty Name="YeuCauNghiepVu" ColumnName="YeuCauNghiepVu" />
+                <ScalarProperty Name="DauHieuRuiRo" ColumnName="DauHieuRuiRo" />
                 <ScalarProperty Name="NguoiSua" ColumnName="NguoiSua" />
                 <ScalarProperty Name="NgaySua" ColumnName="NgaySua" />
                 <ScalarProperty Name="NguoiTao" ColumnName="NguoiTao" />
@@ -1751,6 +1841,8 @@
           <EntitySetMapping Name="SDoiTuongTrongDiems">
             <EntityTypeMapping TypeName="DataXNCModel.SDoiTuongTrongDiem">
               <MappingFragment StoreEntitySet="SDoiTuongTrongDiem">
+                <ScalarProperty Name="YeuCauNghiepVu" ColumnName="YeuCauNghiepVu" />
+                <ScalarProperty Name="DauHieuRuiRo" ColumnName="DauHieuRuiRo" />
                 <ScalarProperty Name="NguoiSua" ColumnName="NguoiSua" />
                 <ScalarProperty Name="NgaySua" ColumnName="NgaySua" />
                 <ScalarProperty Name="NguoiTao" ColumnName="NguoiTao" />
@@ -1799,6 +1891,46 @@
           <EntitySetMapping Name="STheoDoiDacBiets">
             <EntityTypeMapping TypeName="DataXNCModel.STheoDoiDacBiet">
               <MappingFragment StoreEntitySet="STheoDoiDacBiet">
+                <ScalarProperty Name="YeuCauNghiepVu" ColumnName="YeuCauNghiepVu" />
+                <ScalarProperty Name="DauHieuRuiRo" ColumnName="DauHieuRuiRo" />
+                <ScalarProperty Name="NguoiSua" ColumnName="NguoiSua" />
+                <ScalarProperty Name="NgaySua" ColumnName="NgaySua" />
+                <ScalarProperty Name="NguoiTao" ColumnName="NguoiTao" />
+                <ScalarProperty Name="NgayTao" ColumnName="NgayTao" />
+                <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
+                <ScalarProperty Name="QuocTich" ColumnName="QuocTich" />
+                <ScalarProperty Name="GioiTinh" ColumnName="GioiTinh" />
+                <ScalarProperty Name="NgaySinh" ColumnName="NgaySinh" />
+                <ScalarProperty Name="LoaiGiayTo" ColumnName="LoaiGiayTo" />
+                <ScalarProperty Name="SoGiayTo" ColumnName="SoGiayTo" />
+                <ScalarProperty Name="HoTen" ColumnName="HoTen" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="STheoDois">
+            <EntityTypeMapping TypeName="DataXNCModel.STheoDoi">
+              <MappingFragment StoreEntitySet="STheoDoi">
+                <ScalarProperty Name="NguoiSua" ColumnName="NguoiSua" />
+                <ScalarProperty Name="NgaySua" ColumnName="NgaySua" />
+                <ScalarProperty Name="NguoiTao" ColumnName="NguoiTao" />
+                <ScalarProperty Name="NgayTao" ColumnName="NgayTao" />
+                <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
+                <ScalarProperty Name="YeuCauNghiepVu" ColumnName="YeuCauNghiepVu" />
+                <ScalarProperty Name="DauHieuRuiRo" ColumnName="DauHieuRuiRo" />
+                <ScalarProperty Name="QuocTich" ColumnName="QuocTich" />
+                <ScalarProperty Name="GioiTinh" ColumnName="GioiTinh" />
+                <ScalarProperty Name="NgaySinh" ColumnName="NgaySinh" />
+                <ScalarProperty Name="LoaiGiayTo" ColumnName="LoaiGiayTo" />
+                <ScalarProperty Name="SoGiayTo" ColumnName="SoGiayTo" />
+                <ScalarProperty Name="HoTen" ColumnName="HoTen" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SHuongDanViens">
+            <EntityTypeMapping TypeName="DataXNCModel.SHuongDanVien">
+              <MappingFragment StoreEntitySet="SHuongDanVien">
                 <ScalarProperty Name="NguoiSua" ColumnName="NguoiSua" />
                 <ScalarProperty Name="NgaySua" ColumnName="NgaySua" />
                 <ScalarProperty Name="NguoiTao" ColumnName="NguoiTao" />

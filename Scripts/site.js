@@ -249,4 +249,53 @@ $(document).ready(function () {
 
     $userInfo.init();
     $changePass.init();
+
+    const $modalWarning = $('#ObjectWarning');
+    const $formWarning = $('#ObjectWarningForm');
+    $(function () {
+        var $ChiTiet = {
+            init: function () {
+                this.Save();
+                this.ResetForm();
+            },
+            Self: $('#ObjectWarning'),
+            ResetForm: () => {
+                $modalWarning.on('hidden.modal.bs', () => {
+                    $formWarning.find('input').val('');
+                    $formWarning.find('textarea').val('');
+                    $formWarning.find('input:checkbox').prop('checked', true);
+                    $formWarning.find('select').find('option:first-child').prop('selected', true);
+                    $formWarning.validate().resetForm();
+                    $formWarning.find('.error').removeClass('error');
+                })
+            },
+            GetDataInput: () => {
+                if (!$formWarning.valid()) {
+                    return false;
+                }
+                let data = GetFormDataToObject($formWarning);
+                return data;
+            },
+            Save: () => {
+                $modalWarning.find('#btn-save').off('click').on('click', () => {
+                    let data = $ChiTiet.GetDataInput();
+                    if (!data)
+                        return false;
+                    let $router = data.Type;
+                    var getResponse = AjaxConfigHelper.SendRequestToServer(`/${$router}/Create`, "POST", data);
+                    getResponse.then((res) => {
+                        if (res.IsOk) {
+                            ToastSuccess("Thêm");
+                            $modalWarning.modal('hide');
+                        }
+                        else {
+
+                        }
+                    })
+                })
+            }
+        };
+
+        $ChiTiet.init();
+    });
 })

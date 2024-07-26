@@ -9,7 +9,7 @@
             <div class="card-title bold">@ViewBag.Title</div>
             <div class="card-right">
                 <button class="btn btn-primary" id="btn-add" type="button" data-bs-toggle="modal" data-bs-target="#ImportExcel"><i class="fa fa-file-excel-o"></i><span class="ml8">Import Excel</span></button>
-                <button class="btn btn-success" id="btn-add" type="button"><i class="fa fa-file-excel"></i><span class="ml8">Export Excel</span></button>
+                <button class="btn btn-success" id="btn-export" type="button"><i class="fa fa-file-excel"></i><span class="ml8">Export Excel</span></button>
             </div>
         </div>
         <div class="card-body" style="max-height: 929px;">
@@ -31,17 +31,24 @@
                     </div>
                     <input class="item-search wid200px" autocomplete="off" name="SoGiayTo" placeholder="Số giấy tờ" />
                     <input class="item-search wid200px" autocomplete="off" name="SoHieu" placeholder="Số hiệu chuyến bay" />
-                    <button class="btn btn-primary btnSearch" type="button"><i class="icon-search-ico-tsd"></i></button>
+                    <input class="item-search wid100px" autocomplete="off" name="NoiDi" placeholder="Điểm xuất phát" />
+                    <input class="item-search wid100px" autocomplete="off" name="NoiDen" placeholder="Điểm kết thúc" />
+
+                    <button class="btn btn-secondary" style="height:38px;" id="btn-extend-search" type="button" data-bs-toggle="modal" data-bs-target="#SearchModal"><i class="far fa-filter"></i>&nbsp;Nâng cao&nbsp;<span class="badge">0</span></button>
+
+                    <button class="btn btn-primary btnSearch" type="button"><i class="icon-search-ico-tsd"></i>&nbsp;Tìm kiếm</button>
+
+
                 </div>
             </div>
             <div class="frame-body has-scroll" style="max-height: 725px;">
                 <table class="width100" id="TBLDANHSACH">
                     <thead>
                         <tr>
-                            <th class="text-center width50px">STT</th>
-                            <th class="text-center">Số hiệu chuyến bay</th>
-                            <th class="text-center">Ngày bay</th>
-                            <th class="text-center">Họ tên</th>
+                            <th class="text-center width75px">STT</th>
+                            <th class="text-center wid100px">Số hiệu chuyến bay</th>
+                            <th class="text-center wid100px">Ngày bay</th>
+                            <th class="text-center wid200px">Họ tên</th>
                             <th class="text-center">Quốc tịch</th>
                             <th class="text-center">Số giấy tờ</th>
                             <th class="text-center">Ngày sinh</th>
@@ -95,6 +102,62 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa fa-times"></i><span class="ml8">&nbsp;Đóng</span></button>
                 <button type="button" class="btn btn-primary" id="btn-import"><i class="fa fa-save"></i><span class="ml8">&nbsp;Lưu lại</span></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal modal-edit left fade" id="SearchModal" role="dialog" aria-labelledby="exampleModalLabel" data-bs-keyboard="true" aria-bs-hidden="true" data-bs-backdrop="static" style="padding-top: 42px !important;">
+    <div class="modal-dialog modal-sm modal-dialog-slideout" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel">
+                    Tìm kiếm nâng cao
+                </h4>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <i class="icon-close-ico-tsd"></i>
+                </button>
+            </div>
+            <div class="modal-body" style="background-color: #FBFBFB">
+                <div class="modal-body-content" style="padding: 16px; background-color: #FFFFFF;height: 100%;">
+
+                    <div class="row mb16 d-flex align-items-center">
+                        <div class="col-md-3">
+                            Họ tên
+                        </div>
+                        <div class="col-md-9">
+                            <input class="item-search wid100" autocomplete="off" name="HoTen" placeholder="Họ tên" />
+                        </div>
+                    </div>
+                    <div class="row mb16 d-flex align-items-center">
+                        <div class="col-md-3">
+                            Quốc tịch
+                        </div>
+                        <div class="col-md-9">
+                            <input class="item-search wid100" autocomplete="off" name="QuocTich" placeholder="QuocTich" />
+                        </div>
+                    </div>
+                    <div class="row mb16 d-flex align-items-center">
+                        <div class="col-md-3">
+                            Thuộc danh mục
+                        </div>
+                        <div class="col-md-9">
+                            <select class="item-search wid200px" name="ObjectType">
+                                <option value="">--Là hành khách--</option>
+                                <option value="0">Hành khách đi lại nhiều</option>
+                                <option value="1">Hành khách VIP</option>
+                                <option value="2">Đối tượng trọng điểm</option>
+                                <option value="3">Đối tượng theo dõi đặc biệt</option>
+                                <option value="4">Đối tượng đã kiểm tra</option>
+                                <option value="5">Đối tượng theo dõi</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa fa-times"></i><span class="ml8">&nbsp;Đóng</span></button>
+                <button type="button" class="btn btn-primary" id="btn-search"><i class="fa fa-search"></i><span class="ml8">&nbsp;Tìm kiếm</span></button>
             </div>
         </div>
     </div>

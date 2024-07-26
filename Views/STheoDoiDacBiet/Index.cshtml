@@ -19,7 +19,7 @@
                     <button class="btn btn-primary btnSearch" type="button"><i class="fa fa-search"></i></button>
                 </div>
             </div>
-            <div class="frame-body has-scroll" style="max-height: 739px;">
+            <div class="frame-body has-scroll" style="">
                 <table class="width100" id="TBLDANHSACH">
                     <thead>
                         <tr>
@@ -29,6 +29,8 @@
                             <th class="text-center">Số giấy tờ</th>
                             <th class="text-center">Ngày sinh</th>
                             <th class="text-center">Giới tính</th>
+                            <th class="text-center">Dấu hiệu rủi ro</th>
+                            <th class="text-center">Yêu cầu nghiệp vụ</th>
                             <th class="text-center">Ghi chú</th>
                         </tr>
                     </thead>
@@ -100,6 +102,23 @@
                             </div>
                             <div class="col-md-4">
                                 <input name="QuocTich" type="text" autocomplete="off" placeholder="Nhập nội dung" class="wid100" value="" />
+                            </div>
+                        </div>
+
+                        <div class="row mb6">
+                            <div class="col-md-12">Dấu hiệu rủi ro</div>
+                        </div>
+                        <div class="mt6 mb16 row">
+                            <div class="col-md-12">
+                                <textarea name="DauHieuRuiRo" rows="2" class="wid100" maxlength="500"></textarea>
+                            </div>
+                        </div>
+                        <div class="row mb6">
+                            <div class="col-md-12">Yêu cầu nghiệp vụ</div>
+                        </div>
+                        <div class="mt6 mb16 row">
+                            <div class="col-md-12">
+                                <textarea name="YeuCauNghiepVu" rows="2" class="wid100" maxlength="500"></textarea>
                             </div>
                         </div>
 
@@ -189,7 +208,7 @@
                             let data = res.Body.Data || [];
 
                             if (data.length == 0) {
-                                html = `<tr><td class="text-center" colspan="7"><span>Không có bản ghi</span></td></tr>`;
+                                html = `<tr><td class="text-center" colspan="9"><span>Không có bản ghi</span></td></tr>`;
                                 $tableBody.html(html);
                                 return false;
                             }
@@ -207,6 +226,8 @@
                                     `<td class="">${item.SoGiayTo}</td>` +
                                     `<td class="">${formatDateFromServer(item.NgaySinh)}</td>` +
                                     `<td class="">${item.GioiTinh}</td>` +
+                                    `<td class="">${item.DauHieuRuiRo}</td>` +
+                                    `<td class="">${item.YeuCauNghiepVu}</td>` +
                                     `<td class="">${item.GhiChu}</td>` +
                                     `</tr>`;
                                 startIndex++;

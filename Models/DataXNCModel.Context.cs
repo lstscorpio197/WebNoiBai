@@ -48,5 +48,7 @@ namespace WebNoiBai.Models
         public virtual DbSet<SDoiTuongDaKT> SDoiTuongDaKTs { get; set; }
         public virtual DbSet<SNuocRuiRo> SNuocRuiRoes { get; set; }
         public virtual DbSet<STheoDoiDacBiet> STheoDoiDacBiets { get; set; }
+        public virtual DbSet<STheoDoi> STheoDois { get; set; }
+        public virtual DbSet<SHuongDanVien> SHuongDanViens { get; set; }
     }
 }

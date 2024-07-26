@@ -1,4 +1,5 @@
 ﻿@using WebNoiBai.Common
+@using WebNoiBai.Dto.User
 @using WebNoiBai.Models
 @{
     ViewBag.Title = "Quản lý tài khoản";
@@ -10,6 +11,20 @@
     int countRole = lstRole.Count();
     int countRow = countRole / 3;
     int itemExtend = countRole % 3;
+
+    var lstPermission = db.SPermissions.AsNoTracking().Where(x => x.Enable == 1)
+    .GroupBy(x => new { x.ControllerName, x.Controller })
+    .Select(x => new UserPermissionViewDto
+    {
+        ControllerName = x.Key.ControllerName,
+        Controller = x.Key.Controller,
+        LstPermission = x.Select(y => new UserPermissionDto
+        {
+            Action = y.Action,
+            ActionName = y.ActionName,
+            PermissionId = y.Id
+        }).ToList()
+    }).ToList();
 }
 
 <div class="mx-ecus">
@@ -28,7 +43,7 @@
                     <button class="btn btn-primary btnSearch" type="button"><i class="icon-search-ico-tsd"></i></button>
                 </div>
             </div>
-            <div class="frame-body has-scroll" style="max-height: 739px;">
+            <div class="frame-body has-scroll" style="">
                 <table class="width100" id="TBLDANHSACH">
                     <thead>
                         <tr>
@@ -186,13 +201,13 @@
                             var item3 = lstRole[i * 3 + 2];
                             <div class="row mb16">
                                 <div class="col-md-4">
-                                    <label><input type="checkbox" class="ace cb" data-id="@item.Id"><span class="lbl">&nbsp;@item.Ten</span></label>
+                                    <label><input type="checkbox" class="ace cb role-item" data-id="@item.Id"><span class="lbl">&nbsp;@item.Ten</span></label>
                                 </div>
                                 <div class="col-md-4">
-                                    <label><input type="checkbox" class="ace cb" data-id="@item2.Id"><span class="lbl">&nbsp;@item2.Ten</span></label>
+                                    <label><input type="checkbox" class="ace cb role-item" data-id="@item2.Id"><span class="lbl">&nbsp;@item2.Ten</span></label>
                                 </div>
                                 <div class="col-md-4">
-                                    <label><input type="checkbox" class="ace cb" data-id="@item3.Id"><span class="lbl">&nbsp;@item3.Ten</span></label>
+                                    <label><input type="checkbox" class="ace cb role-item" data-id="@item3.Id"><span class="lbl">&nbsp;@item3.Ten</span></label>
                                 </div>
                             </div>
                         }
@@ -203,23 +218,34 @@
                                 {
                                     var item = lstRole[countRole - i];
                                     <div class="col-md-4">
-                                        <label><input type="checkbox" class="ace cb" data-id="@item.Id"><span class="lbl">&nbsp;@item.Ten</span></label>
+                                        <label><input type="checkbox" class="ace cb role-item" data-id="@item.Id"><span class="lbl">&nbsp;@item.Ten</span></label>
                                     </div>
                                 }
                             </div>
                         }
                     </div>
-                    
+
                     <div class="row">
                         <div class="col-md-12">
-                            <a href="#" class="" id="btn-view-permission">Xem danh sách quyền theo nhóm</a>
+                            <a href="#" class="" id="btn-view-permission">Xem trước danh sách quyền</a>
                         </div>
                     </div>
                     <div class="row mb16">
                         <div class="col-md-12 border-bottom"><span class="bold">Danh sách quyền theo nhóm</span> </div>
                     </div>
                     <div class="permission-frame">
-
+                        @foreach (var item in lstPermission)
+                        {
+                            <div class="row mb10">
+                                <div class="col-md-4">@item.ControllerName</div>
+                                <div class="col-md-8">
+                                    @foreach (var child in item.LstPermission)
+                                    {
+                                        <label class="mr10px"><input type="checkbox" class="ace cb permission-item" name="permission-@child.PermissionId" data-id="@child.PermissionId" disabled><span class="lbl">&nbsp;@child.ActionName</span></label>
+                                    }
+                                </div>
+                            </div>
+                        }
                     </div>
                 </div>
             </div>

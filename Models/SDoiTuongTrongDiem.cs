@@ -26,5 +26,7 @@ namespace WebNoiBai.Models
         public string NguoiTao { get; set; }
         public Nullable<System.DateTime> NgaySua { get; set; }
         public string NguoiSua { get; set; }
+        public string DauHieuRuiRo { get; set; }
+        public string YeuCauNghiepVu { get; set; }
     }
 }

@@ -191,7 +191,7 @@ namespace WebNoiBai.Controllers.Systems
             {
                 var lstRoleId = db.SUserRoles.AsNoTracking().Where(x => x.UserId == id).Select(x => x.RoleId).ToList();
 
-                httpMessage.Body.Data = new {Id = id, LstRoleId = lstRoleId };
+                httpMessage.Body.Data = new { Id = id, LstRoleId = lstRoleId };
                 return Json(httpMessage, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -209,25 +209,10 @@ namespace WebNoiBai.Controllers.Systems
             try
             {
                 List<int> lstRoleId = JsonConvert.DeserializeObject<List<int>>(strRoleId);
-                var lstPermission = db.SRolePermissions.AsNoTracking().Include(x => x.SPermission)
-                    .Where(x => (lstRoleId.Contains(x.RoleId.Value) && !x.UserId.HasValue) || x.UserId == id)
-                    .Select(x => new UserPermissionDto
-                    {
-                        PermissionId = x.SPermission.Id,
-                        Action = x.SPermission.Action,
-                        ActionName = x.SPermission.ActionName,
-                        Controller = x.SPermission.Controller,
-                        ControllerName = x.SPermission.ControllerName,
-                        IsGranted = x.IsGranted
-                    }).GroupBy(x=> new {x.Controller, x.ControllerName})
-                    .Select(x=> new UserPermissionViewDto
-                    {
-                        Controller = x.Key.Controller,
-                        ControllerName= x.Key.ControllerName,
-                        LstPermission = x.ToList()
-                    }).ToList();
+                var lstPermissionAll = db.SRolePermissions.AsNoTracking().Where(x => lstRoleId.Contains(x.RoleId.Value) && x.IsGranted == 1).Select(x => x.PermissionId).ToList();
+                var lstPermissionNotGranted = db.SRolePermissions.AsNoTracking().Where(x => x.UserId.Value == id && x.IsGranted == 0).Select(x => x.PermissionId).ToList();
 
-                httpMessage.Body.Data = lstPermission;
+                httpMessage.Body.Data = new { All = lstPermissionAll, NotGrant = lstPermissionNotGranted };
                 return Json(httpMessage, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -238,6 +223,58 @@ namespace WebNoiBai.Controllers.Systems
             }
         }
 
+        [HttpPost]
+        public JsonResult UpdatePermission(string strRoleId, string strPermissionId, int id)
+        {
+            HttpMessage httpMessage = new HttpMessage(true);
+            using (var trans = db.Database.BeginTransaction())
+            {
+                try
+                {
+                    List<int> lstRoleId = JsonConvert.DeserializeObject<List<int>>(strRoleId);
+                    List<int> lstPermissionId = JsonConvert.DeserializeObject<List<int>>(strPermissionId);
+
+                    List<int> lstRoleExist = db.SUserRoles.Where(x => x.UserId == id).Select(x => x.RoleId).ToList();
+                    var lstRoleAdd = lstRoleId.Except(lstRoleExist).Select(x => new SUserRole
+                    {
+                        RoleId = x,
+                        UserId = id
+                    }).ToList();
+                    db.SUserRoles.AddRange(lstRoleAdd);
+                    db.SaveChanges();
+
+                    var lstRoleIdRemove = lstRoleExist.Except(lstRoleId);
+                    var lstRoleRemove = db.SUserRoles.Where(x => x.UserId == id && lstRoleIdRemove.Contains(x.RoleId)).ToList();
+                    db.SUserRoles.RemoveRange(lstRoleRemove);
+                    db.SaveChanges();
+
+                    var lstPermissionNotGrantedIdExist = db.SRolePermissions.AsNoTracking().Where(x => x.UserId.Value == id && x.IsGranted == 0).Select(x => x.PermissionId.Value).ToList();
+
+                    var lstPermissionNotGrantedNew = lstPermissionId.Except(lstPermissionNotGrantedIdExist).Select(x => new SRolePermission
+                    {
+                        IsGranted = 0,
+                        PermissionId = x,
+                        UserId = id
+                    });
+                    db.SRolePermissions.AddRange(lstPermissionNotGrantedNew);
+
+                    var lstPermissionNotGrantedIdRemove = lstPermissionNotGrantedIdExist.Except(lstPermissionId);
+                    var lstPermissionNotGrantedRemove = db.SRolePermissions.Where(x => x.UserId == id && lstPermissionNotGrantedIdRemove.Contains(x.PermissionId.Value) && x.IsGranted == 0).ToList();
+                    db.SRolePermissions.RemoveRange(lstPermissionNotGrantedRemove);
+                    db.SaveChanges();
+
+                    trans.Commit();
+                    return Json(httpMessage, JsonRequestBehavior.AllowGet);
+                }
+                catch (Exception ex)
+                {
+                    trans.Rollback();
+                    httpMessage.IsOk = false;
+                    httpMessage.Body.MsgNoti = new HttpMessageNoti("500", null, ex.Message);
+                    return Json(httpMessage, JsonRequestBehavior.AllowGet);
+                } 
+            }
+        }
         private HttpMessage CheckValid(CreateOrUpdateUserDto item)
         {
             HttpMessage httpMessage = new HttpMessage(false);

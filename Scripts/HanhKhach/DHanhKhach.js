@@ -11,8 +11,12 @@ const $form = $('#ModalForm');
 function DataSearch(pageNum) {
     this.StartDate = formatDateFromClientToServerEN($header.find('[name=StartDate]').val());
     this.EndDate = formatDateFromClientToServerEN($header.find('[name=EndDate]').val());
+    this.HoTen = $header.find('[name=HoTen]').val();
     this.SoGiayTo = $header.find('[name=SoGiayTo]').val();
     this.SoHieu = $header.find('[name=SoHieu]').val();
+    this.NoiDen = $header.find('[name=NoiDen]').val();
+    this.NoiDi = $header.find('[name=NoiDi]').val();
+    this.ObjectType = $header.find('[name=ObjectType]').val();
     this.PageNum = pageNum || $footer.find('[name=PageNumber]').val();
     this.PageSize = $footer.find('[name=PageLength]').val();
 }
@@ -21,16 +25,34 @@ $(function () {
     var $page = {
         init: function () {
             $page.BtnSearchClick();
+            $page.BtnExportClick();
             $page.GetList(1);
         },
         Self: $('.card'),
         BtnSearchClick: function () {
             $header.find('.btnSearch').on('click', function () { $page.GetList(1); });
         },
+        BtnExportClick: function () {
+            $page.Self.find('#btn-export').on('click', function () {
+
+                let search = new DataSearch(1);
+                search = $searchModal.getDataSearch(search);
+                
+                var getResponse = AjaxConfigHelper.SendRequestToServer(`/${$router}/ExportExcel`, "GET", search);
+                getResponse.then((res) => {
+                    if (res.IsOk) {
+                        let fileGuid = res.Body.Data.FileGuid;
+                        let fileName = res.Body.Data.FileName;
+                        window.open(`/${$router}/Download?fileGuid=${fileGuid}&fileName=${fileName}`);
+                    }
+                })
+            });
+        },
         GetList: function (pageNum = 1) {
 
             let html = '';
             let search = new DataSearch(pageNum);
+            search = $searchModal.getDataSearch(search);
 
             var getResponse = AjaxConfigHelper.SendRequestToServer(`/${$router}/GetTable`, "GET", search);
             getResponse.then((res) => {
@@ -58,7 +80,7 @@ $(function () {
                             `<td class="text-center">${item.MANOIDEN}</td>` +
                             `<td class="text-center">${item.NOIDEN}</td>` +
                             `<td class="">${item.HANHLY}</td>` +
-                            `<td class="text-center"><span data-id="${item.SOGIAYTO}" data-chuyenbay="${item.ID_CHUYENBAY}" class="fa fa-exclamation-triangle add-warning cursor" style="color:#ffc107;"></span></td>` +
+                            `<td class="text-center"><span data-id="${item.SOGIAYTO}" data-chuyenbay="${item.IDCHUYENBAY}" class="fa fa-exclamation-triangle add-warning cursor" style="color:#ffc107;"></span></td>` +
                             `</tr>`;
                         startIndex++;
                     }
@@ -77,7 +99,31 @@ $(function () {
             $page.Self.find('.add-warning').off('click').on('click', function () {
                 let sgt = $(this).data('id');
                 let cb = $(this).data('chuyenbay');
-                console.log(sgt+ '/' + cb);
+                let dataSend = {
+                    sogiayto: sgt,
+                    idchuyenbay: cb
+                }
+                var getResponse = AjaxConfigHelper.SendRequestToServer(`/DHanhKhach/GetItem`, "GET", dataSend);
+                getResponse.then((res) => {
+                    if (res.IsOk) {
+                        let data = res.Body.Data || {};
+                        for (let prop in data) {
+                            if (prop == 'Enable') {
+                                $('#ObjectWarning').find(`[name=${prop}]`).prop('checked', data[prop] == 1);
+                                continue;
+                            }
+                            if (prop.indexOf('Time') > -1 || prop.indexOf('Ngay') > -1) {
+                                data[prop] = formatDateFromServer(data[prop]);
+                            }
+                            if (prop == 'GioiTinh') {
+                                $('#ObjectWarning').find(`[type="radio"][name=${prop}][data-value=${data[prop]}]`).prop('checked', true);
+                                continue;
+                            }
+                            $('#ObjectWarning').find(`[name=${prop}]`).val(data[prop]);
+                        }
+                        $('#ObjectWarning').modal('show');
+                    }
+                })
             })
         }
     };
@@ -124,6 +170,37 @@ $(function () {
         }
     }
 
+    var $searchModal = {
+        init: function () {
+            $searchModal.closeModal();
+        },
+        Self: $('#SearchModal'),
+        closeModal: function () {
+            $searchModal.Self.on('hidden.modal.bs', function () {
+                let badge = 0;
+                $searchModal.Self.find('input, select').each(function (i, e) {
+                    let name = e.name;
+                    let value = $(e).val() || '';
+                    if (value != '') {
+                        badge = badge + 1;
+                    }
+                })
+                $page.Self.find('.badge').text(badge);
+            })
+        },
+        getDataSearch: function (dataSearch) {
+            $searchModal.Self.find('input, select').each(function (i, e) {
+                let name = e.name;
+                let value = $(e).val() || '';
+                if (value != '') {
+                    dataSearch[name] = value;
+                }
+            })
+            return dataSearch;
+        }
+    }
+
     $page.init();
     $import.init();
+    $searchModal.init();
 });

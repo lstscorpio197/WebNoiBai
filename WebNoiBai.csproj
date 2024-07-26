@@ -167,11 +167,14 @@
     <Compile Include="Controllers\DanhMucNghiepVu\SHangHangKhongController.cs" />
     <Compile Include="Controllers\DanhMucNghiepVu\SHanhKhachDiLaiNhieuController.cs" />
     <Compile Include="Controllers\DanhMucNghiepVu\SHanhKhachVIPController.cs" />
+    <Compile Include="Controllers\DanhMucNghiepVu\SHuongDanVienController.cs" />
     <Compile Include="Controllers\DanhMucNghiepVu\SNuocRuiRoController.cs" />
+    <Compile Include="Controllers\DanhMucNghiepVu\STheoDoiController.cs" />
     <Compile Include="Controllers\DanhMucNghiepVu\STheoDoiDacBietController.cs" />
     <Compile Include="Controllers\HanhKhach\DDatChoController.cs" />
     <Compile Include="Controllers\HanhKhach\DHanhKhachController.cs" />
     <Compile Include="Controllers\HanhKhach\DHKHoChieuNuocNgoaiController.cs" />
+    <Compile Include="Controllers\HanhKhach\DLocTheoTanSuatController.cs" />
     <Compile Include="Controllers\HanhKhach\DNoiChuyenController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -181,6 +184,7 @@
     <Compile Include="Controllers\Systems\SUserController.cs" />
     <Compile Include="Dto\DanhMuc\ChuyenBayDto.cs" />
     <Compile Include="Dto\HanhKhach\DHanhKhachSearchDto.cs" />
+    <Compile Include="Dto\HanhKhach\DHanhKhachViewDto.cs" />
     <Compile Include="Dto\User\ChangePasswordDto.cs" />
     <Compile Include="Dto\User\CreateOrUpdateUserDto.cs" />
     <Compile Include="Dto\SearchDto.cs" />
@@ -264,7 +268,13 @@
     <Compile Include="Models\SHanhKhachVIP.cs">
       <DependentUpon>DataXNCModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SHuongDanVien.cs">
+      <DependentUpon>DataXNCModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\SNuocRuiRo.cs">
+      <DependentUpon>DataXNCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\STheoDoi.cs">
       <DependentUpon>DataXNCModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\STheoDoiDacBiet.cs">
@@ -1416,6 +1426,12 @@
     <Content Include="Models\DataXNCModel.edmx.diagram">
       <DependentUpon>DataXNCModel.edmx</DependentUpon>
     </Content>
+    <Content Include="FileTemp\DS_HanhKhach.xlsx" />
+    <Content Include="FileTemp\DS_HanhKhach_NoiChuyen.xlsx" />
+    <Content Include="FileTemp\DS_ToBay.xlsx" />
+    <Content Include="FileTemp\ExportAdvancedSearch.xlsx" />
+    <Content Include="FileTemp\Mau01.docx" />
+    <Content Include="FileTemp\Mau02.docx" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\core\bootstrap.min.js" />
     <Content Include="Scripts\core\jquery-3.7.1.min.js" />
@@ -1523,6 +1539,10 @@
     <Content Include="Views\STheoDoiDacBiet\Index.cshtml" />
     <Content Include="Views\DNoiChuyen\Index.cshtml" />
     <Content Include="Views\SNuocRuiRo\Index.cshtml" />
+    <Content Include="Views\Shared\_AddWarning.cshtml" />
+    <Content Include="Views\STheoDoi\Index.cshtml" />
+    <Content Include="Views\DLocTheoTanSuat\Index.cshtml" />
+    <Content Include="Views\SHuongDanVien\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -8,7 +8,7 @@
             <div class="card-title bold">@ViewBag.Title</div>
             <div class="card-right">
                 <button class="btn btn-primary" id="btn-add" type="button" data-bs-toggle="modal" data-bs-target="#ImportExcel"><i class="fa fa-file-excel-o"></i><span class="ml8">Import Excel</span></button>
-                <button class="btn btn-success" id="btn-add" type="button"><i class="fa fa-file-excel"></i><span class="ml8">Export Excel</span></button>
+                <button class="btn btn-success" id="btn-export" type="button"><i class="fa fa-file-excel"></i><span class="ml8">Export Excel</span></button>
             </div>
         </div>
         <div class="card-body" style="max-height: 929px;">
@@ -88,11 +88,27 @@
             var $page = {
                 init: function () {
                     $page.BtnSearchClick();
+                    $page.BtnExportClick();
                     $page.GetList(1);
                 },
                 Self: $('.card'),
                 BtnSearchClick: function () {
                     $header.find('.btnSearch').on('click', function () { $page.GetList(1); });
+                },
+                BtnExportClick: function () {
+                    $page.Self.find('#btn-export').on('click', function () {
+
+                        let search = new DataSearch(1);
+
+                        var getResponse = AjaxConfigHelper.SendRequestToServer(`/${$router}/ExportExcel`, "GET", search);
+                        getResponse.then((res) => {
+                            if (res.IsOk) {
+                                let fileGuid = res.Body.Data.FileGuid;
+                                let fileName = res.Body.Data.FileName;
+                                window.open(`/${$router}/Download?fileGuid=${fileGuid}&fileName=${fileName}`);
+                            }
+                        })
+                    });
                 },
                 GetList: function (pageNum = 1) {
 
@@ -144,7 +160,31 @@
                     $page.Self.find('.add-warning').off('click').on('click', function () {
                         let sgt = $(this).data('id');
                         let cb = $(this).data('chuyenbay');
-                        console.log(sgt + '/' + cb);
+                        let dataSend = {
+                            sogiayto: sgt,
+                            idchuyenbay: cb
+                        }
+                        var getResponse = AjaxConfigHelper.SendRequestToServer(`/DHanhKhach/GetItem`, "GET", dataSend);
+                        getResponse.then((res) => {
+                            if (res.IsOk) {
+                                let data = res.Body.Data || {};
+                                for (let prop in data) {
+                                    if (prop == 'Enable') {
+                                        $('#ObjectWarning').find(`[name=${prop}]`).prop('checked', data[prop] == 1);
+                                        continue;
+                                    }
+                                    if (prop.indexOf('Time') > -1 || prop.indexOf('Ngay') > -1) {
+                                        data[prop] = formatDateFromServer(data[prop]);
+                                    }
+                                    if (prop == 'GioiTinh') {
+                                        $('#ObjectWarning').find(`[type="radio"][name=${prop}][data-value=${data[prop]}]`).prop('checked', true);
+                                        continue;
+                                    }
+                                    $('#ObjectWarning').find(`[name=${prop}]`).val(data[prop]);
+                                }
+                                $('#ObjectWarning').modal('show');
+                            }
+                        })
                     })
                 }
             };

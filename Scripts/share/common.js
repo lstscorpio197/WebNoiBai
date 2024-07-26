@@ -211,8 +211,6 @@ function ConfirmDeleteWithOption(callBack1, text1 = null, callBack2, text2 = nul
 
     btnClass1 = btnClass1 || 'btn-danger';
     btnClass2 = btnClass2 || 'btn-danger';
-
-    console.log(12345);
     $.confirm({
         title: '<i class="fa fa-bell-o"></i> THÔNG BÁO',
         content: 'Chọn tùy chọn xóa?',

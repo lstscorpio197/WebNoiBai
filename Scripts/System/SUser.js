@@ -263,11 +263,12 @@ $(function () {
         ResetForm: () => {
             $roleModal.on('hidden.modal.bs', () => {
                 $roleModal.find('input:checkbox').prop('checked', false);
-                $roleModal.find('.permission-frame').html('');
             })
         },
         LoadPermission: () => {
             $roleModal.find('#btn-view-permission').off('click').on('click', function () {
+                $roleModal.find(`.permission-item`).prop('disabled', true).prop('checked', false);
+
                 let id = $roleModal.find('[name=Id]').val();
                 let lstRoleId = [];
                 $roleModal.find('.role-frame').find('input:checkbox').each(function (i, e) {
@@ -285,7 +286,15 @@ $(function () {
                 var getResponse = AjaxConfigHelper.SendRequestToServer(`/${$router}/GetPermission`, "GET", dataSend);
                 getResponse.then((res) => {
                     if (res.IsOk) {
-                        console.log(res.Body.Data);
+                        let lstPermissionAll = res.Body.Data.All || [];
+                        let lstPermissionNotGranted = res.Body.Data.NotGrant || [];
+
+                        for (let id of lstPermissionAll) {
+                            $roleModal.find(`[name=permission-${id}]`).prop('disabled', false).prop('checked', true);
+                        }
+                        for (let id of lstPermissionNotGranted) {
+                            $roleModal.find(`[name=permission-${id}]`).prop('checked', false);
+                        }
                     }
                     else {
 
@@ -294,11 +303,22 @@ $(function () {
             })
         },
         GetDataInput: () => {
-            if (!$form.valid()) {
-                return false;
+            let lstRole = [];
+            let lstPermissNotGranted = [];
+
+            $roleModal.find('input.role-item:checked').each(function () {
+                let id = $(this).data('id');
+                lstRole.push(id);
+            })
+            $roleModal.find('input.permission-item').not(':checked,:disabled').each(function () {
+                let id = $(this).data('id');
+                lstPermissNotGranted.push(id);
+            })
+            return {
+                strRoleId : JSON.stringify(lstRole),
+                strPermissionId: JSON.stringify(lstPermissNotGranted),
+                id: $roleModal.find('[name=Id]').val()
             }
-            let data = GetFormDataToObject($form);
-            return data;
         },
         Save: () => {
             $roleModal.find('#btn-save').off('click').on('click', () => {
@@ -306,16 +326,11 @@ $(function () {
                 if (!data)
                     return false;
                 let action = data.Id > 0 ? 'Update' : 'Create';
-                var getResponse = AjaxConfigHelper.SendRequestToServer(`/${$router}/${action}`, "POST", data);
+                var getResponse = AjaxConfigHelper.SendRequestToServer(`/${$router}/UpdatePermission`, "POST", data);
                 getResponse.then((res) => {
                     if (res.IsOk) {
-                        let actionSub = data.Id > 0 ? 'Cập nhật' : 'Thêm mới';
-                        ToastSuccess(actionSub);
-                        $page.GetList(data.Id > 0 ? null : 1);
-                        $modal.modal('hide');
-                    }
-                    else {
-
+                        ToastSuccess("Phân quyền");
+                        $roleModal.modal('hide');
                     }
                 })
             })

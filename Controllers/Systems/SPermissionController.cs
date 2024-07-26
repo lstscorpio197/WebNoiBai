@@ -64,7 +64,7 @@ namespace WebNoiBai.Controllers.Systems
                 var lstAppMenu = AppMenu.ListMenu.Select(x => x.Controller);
                 var lstMenuExist = db.SPermissions.AsNoTracking().Where(x => lstAppMenu.Contains(x.Controller)).Select(x=>x.Controller).ToList();
                 var lstMenu = new List<SPermission>();
-                foreach (var item in AppMenu.ListMenu)
+                foreach (var item in AppMenu.ListMenu.Where(x=>x.Type == 1))
                 {
                     if (lstMenuExist.Contains(item.Controller))
                     {

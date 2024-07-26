@@ -12,14 +12,13 @@ using WebNoiBai.WHttpMessage;
 
 namespace WebNoiBai.Controllers.HanhKhach
 {
-    public class DHKHoChieuNuocNgoaiController : BaseController
+    public class DLocTheoTanSuatController : BaseController
     {
-        // GET: DHKHoChieuNuocNgoai
+        // GET: DLocTheoTanSuat
         public ActionResult Index()
         {
             return View();
         }
-
         public JsonResult GetTable(DHanhKhachSearchDto itemSearch)
         {
             HttpMessage httpMessage = new HttpMessage(true);
@@ -51,39 +50,33 @@ namespace WebNoiBai.Controllers.HanhKhach
             try
             {
                 SpreadsheetInfo.SetLicense(AppConst.KeyGemBoxSpreadsheet);
-                var workbook = ExcelFile.Load(Server.MapPath("/FileTemp/DS_HanhKhach.xlsx"));
+                var workbook = ExcelFile.Load(Server.MapPath("/FileTemp/ExportAdvancedSearch.xlsx"));
                 var workSheet = workbook.Worksheets[0];
 
                 var query = GetQuery(itemSearch);
                 var result = query.ToList();
-                int row = 5;
+                int row = 4;
                 int stt = 1;
                 if (result.Any())
                 {
                     foreach (var item in result)
                     {
                         workSheet.Cells["A" + row].SetValue(stt);
-                        workSheet.Cells["B" + row].SetValue(item.FLIGHTDATE_TXT);
-                        workSheet.Cells["C" + row].SetValue(item.SOHIEU);
-                        workSheet.Cells["D" + row].SetValue(item.MADATCHO);
-                        workSheet.Cells["E" + row].SetValue(item.HOTEN);
-                        workSheet.Cells["F" + row].SetValue(item.GIOITINH_TXT);
-                        workSheet.Cells["G" + row].SetValue(item.QUOCTICH);
-                        workSheet.Cells["H" + row].SetValue(item.NGAYSINH_TXT);
-                        workSheet.Cells["I" + row].SetValue(item.LOAIGIAYTO);
-                        workSheet.Cells["J" + row].SetValue(item.SOGIAYTO);
-                        workSheet.Cells["K" + row].SetValue(item.NOIDI);
-                        workSheet.Cells["L" + row].SetValue(item.MANOIDI);
-                        workSheet.Cells["M" + row].SetValue(item.MANOIDEN);
-                        workSheet.Cells["N" + row].SetValue(item.NOIDEN);
-                        workSheet.Cells["O" + row].SetValue(item.HANHLY);
-
+                        workSheet.Cells["B" + row].SetValue(item.HOTEN);
+                        workSheet.Cells["C" + row].SetValue(item.GIOITINH_TXT);
+                        workSheet.Cells["D" + row].SetValue(item.QUOCTICH);
+                        workSheet.Cells["E" + row].SetValue(item.SOGIAYTO);
+                        workSheet.Cells["F" + row].SetValue(item.LOAIGIAYTO);
+                        workSheet.Cells["G" + row].SetValue(item.NGAYSINH_TXT);
+                        workSheet.Cells["H" + row].SetValue(item.SOLAN);
+                        workSheet.Cells["I" + row].SetValue(item.SOHIEU);
+                        workSheet.Cells["J" + row].SetValue(item.HANHLY);
                         stt++;
                         row++;
                     }
                 }
 
-                var range = workSheet.Cells.GetSubrange("A4", "O" + (row - 1));
+                var range = workSheet.Cells.GetSubrange("A4", "J" + (row - 1));
                 range.Style.Borders.SetBorders(MultipleBorders.All, SpreadsheetColor.FromName(ColorName.Black), LineStyle.Thin);
                 // xuất tài liệu thành tệp tin
                 string handle = Guid.NewGuid().ToString();
@@ -108,14 +101,8 @@ namespace WebNoiBai.Controllers.HanhKhach
         {
             DateTime startDate = itemSearch.StartDate?.AddDays(-1) ?? DateTime.Today.AddDays(-1);
             DateTime endDate = itemSearch.EndDate?.AddDays(1) ?? DateTime.Today.AddDays(1);
-            List<string> lstHo = new List<string> 
-            { 
-                "NGUYEN", "TRAN", "LE", "PHAM", "HOANG", "HUYNH", "PHAN", "VU", "VO", "DANG", "BUI", "DO", "HO", "NGO", "DUONG", "LY", "PHUNG","MAI","AU",
-                "NONG","DINH","TAT","CHU","LUU","ONG","VUONG","TRIEU","LUONG","TRINH","VAN","TA","NHAM","QUACH","SAM","QUE","DOAN","DUONG","DANH","LAM",
-                "TONG","CU","THI","TRUONG","DOAN","NGHIEM","DICH","LOI","HA","LUC","LOAN","CAO","PHO","GIAP","VI","KHUAT","TANG","CHAU","TO","DONG"};
-            var query = dbXNC.chuyenbay_hanhkhach.AsNoTracking().Where(x => x.FLIGHTDATE > startDate && x.FLIGHTDATE < endDate && lstHo.Contains(x.HO.Contains(" ") ?
-                        x.HO.Substring(0, x.HO.IndexOf(" ")) :
-                        x.HO) && x.QUOCTICH != "VNM");
+            itemSearch.SoLan = itemSearch.SoLan ?? 1;
+            var query = dbXNC.chuyenbay_hanhkhach.AsNoTracking().Where(x => x.FLIGHTDATE > startDate && x.FLIGHTDATE < endDate);
             if (itemSearch.LstSoGiayTo.Any())
             {
                 query = query.Where(x => itemSearch.LstSoGiayTo.Contains(x.SOGIAYTO));
@@ -132,36 +119,26 @@ namespace WebNoiBai.Controllers.HanhKhach
             {
                 query = query.Where(x => x.NOIDEN == itemSearch.NoiDen);
             }
-
-            return query.Select(x => new DHanhKhachViewDto
-            {
-                FLIGHTDATE = x.FLIGHTDATE,
-                GIOITINH = x.GIOITINH,
-                HANHLY = x.HANHLY,
-                HO = x.HO,
-                IDCHUYENBAY = x.IDCHUYENBAY,
-                MADATCHO = x.MADATCHO,
-                MANOIDEN = x.MANOIDEN,
-                MANOIDI = x.MANOIDI,
-                NGAYSINH = x.NGAYSINH,
-                NOIDEN = x.NOIDEN,
-                NOIDI = x.NOIDI,
-                QUOCTICH = x.QUOCTICH,
-                SOGIAYTO = x.SOGIAYTO,
-                LOAIGIAYTO = x.LOAIGIAYTO,
-                SOHIEU = x.SOHIEU,
-                TEN = x.TEN,
-                TENDEM = x.TENDEM
-            }).OrderBy(x => x.FLIGHTDATE).ThenBy(x => x.IDCHUYENBAY);
-        }
-
-        private string GetNamePart(string ho)
-        {
-            if (string.IsNullOrWhiteSpace(ho))
-                return string.Empty;
-
-            int spaceIndex = ho.IndexOf(' ');
-            return spaceIndex == -1 ? ho : ho.Substring(0, spaceIndex);
+            var queryRes = query.GroupBy(x=>x.SOGIAYTO).Where(x=>x.Count() > itemSearch.SoLan).Select(x=> new DHanhKhachViewDto{
+                SOHIEU = x.OrderByDescending(y=>y.FLIGHTDATE).FirstOrDefault().SOHIEU,
+                FLIGHTDATE = x.OrderByDescending(y => y.FLIGHTDATE).FirstOrDefault().FLIGHTDATE,
+                GIOITINH = x.OrderByDescending(y => y.FLIGHTDATE).FirstOrDefault().GIOITINH,
+                HANHLY = x.OrderByDescending(y => y.FLIGHTDATE).FirstOrDefault().HANHLY,
+                HO = x.OrderByDescending(y => y.FLIGHTDATE).FirstOrDefault().HO,
+                TENDEM = x.OrderByDescending(y => y.FLIGHTDATE).FirstOrDefault().TENDEM,
+                TEN = x.OrderByDescending(y => y.FLIGHTDATE).FirstOrDefault().TEN,
+                IDCHUYENBAY = x.OrderByDescending(y => y.FLIGHTDATE).FirstOrDefault().IDCHUYENBAY,
+                MANOIDEN = x.OrderByDescending(y => y.FLIGHTDATE).FirstOrDefault().MANOIDEN,
+                MANOIDI = x.OrderByDescending(y => y.FLIGHTDATE).FirstOrDefault().MANOIDI,
+                NOIDEN = x.OrderByDescending(y => y.FLIGHTDATE).FirstOrDefault().NOIDEN,
+                NOIDI = x.OrderByDescending(y => y.FLIGHTDATE).FirstOrDefault().NOIDI,
+                NGAYSINH = x.OrderByDescending(y => y.FLIGHTDATE).FirstOrDefault().NGAYSINH,
+                QUOCTICH = x.OrderByDescending(y => y.FLIGHTDATE).FirstOrDefault().QUOCTICH,
+                SOGIAYTO = x.OrderByDescending(y => y.FLIGHTDATE).FirstOrDefault().SOGIAYTO,
+                LOAIGIAYTO = x.OrderByDescending(y => y.FLIGHTDATE).FirstOrDefault().LOAIGIAYTO,
+                SOLAN = x.Count(),
+            });
+            return queryRes.OrderByDescending(x => x.SOLAN).ThenBy(x => x.IDCHUYENBAY);
         }
     }
 }

@@ -1,5 +1,6 @@
-﻿@{
-    ViewBag.Title = "Danh sách hành khách nối chuyến";
+﻿
+@{
+    ViewBag.Title = "Lọc theo tần suất bay";
 }
 
 <div class="mx-ecus">
@@ -27,29 +28,26 @@
                             <span class="icon-calendar-ico-tsd"></span>
                         </span>
                     </div>
-                    <input class="item-search wid100px" autocomplete="off" name="SoGiayTo" placeholder="Số giấy tờ" />
-                    <input class="item-search wid100px" autocomplete="off" name="SoHieu" placeholder="Số hiệu chuyến bay" />
-                    <input class="item-search wid100px" autocomplete="off" name="NoiDi" placeholder="Nơi đi" />
-                    <input class="item-search wid100px" autocomplete="off" name="NoiDen" placeholder="Nơi đến" />
-                    <select class="item-search wid200px" name="ObjectType">
-                        <option value="0">Nối chuyến đến HAN</option>
-                        <option value="1">Nối chuyến qua HAN</option>
-                        <option value="2">Nối chuyến từ HAN đi QT</option>
-                    </select>
+                    <input class="item-search wid200px" autocomplete="off" name="SoGiayTo" placeholder="Số giấy tờ" />
+                    <input class="item-search wid200px" autocomplete="off" name="SoHieu" placeholder="Số hiệu chuyến bay" />
+                    <input class="item-search wid100px" autocomplete="off" name="NoiDi" placeholder="Điểm xuất phát" />
+                    <input class="item-search wid100px" autocomplete="off" name="NoiDen" placeholder="Điểm kết thúc" />
+                    <input class="item-search wid100px" autocomplete="off" name="SoLan" placeholder="Số lần tối thiểu" />
                     <button class="btn btn-primary btnSearch" type="button"><i class="icon-search-ico-tsd"></i></button>
                 </div>
             </div>
-            <div class="frame-body has-scroll" style="max-height: 725px;">
+            <div class="frame-body has-scroll">
                 <table class="width100" id="TBLDANHSACH">
                     <thead>
                         <tr>
-                            <th class="text-center width50px">STT</th>
-                            <th class="text-center">Số hiệu chuyến bay</th>
-                            <th class="text-center">Ngày bay</th>
-                            <th class="text-center">Họ tên</th>
+                            <th class="text-center width75px">STT</th>
+                            <th class="text-center wid100px">Số hiệu chuyến bay</th>
+                            <th class="text-center wid100px">Ngày bay</th>
+                            <th class="text-center wid200px">Họ tên</th>
                             <th class="text-center">Quốc tịch</th>
                             <th class="text-center">Số giấy tờ</th>
                             <th class="text-center">Ngày sinh</th>
+                            <th class="text-center">Số lần</th>
                             <th class="text-center">Điểm xuất phát đầu tiên</th>
                             <th class="text-center">Mã sân bay khởi hành</th>
                             <th class="text-center">Mã sân bay đến</th>
@@ -77,7 +75,7 @@
         const $tableBody = $table.find('tbody');
         const $modal = $('#CHITIET');
         const $modalUser = $('#UserRole');
-        const $router = "DNoiChuyen";
+        const $router = "DLocTheoTanSuat";
         const $form = $('#ModalForm');
 
 
@@ -86,9 +84,9 @@
             this.EndDate = formatDateFromClientToServerEN($header.find('[name=EndDate]').val());
             this.SoGiayTo = $header.find('[name=SoGiayTo]').val();
             this.SoHieu = $header.find('[name=SoHieu]').val();
-            this.NoiDi = $header.find('[name=NoiDi]').val();
             this.NoiDen = $header.find('[name=NoiDen]').val();
-            this.ObjectType = $header.find('[name=ObjectType]').val();
+            this.NoiDi = $header.find('[name=NoiDi]').val();
+            this.SoLan = $header.find('[name=SoLan]').val();
             this.PageNum = pageNum || $footer.find('[name=PageNumber]').val();
             this.PageSize = $footer.find('[name=PageLength]').val();
         }
@@ -97,7 +95,8 @@
             var $page = {
                 init: function () {
                     $page.BtnSearchClick();
-                    $page.GetList(1);
+                    $page.BtnExportClick();
+                    //$page.GetList(1);
                 },
                 Self: $('.card'),
                 BtnSearchClick: function () {
@@ -139,17 +138,18 @@
                                 html += `<tr class="TR_${item.SOGIAYTO}">` +
                                     `<td class="text-center"><span>${startIndex}</span></td>` +
                                     `<td class="text-center">${item.SOHIEU}</td>` +
-                                    `<td class="text-center">${formatDateFromServer(item.FLIGHTDATE)}</td>` +
-                                    `<td class="">${(item.HO + ' ' + item.TENDEM + ' ' + item.TEN)}</td>` +
+                                    `<td class="text-center">${item.FLIGHTDATE_TXT}</td>` +
+                                    `<td class="">${(item.HOTEN)}</td>` +
                                     `<td class="text-center">${item.QUOCTICH}</td>` +
                                     `<td class="">${item.SOGIAYTO}</td>` +
-                                    `<td class="text-center">${formatDateFromServer(item.NGAYSINH)}</td>` +
+                                    `<td class="text-center">${item.NGAYSINH_TXT}</td>` +
+                                    `<td class="text-center">${item.SOLAN}</td>` +
                                     `<td class="text-center">${item.NOIDI}</td>` +
                                     `<td class="text-center">${item.MANOIDI}</td>` +
                                     `<td class="text-center">${item.MANOIDEN}</td>` +
                                     `<td class="text-center">${item.NOIDEN}</td>` +
                                     `<td class="">${item.HANHLY}</td>` +
-                                    `<td class="text-center"><span data-id="${item.SOGIAYTO}" data-chuyenbay="${item.ID_CHUYENBAY}" class="fa fa-exclamation-triangle add-warning cursor" style="color:#ffc107;"></span></td>` +
+                                    `<td class="text-center"><span data-id="${item.SOGIAYTO}" data-chuyenbay="${item.IDCHUYENBAY}" class="fa fa-exclamation-triangle add-warning cursor" style="color:#ffc107;"></span></td>` +
                                     `</tr>`;
                                 startIndex++;
                             }
@@ -197,9 +197,7 @@
                 }
             };
 
-
             $page.init();
         });
-
-    </script>
+    </script>    
 }
