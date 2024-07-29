@@ -202,31 +202,16 @@
     <Compile Include="Models\chuyenbay_hanhkhach.cs">
       <DependentUpon>DataXNCModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\chuyenbay_hanhkhach_data_backup.cs">
-      <DependentUpon>DataXNCModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\chuyenbay_hh.cs">
-      <DependentUpon>DataXNCModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\chuyenbay_hh_data_backup.cs">
       <DependentUpon>DataXNCModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\chuyenbay_pnr.cs">
       <DependentUpon>DataXNCModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\chuyenbay_pnr_data_backup.cs">
-      <DependentUpon>DataXNCModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\chuyenbay_tobay.cs">
       <DependentUpon>DataXNCModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\chuyenbay_tobay_data_backup.cs">
-      <DependentUpon>DataXNCModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\chuyenbay_vandon.cs">
-      <DependentUpon>DataXNCModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\chuyenbay_vandon_data_backup.cs">
       <DependentUpon>DataXNCModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DataXNCModel.Context.cs">
@@ -245,9 +230,6 @@
       <DependentUpon>DataXNCModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\hang_hang_khong.cs">
-      <DependentUpon>DataXNCModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\hanhkhach_noichuyen.cs">
       <DependentUpon>DataXNCModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\mien_thue.cs">
@@ -1155,6 +1137,7 @@
     <Content Include="Content\ico-tsd-v2\fonts\icomoon.svg" />
     <Content Include="Content\ico-tsd-v2\Read Me.txt" />
     <Content Include="Content\ico-tsd-v2\style.css" />
+    <Content Include="Content\image\bg-home.jpg" />
     <Content Include="Content\image\bg-login.jpg" />
     <Content Include="Content\image\hqhcm-logo.png" />
     <Content Include="Content\image\vietnam-customs-2.png" />
@@ -1432,6 +1415,7 @@
     <Content Include="FileTemp\ExportAdvancedSearch.xlsx" />
     <Content Include="FileTemp\Mau01.docx" />
     <Content Include="FileTemp\Mau02.docx" />
+    <Content Include="FileTemp\ImportTmp\Import_ChuyenBay.xlsx" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\core\bootstrap.min.js" />
     <Content Include="Scripts\core\jquery-3.7.1.min.js" />

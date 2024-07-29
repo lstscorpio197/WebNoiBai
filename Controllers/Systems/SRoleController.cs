@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.DynamicData;
 using System.Web.Mvc;
+using WebNoiBai.Authorize;
 using WebNoiBai.Dto;
 using WebNoiBai.Models;
 using WebNoiBai.WHttpMessage;
@@ -15,6 +16,7 @@ namespace WebNoiBai.Controllers.Systems
     public class SRoleController : BaseController
     {
         // GET: SRole
+        [AuthorizeAccessRole(TypeHandle = "view")]
         public ActionResult Index()
         {
             return View();
@@ -82,6 +84,7 @@ namespace WebNoiBai.Controllers.Systems
         }
 
         [HttpPost]
+        [AuthorizeAccessRole(TypeHandle = "create")]
         public JsonResult Create(SRole item, string strPermissionId)
         {
             HttpMessage httpMessage = new HttpMessage(true);
@@ -125,6 +128,7 @@ namespace WebNoiBai.Controllers.Systems
         }
 
         [HttpPost]
+        [AuthorizeAccessRole(TypeHandle = "update")]
         public JsonResult Update(SRole item, string strPermissionId)
         {
             HttpMessage httpMessage = new HttpMessage(true);
@@ -177,6 +181,7 @@ namespace WebNoiBai.Controllers.Systems
         }
 
         [HttpPost]
+        [AuthorizeAccessRole(TypeHandle = "delete")]
         public JsonResult Delete(int id)
         {
             HttpMessage httpMessage = new HttpMessage(true);
@@ -236,6 +241,7 @@ namespace WebNoiBai.Controllers.Systems
         }
 
         [HttpPost]
+        [AuthorizeAccessRole(TypeHandle = "update")]
         public JsonResult UpdateListUser(string strUserId, int id)
         {
             HttpMessage httpMessage = new HttpMessage(true);

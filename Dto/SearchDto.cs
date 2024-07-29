@@ -7,6 +7,8 @@ namespace WebNoiBai.Dto
 {
     public class SearchDto
     {
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
         public string Ma { get; set; }
         public string Ten { get; set; }
         public int Enable { get; set; } = -1;

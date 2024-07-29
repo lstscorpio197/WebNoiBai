@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WebNoiBai.Authorize;
 using WebNoiBai.Common;
 using WebNoiBai.Dto;
 using WebNoiBai.Models;
@@ -14,6 +15,7 @@ namespace WebNoiBai.Controllers.DanhMucNghiepVu
     public class SHuongDanVienController : BaseController
     {
         // GET: SHuongDanVien
+        [AuthorizeAccessRole(TypeHandle = "view")]
         public ActionResult Index()
         {
             return View();
@@ -75,6 +77,7 @@ namespace WebNoiBai.Controllers.DanhMucNghiepVu
         }
 
         [HttpPost]
+        [AuthorizeAccessRole(TypeHandle = "create")]
         public JsonResult Create(SHuongDanVien item)
         {
             HttpMessage httpMessage = new HttpMessage(true);
@@ -101,6 +104,7 @@ namespace WebNoiBai.Controllers.DanhMucNghiepVu
         }
 
         [HttpPost]
+        [AuthorizeAccessRole(TypeHandle = "update")]
         public JsonResult Update(SHuongDanVien item)
         {
             HttpMessage httpMessage = new HttpMessage(true);
@@ -138,6 +142,7 @@ namespace WebNoiBai.Controllers.DanhMucNghiepVu
         }
 
         [HttpPost]
+        [AuthorizeAccessRole(TypeHandle = "delete")]
         public JsonResult Delete(int id)
         {
             HttpMessage httpMessage = new HttpMessage(true);

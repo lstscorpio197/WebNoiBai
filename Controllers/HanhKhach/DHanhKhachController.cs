@@ -5,11 +5,14 @@ using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Data.SqlClient;
+using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography.Xml;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using WebNoiBai.Authorize;
 using WebNoiBai.Common;
 using WebNoiBai.Dto.HanhKhach;
 using WebNoiBai.Models;
@@ -20,6 +23,7 @@ namespace WebNoiBai.Controllers.HanhKhach
     public class DHanhKhachController : BaseController
     {
         // GET: DHanhKhach
+        [AuthorizeAccessRole(TypeHandle = "view")]
         public ActionResult Index()
         {
             return View();
@@ -74,63 +78,60 @@ namespace WebNoiBai.Controllers.HanhKhach
             }
         }
 
+        [AuthorizeAccessRole(TypeHandle = "import")]
         public async Task<JsonResult> ImportExcel()
         {
             HttpMessage httpMessage = new HttpMessage(true);
-            using (var trans = dbXNC.Database.BeginTransaction())
+            try
             {
-                try
+                var files = Request.Files;
+                if (files.Count == 0)
                 {
-                    var files = Request.Files;
-                    if (files.Count == 0)
-                    {
-                        httpMessage.IsOk = false;
-                        httpMessage.Body.MsgNoti = new HttpMessageNoti("500", null, "Vui lòng chọn file");
-                        return Json(httpMessage, JsonRequestBehavior.AllowGet);
-                    }
-                    var file = files[0];
-                    SpreadsheetInfo.SetLicense(AppConst.KeyGemBoxSpreadsheet);
-
-                    var workbook = new ExcelFile();
-                    string extFile = System.IO.Path.GetExtension(file.FileName).Substring(1).ToLower();
-                    if (extFile == "csv")
-                    {
-                        workbook = ExcelFile.Load(file.InputStream, LoadOptions.CsvDefault);
-                    }
-                    else if (extFile == "xlsx")
-                    {
-                        workbook = ExcelFile.Load(file.InputStream, LoadOptions.XlsxDefault);
-                    }
-                    else
-                    {
-                        workbook = ExcelFile.Load(file.InputStream, LoadOptions.XlsDefault);
-                    }
-                    ExcelFiles excelFiles = new ExcelFiles();
-                    List<chuyenbay_hanhkhach> lst_cb_hk = new List<chuyenbay_hanhkhach>();
-                    httpMessage = excelFiles.ProcessFileExcel(workbook, GetListColumnImportExcel(), ref lst_cb_hk, false);
-                    if (!httpMessage.IsOk)
-                    {
-                        return Json(httpMessage, JsonRequestBehavior.AllowGet);
-                    }
-                    lst_cb_hk.ForEach(x => { x.SYS_DATE = DateTime.Now; x.SOGIAYTO = x.SOGIAYTO.EndsWith(";") ? x.SOGIAYTO.Replace(";", "") : x.SOGIAYTO; x.LOAIGIAYTO = x.LOAIGIAYTO.EndsWith(";") ? x.LOAIGIAYTO.Replace(";", "") : x.LOAIGIAYTO; x.HANHLY = x.HANHLY.EndsWith(";") ? x.HANHLY.Substring(0, x.HANHLY.Length - 1) : x.HANHLY; });
-                    lst_cb_hk = lst_cb_hk.GroupBy(x => new { x.SOGIAYTO, x.IDCHUYENBAY }).Select(y => y.OrderByDescending(z => z.HK_VERSION).First()).ToList();
-                    lst_cb_hk = lst_cb_hk.Where(x => x.IDCHUYENBAY > 0 && !string.IsNullOrEmpty(x.SOGIAYTO)).ToList();
-
-                    await dbXNC.chuyenbay_hanhkhach.BulkMergeAsync(lst_cb_hk);
-                    trans.Commit();
-
-                    return Json(httpMessage, JsonRequestBehavior.AllowGet);
-                }
-                catch (Exception ex)
-                {
-                    trans.Rollback();
                     httpMessage.IsOk = false;
-                    httpMessage.Body.MsgNoti = new HttpMessageNoti("500", null, ex.Message);
+                    httpMessage.Body.MsgNoti = new HttpMessageNoti("500", null, "Vui lòng chọn file");
                     return Json(httpMessage, JsonRequestBehavior.AllowGet);
                 }
+                var file = files[0];
+                SpreadsheetInfo.SetLicense(AppConst.KeyGemBoxSpreadsheet);
+
+                var workbook = new ExcelFile();
+                string extFile = System.IO.Path.GetExtension(file.FileName).Substring(1).ToLower();
+                if (extFile == "csv")
+                {
+                    workbook = ExcelFile.Load(file.InputStream, LoadOptions.CsvDefault);
+                }
+                else if (extFile == "xlsx")
+                {
+                    workbook = ExcelFile.Load(file.InputStream, LoadOptions.XlsxDefault);
+                }
+                else
+                {
+                    workbook = ExcelFile.Load(file.InputStream, LoadOptions.XlsDefault);
+                }
+                ExcelFiles excelFiles = new ExcelFiles();
+                List<chuyenbay_hanhkhach> lst_cb_hk = new List<chuyenbay_hanhkhach>();
+                httpMessage = excelFiles.ProcessFileExcel(workbook, GetListColumnImportExcel(), ref lst_cb_hk);
+                if (!httpMessage.IsOk)
+                {
+                    return Json(httpMessage, JsonRequestBehavior.AllowGet);
+                }
+                lst_cb_hk.ForEach(x => { x.SYS_DATE = DateTime.Now; x.SOGIAYTO = x.SOGIAYTO.EndsWith(";") ? x.SOGIAYTO.Replace(";", "") : x.SOGIAYTO; x.LOAIGIAYTO = x.LOAIGIAYTO.EndsWith(";") ? x.LOAIGIAYTO.Replace(";", "") : x.LOAIGIAYTO; x.HANHLY = x.HANHLY.EndsWith(";") ? x.HANHLY.Substring(0, x.HANHLY.Length - 1) : x.HANHLY; });
+                lst_cb_hk = lst_cb_hk.GroupBy(x => new { x.SOGIAYTO, x.IDCHUYENBAY }).Select(y => y.OrderByDescending(z => z.HK_VERSION).First()).ToList();
+                lst_cb_hk = lst_cb_hk.Where(x => x.IDCHUYENBAY > 0 && !string.IsNullOrEmpty(x.SOGIAYTO)).ToList();
+
+                await dbXNC.chuyenbay_hanhkhach.BulkMergeAsync(lst_cb_hk);
+                return Json(httpMessage, JsonRequestBehavior.AllowGet);
             }
+            catch (Exception ex)
+            {
+                httpMessage.IsOk = false;
+                httpMessage.Body.MsgNoti = new HttpMessageNoti("500", null, ex.Message);
+                return Json(httpMessage, JsonRequestBehavior.AllowGet);
+            }
+
         }
 
+        [AuthorizeAccessRole(TypeHandle = "export")]
         public JsonResult ExportExcel(DHanhKhachSearchDto itemSearch)
         {
             HttpMessage httpMessage = new HttpMessage(true);
@@ -276,26 +277,34 @@ namespace WebNoiBai.Controllers.HanhKhach
                     break;
             }
 
-            return query.Select(x => new DHanhKhachViewDto
-            {
-                FLIGHTDATE = x.FLIGHTDATE,
-                GIOITINH = x.GIOITINH,
-                HANHLY = x.HANHLY,
-                HO = x.HO,
-                IDCHUYENBAY = x.IDCHUYENBAY,
-                MADATCHO = x.MADATCHO,
-                MANOIDEN = x.MANOIDEN,
-                MANOIDI = x.MANOIDI,
-                NGAYSINH = x.NGAYSINH,
-                NOIDEN = x.NOIDEN,
-                NOIDI = x.NOIDI,
-                QUOCTICH = x.QUOCTICH,
-                SOGIAYTO = x.SOGIAYTO,
-                LOAIGIAYTO = x.LOAIGIAYTO,
-                SOHIEU = x.SOHIEU,
-                TEN = x.TEN,
-                TENDEM = x.TENDEM
-            }).OrderBy(x => x.FLIGHTDATE).ThenBy(x => x.IDCHUYENBAY);
+
+            var queryResult = from x in query
+                              join y in dbXNC.SChuyenBays.Where(x => x.Ngay > startDate && x.Ngay < endDate) on new { Ngay = x.FLIGHTDATE.Value, SoHieu = x.SOHIEU } equals new { Ngay = y.Ngay, SoHieu = y.ChuyenBay } into z
+                              from xxx in z.DefaultIfEmpty()
+                              select new DHanhKhachViewDto
+                              {
+                                  FLIGHTDATE = x.FLIGHTDATE,
+                                  GIOITINH = x.GIOITINH,
+                                  HANHLY = x.HANHLY,
+                                  HO = x.HO,
+                                  IDCHUYENBAY = x.IDCHUYENBAY,
+                                  MADATCHO = x.MADATCHO,
+                                  MANOIDEN = x.MANOIDEN,
+                                  MANOIDI = x.MANOIDI,
+                                  NGAYSINH = x.NGAYSINH,
+                                  NOIDEN = x.NOIDEN,
+                                  NOIDI = x.NOIDI,
+                                  QUOCTICH = x.QUOCTICH,
+                                  SOGIAYTO = x.SOGIAYTO,
+                                  LOAIGIAYTO = x.LOAIGIAYTO,
+                                  SOHIEU = x.SOHIEU,
+                                  TEN = x.TEN,
+                                  TENDEM = x.TENDEM,
+                                  SOBT = xxx != null ? xxx.SOBT : null,
+                              };
+
+
+            return queryResult.OrderBy(x => x.FLIGHTDATE).ThenBy(x => x.SOBT).ThenBy(x => x.IDCHUYENBAY);
         }
 
         private List<ExcelImport> GetListColumnImportExcel()

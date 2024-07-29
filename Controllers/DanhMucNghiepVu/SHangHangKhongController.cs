@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WebNoiBai.Authorize;
 using WebNoiBai.Dto;
 using WebNoiBai.Models;
 using WebNoiBai.WHttpMessage;
@@ -13,6 +14,7 @@ namespace WebNoiBai.Controllers.DanhMucNghiepVu
     public class SHangHangKhongController : BaseController
     {
         // GET: SHangHangKhong
+        [AuthorizeAccessRole(TypeHandle = "view")]
         public ActionResult Index()
         {
             return View();
@@ -75,6 +77,7 @@ namespace WebNoiBai.Controllers.DanhMucNghiepVu
         }
 
         [HttpPost]
+        [AuthorizeAccessRole(TypeHandle = "create")]
         public JsonResult Create(hang_hang_khong item)
         {
             HttpMessage httpMessage = new HttpMessage(true);
@@ -99,6 +102,7 @@ namespace WebNoiBai.Controllers.DanhMucNghiepVu
         }
 
         [HttpPost]
+        [AuthorizeAccessRole(TypeHandle = "update")]
         public JsonResult Update(hang_hang_khong item)
         {
             HttpMessage httpMessage = new HttpMessage(true);
@@ -126,6 +130,7 @@ namespace WebNoiBai.Controllers.DanhMucNghiepVu
         }
 
         [HttpPost]
+        [AuthorizeAccessRole(TypeHandle = "delete")]
         public JsonResult Delete(int id)
         {
             HttpMessage httpMessage = new HttpMessage(true);

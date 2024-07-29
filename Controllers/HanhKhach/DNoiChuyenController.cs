@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WebNoiBai.Authorize;
 using WebNoiBai.Common;
 using WebNoiBai.Dto.HanhKhach;
 using WebNoiBai.Models;
@@ -15,6 +16,7 @@ namespace WebNoiBai.Controllers.HanhKhach
     public class DNoiChuyenController : BaseController
     {
         // GET: DNoiChuyen
+        [AuthorizeAccessRole(TypeHandle = "view")]
         public ActionResult Index()
         {
             return View();
@@ -45,6 +47,7 @@ namespace WebNoiBai.Controllers.HanhKhach
             }
         }
 
+        [AuthorizeAccessRole(TypeHandle = "export")]
         public JsonResult ExportExcel(DHanhKhachSearchDto itemSearch)
         {
             HttpMessage httpMessage = new HttpMessage(true);

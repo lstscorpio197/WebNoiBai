@@ -8,12 +8,14 @@ using WebNoiBai.Dto.DanhMuc;
 using WebNoiBai.Dto;
 using WebNoiBai.Models;
 using WebNoiBai.WHttpMessage;
+using WebNoiBai.Authorize;
 
 namespace WebNoiBai.Controllers.DanhMucNghiepVu
 {
     public class SCangHangKhongController : BaseController
     {
         // GET: SCangHangKhong
+        [AuthorizeAccessRole(TypeHandle = "view")]
         public ActionResult Index()
         {
             return View();
@@ -76,6 +78,7 @@ namespace WebNoiBai.Controllers.DanhMucNghiepVu
         }
 
         [HttpPost]
+        [AuthorizeAccessRole(TypeHandle = "create")]
         public JsonResult Create(cang_hang_khong item)
         {
             HttpMessage httpMessage = new HttpMessage(true);
@@ -100,6 +103,7 @@ namespace WebNoiBai.Controllers.DanhMucNghiepVu
         }
 
         [HttpPost]
+        [AuthorizeAccessRole(TypeHandle = "update")]
         public JsonResult Update(cang_hang_khong item)
         {
             HttpMessage httpMessage = new HttpMessage(true);
@@ -127,6 +131,7 @@ namespace WebNoiBai.Controllers.DanhMucNghiepVu
         }
 
         [HttpPost]
+        [AuthorizeAccessRole(TypeHandle = "delete")]
         public JsonResult Delete(int id)
         {
             HttpMessage httpMessage = new HttpMessage(true);

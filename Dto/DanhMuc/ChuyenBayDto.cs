@@ -8,13 +8,16 @@ namespace WebNoiBai.Dto.DanhMuc
     public class ChuyenBayDto
     {
         public int Id {  get; set; }
+        public DateTime Ngay { get; set; }
         public string ChuyenBay {  get; set; }
-        public int GioKhoiHanh_Gio {  get; set; }
-        public int? GioKhoiHanh_Phut {  get; set; }
-        public int GioKetThuc_Gio {  get; set; }
-        public int? GioKetThuc_Phut { get; set; }
+        public int? SOBT {  get; set; }
+        public int? EOBT {  get; set; }
+        public string ChangBay {  get; set; }
+        public string DaoHanhLy {  get; set; }
+        public string CuaSo {  get; set; }
 
-        public string GioKhoiHanh => GioKhoiHanh_Gio.ToString("D2") + ":"+GioKhoiHanh_Phut?.ToString("D2") ?? "00";
-        public string GioKetThuc => GioKetThuc_Gio.ToString("D2") + ":"+ GioKetThuc_Phut?.ToString("D2") ?? "00";
+        public string NgayBay => Ngay.ToString("dd/MM/yyyy");
+        public string SOBT_TXT => SOBT?.ToString("D4");
+        public string EOBT_TXT => SOBT?.ToString("D4");
     }
 }

@@ -8,13 +8,14 @@
         <div class="card-header">
             <div class="card-title bold">@ViewBag.Title</div>
             <div class="card-right">
+                <button class="btn btn-primary" id="btn-add" type="button" data-bs-toggle="modal" data-bs-target="#ImportExcel"><i class="fa fa-file-excel-o"></i><span class="ml8">Import Excel</span></button>
                 <button class="btn btn-primary" id="btn-add" type="button" data-bs-toggle="modal" data-bs-target="#CHITIET"><i class="icon-add-ico-tsd"></i><span class="ml8">Thêm mới</span></button>
             </div>
         </div>
         <div class="card-body" style="max-height: 929px;">
             <div class="frame-header">
                 <div class="frame-search">
-                    <input name="Ma" placeholder="Chuyến bay" class="width180px item-search" autocomplete="off" />
+                    <input name="Ma" placeholder="Số hiệu" class="width180px item-search" autocomplete="off" />
                     <button class="btn btn-primary btnSearch" type="button"><i class="fa fa-search"></i></button>
                 </div>
             </div>
@@ -22,11 +23,15 @@
                 <table class="width100" id="TBLDANHSACH">
                     <thead>
                         <tr>
-                            <th class="wid50px text-center">STT</th>
+                            <th class="width70px text-center">STT</th>
                             <th class="width70px text-center">Thao tác</th>
-                            <th class="text-center">Chuyến bay</th>
-                            <th class="text-center">Giờ khởi hành</th>
-                            <th class="text-center">Giờ hạ cánh</th>
+                            <th class="text-center">Ngày</th>
+                            <th class="text-center">Số hiệu</th>
+                            <th class="text-center">Chặng bay</th>
+                            <th class="text-center">SOBT</th>
+                            <th class="text-center">EOBT</th>
+                            <th class="text-center">Đảo hành lý</th>
+                            <th class="text-center">Cửa số</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -56,26 +61,64 @@
                     <form id="ModalForm">
                         <input name="Id" class="hidden" value="" />
                         <div class="row mb6">
-                            <div class="col-md-12">Chuyến bay<span class="red">*</span></div>
+                            <div class="col-md-12">Ngày bay<span class="red">*</span></div>
+                        </div>
+                        <div class="mb16 row">
+                            <div class="col-md-12">
+                                <div class="inline-block input-group is_Datetimepicker">
+                                    <input name="Ngay" placeholder="dd/mm/yyyy" class="w-100 item-search input-date form-control-sm" value="">
+                                    <span class="input-group-addon cursor">
+                                        <span class="icon-calendar-ico-tsd"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb6">
+                            <div class="col-md-12">Số hiệu<span class="red">*</span></div>
                         </div>
                         <div class="mb16 row">
                             <div class="col-md-12">
                                 <input name="ChuyenBay" type="text" autocomplete="off" placeholder="Nhập nội dung" class="wid100" value="" />
                             </div>
                         </div>
-
                         <div class="row mb6">
-                            <div class="col-md-6">Giờ khởi hành (24h)<span class="red">*</span></div>
-                            <div class="col-md-6">Giờ hạ cánh (24)<span class="red">*</span></div>
+                            <div class="col-md-12">Chặng bay<span class="red">*</span></div>
+                        </div>
+                        <div class="mb16 row">
+                            <div class="col-md-12">
+                                <input name="ChangBay" type="text" autocomplete="off" placeholder="Nhập nội dung" class="wid100" value="" />
+                            </div>
+                        </div>
+                        <div class="row mb6">
+                            <div class="col-md-6">SOBT</div>
+                            <div class="col-md-6">EOBT</div>
                         </div>
                         <div class="mb16 row">
                             <div class="col-md-6">
-                                <input name="GioKhoiHanh_Gio" type="text" placeholder="00" class="width75px" maxlength="2" max="24" value="00" autocomplete="off" />&nbsp;h&nbsp;
-                                <input name="GioKhoiHanh_Phut" type="text" placeholder="00" class="width75px" maxlength="2" max="60" value="00" autocomplete="off" />&nbsp;phút
+                                <input name="SOBT" type="text" placeholder="00" class="wid100" maxlength="4" value="0000" autocomplete="off" />
                             </div>
                             <div class="col-md-6">
-                                <input name="GioKetThuc_Gio" type="text" placeholder="00" class="width75px" maxlength="2" max="24" value="00" autocomplete="off" />&nbsp;h&nbsp;
-                                <input name="GioKetThuc_Phut" type="text" placeholder="00" class="width75px" maxlength="2" max="60" value="00" autocomplete="off" />&nbsp;phút
+                                <input name="EOBT" type="text" placeholder="00" class="wid100" maxlength="4" value="0000" autocomplete="off" />
+                            </div>
+                        </div>
+                        <div class="row mb6">
+                            <div class="col-md-6">Đảo hành lý</div>
+                            <div class="col-md-6">Cửa số</div>
+                        </div>
+                        <div class="mb16 row">
+                            <div class="col-md-6">
+                                <input name="DaoHanhLy" type="text" placeholder="00" class="wid100" maxlength="4" value="0000" autocomplete="off" />
+                            </div>
+                            <div class="col-md-6">
+                                <input name="CuaSo" type="text" placeholder="00" class="wid100" maxlength="4" value="0000" autocomplete="off" />
+                            </div>
+                        </div>
+                        <div class="row mb6">
+                            <div class="col-md-12">Ghi chú</div>
+                        </div>
+                        <div class="mb16 row">
+                            <div class="col-md-12">
+                                <textarea name="GhiChu" type="text" rows="2" placeholder="00" class="wid100" maxlength="500" value="" autocomplete="off"></textarea>
                             </div>
                         </div>
                     </form>
@@ -85,6 +128,42 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa fa-times"></i><span class="ml8">Đóng</span></button>
                 <button type="button" class="btn btn-primary" id="btn-save"><i class="fa fa-save"></i><span class="ml8">Lưu lại</span></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal modal-edit fade" id="ImportExcel" role="dialog" aria-labelledby="exampleModalLabel" data-bs-keyboard="true" aria-bs-hidden="true" data-bs-backdrop="static" style="padding-top: 42px !important;">
+    <div class="modal-dialog modal-md modal-dialog-slideout" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel">
+                    Nhập dữ liệu từ file
+                </h4>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <i class="icon-close-ico-tsd"></i>
+                </button>
+            </div>
+            <div class="modal-body" style="background-color: #FBFBFB">
+                <div class="modal-body-content" style="padding: 16px; background-color: #FFFFFF;height: 100%;">
+                    <div class="row mb16">
+
+                        <div class="col-md-6">
+                            <a href="~/FileTemp/ImportTmp/Import_ChuyenBay.xlsx">Tải file mẫu</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <input type="file" name="File" class="hidden" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
+                            <input type="text" class="wid100" name="FileName" readonly disabled />
+                            <button class="btn btn-secondary btnChonFile">Chọn file</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa fa-times"></i><span class="ml8">&nbsp;Đóng</span></button>
+                <button type="button" class="btn btn-primary" id="btn-import"><i class="fa fa-save"></i><span class="ml8">&nbsp;Lưu lại</span></button>
             </div>
         </div>
     </div>
@@ -120,10 +199,10 @@
                             ChuyenBay: {
                                 required: true
                             },
-                            GioKhoiHanh_Gio: {
+                            ChangBay: {
                                 required: true
                             },
-                            GioKetThuc_Gio: {
+                            Ngay: {
                                 required: true
                             }
                         },
@@ -131,11 +210,11 @@
                             ChuyenBay: {
                                 required: "Vui lòng nhập thông tin chuyến bay"
                             },
-                            GioKhoiHanh_Gio: {
-                                required: "Vui lòng nhập giờ khởi hành"
+                            ChangBay: {
+                                required: "Vui lòng nhập chặng bay"
                             },
-                            GioKetThuc_Gio: {
-                                required: "Vui lòng nhập giờ hạ cánh"
+                            Ngay: {
+                                required: "Vui lòng nhập giờ ngày bay"
                             }
                         }
                     })
@@ -155,7 +234,7 @@
                             let data = res.Body.Data || [];
 
                             if (data.length == 0) {
-                                html = `<tr><td class="text-center" colspan="5"><span>Không có bản ghi</span></td></tr>`;
+                                html = `<tr><td class="text-center" colspan="9"><span>Không có bản ghi</span></td></tr>`;
                                 $tableBody.html(html);
                                 return false;
                             }
@@ -169,9 +248,13 @@
                                     `<i class="icon-edit-ico-tsd btn-action btnEdit blue mr10" data-id="${item.Id}" title="Sửa"></i>` +
                                     `<i class="icon-delete-ico-tsd btn-action btnDelete red" data-id="${item.Id}" title="Xóa"></i>` +
                                     `</td>` +
+                                    `<td class="">${item.NgayBay}</td>` +
                                     `<td class="">${item.ChuyenBay}</td>` +
-                                    `<td class="">${item.GioKhoiHanh}</td>` +
-                                    `<td class="">${item.GioKetThuc}</td>` +
+                                    `<td class="">${item.ChangBay}</td>` +
+                                    `<td class="">${item.SOBT_TXT}</td>` +
+                                    `<td class="">${item.EOBT_TXT}</td>` +
+                                    `<td class="">${item.DaoHanhLy}</td>` +
+                                    `<td class="">${item.CuaSo}</td>` +
                                     `</tr>`;
                                 startIndex++;
                             }
@@ -277,9 +360,51 @@
                 }
             };
 
+            var $import = {
+                init: function () {
+                    $import.ChooseFile();
+                    $import.FileChanged();
+                    $import.Import();
+                },
+                self: $('#ImportExcel'),
+                ChooseFile: function () {
+                    $import.self.find('.btnChonFile').off('click').on('click', function () {
+                        $import.self.find('input[type=file]').trigger('click');
+                    })
+                },
+                FileChanged: function () {
+                    $import.self.find('input[type=file]').on('change', function () {
+                        var files = $import.self.find('input[type=file]')[0].files;
+                        if (files.length) {
+                            let file = files[0];
+                            $import.self.find('input[name=FileName]').val(file.name);
+                        }
+                    })
+                },
+                Import: function () {
+                    $import.self.find('#btn-import').off('click').on('click', function () {
+                        var files = $import.self.find('input[type=file]')[0].files;
+                        if (!files.length) {
+                            return false;
+                        }
+                        let file = files[0];
+
+                        var getResponse = AjaxConfigHelper.SendRequestFileToServer(`/${$router}/ImportExcel`, "POST", file);
+                        getResponse.then((res) => {
+                            if (res.IsOk) {
+                                $page.GetList(1);
+                                ToastSuccess("Import thành công");
+                                $import.self.modal('hide');
+                            }
+                        })
+
+                    })
+                }
+            }
 
             $page.init();
             $ChiTiet.init();
+            $import.init();
         });
     </script>
 }

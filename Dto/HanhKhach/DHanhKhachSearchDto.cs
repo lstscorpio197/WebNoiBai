@@ -7,8 +7,7 @@ namespace WebNoiBai.Dto.HanhKhach
 {
     public class DHanhKhachSearchDto : SearchDto
     {
-        public DateTime? StartDate { get; set; }
-        public DateTime? EndDate { get; set; }
+        
         public string SoGiayTo { get; set; }
         public string SoHieu { get; set; }
         public string NoiDi {  get; set; }

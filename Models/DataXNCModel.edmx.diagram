@@ -4,32 +4,26 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="230e653414314aecab9903d4f64395c6" Name="Diagram1">
+      <Diagram DiagramId="230e653414314aecab9903d4f64395c6" Name="Diagram1" ZoomLevel="74">
         <EntityTypeShape EntityType="DataXNCModel.cang_hang_khong" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DataXNCModel.canhbao_hanhkhach" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DataXNCModel.chuyenbay_hanhkhach" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataXNCModel.chuyenbay_hanhkhach_data_backup" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataXNCModel.chuyenbay_hh" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataXNCModel.chuyenbay_hh_data_backup" Width="1.5" PointX="6.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataXNCModel.chuyenbay_pnr" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataXNCModel.chuyenbay_pnr_data_backup" Width="1.5" PointX="2.75" PointY="8.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataXNCModel.chuyenbay_tobay" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataXNCModel.chuyenbay_tobay_data_backup" Width="1.5" PointX="10.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataXNCModel.chuyenbay_vandon" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataXNCModel.chuyenbay_vandon_data_backup" Width="1.5" PointX="4.75" PointY="12.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataXNCModel.hang_hang_khong" Width="1.5" PointX="6.75" PointY="12.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataXNCModel.hanhkhach_noichuyen" Width="1.5" PointX="12.75" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataXNCModel.mien_thue" Width="1.5" PointX="8.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataXNCModel.hang_hang_khong" Width="1.5" PointX="0.75" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataXNCModel.mien_thue" Width="1.5" PointX="0.875" PointY="9" IsExpanded="true" />
         <EntityTypeShape EntityType="DataXNCModel.warning_history" Width="1.5" PointX="14.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataXNCModel.SHanhKhachDiLaiNhieu" Width="1.5" PointX="15.375" PointY="6.75" />
-        <EntityTypeShape EntityType="DataXNCModel.SHanhKhachVIP" Width="1.5" PointX="15.375" PointY="11.75" />
-        <EntityTypeShape EntityType="DataXNCModel.SChuyenBay" Width="1.5" PointX="15.375" PointY="16.75" />
+        <EntityTypeShape EntityType="DataXNCModel.SHanhKhachDiLaiNhieu" Width="1.5" PointX="10.875" PointY="7" />
+        <EntityTypeShape EntityType="DataXNCModel.SHanhKhachVIP" Width="1.5" PointX="5" PointY="9" />
         <EntityTypeShape EntityType="DataXNCModel.SDoiTuongTrongDiem" Width="1.5" PointX="17.375" PointY="0.75" />
-        <EntityTypeShape EntityType="DataXNCModel.SDoiTuongDaKT" Width="1.5" PointX="17.375" PointY="5.75" />
-        <EntityTypeShape EntityType="DataXNCModel.SNuocRuiRo" Width="1.5" PointX="17.375" PointY="10.75" />
-        <EntityTypeShape EntityType="DataXNCModel.STheoDoiDacBiet" Width="1.5" PointX="11.375" PointY="17.75" />
-        <EntityTypeShape EntityType="DataXNCModel.STheoDoi" Width="1.5" PointX="17.375" PointY="13.75" />
-        <EntityTypeShape EntityType="DataXNCModel.SHuongDanVien" Width="1.5" PointX="0.75" PointY="18.75" />
+        <EntityTypeShape EntityType="DataXNCModel.SDoiTuongDaKT" Width="1.5" PointX="12.75" PointY="7.125" />
+        <EntityTypeShape EntityType="DataXNCModel.SNuocRuiRo" Width="1.5" PointX="0.75" PointY="5.875" />
+        <EntityTypeShape EntityType="DataXNCModel.STheoDoiDacBiet" Width="1.5" PointX="8.625" PointY="10" />
+        <EntityTypeShape EntityType="DataXNCModel.STheoDoi" Width="1.5" PointX="6.75" PointY="9" />
+        <EntityTypeShape EntityType="DataXNCModel.SHuongDanVien" Width="1.5" PointX="3" PointY="9" />
+        <EntityTypeShape EntityType="DataXNCModel.SChuyenBay" Width="1.5" PointX="11.375" PointY="11.75" />
+        <EntityTypeShape EntityType="DataXNCModel.chuyenbay_hh" Width="1.5" PointX="7.375" PointY="0.75" />
+        <EntityTypeShape EntityType="DataXNCModel.chuyenbay_pnr" Width="1.5" PointX="3.375" PointY="13.75" />
+        <EntityTypeShape EntityType="DataXNCModel.chuyenbay_tobay" Width="1.5" PointX="9.375" PointY="0.75" />
+        <EntityTypeShape EntityType="DataXNCModel.chuyenbay_vandon" Width="1.5" PointX="5.375" PointY="13.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

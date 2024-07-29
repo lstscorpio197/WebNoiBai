@@ -73,78 +73,13 @@
           <Property Name="CB_DICHUYEN_1" Type="int" />
           <Property Name="CB_DICHUYEN" Type="int" />
         </EntityType>
-        <EntityType Name="chuyenbay_hanhkhach_data_backup">
-          <Key>
-            <PropertyRef Name="IDCHUYENBAY" />
-            <PropertyRef Name="SOGIAYTO" />
-          </Key>
-          <Property Name="ID_CHUYENBAY" Type="bigint" Nullable="false" />
-          <Property Name="SOHIEU" Type="nvarchar" MaxLength="20" />
-          <Property Name="FLIGHTDATE" Type="datetime" />
-          <Property Name="CARRIERCODE" Type="nvarchar" MaxLength="20" />
-          <Property Name="CARRIERNAME" Type="nvarchar" MaxLength="50" />
-          <Property Name="MANOIDI" Type="nvarchar" MaxLength="20" />
-          <Property Name="TENNOIDI" Type="nvarchar" MaxLength="100" />
-          <Property Name="MANOIDEN" Type="nvarchar" MaxLength="20" />
-          <Property Name="TENNOIDEN" Type="nvarchar" MaxLength="100" />
-          <Property Name="IDHANHKHACH" Type="bigint" Nullable="false" />
-          <Property Name="IDCHUYENBAY" Type="bigint" Nullable="false" />
-          <Property Name="MADATCHO" Type="nvarchar" MaxLength="20" />
-          <Property Name="GIOITINH" Type="nvarchar" MaxLength="5" />
-          <Property Name="HO" Type="nvarchar" MaxLength="50" />
-          <Property Name="TENDEM" Type="nvarchar" MaxLength="100" />
-          <Property Name="TEN" Type="nvarchar" MaxLength="100" />
-          <Property Name="QUOCTICH" Type="nvarchar" MaxLength="20" />
-          <Property Name="SOGIAYTO" Type="nvarchar" MaxLength="45" Nullable="false" />
-          <Property Name="LOAIGIAYTO" Type="nvarchar" MaxLength="45" />
-          <Property Name="NOICAP" Type="nvarchar" MaxLength="20" />
-          <Property Name="NGAYHETHAN" Type="datetime" />
-          <Property Name="NGAYSINH" Type="datetime" />
-          <Property Name="NOIDI" Type="nvarchar" MaxLength="3" Nullable="false" />
-          <Property Name="NOIDEN" Type="nvarchar" MaxLength="3" Nullable="false" />
-          <Property Name="HANHLY" Type="nvarchar" MaxLength="200" />
-          <Property Name="HK_VERSION" Type="int" />
-          <Property Name="SYS_DATE" Type="datetime" />
-          <Property Name="CB_HK" Type="int" />
-          <Property Name="CB_XK" Type="int" />
-          <Property Name="CB_NK" Type="int" />
-          <Property Name="CB_DICHUYEN_1" Type="int" />
-          <Property Name="CB_DICHUYEN" Type="int" />
-        </EntityType>
         <EntityType Name="chuyenbay_hh">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="bigint" Nullable="false" />
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ID_CHUYENBAY" Type="bigint" Nullable="false" />
-          <Property Name="SOHIEU" Type="nvarchar" MaxLength="1" Nullable="false" />
-          <Property Name="FLIGHTDATE" Type="datetime" Nullable="false" />
-          <Property Name="CARRIERCODE" Type="nvarchar" MaxLength="20" />
-          <Property Name="CARRIERNAME" Type="nvarchar" MaxLength="100" />
-          <Property Name="MANOIDI" Type="nvarchar" MaxLength="20" />
-          <Property Name="TENNOIDI" Type="nvarchar" MaxLength="200" />
-          <Property Name="MANOIDEN" Type="nvarchar" MaxLength="20" />
-          <Property Name="TENNOIDEN" Type="nvarchar" MaxLength="200" />
-          <Property Name="FI_MAQUACANH" Type="nvarchar" MaxLength="45" />
-          <Property Name="IDHANGHOA" Type="bigint" Nullable="false" />
-          <Property Name="ID_HHCT" Type="bigint" Nullable="false" />
-          <Property Name="FI_SOAWB" Type="nvarchar" MaxLength="45" />
-          <Property Name="FI_SOKIEN" Type="int" />
-          <Property Name="FI_MOTA" Type="nvarchar" MaxLength="2000" />
-          <Property Name="FI_SHC" Type="nvarchar" MaxLength="200" />
-          <Property Name="TRONGLUONG" Type="decimal" Precision="10" Scale="2" />
-          <Property Name="NOIDIHH" Type="nvarchar" MaxLength="3" />
-          <Property Name="NOIDENHH" Type="nvarchar" MaxLength="3" />
-          <Property Name="FI_LOAIHANG" Type="int" />
-          <Property Name="SYS_DATE" Type="datetime" />
-        </EntityType>
-        <EntityType Name="chuyenbay_hh_data_backup">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="bigint" Nullable="false" />
-          <Property Name="ID_CHUYENBAY" Type="bigint" Nullable="false" />
-          <Property Name="SOHIEU" Type="nvarchar" MaxLength="1" Nullable="false" />
+          <Property Name="SOHIEU" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="FLIGHTDATE" Type="datetime" Nullable="false" />
           <Property Name="CARRIERCODE" Type="nvarchar" MaxLength="20" />
           <Property Name="CARRIERNAME" Type="nvarchar" MaxLength="100" />
@@ -169,7 +104,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="bigint" Nullable="false" />
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FI_MADATCHO" Type="nvarchar" MaxLength="50" />
           <Property Name="FI_NGAYDATCHO" Type="datetime" />
           <Property Name="FI_THONGTINVE" Type="nvarchar" MaxLength="50" />
@@ -198,54 +133,7 @@
           <Property Name="FI_MACANGHANGKHONGDI" Type="nvarchar" MaxLength="5" />
           <Property Name="FI_MACANGHANGKHONGDEN" Type="nvarchar" MaxLength="5" />
           <Property Name="FI_IDHANHKHACH1" Type="nvarchar" MaxLength="20" />
-          <Property Name="FI_TENHANHKHACH" Type="nvarchar" MaxLength="50" />
-          <Property Name="FI_TENKHAC" Type="nvarchar" MaxLength="50" />
-          <Property Name="FI_DIACHI" Type="nvarchar" MaxLength="500" />
-          <Property Name="FI_SODIENTHOAI" Type="nvarchar" MaxLength="200" />
-          <Property Name="FI_EMAIL" Type="nvarchar" MaxLength="200" />
-          <Property Name="FI_CHITIETLIENHE" Type="nvarchar" MaxLength="200" />
-          <Property Name="FI_SOCHUYENBAY1" Type="nvarchar" MaxLength="20" />
-          <Property Name="FI_IDCHUYENBAY" Type="nvarchar" MaxLength="20" />
-          <Property Name="FI_REFID" Type="nvarchar" MaxLength="50" />
-          <Property Name="FI_SOLANGUIFILE" Type="int" />
-          <Property Name="FI_THOIGIANGUIFILE" Type="nvarchar" MaxLength="50" />
-          <Property Name="FI_VERSION" Type="int" />
-          <Property Name="SYS_DATE" Type="datetime" />
-        </EntityType>
-        <EntityType Name="chuyenbay_pnr_data_backup">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="bigint" Nullable="false" />
-          <Property Name="FI_MADATCHO" Type="nvarchar" MaxLength="50" />
-          <Property Name="FI_NGAYDATCHO" Type="datetime" />
-          <Property Name="FI_THONGTINVE" Type="nvarchar" MaxLength="50" />
-          <Property Name="FI_LICHTRINHBAY" Type="nvarchar" MaxLength="50" />
-          <Property Name="FI_HANHKHACHTHUONGXUYEN" Type="nvarchar" MaxLength="50" />
-          <Property Name="FI_MADAILYBANVE" Type="nvarchar" MaxLength="45" />
-          <Property Name="FI_MANGUOIDATCHO" Type="nvarchar" MaxLength="50" />
-          <Property Name="FI_MADOANBAY" Type="nvarchar" MaxLength="50" />
-          <Property Name="FI_MATACHCHO" Type="nvarchar" MaxLength="50" />
-          <Property Name="FI_SOGHEYEUCAU" Type="nvarchar" MaxLength="50" />
-          <Property Name="FI_SOGHEDADAT" Type="nvarchar" MaxLength="50" />
-          <Property Name="FI_THONGTINHANHLY" Type="nvarchar" MaxLength="200" />
-          <Property Name="FI_GHICHUCHUNG" Type="nvarchar" MaxLength="2000" />
-          <Property Name="FI_THONGTINBOSUNG" Type="nvarchar" MaxLength="200" />
-          <Property Name="FI_DICHVUDACBIET" Type="nvarchar" MaxLength="100" />
-          <Property Name="FI_THONGTINAPIKHAC" Type="nvarchar" MaxLength="100" />
-          <Property Name="FI_NHOMCANHAN" Type="nvarchar" MaxLength="50" />
-          <Property Name="FI_SOHANHKHACH" Type="int" />
-          <Property Name="FI_LICHSU" Type="nvarchar" MaxLength="200" />
-          <Property Name="FI_THANHTOAN" Type="nvarchar" MaxLength="50" />
-          <Property Name="FI_SOCHUYENBAY" Type="nvarchar" MaxLength="50" />
-          <Property Name="FI_IDHANHKHACH" Type="nvarchar" MaxLength="20" />
-          <Property Name="FI_STATUS" Type="int" />
-          <Property Name="FI_LICHBAY" Type="nvarchar" MaxLength="50" />
-          <Property Name="FI_NGAYBAY" Type="datetime" />
-          <Property Name="FI_MACANGHANGKHONGDI" Type="nvarchar" MaxLength="5" />
-          <Property Name="FI_MACANGHANGKHONGDEN" Type="nvarchar" MaxLength="5" />
-          <Property Name="FI_IDHANHKHACH1" Type="nvarchar" MaxLength="20" />
-          <Property Name="FI_TENHANHKHACH" Type="nvarchar" MaxLength="50" />
+          <Property Name="FI_TENHANHKHACH" Type="nvarchar" MaxLength="200" />
           <Property Name="FI_TENKHAC" Type="nvarchar" MaxLength="50" />
           <Property Name="FI_DIACHI" Type="nvarchar" MaxLength="500" />
           <Property Name="FI_SODIENTHOAI" Type="nvarchar" MaxLength="200" />
@@ -284,68 +172,11 @@
           <Property Name="NOIDI" Type="nvarchar" MaxLength="45" />
           <Property Name="NOIDEN" Type="nvarchar" MaxLength="45" />
         </EntityType>
-        <EntityType Name="chuyenbay_tobay_data_backup">
-          <Key>
-            <PropertyRef Name="IDCHUYENBAY" />
-            <PropertyRef Name="SOGIAYTO" />
-          </Key>
-          <Property Name="IDCHUYENBAY" Type="bigint" Nullable="false" />
-          <Property Name="FI_IDTTCHUNG" Type="bigint" Nullable="false" />
-          <Property Name="IDTOBAY" Type="bigint" Nullable="false" />
-          <Property Name="HO" Type="nvarchar" MaxLength="45" />
-          <Property Name="TENDEM" Type="nvarchar" MaxLength="100" />
-          <Property Name="TEN" Type="nvarchar" MaxLength="45" />
-          <Property Name="GIOITINH" Type="nvarchar" MaxLength="5" />
-          <Property Name="QUOCTICH" Type="nvarchar" MaxLength="45" />
-          <Property Name="NGAYSINH" Type="datetime" />
-          <Property Name="SOGIAYTO" Type="nvarchar" MaxLength="45" Nullable="false" />
-          <Property Name="LOAIGIAYTO" Type="nvarchar" MaxLength="45" />
-          <Property Name="NOICAP" Type="nvarchar" MaxLength="45" />
-          <Property Name="NGAYHETHAN" Type="datetime" />
-          <Property Name="TBVERSION" Type="int" />
-          <Property Name="SYS_DATE" Type="datetime" />
-          <Property Name="SOHIEU" Type="nvarchar" MaxLength="45" />
-          <Property Name="NGAYBAY" Type="datetime" />
-          <Property Name="NOIDI" Type="nvarchar" MaxLength="45" />
-          <Property Name="NOIDEN" Type="nvarchar" MaxLength="45" />
-        </EntityType>
         <EntityType Name="chuyenbay_vandon">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="bigint" Nullable="false" />
-          <Property Name="IDCHUYENBAY" Type="bigint" Nullable="false" />
-          <Property Name="FLIGHTDATE" Type="datetime" Nullable="false" />
-          <Property Name="CARRIER" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="FLIGHTNO" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="ORIGIN" Type="nvarchar" MaxLength="20" />
-          <Property Name="DESTINATION" Type="nvarchar" MaxLength="20" />
-          <Property Name="MAWB_NO" Type="nvarchar" MaxLength="45" />
-          <Property Name="M_TENNGUOIGUI" Type="nvarchar" MaxLength="200" />
-          <Property Name="M_TENNGUOINHAN" Type="nvarchar" MaxLength="200" />
-          <Property Name="M_MOTAHANGHOA" Type="nvarchar" MaxLength="2000" />
-          <Property Name="M_SOKIEN" Type="int" />
-          <Property Name="M_GROSSWEIGHT" Type="decimal" Precision="10" Scale="2" />
-          <Property Name="M_SANBAYDI" Type="nvarchar" MaxLength="3" />
-          <Property Name="M_SANBAYDEN" Type="nvarchar" MaxLength="3" />
-          <Property Name="M_VERSION" Type="int" />
-          <Property Name="M_TENDAILY" Type="nvarchar" MaxLength="200" />
-          <Property Name="H_SOMAWB" Type="nvarchar" MaxLength="45" />
-          <Property Name="H_SOHWB" Type="nvarchar" MaxLength="45" />
-          <Property Name="H_TENNGUOIGUI" Type="nvarchar" MaxLength="100" />
-          <Property Name="H_TENNGUOINHAN" Type="nvarchar" MaxLength="200" />
-          <Property Name="H_SOKIEN" Type="int" />
-          <Property Name="H_TRONGLUONG" Type="decimal" Precision="10" Scale="2" />
-          <Property Name="H_NOIDI" Type="nvarchar" MaxLength="3" />
-          <Property Name="H_NOIDEN" Type="nvarchar" MaxLength="3" />
-          <Property Name="H_MOTAHANGHOA" Type="nvarchar" MaxLength="2000" />
-          <Property Name="SYS_DATE" Type="datetime" />
-        </EntityType>
-        <EntityType Name="chuyenbay_vandon_data_backup">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="bigint" Nullable="false" />
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IDCHUYENBAY" Type="bigint" Nullable="false" />
           <Property Name="FLIGHTDATE" Type="datetime" Nullable="false" />
           <Property Name="CARRIER" Type="nvarchar" MaxLength="20" Nullable="false" />
@@ -385,51 +216,6 @@
           <Property Name="FI_MAHANGHK" Type="nvarchar" MaxLength="45" />
           <Property Name="FI_HOATDONG" Type="int" />
         </EntityType>
-        <EntityType Name="hanhkhach_noichuyen">
-          <Key>
-            <PropertyRef Name="IDCHUYENBAY" />
-            <PropertyRef Name="SOGIAYTO" />
-          </Key>
-          <Property Name="ID_CHUYENBAY" Type="bigint" Nullable="false" />
-          <Property Name="SOHIEU" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="FLIGHTDATE" Type="datetime" Nullable="false" />
-          <Property Name="CARRIERCODE" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="CARRIERNAME" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="MANOIDI" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="TENNOIDI" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="MANOIDEN" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="TENNOIDEN" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="IDHANHKHACH" Type="bigint" Nullable="false" />
-          <Property Name="IDCHUYENBAY" Type="bigint" Nullable="false" />
-          <Property Name="MADATCHO" Type="nvarchar" MaxLength="20" />
-          <Property Name="GIOITINH" Type="nvarchar" MaxLength="5" />
-          <Property Name="HO" Type="nvarchar" MaxLength="50" />
-          <Property Name="TENDEM" Type="nvarchar" MaxLength="100" />
-          <Property Name="TEN" Type="nvarchar" MaxLength="100" />
-          <Property Name="QUOCTICH" Type="nvarchar" MaxLength="20" />
-          <Property Name="SOGIAYTO" Type="nvarchar" MaxLength="45" Nullable="false" />
-          <Property Name="LOAIGIAYTO" Type="nvarchar" MaxLength="45" />
-          <Property Name="NOICAP" Type="nvarchar" MaxLength="20" />
-          <Property Name="NGAYHETHAN" Type="datetime" />
-          <Property Name="NGAYSINH" Type="datetime" />
-          <Property Name="NOIDI" Type="nvarchar" MaxLength="3" Nullable="false" />
-          <Property Name="NOIDEN" Type="nvarchar" MaxLength="3" Nullable="false" />
-          <Property Name="HANHLY" Type="nvarchar" MaxLength="200" />
-          <Property Name="HK_VERSION" Type="int" />
-          <Property Name="SYS_DATE" Type="datetime" />
-          <Property Name="ID_CHUYENBAY2" Type="bigint" />
-          <Property Name="SOHIEU2" Type="nvarchar" MaxLength="20" />
-          <Property Name="MANOIDI2" Type="nvarchar" MaxLength="20" />
-          <Property Name="TENNOIDI2" Type="nvarchar" MaxLength="100" />
-          <Property Name="MANOIDEN2" Type="nvarchar" MaxLength="20" />
-          <Property Name="TENNOIDEN2" Type="nvarchar" MaxLength="100" />
-          <Property Name="NOIDI2" Type="nvarchar" MaxLength="3" />
-          <Property Name="NOIDEN2" Type="nvarchar" MaxLength="3" />
-          <Property Name="HANHLY2" Type="nvarchar" MaxLength="200" />
-          <Property Name="IDHANHKHACH2" Type="bigint" />
-          <Property Name="CARRIERCODE2" Type="nvarchar" MaxLength="20" />
-          <Property Name="CARRIERNAME2" Type="nvarchar" MaxLength="50" />
-        </EntityType>
         <EntityType Name="mien_thue">
           <Key>
             <PropertyRef Name="id" />
@@ -457,11 +243,14 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ngay" Type="datetime" Nullable="false" />
           <Property Name="ChuyenBay" Type="nvarchar" MaxLength="10" Nullable="false" />
-          <Property Name="GioKhoiHanh_Gio" Type="int" Nullable="false" />
-          <Property Name="GioKhoiHanh_Phut" Type="int" />
-          <Property Name="GioKetThuc_Gio" Type="int" Nullable="false" />
-          <Property Name="GioKetThuc_Phut" Type="int" />
+          <Property Name="ChangBay" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="SOBT" Type="int" />
+          <Property Name="EOBT" Type="int" />
+          <Property Name="DaoHanhLy" Type="nvarchar" MaxLength="5" />
+          <Property Name="CuaSo" Type="nvarchar" MaxLength="5" />
+          <Property Name="GhiChu" Type="nvarchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="SDoiTuongDaKT">
           <Key>
@@ -628,17 +417,11 @@
           <EntitySet Name="cang_hang_khong" EntityType="Self.cang_hang_khong" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="canhbao_hanhkhach" EntityType="Self.canhbao_hanhkhach" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="chuyenbay_hanhkhach" EntityType="Self.chuyenbay_hanhkhach" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="chuyenbay_hanhkhach_data_backup" EntityType="Self.chuyenbay_hanhkhach_data_backup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="chuyenbay_hh" EntityType="Self.chuyenbay_hh" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="chuyenbay_hh_data_backup" EntityType="Self.chuyenbay_hh_data_backup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="chuyenbay_pnr" EntityType="Self.chuyenbay_pnr" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="chuyenbay_pnr_data_backup" EntityType="Self.chuyenbay_pnr_data_backup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="chuyenbay_tobay" EntityType="Self.chuyenbay_tobay" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="chuyenbay_tobay_data_backup" EntityType="Self.chuyenbay_tobay_data_backup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="chuyenbay_vandon" EntityType="Self.chuyenbay_vandon" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="chuyenbay_vandon_data_backup" EntityType="Self.chuyenbay_vandon_data_backup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="hang_hang_khong" EntityType="Self.hang_hang_khong" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="hanhkhach_noichuyen" EntityType="Self.hanhkhach_noichuyen" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="mien_thue" EntityType="Self.mien_thue" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SChuyenBay" EntityType="Self.SChuyenBay" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SDoiTuongDaKT" EntityType="Self.SDoiTuongDaKT" Schema="dbo" store:Type="Tables" />
@@ -723,306 +506,6 @@
           <Property Name="CB_DICHUYEN_1" Type="Int32" />
           <Property Name="CB_DICHUYEN" Type="Int32" />
         </EntityType>
-        <EntityType Name="chuyenbay_hanhkhach_data_backup">
-          <Key>
-            <PropertyRef Name="IDCHUYENBAY" />
-            <PropertyRef Name="SOGIAYTO" />
-          </Key>
-          <Property Name="ID_CHUYENBAY" Type="Int64" Nullable="false" />
-          <Property Name="SOHIEU" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="FLIGHTDATE" Type="DateTime" Precision="3" />
-          <Property Name="CARRIERCODE" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="CARRIERNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="MANOIDI" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="TENNOIDI" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="MANOIDEN" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="TENNOIDEN" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="IDHANHKHACH" Type="Int64" Nullable="false" />
-          <Property Name="IDCHUYENBAY" Type="Int64" Nullable="false" />
-          <Property Name="MADATCHO" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="GIOITINH" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
-          <Property Name="HO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="TENDEM" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="TEN" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="QUOCTICH" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="SOGIAYTO" Type="String" MaxLength="45" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="LOAIGIAYTO" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
-          <Property Name="NOICAP" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="NGAYHETHAN" Type="DateTime" Precision="3" />
-          <Property Name="NGAYSINH" Type="DateTime" Precision="3" />
-          <Property Name="NOIDI" Type="String" MaxLength="3" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="NOIDEN" Type="String" MaxLength="3" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="HANHLY" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="HK_VERSION" Type="Int32" />
-          <Property Name="SYS_DATE" Type="DateTime" Precision="3" />
-          <Property Name="CB_HK" Type="Int32" />
-          <Property Name="CB_XK" Type="Int32" />
-          <Property Name="CB_NK" Type="Int32" />
-          <Property Name="CB_DICHUYEN_1" Type="Int32" />
-          <Property Name="CB_DICHUYEN" Type="Int32" />
-        </EntityType>
-        <EntityType Name="chuyenbay_hh">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" />
-          <Property Name="ID_CHUYENBAY" Type="Int64" Nullable="false" />
-          <Property Name="SOHIEU" Type="String" MaxLength="1" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="FLIGHTDATE" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CARRIERCODE" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="CARRIERNAME" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="MANOIDI" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="TENNOIDI" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="MANOIDEN" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="TENNOIDEN" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="FI_MAQUACANH" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
-          <Property Name="IDHANGHOA" Type="Int64" Nullable="false" />
-          <Property Name="ID_HHCT" Type="Int64" Nullable="false" />
-          <Property Name="FI_SOAWB" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
-          <Property Name="FI_SOKIEN" Type="Int32" />
-          <Property Name="FI_MOTA" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
-          <Property Name="FI_SHC" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="TRONGLUONG" Type="Decimal" Precision="10" Scale="2" />
-          <Property Name="NOIDIHH" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
-          <Property Name="NOIDENHH" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
-          <Property Name="FI_LOAIHANG" Type="Int32" />
-          <Property Name="SYS_DATE" Type="DateTime" Precision="3" />
-        </EntityType>
-        <EntityType Name="chuyenbay_hh_data_backup">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" />
-          <Property Name="ID_CHUYENBAY" Type="Int64" Nullable="false" />
-          <Property Name="SOHIEU" Type="String" MaxLength="1" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="FLIGHTDATE" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CARRIERCODE" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="CARRIERNAME" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="MANOIDI" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="TENNOIDI" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="MANOIDEN" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="TENNOIDEN" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="FI_MAQUACANH" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
-          <Property Name="IDHANGHOA" Type="Int64" Nullable="false" />
-          <Property Name="ID_HHCT" Type="Int64" Nullable="false" />
-          <Property Name="FI_SOAWB" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
-          <Property Name="FI_SOKIEN" Type="Int32" />
-          <Property Name="FI_MOTA" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
-          <Property Name="FI_SHC" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="TRONGLUONG" Type="Decimal" Precision="10" Scale="2" />
-          <Property Name="NOIDIHH" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
-          <Property Name="NOIDENHH" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
-          <Property Name="FI_LOAIHANG" Type="Int32" />
-          <Property Name="SYS_DATE" Type="DateTime" Precision="3" />
-        </EntityType>
-        <EntityType Name="chuyenbay_pnr">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" />
-          <Property Name="FI_MADATCHO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FI_NGAYDATCHO" Type="DateTime" Precision="3" />
-          <Property Name="FI_THONGTINVE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FI_LICHTRINHBAY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FI_HANHKHACHTHUONGXUYEN" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FI_MADAILYBANVE" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
-          <Property Name="FI_MANGUOIDATCHO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FI_MADOANBAY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FI_MATACHCHO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FI_SOGHEYEUCAU" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FI_SOGHEDADAT" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FI_THONGTINHANHLY" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="FI_GHICHUCHUNG" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
-          <Property Name="FI_THONGTINBOSUNG" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="FI_DICHVUDACBIET" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="FI_THONGTINAPIKHAC" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="FI_NHOMCANHAN" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FI_SOHANHKHACH" Type="Int32" />
-          <Property Name="FI_LICHSU" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="FI_THANHTOAN" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FI_SOCHUYENBAY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FI_IDHANHKHACH" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="FI_STATUS" Type="Int32" />
-          <Property Name="FI_LICHBAY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FI_NGAYBAY" Type="DateTime" Precision="3" />
-          <Property Name="FI_MACANGHANGKHONGDI" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
-          <Property Name="FI_MACANGHANGKHONGDEN" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
-          <Property Name="FI_IDHANHKHACH1" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="FI_TENHANHKHACH" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FI_TENKHAC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FI_DIACHI" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="FI_SODIENTHOAI" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="FI_EMAIL" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="FI_CHITIETLIENHE" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="FI_SOCHUYENBAY1" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="FI_IDCHUYENBAY" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="FI_REFID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FI_SOLANGUIFILE" Type="Int32" />
-          <Property Name="FI_THOIGIANGUIFILE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FI_VERSION" Type="Int32" />
-          <Property Name="SYS_DATE" Type="DateTime" Precision="3" />
-        </EntityType>
-        <EntityType Name="chuyenbay_pnr_data_backup">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" />
-          <Property Name="FI_MADATCHO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FI_NGAYDATCHO" Type="DateTime" Precision="3" />
-          <Property Name="FI_THONGTINVE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FI_LICHTRINHBAY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FI_HANHKHACHTHUONGXUYEN" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FI_MADAILYBANVE" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
-          <Property Name="FI_MANGUOIDATCHO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FI_MADOANBAY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FI_MATACHCHO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FI_SOGHEYEUCAU" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FI_SOGHEDADAT" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FI_THONGTINHANHLY" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="FI_GHICHUCHUNG" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
-          <Property Name="FI_THONGTINBOSUNG" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="FI_DICHVUDACBIET" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="FI_THONGTINAPIKHAC" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="FI_NHOMCANHAN" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FI_SOHANHKHACH" Type="Int32" />
-          <Property Name="FI_LICHSU" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="FI_THANHTOAN" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FI_SOCHUYENBAY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FI_IDHANHKHACH" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="FI_STATUS" Type="Int32" />
-          <Property Name="FI_LICHBAY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FI_NGAYBAY" Type="DateTime" Precision="3" />
-          <Property Name="FI_MACANGHANGKHONGDI" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
-          <Property Name="FI_MACANGHANGKHONGDEN" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
-          <Property Name="FI_IDHANHKHACH1" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="FI_TENHANHKHACH" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FI_TENKHAC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FI_DIACHI" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="FI_SODIENTHOAI" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="FI_EMAIL" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="FI_CHITIETLIENHE" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="FI_SOCHUYENBAY1" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="FI_IDCHUYENBAY" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="FI_REFID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FI_SOLANGUIFILE" Type="Int32" />
-          <Property Name="FI_THOIGIANGUIFILE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FI_VERSION" Type="Int32" />
-          <Property Name="SYS_DATE" Type="DateTime" Precision="3" />
-        </EntityType>
-        <EntityType Name="chuyenbay_tobay">
-          <Key>
-            <PropertyRef Name="IDCHUYENBAY" />
-            <PropertyRef Name="SOGIAYTO" />
-          </Key>
-          <Property Name="IDCHUYENBAY" Type="Int64" Nullable="false" />
-          <Property Name="FI_IDTTCHUNG" Type="Int64" Nullable="false" />
-          <Property Name="IDTOBAY" Type="Int64" Nullable="false" />
-          <Property Name="HO" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
-          <Property Name="TENDEM" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="TEN" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
-          <Property Name="GIOITINH" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
-          <Property Name="QUOCTICH" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
-          <Property Name="NGAYSINH" Type="DateTime" Precision="3" />
-          <Property Name="SOGIAYTO" Type="String" MaxLength="45" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="LOAIGIAYTO" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
-          <Property Name="NOICAP" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
-          <Property Name="NGAYHETHAN" Type="DateTime" Precision="3" />
-          <Property Name="TBVERSION" Type="Int32" />
-          <Property Name="SYS_DATE" Type="DateTime" Precision="3" />
-          <Property Name="SOHIEU" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
-          <Property Name="NGAYBAY" Type="DateTime" Precision="3" />
-          <Property Name="NOIDI" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
-          <Property Name="NOIDEN" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="chuyenbay_tobay_data_backup">
-          <Key>
-            <PropertyRef Name="IDCHUYENBAY" />
-            <PropertyRef Name="SOGIAYTO" />
-          </Key>
-          <Property Name="IDCHUYENBAY" Type="Int64" Nullable="false" />
-          <Property Name="FI_IDTTCHUNG" Type="Int64" Nullable="false" />
-          <Property Name="IDTOBAY" Type="Int64" Nullable="false" />
-          <Property Name="HO" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
-          <Property Name="TENDEM" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="TEN" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
-          <Property Name="GIOITINH" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
-          <Property Name="QUOCTICH" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
-          <Property Name="NGAYSINH" Type="DateTime" Precision="3" />
-          <Property Name="SOGIAYTO" Type="String" MaxLength="45" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="LOAIGIAYTO" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
-          <Property Name="NOICAP" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
-          <Property Name="NGAYHETHAN" Type="DateTime" Precision="3" />
-          <Property Name="TBVERSION" Type="Int32" />
-          <Property Name="SYS_DATE" Type="DateTime" Precision="3" />
-          <Property Name="SOHIEU" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
-          <Property Name="NGAYBAY" Type="DateTime" Precision="3" />
-          <Property Name="NOIDI" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
-          <Property Name="NOIDEN" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="chuyenbay_vandon">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" />
-          <Property Name="IDCHUYENBAY" Type="Int64" Nullable="false" />
-          <Property Name="FLIGHTDATE" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CARRIER" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="FLIGHTNO" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ORIGIN" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="DESTINATION" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="MAWB_NO" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
-          <Property Name="M_TENNGUOIGUI" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="M_TENNGUOINHAN" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="M_MOTAHANGHOA" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
-          <Property Name="M_SOKIEN" Type="Int32" />
-          <Property Name="M_GROSSWEIGHT" Type="Decimal" Precision="10" Scale="2" />
-          <Property Name="M_SANBAYDI" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
-          <Property Name="M_SANBAYDEN" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
-          <Property Name="M_VERSION" Type="Int32" />
-          <Property Name="M_TENDAILY" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="H_SOMAWB" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
-          <Property Name="H_SOHWB" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
-          <Property Name="H_TENNGUOIGUI" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="H_TENNGUOINHAN" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="H_SOKIEN" Type="Int32" />
-          <Property Name="H_TRONGLUONG" Type="Decimal" Precision="10" Scale="2" />
-          <Property Name="H_NOIDI" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
-          <Property Name="H_NOIDEN" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
-          <Property Name="H_MOTAHANGHOA" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
-          <Property Name="SYS_DATE" Type="DateTime" Precision="3" />
-        </EntityType>
-        <EntityType Name="chuyenbay_vandon_data_backup">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" />
-          <Property Name="IDCHUYENBAY" Type="Int64" Nullable="false" />
-          <Property Name="FLIGHTDATE" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CARRIER" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="FLIGHTNO" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ORIGIN" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="DESTINATION" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="MAWB_NO" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
-          <Property Name="M_TENNGUOIGUI" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="M_TENNGUOINHAN" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="M_MOTAHANGHOA" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
-          <Property Name="M_SOKIEN" Type="Int32" />
-          <Property Name="M_GROSSWEIGHT" Type="Decimal" Precision="10" Scale="2" />
-          <Property Name="M_SANBAYDI" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
-          <Property Name="M_SANBAYDEN" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
-          <Property Name="M_VERSION" Type="Int32" />
-          <Property Name="M_TENDAILY" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="H_SOMAWB" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
-          <Property Name="H_SOHWB" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
-          <Property Name="H_TENNGUOIGUI" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="H_TENNGUOINHAN" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="H_SOKIEN" Type="Int32" />
-          <Property Name="H_TRONGLUONG" Type="Decimal" Precision="10" Scale="2" />
-          <Property Name="H_NOIDI" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
-          <Property Name="H_NOIDEN" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
-          <Property Name="H_MOTAHANGHOA" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
-          <Property Name="SYS_DATE" Type="DateTime" Precision="3" />
-        </EntityType>
         <EntityType Name="hang_hang_khong">
           <Key>
             <PropertyRef Name="id" />
@@ -1034,51 +517,6 @@
           <Property Name="FI_MAIATA" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
           <Property Name="FI_MAHANGHK" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
           <Property Name="FI_HOATDONG" Type="Int32" />
-        </EntityType>
-        <EntityType Name="hanhkhach_noichuyen">
-          <Key>
-            <PropertyRef Name="IDCHUYENBAY" />
-            <PropertyRef Name="SOGIAYTO" />
-          </Key>
-          <Property Name="ID_CHUYENBAY" Type="Int64" Nullable="false" />
-          <Property Name="SOHIEU" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="FLIGHTDATE" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CARRIERCODE" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CARRIERNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="MANOIDI" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="TENNOIDI" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="MANOIDEN" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="TENNOIDEN" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="IDHANHKHACH" Type="Int64" Nullable="false" />
-          <Property Name="IDCHUYENBAY" Type="Int64" Nullable="false" />
-          <Property Name="MADATCHO" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="GIOITINH" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
-          <Property Name="HO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="TENDEM" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="TEN" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="QUOCTICH" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="SOGIAYTO" Type="String" MaxLength="45" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="LOAIGIAYTO" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
-          <Property Name="NOICAP" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="NGAYHETHAN" Type="DateTime" Precision="3" />
-          <Property Name="NGAYSINH" Type="DateTime" Precision="3" />
-          <Property Name="NOIDI" Type="String" MaxLength="3" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="NOIDEN" Type="String" MaxLength="3" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="HANHLY" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="HK_VERSION" Type="Int32" />
-          <Property Name="SYS_DATE" Type="DateTime" Precision="3" />
-          <Property Name="ID_CHUYENBAY2" Type="Int64" />
-          <Property Name="SOHIEU2" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="MANOIDI2" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="TENNOIDI2" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="MANOIDEN2" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="TENNOIDEN2" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="NOIDI2" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
-          <Property Name="NOIDEN2" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
-          <Property Name="HANHLY2" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="IDHANHKHACH2" Type="Int64" />
-          <Property Name="CARRIERCODE2" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="CARRIERNAME2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="mien_thue">
           <Key>
@@ -1129,28 +567,22 @@
           <EntitySet Name="cang_hang_khong" EntityType="Self.cang_hang_khong" />
           <EntitySet Name="canhbao_hanhkhach" EntityType="Self.canhbao_hanhkhach" />
           <EntitySet Name="chuyenbay_hanhkhach" EntityType="Self.chuyenbay_hanhkhach" />
-          <EntitySet Name="chuyenbay_hanhkhach_data_backup" EntityType="Self.chuyenbay_hanhkhach_data_backup" />
-          <EntitySet Name="chuyenbay_hh" EntityType="Self.chuyenbay_hh" />
-          <EntitySet Name="chuyenbay_hh_data_backup" EntityType="Self.chuyenbay_hh_data_backup" />
-          <EntitySet Name="chuyenbay_pnr" EntityType="Self.chuyenbay_pnr" />
-          <EntitySet Name="chuyenbay_pnr_data_backup" EntityType="Self.chuyenbay_pnr_data_backup" />
-          <EntitySet Name="chuyenbay_tobay" EntityType="Self.chuyenbay_tobay" />
-          <EntitySet Name="chuyenbay_tobay_data_backup" EntityType="Self.chuyenbay_tobay_data_backup" />
-          <EntitySet Name="chuyenbay_vandon" EntityType="Self.chuyenbay_vandon" />
-          <EntitySet Name="chuyenbay_vandon_data_backup" EntityType="Self.chuyenbay_vandon_data_backup" />
           <EntitySet Name="hang_hang_khong" EntityType="Self.hang_hang_khong" />
-          <EntitySet Name="hanhkhach_noichuyen" EntityType="Self.hanhkhach_noichuyen" />
           <EntitySet Name="mien_thue" EntityType="Self.mien_thue" />
           <EntitySet Name="warning_history" EntityType="Self.warning_history" />
           <EntitySet Name="SHanhKhachDiLaiNhieux" EntityType="DataXNCModel.SHanhKhachDiLaiNhieu" />
           <EntitySet Name="SHanhKhachVIPs" EntityType="DataXNCModel.SHanhKhachVIP" />
-          <EntitySet Name="SChuyenBays" EntityType="DataXNCModel.SChuyenBay" />
           <EntitySet Name="SDoiTuongTrongDiems" EntityType="DataXNCModel.SDoiTuongTrongDiem" />
           <EntitySet Name="SDoiTuongDaKTs" EntityType="DataXNCModel.SDoiTuongDaKT" />
           <EntitySet Name="SNuocRuiRoes" EntityType="DataXNCModel.SNuocRuiRo" />
           <EntitySet Name="STheoDoiDacBiets" EntityType="DataXNCModel.STheoDoiDacBiet" />
           <EntitySet Name="STheoDois" EntityType="DataXNCModel.STheoDoi" />
           <EntitySet Name="SHuongDanViens" EntityType="DataXNCModel.SHuongDanVien" />
+          <EntitySet Name="SChuyenBays" EntityType="DataXNCModel.SChuyenBay" />
+          <EntitySet Name="chuyenbay_hh" EntityType="DataXNCModel.chuyenbay_hh" />
+          <EntitySet Name="chuyenbay_pnr" EntityType="DataXNCModel.chuyenbay_pnr" />
+          <EntitySet Name="chuyenbay_tobay" EntityType="DataXNCModel.chuyenbay_tobay" />
+          <EntitySet Name="chuyenbay_vandon" EntityType="DataXNCModel.chuyenbay_vandon" />
         </EntityContainer>
         <EntityType Name="SHanhKhachDiLaiNhieu">
           <Key>
@@ -1187,17 +619,6 @@
           <Property Name="NguoiTao" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="NgaySua" Type="DateTime" Precision="3" />
           <Property Name="NguoiSua" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="SChuyenBay">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ChuyenBay" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="GioKhoiHanh_Gio" Type="Int32" Nullable="false" />
-          <Property Name="GioKhoiHanh_Phut" Type="Int32" />
-          <Property Name="GioKetThuc_Gio" Type="Int32" Nullable="false" />
-          <Property Name="GioKetThuc_Phut" Type="Int32" />
         </EntityType>
         <EntityType Name="SDoiTuongTrongDiem">
           <Key>
@@ -1301,6 +722,151 @@
           <Property Name="NgaySua" Type="DateTime" Precision="3" />
           <Property Name="NguoiSua" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="SChuyenBay">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ngay" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ChuyenBay" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="ChangBay" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="SOBT" Type="Int32" />
+          <Property Name="EOBT" Type="Int32" />
+          <Property Name="DaoHanhLy" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="CuaSo" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="GhiChu" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="chuyenbay_hh">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_CHUYENBAY" Type="Int64" Nullable="false" />
+          <Property Name="SOHIEU" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="FLIGHTDATE" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CARRIERCODE" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CARRIERNAME" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="MANOIDI" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="TENNOIDI" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="MANOIDEN" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="TENNOIDEN" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="FI_MAQUACANH" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
+          <Property Name="IDHANGHOA" Type="Int64" Nullable="false" />
+          <Property Name="ID_HHCT" Type="Int64" Nullable="false" />
+          <Property Name="FI_SOAWB" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
+          <Property Name="FI_SOKIEN" Type="Int32" />
+          <Property Name="FI_MOTA" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="FI_SHC" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="TRONGLUONG" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="NOIDIHH" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Name="NOIDENHH" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Name="FI_LOAIHANG" Type="Int32" />
+          <Property Name="SYS_DATE" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="chuyenbay_pnr">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FI_MADATCHO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FI_NGAYDATCHO" Type="DateTime" Precision="3" />
+          <Property Name="FI_THONGTINVE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FI_LICHTRINHBAY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FI_HANHKHACHTHUONGXUYEN" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FI_MADAILYBANVE" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
+          <Property Name="FI_MANGUOIDATCHO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FI_MADOANBAY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FI_MATACHCHO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FI_SOGHEYEUCAU" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FI_SOGHEDADAT" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FI_THONGTINHANHLY" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="FI_GHICHUCHUNG" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="FI_THONGTINBOSUNG" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="FI_DICHVUDACBIET" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="FI_THONGTINAPIKHAC" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="FI_NHOMCANHAN" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FI_SOHANHKHACH" Type="Int32" />
+          <Property Name="FI_LICHSU" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="FI_THANHTOAN" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FI_SOCHUYENBAY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FI_IDHANHKHACH" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="FI_STATUS" Type="Int32" />
+          <Property Name="FI_LICHBAY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FI_NGAYBAY" Type="DateTime" Precision="3" />
+          <Property Name="FI_MACANGHANGKHONGDI" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="FI_MACANGHANGKHONGDEN" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="FI_IDHANHKHACH1" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="FI_TENHANHKHACH" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="FI_TENKHAC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FI_DIACHI" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="FI_SODIENTHOAI" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="FI_EMAIL" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="FI_CHITIETLIENHE" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="FI_SOCHUYENBAY1" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="FI_IDCHUYENBAY" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="FI_REFID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FI_SOLANGUIFILE" Type="Int32" />
+          <Property Name="FI_THOIGIANGUIFILE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FI_VERSION" Type="Int32" />
+          <Property Name="SYS_DATE" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="chuyenbay_tobay">
+          <Key>
+            <PropertyRef Name="IDCHUYENBAY" />
+            <PropertyRef Name="SOGIAYTO" />
+          </Key>
+          <Property Name="IDCHUYENBAY" Type="Int64" Nullable="false" />
+          <Property Name="FI_IDTTCHUNG" Type="Int64" Nullable="false" />
+          <Property Name="IDTOBAY" Type="Int64" Nullable="false" />
+          <Property Name="HO" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
+          <Property Name="TENDEM" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TEN" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
+          <Property Name="GIOITINH" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="QUOCTICH" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
+          <Property Name="NGAYSINH" Type="DateTime" Precision="3" />
+          <Property Name="SOGIAYTO" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="true" />
+          <Property Name="LOAIGIAYTO" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
+          <Property Name="NOICAP" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
+          <Property Name="NGAYHETHAN" Type="DateTime" Precision="3" />
+          <Property Name="TBVERSION" Type="Int32" />
+          <Property Name="SYS_DATE" Type="DateTime" Precision="3" />
+          <Property Name="SOHIEU" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
+          <Property Name="NGAYBAY" Type="DateTime" Precision="3" />
+          <Property Name="NOIDI" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
+          <Property Name="NOIDEN" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="chuyenbay_vandon">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDCHUYENBAY" Type="Int64" Nullable="false" />
+          <Property Name="FLIGHTDATE" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CARRIER" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="FLIGHTNO" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ORIGIN" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="DESTINATION" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="MAWB_NO" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
+          <Property Name="M_TENNGUOIGUI" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="M_TENNGUOINHAN" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="M_MOTAHANGHOA" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="M_SOKIEN" Type="Int32" />
+          <Property Name="M_GROSSWEIGHT" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="M_SANBAYDI" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Name="M_SANBAYDEN" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Name="M_VERSION" Type="Int32" />
+          <Property Name="M_TENDAILY" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="H_SOMAWB" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
+          <Property Name="H_SOHWB" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
+          <Property Name="H_TENNGUOIGUI" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="H_TENNGUOINHAN" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="H_SOKIEN" Type="Int32" />
+          <Property Name="H_TRONGLUONG" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="H_NOIDI" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Name="H_NOIDEN" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Name="H_MOTAHANGHOA" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="SYS_DATE" Type="DateTime" Precision="3" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1377,312 +943,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="chuyenbay_hanhkhach_data_backup">
-            <EntityTypeMapping TypeName="DataXNCModel.chuyenbay_hanhkhach_data_backup">
-              <MappingFragment StoreEntitySet="chuyenbay_hanhkhach_data_backup">
-                <ScalarProperty Name="ID_CHUYENBAY" ColumnName="ID_CHUYENBAY" />
-                <ScalarProperty Name="SOHIEU" ColumnName="SOHIEU" />
-                <ScalarProperty Name="FLIGHTDATE" ColumnName="FLIGHTDATE" />
-                <ScalarProperty Name="CARRIERCODE" ColumnName="CARRIERCODE" />
-                <ScalarProperty Name="CARRIERNAME" ColumnName="CARRIERNAME" />
-                <ScalarProperty Name="MANOIDI" ColumnName="MANOIDI" />
-                <ScalarProperty Name="TENNOIDI" ColumnName="TENNOIDI" />
-                <ScalarProperty Name="MANOIDEN" ColumnName="MANOIDEN" />
-                <ScalarProperty Name="TENNOIDEN" ColumnName="TENNOIDEN" />
-                <ScalarProperty Name="IDHANHKHACH" ColumnName="IDHANHKHACH" />
-                <ScalarProperty Name="IDCHUYENBAY" ColumnName="IDCHUYENBAY" />
-                <ScalarProperty Name="MADATCHO" ColumnName="MADATCHO" />
-                <ScalarProperty Name="GIOITINH" ColumnName="GIOITINH" />
-                <ScalarProperty Name="HO" ColumnName="HO" />
-                <ScalarProperty Name="TENDEM" ColumnName="TENDEM" />
-                <ScalarProperty Name="TEN" ColumnName="TEN" />
-                <ScalarProperty Name="QUOCTICH" ColumnName="QUOCTICH" />
-                <ScalarProperty Name="SOGIAYTO" ColumnName="SOGIAYTO" />
-                <ScalarProperty Name="LOAIGIAYTO" ColumnName="LOAIGIAYTO" />
-                <ScalarProperty Name="NOICAP" ColumnName="NOICAP" />
-                <ScalarProperty Name="NGAYHETHAN" ColumnName="NGAYHETHAN" />
-                <ScalarProperty Name="NGAYSINH" ColumnName="NGAYSINH" />
-                <ScalarProperty Name="NOIDI" ColumnName="NOIDI" />
-                <ScalarProperty Name="NOIDEN" ColumnName="NOIDEN" />
-                <ScalarProperty Name="HANHLY" ColumnName="HANHLY" />
-                <ScalarProperty Name="HK_VERSION" ColumnName="HK_VERSION" />
-                <ScalarProperty Name="SYS_DATE" ColumnName="SYS_DATE" />
-                <ScalarProperty Name="CB_HK" ColumnName="CB_HK" />
-                <ScalarProperty Name="CB_XK" ColumnName="CB_XK" />
-                <ScalarProperty Name="CB_NK" ColumnName="CB_NK" />
-                <ScalarProperty Name="CB_DICHUYEN_1" ColumnName="CB_DICHUYEN_1" />
-                <ScalarProperty Name="CB_DICHUYEN" ColumnName="CB_DICHUYEN" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="chuyenbay_hh">
-            <EntityTypeMapping TypeName="DataXNCModel.chuyenbay_hh">
-              <MappingFragment StoreEntitySet="chuyenbay_hh">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="ID_CHUYENBAY" ColumnName="ID_CHUYENBAY" />
-                <ScalarProperty Name="SOHIEU" ColumnName="SOHIEU" />
-                <ScalarProperty Name="FLIGHTDATE" ColumnName="FLIGHTDATE" />
-                <ScalarProperty Name="CARRIERCODE" ColumnName="CARRIERCODE" />
-                <ScalarProperty Name="CARRIERNAME" ColumnName="CARRIERNAME" />
-                <ScalarProperty Name="MANOIDI" ColumnName="MANOIDI" />
-                <ScalarProperty Name="TENNOIDI" ColumnName="TENNOIDI" />
-                <ScalarProperty Name="MANOIDEN" ColumnName="MANOIDEN" />
-                <ScalarProperty Name="TENNOIDEN" ColumnName="TENNOIDEN" />
-                <ScalarProperty Name="FI_MAQUACANH" ColumnName="FI_MAQUACANH" />
-                <ScalarProperty Name="IDHANGHOA" ColumnName="IDHANGHOA" />
-                <ScalarProperty Name="ID_HHCT" ColumnName="ID_HHCT" />
-                <ScalarProperty Name="FI_SOAWB" ColumnName="FI_SOAWB" />
-                <ScalarProperty Name="FI_SOKIEN" ColumnName="FI_SOKIEN" />
-                <ScalarProperty Name="FI_MOTA" ColumnName="FI_MOTA" />
-                <ScalarProperty Name="FI_SHC" ColumnName="FI_SHC" />
-                <ScalarProperty Name="TRONGLUONG" ColumnName="TRONGLUONG" />
-                <ScalarProperty Name="NOIDIHH" ColumnName="NOIDIHH" />
-                <ScalarProperty Name="NOIDENHH" ColumnName="NOIDENHH" />
-                <ScalarProperty Name="FI_LOAIHANG" ColumnName="FI_LOAIHANG" />
-                <ScalarProperty Name="SYS_DATE" ColumnName="SYS_DATE" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="chuyenbay_hh_data_backup">
-            <EntityTypeMapping TypeName="DataXNCModel.chuyenbay_hh_data_backup">
-              <MappingFragment StoreEntitySet="chuyenbay_hh_data_backup">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="ID_CHUYENBAY" ColumnName="ID_CHUYENBAY" />
-                <ScalarProperty Name="SOHIEU" ColumnName="SOHIEU" />
-                <ScalarProperty Name="FLIGHTDATE" ColumnName="FLIGHTDATE" />
-                <ScalarProperty Name="CARRIERCODE" ColumnName="CARRIERCODE" />
-                <ScalarProperty Name="CARRIERNAME" ColumnName="CARRIERNAME" />
-                <ScalarProperty Name="MANOIDI" ColumnName="MANOIDI" />
-                <ScalarProperty Name="TENNOIDI" ColumnName="TENNOIDI" />
-                <ScalarProperty Name="MANOIDEN" ColumnName="MANOIDEN" />
-                <ScalarProperty Name="TENNOIDEN" ColumnName="TENNOIDEN" />
-                <ScalarProperty Name="FI_MAQUACANH" ColumnName="FI_MAQUACANH" />
-                <ScalarProperty Name="IDHANGHOA" ColumnName="IDHANGHOA" />
-                <ScalarProperty Name="ID_HHCT" ColumnName="ID_HHCT" />
-                <ScalarProperty Name="FI_SOAWB" ColumnName="FI_SOAWB" />
-                <ScalarProperty Name="FI_SOKIEN" ColumnName="FI_SOKIEN" />
-                <ScalarProperty Name="FI_MOTA" ColumnName="FI_MOTA" />
-                <ScalarProperty Name="FI_SHC" ColumnName="FI_SHC" />
-                <ScalarProperty Name="TRONGLUONG" ColumnName="TRONGLUONG" />
-                <ScalarProperty Name="NOIDIHH" ColumnName="NOIDIHH" />
-                <ScalarProperty Name="NOIDENHH" ColumnName="NOIDENHH" />
-                <ScalarProperty Name="FI_LOAIHANG" ColumnName="FI_LOAIHANG" />
-                <ScalarProperty Name="SYS_DATE" ColumnName="SYS_DATE" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="chuyenbay_pnr">
-            <EntityTypeMapping TypeName="DataXNCModel.chuyenbay_pnr">
-              <MappingFragment StoreEntitySet="chuyenbay_pnr">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="FI_MADATCHO" ColumnName="FI_MADATCHO" />
-                <ScalarProperty Name="FI_NGAYDATCHO" ColumnName="FI_NGAYDATCHO" />
-                <ScalarProperty Name="FI_THONGTINVE" ColumnName="FI_THONGTINVE" />
-                <ScalarProperty Name="FI_LICHTRINHBAY" ColumnName="FI_LICHTRINHBAY" />
-                <ScalarProperty Name="FI_HANHKHACHTHUONGXUYEN" ColumnName="FI_HANHKHACHTHUONGXUYEN" />
-                <ScalarProperty Name="FI_MADAILYBANVE" ColumnName="FI_MADAILYBANVE" />
-                <ScalarProperty Name="FI_MANGUOIDATCHO" ColumnName="FI_MANGUOIDATCHO" />
-                <ScalarProperty Name="FI_MADOANBAY" ColumnName="FI_MADOANBAY" />
-                <ScalarProperty Name="FI_MATACHCHO" ColumnName="FI_MATACHCHO" />
-                <ScalarProperty Name="FI_SOGHEYEUCAU" ColumnName="FI_SOGHEYEUCAU" />
-                <ScalarProperty Name="FI_SOGHEDADAT" ColumnName="FI_SOGHEDADAT" />
-                <ScalarProperty Name="FI_THONGTINHANHLY" ColumnName="FI_THONGTINHANHLY" />
-                <ScalarProperty Name="FI_GHICHUCHUNG" ColumnName="FI_GHICHUCHUNG" />
-                <ScalarProperty Name="FI_THONGTINBOSUNG" ColumnName="FI_THONGTINBOSUNG" />
-                <ScalarProperty Name="FI_DICHVUDACBIET" ColumnName="FI_DICHVUDACBIET" />
-                <ScalarProperty Name="FI_THONGTINAPIKHAC" ColumnName="FI_THONGTINAPIKHAC" />
-                <ScalarProperty Name="FI_NHOMCANHAN" ColumnName="FI_NHOMCANHAN" />
-                <ScalarProperty Name="FI_SOHANHKHACH" ColumnName="FI_SOHANHKHACH" />
-                <ScalarProperty Name="FI_LICHSU" ColumnName="FI_LICHSU" />
-                <ScalarProperty Name="FI_THANHTOAN" ColumnName="FI_THANHTOAN" />
-                <ScalarProperty Name="FI_SOCHUYENBAY" ColumnName="FI_SOCHUYENBAY" />
-                <ScalarProperty Name="FI_IDHANHKHACH" ColumnName="FI_IDHANHKHACH" />
-                <ScalarProperty Name="FI_STATUS" ColumnName="FI_STATUS" />
-                <ScalarProperty Name="FI_LICHBAY" ColumnName="FI_LICHBAY" />
-                <ScalarProperty Name="FI_NGAYBAY" ColumnName="FI_NGAYBAY" />
-                <ScalarProperty Name="FI_MACANGHANGKHONGDI" ColumnName="FI_MACANGHANGKHONGDI" />
-                <ScalarProperty Name="FI_MACANGHANGKHONGDEN" ColumnName="FI_MACANGHANGKHONGDEN" />
-                <ScalarProperty Name="FI_IDHANHKHACH1" ColumnName="FI_IDHANHKHACH1" />
-                <ScalarProperty Name="FI_TENHANHKHACH" ColumnName="FI_TENHANHKHACH" />
-                <ScalarProperty Name="FI_TENKHAC" ColumnName="FI_TENKHAC" />
-                <ScalarProperty Name="FI_DIACHI" ColumnName="FI_DIACHI" />
-                <ScalarProperty Name="FI_SODIENTHOAI" ColumnName="FI_SODIENTHOAI" />
-                <ScalarProperty Name="FI_EMAIL" ColumnName="FI_EMAIL" />
-                <ScalarProperty Name="FI_CHITIETLIENHE" ColumnName="FI_CHITIETLIENHE" />
-                <ScalarProperty Name="FI_SOCHUYENBAY1" ColumnName="FI_SOCHUYENBAY1" />
-                <ScalarProperty Name="FI_IDCHUYENBAY" ColumnName="FI_IDCHUYENBAY" />
-                <ScalarProperty Name="FI_REFID" ColumnName="FI_REFID" />
-                <ScalarProperty Name="FI_SOLANGUIFILE" ColumnName="FI_SOLANGUIFILE" />
-                <ScalarProperty Name="FI_THOIGIANGUIFILE" ColumnName="FI_THOIGIANGUIFILE" />
-                <ScalarProperty Name="FI_VERSION" ColumnName="FI_VERSION" />
-                <ScalarProperty Name="SYS_DATE" ColumnName="SYS_DATE" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="chuyenbay_pnr_data_backup">
-            <EntityTypeMapping TypeName="DataXNCModel.chuyenbay_pnr_data_backup">
-              <MappingFragment StoreEntitySet="chuyenbay_pnr_data_backup">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="FI_MADATCHO" ColumnName="FI_MADATCHO" />
-                <ScalarProperty Name="FI_NGAYDATCHO" ColumnName="FI_NGAYDATCHO" />
-                <ScalarProperty Name="FI_THONGTINVE" ColumnName="FI_THONGTINVE" />
-                <ScalarProperty Name="FI_LICHTRINHBAY" ColumnName="FI_LICHTRINHBAY" />
-                <ScalarProperty Name="FI_HANHKHACHTHUONGXUYEN" ColumnName="FI_HANHKHACHTHUONGXUYEN" />
-                <ScalarProperty Name="FI_MADAILYBANVE" ColumnName="FI_MADAILYBANVE" />
-                <ScalarProperty Name="FI_MANGUOIDATCHO" ColumnName="FI_MANGUOIDATCHO" />
-                <ScalarProperty Name="FI_MADOANBAY" ColumnName="FI_MADOANBAY" />
-                <ScalarProperty Name="FI_MATACHCHO" ColumnName="FI_MATACHCHO" />
-                <ScalarProperty Name="FI_SOGHEYEUCAU" ColumnName="FI_SOGHEYEUCAU" />
-                <ScalarProperty Name="FI_SOGHEDADAT" ColumnName="FI_SOGHEDADAT" />
-                <ScalarProperty Name="FI_THONGTINHANHLY" ColumnName="FI_THONGTINHANHLY" />
-                <ScalarProperty Name="FI_GHICHUCHUNG" ColumnName="FI_GHICHUCHUNG" />
-                <ScalarProperty Name="FI_THONGTINBOSUNG" ColumnName="FI_THONGTINBOSUNG" />
-                <ScalarProperty Name="FI_DICHVUDACBIET" ColumnName="FI_DICHVUDACBIET" />
-                <ScalarProperty Name="FI_THONGTINAPIKHAC" ColumnName="FI_THONGTINAPIKHAC" />
-                <ScalarProperty Name="FI_NHOMCANHAN" ColumnName="FI_NHOMCANHAN" />
-                <ScalarProperty Name="FI_SOHANHKHACH" ColumnName="FI_SOHANHKHACH" />
-                <ScalarProperty Name="FI_LICHSU" ColumnName="FI_LICHSU" />
-                <ScalarProperty Name="FI_THANHTOAN" ColumnName="FI_THANHTOAN" />
-                <ScalarProperty Name="FI_SOCHUYENBAY" ColumnName="FI_SOCHUYENBAY" />
-                <ScalarProperty Name="FI_IDHANHKHACH" ColumnName="FI_IDHANHKHACH" />
-                <ScalarProperty Name="FI_STATUS" ColumnName="FI_STATUS" />
-                <ScalarProperty Name="FI_LICHBAY" ColumnName="FI_LICHBAY" />
-                <ScalarProperty Name="FI_NGAYBAY" ColumnName="FI_NGAYBAY" />
-                <ScalarProperty Name="FI_MACANGHANGKHONGDI" ColumnName="FI_MACANGHANGKHONGDI" />
-                <ScalarProperty Name="FI_MACANGHANGKHONGDEN" ColumnName="FI_MACANGHANGKHONGDEN" />
-                <ScalarProperty Name="FI_IDHANHKHACH1" ColumnName="FI_IDHANHKHACH1" />
-                <ScalarProperty Name="FI_TENHANHKHACH" ColumnName="FI_TENHANHKHACH" />
-                <ScalarProperty Name="FI_TENKHAC" ColumnName="FI_TENKHAC" />
-                <ScalarProperty Name="FI_DIACHI" ColumnName="FI_DIACHI" />
-                <ScalarProperty Name="FI_SODIENTHOAI" ColumnName="FI_SODIENTHOAI" />
-                <ScalarProperty Name="FI_EMAIL" ColumnName="FI_EMAIL" />
-                <ScalarProperty Name="FI_CHITIETLIENHE" ColumnName="FI_CHITIETLIENHE" />
-                <ScalarProperty Name="FI_SOCHUYENBAY1" ColumnName="FI_SOCHUYENBAY1" />
-                <ScalarProperty Name="FI_IDCHUYENBAY" ColumnName="FI_IDCHUYENBAY" />
-                <ScalarProperty Name="FI_REFID" ColumnName="FI_REFID" />
-                <ScalarProperty Name="FI_SOLANGUIFILE" ColumnName="FI_SOLANGUIFILE" />
-                <ScalarProperty Name="FI_THOIGIANGUIFILE" ColumnName="FI_THOIGIANGUIFILE" />
-                <ScalarProperty Name="FI_VERSION" ColumnName="FI_VERSION" />
-                <ScalarProperty Name="SYS_DATE" ColumnName="SYS_DATE" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="chuyenbay_tobay">
-            <EntityTypeMapping TypeName="DataXNCModel.chuyenbay_tobay">
-              <MappingFragment StoreEntitySet="chuyenbay_tobay">
-                <ScalarProperty Name="IDCHUYENBAY" ColumnName="IDCHUYENBAY" />
-                <ScalarProperty Name="FI_IDTTCHUNG" ColumnName="FI_IDTTCHUNG" />
-                <ScalarProperty Name="IDTOBAY" ColumnName="IDTOBAY" />
-                <ScalarProperty Name="HO" ColumnName="HO" />
-                <ScalarProperty Name="TENDEM" ColumnName="TENDEM" />
-                <ScalarProperty Name="TEN" ColumnName="TEN" />
-                <ScalarProperty Name="GIOITINH" ColumnName="GIOITINH" />
-                <ScalarProperty Name="QUOCTICH" ColumnName="QUOCTICH" />
-                <ScalarProperty Name="NGAYSINH" ColumnName="NGAYSINH" />
-                <ScalarProperty Name="SOGIAYTO" ColumnName="SOGIAYTO" />
-                <ScalarProperty Name="LOAIGIAYTO" ColumnName="LOAIGIAYTO" />
-                <ScalarProperty Name="NOICAP" ColumnName="NOICAP" />
-                <ScalarProperty Name="NGAYHETHAN" ColumnName="NGAYHETHAN" />
-                <ScalarProperty Name="TBVERSION" ColumnName="TBVERSION" />
-                <ScalarProperty Name="SYS_DATE" ColumnName="SYS_DATE" />
-                <ScalarProperty Name="SOHIEU" ColumnName="SOHIEU" />
-                <ScalarProperty Name="NGAYBAY" ColumnName="NGAYBAY" />
-                <ScalarProperty Name="NOIDI" ColumnName="NOIDI" />
-                <ScalarProperty Name="NOIDEN" ColumnName="NOIDEN" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="chuyenbay_tobay_data_backup">
-            <EntityTypeMapping TypeName="DataXNCModel.chuyenbay_tobay_data_backup">
-              <MappingFragment StoreEntitySet="chuyenbay_tobay_data_backup">
-                <ScalarProperty Name="IDCHUYENBAY" ColumnName="IDCHUYENBAY" />
-                <ScalarProperty Name="FI_IDTTCHUNG" ColumnName="FI_IDTTCHUNG" />
-                <ScalarProperty Name="IDTOBAY" ColumnName="IDTOBAY" />
-                <ScalarProperty Name="HO" ColumnName="HO" />
-                <ScalarProperty Name="TENDEM" ColumnName="TENDEM" />
-                <ScalarProperty Name="TEN" ColumnName="TEN" />
-                <ScalarProperty Name="GIOITINH" ColumnName="GIOITINH" />
-                <ScalarProperty Name="QUOCTICH" ColumnName="QUOCTICH" />
-                <ScalarProperty Name="NGAYSINH" ColumnName="NGAYSINH" />
-                <ScalarProperty Name="SOGIAYTO" ColumnName="SOGIAYTO" />
-                <ScalarProperty Name="LOAIGIAYTO" ColumnName="LOAIGIAYTO" />
-                <ScalarProperty Name="NOICAP" ColumnName="NOICAP" />
-                <ScalarProperty Name="NGAYHETHAN" ColumnName="NGAYHETHAN" />
-                <ScalarProperty Name="TBVERSION" ColumnName="TBVERSION" />
-                <ScalarProperty Name="SYS_DATE" ColumnName="SYS_DATE" />
-                <ScalarProperty Name="SOHIEU" ColumnName="SOHIEU" />
-                <ScalarProperty Name="NGAYBAY" ColumnName="NGAYBAY" />
-                <ScalarProperty Name="NOIDI" ColumnName="NOIDI" />
-                <ScalarProperty Name="NOIDEN" ColumnName="NOIDEN" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="chuyenbay_vandon">
-            <EntityTypeMapping TypeName="DataXNCModel.chuyenbay_vandon">
-              <MappingFragment StoreEntitySet="chuyenbay_vandon">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="IDCHUYENBAY" ColumnName="IDCHUYENBAY" />
-                <ScalarProperty Name="FLIGHTDATE" ColumnName="FLIGHTDATE" />
-                <ScalarProperty Name="CARRIER" ColumnName="CARRIER" />
-                <ScalarProperty Name="FLIGHTNO" ColumnName="FLIGHTNO" />
-                <ScalarProperty Name="ORIGIN" ColumnName="ORIGIN" />
-                <ScalarProperty Name="DESTINATION" ColumnName="DESTINATION" />
-                <ScalarProperty Name="MAWB_NO" ColumnName="MAWB_NO" />
-                <ScalarProperty Name="M_TENNGUOIGUI" ColumnName="M_TENNGUOIGUI" />
-                <ScalarProperty Name="M_TENNGUOINHAN" ColumnName="M_TENNGUOINHAN" />
-                <ScalarProperty Name="M_MOTAHANGHOA" ColumnName="M_MOTAHANGHOA" />
-                <ScalarProperty Name="M_SOKIEN" ColumnName="M_SOKIEN" />
-                <ScalarProperty Name="M_GROSSWEIGHT" ColumnName="M_GROSSWEIGHT" />
-                <ScalarProperty Name="M_SANBAYDI" ColumnName="M_SANBAYDI" />
-                <ScalarProperty Name="M_SANBAYDEN" ColumnName="M_SANBAYDEN" />
-                <ScalarProperty Name="M_VERSION" ColumnName="M_VERSION" />
-                <ScalarProperty Name="M_TENDAILY" ColumnName="M_TENDAILY" />
-                <ScalarProperty Name="H_SOMAWB" ColumnName="H_SOMAWB" />
-                <ScalarProperty Name="H_SOHWB" ColumnName="H_SOHWB" />
-                <ScalarProperty Name="H_TENNGUOIGUI" ColumnName="H_TENNGUOIGUI" />
-                <ScalarProperty Name="H_TENNGUOINHAN" ColumnName="H_TENNGUOINHAN" />
-                <ScalarProperty Name="H_SOKIEN" ColumnName="H_SOKIEN" />
-                <ScalarProperty Name="H_TRONGLUONG" ColumnName="H_TRONGLUONG" />
-                <ScalarProperty Name="H_NOIDI" ColumnName="H_NOIDI" />
-                <ScalarProperty Name="H_NOIDEN" ColumnName="H_NOIDEN" />
-                <ScalarProperty Name="H_MOTAHANGHOA" ColumnName="H_MOTAHANGHOA" />
-                <ScalarProperty Name="SYS_DATE" ColumnName="SYS_DATE" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="chuyenbay_vandon_data_backup">
-            <EntityTypeMapping TypeName="DataXNCModel.chuyenbay_vandon_data_backup">
-              <MappingFragment StoreEntitySet="chuyenbay_vandon_data_backup">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="IDCHUYENBAY" ColumnName="IDCHUYENBAY" />
-                <ScalarProperty Name="FLIGHTDATE" ColumnName="FLIGHTDATE" />
-                <ScalarProperty Name="CARRIER" ColumnName="CARRIER" />
-                <ScalarProperty Name="FLIGHTNO" ColumnName="FLIGHTNO" />
-                <ScalarProperty Name="ORIGIN" ColumnName="ORIGIN" />
-                <ScalarProperty Name="DESTINATION" ColumnName="DESTINATION" />
-                <ScalarProperty Name="MAWB_NO" ColumnName="MAWB_NO" />
-                <ScalarProperty Name="M_TENNGUOIGUI" ColumnName="M_TENNGUOIGUI" />
-                <ScalarProperty Name="M_TENNGUOINHAN" ColumnName="M_TENNGUOINHAN" />
-                <ScalarProperty Name="M_MOTAHANGHOA" ColumnName="M_MOTAHANGHOA" />
-                <ScalarProperty Name="M_SOKIEN" ColumnName="M_SOKIEN" />
-                <ScalarProperty Name="M_GROSSWEIGHT" ColumnName="M_GROSSWEIGHT" />
-                <ScalarProperty Name="M_SANBAYDI" ColumnName="M_SANBAYDI" />
-                <ScalarProperty Name="M_SANBAYDEN" ColumnName="M_SANBAYDEN" />
-                <ScalarProperty Name="M_VERSION" ColumnName="M_VERSION" />
-                <ScalarProperty Name="M_TENDAILY" ColumnName="M_TENDAILY" />
-                <ScalarProperty Name="H_SOMAWB" ColumnName="H_SOMAWB" />
-                <ScalarProperty Name="H_SOHWB" ColumnName="H_SOHWB" />
-                <ScalarProperty Name="H_TENNGUOIGUI" ColumnName="H_TENNGUOIGUI" />
-                <ScalarProperty Name="H_TENNGUOINHAN" ColumnName="H_TENNGUOINHAN" />
-                <ScalarProperty Name="H_SOKIEN" ColumnName="H_SOKIEN" />
-                <ScalarProperty Name="H_TRONGLUONG" ColumnName="H_TRONGLUONG" />
-                <ScalarProperty Name="H_NOIDI" ColumnName="H_NOIDI" />
-                <ScalarProperty Name="H_NOIDEN" ColumnName="H_NOIDEN" />
-                <ScalarProperty Name="H_MOTAHANGHOA" ColumnName="H_MOTAHANGHOA" />
-                <ScalarProperty Name="SYS_DATE" ColumnName="SYS_DATE" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="hang_hang_khong">
             <EntityTypeMapping TypeName="DataXNCModel.hang_hang_khong">
               <MappingFragment StoreEntitySet="hang_hang_khong">
@@ -1693,51 +953,6 @@
                 <ScalarProperty Name="FI_MAIATA" ColumnName="FI_MAIATA" />
                 <ScalarProperty Name="FI_MAHANGHK" ColumnName="FI_MAHANGHK" />
                 <ScalarProperty Name="FI_HOATDONG" ColumnName="FI_HOATDONG" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="hanhkhach_noichuyen">
-            <EntityTypeMapping TypeName="DataXNCModel.hanhkhach_noichuyen">
-              <MappingFragment StoreEntitySet="hanhkhach_noichuyen">
-                <ScalarProperty Name="ID_CHUYENBAY" ColumnName="ID_CHUYENBAY" />
-                <ScalarProperty Name="SOHIEU" ColumnName="SOHIEU" />
-                <ScalarProperty Name="FLIGHTDATE" ColumnName="FLIGHTDATE" />
-                <ScalarProperty Name="CARRIERCODE" ColumnName="CARRIERCODE" />
-                <ScalarProperty Name="CARRIERNAME" ColumnName="CARRIERNAME" />
-                <ScalarProperty Name="MANOIDI" ColumnName="MANOIDI" />
-                <ScalarProperty Name="TENNOIDI" ColumnName="TENNOIDI" />
-                <ScalarProperty Name="MANOIDEN" ColumnName="MANOIDEN" />
-                <ScalarProperty Name="TENNOIDEN" ColumnName="TENNOIDEN" />
-                <ScalarProperty Name="IDHANHKHACH" ColumnName="IDHANHKHACH" />
-                <ScalarProperty Name="IDCHUYENBAY" ColumnName="IDCHUYENBAY" />
-                <ScalarProperty Name="MADATCHO" ColumnName="MADATCHO" />
-                <ScalarProperty Name="GIOITINH" ColumnName="GIOITINH" />
-                <ScalarProperty Name="HO" ColumnName="HO" />
-                <ScalarProperty Name="TENDEM" ColumnName="TENDEM" />
-                <ScalarProperty Name="TEN" ColumnName="TEN" />
-                <ScalarProperty Name="QUOCTICH" ColumnName="QUOCTICH" />
-                <ScalarProperty Name="SOGIAYTO" ColumnName="SOGIAYTO" />
-                <ScalarProperty Name="LOAIGIAYTO" ColumnName="LOAIGIAYTO" />
-                <ScalarProperty Name="NOICAP" ColumnName="NOICAP" />
-                <ScalarProperty Name="NGAYHETHAN" ColumnName="NGAYHETHAN" />
-                <ScalarProperty Name="NGAYSINH" ColumnName="NGAYSINH" />
-                <ScalarProperty Name="NOIDI" ColumnName="NOIDI" />
-                <ScalarProperty Name="NOIDEN" ColumnName="NOIDEN" />
-                <ScalarProperty Name="HANHLY" ColumnName="HANHLY" />
-                <ScalarProperty Name="HK_VERSION" ColumnName="HK_VERSION" />
-                <ScalarProperty Name="SYS_DATE" ColumnName="SYS_DATE" />
-                <ScalarProperty Name="ID_CHUYENBAY2" ColumnName="ID_CHUYENBAY2" />
-                <ScalarProperty Name="SOHIEU2" ColumnName="SOHIEU2" />
-                <ScalarProperty Name="MANOIDI2" ColumnName="MANOIDI2" />
-                <ScalarProperty Name="TENNOIDI2" ColumnName="TENNOIDI2" />
-                <ScalarProperty Name="MANOIDEN2" ColumnName="MANOIDEN2" />
-                <ScalarProperty Name="TENNOIDEN2" ColumnName="TENNOIDEN2" />
-                <ScalarProperty Name="NOIDI2" ColumnName="NOIDI2" />
-                <ScalarProperty Name="NOIDEN2" ColumnName="NOIDEN2" />
-                <ScalarProperty Name="HANHLY2" ColumnName="HANHLY2" />
-                <ScalarProperty Name="IDHANHKHACH2" ColumnName="IDHANHKHACH2" />
-                <ScalarProperty Name="CARRIERCODE2" ColumnName="CARRIERCODE2" />
-                <ScalarProperty Name="CARRIERNAME2" ColumnName="CARRIERNAME2" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1822,18 +1037,6 @@
                 <ScalarProperty Name="LoaiGiayTo" ColumnName="LoaiGiayTo" />
                 <ScalarProperty Name="SoGiayTo" ColumnName="SoGiayTo" />
                 <ScalarProperty Name="HoTen" ColumnName="HoTen" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="SChuyenBays">
-            <EntityTypeMapping TypeName="DataXNCModel.SChuyenBay">
-              <MappingFragment StoreEntitySet="SChuyenBay">
-                <ScalarProperty Name="GioKetThuc_Phut" ColumnName="GioKetThuc_Phut" />
-                <ScalarProperty Name="GioKetThuc_Gio" ColumnName="GioKetThuc_Gio" />
-                <ScalarProperty Name="GioKhoiHanh_Phut" ColumnName="GioKhoiHanh_Phut" />
-                <ScalarProperty Name="GioKhoiHanh_Gio" ColumnName="GioKhoiHanh_Gio" />
-                <ScalarProperty Name="ChuyenBay" ColumnName="ChuyenBay" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1943,6 +1146,155 @@
                 <ScalarProperty Name="SoGiayTo" ColumnName="SoGiayTo" />
                 <ScalarProperty Name="HoTen" ColumnName="HoTen" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SChuyenBays">
+            <EntityTypeMapping TypeName="DataXNCModel.SChuyenBay">
+              <MappingFragment StoreEntitySet="SChuyenBay">
+                <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
+                <ScalarProperty Name="CuaSo" ColumnName="CuaSo" />
+                <ScalarProperty Name="DaoHanhLy" ColumnName="DaoHanhLy" />
+                <ScalarProperty Name="EOBT" ColumnName="EOBT" />
+                <ScalarProperty Name="SOBT" ColumnName="SOBT" />
+                <ScalarProperty Name="ChangBay" ColumnName="ChangBay" />
+                <ScalarProperty Name="ChuyenBay" ColumnName="ChuyenBay" />
+                <ScalarProperty Name="Ngay" ColumnName="Ngay" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="chuyenbay_hh">
+            <EntityTypeMapping TypeName="DataXNCModel.chuyenbay_hh">
+              <MappingFragment StoreEntitySet="chuyenbay_hh">
+                <ScalarProperty Name="SYS_DATE" ColumnName="SYS_DATE" />
+                <ScalarProperty Name="FI_LOAIHANG" ColumnName="FI_LOAIHANG" />
+                <ScalarProperty Name="NOIDENHH" ColumnName="NOIDENHH" />
+                <ScalarProperty Name="NOIDIHH" ColumnName="NOIDIHH" />
+                <ScalarProperty Name="TRONGLUONG" ColumnName="TRONGLUONG" />
+                <ScalarProperty Name="FI_SHC" ColumnName="FI_SHC" />
+                <ScalarProperty Name="FI_MOTA" ColumnName="FI_MOTA" />
+                <ScalarProperty Name="FI_SOKIEN" ColumnName="FI_SOKIEN" />
+                <ScalarProperty Name="FI_SOAWB" ColumnName="FI_SOAWB" />
+                <ScalarProperty Name="ID_HHCT" ColumnName="ID_HHCT" />
+                <ScalarProperty Name="IDHANGHOA" ColumnName="IDHANGHOA" />
+                <ScalarProperty Name="FI_MAQUACANH" ColumnName="FI_MAQUACANH" />
+                <ScalarProperty Name="TENNOIDEN" ColumnName="TENNOIDEN" />
+                <ScalarProperty Name="MANOIDEN" ColumnName="MANOIDEN" />
+                <ScalarProperty Name="TENNOIDI" ColumnName="TENNOIDI" />
+                <ScalarProperty Name="MANOIDI" ColumnName="MANOIDI" />
+                <ScalarProperty Name="CARRIERNAME" ColumnName="CARRIERNAME" />
+                <ScalarProperty Name="CARRIERCODE" ColumnName="CARRIERCODE" />
+                <ScalarProperty Name="FLIGHTDATE" ColumnName="FLIGHTDATE" />
+                <ScalarProperty Name="SOHIEU" ColumnName="SOHIEU" />
+                <ScalarProperty Name="ID_CHUYENBAY" ColumnName="ID_CHUYENBAY" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="chuyenbay_pnr">
+            <EntityTypeMapping TypeName="DataXNCModel.chuyenbay_pnr">
+              <MappingFragment StoreEntitySet="chuyenbay_pnr">
+                <ScalarProperty Name="SYS_DATE" ColumnName="SYS_DATE" />
+                <ScalarProperty Name="FI_VERSION" ColumnName="FI_VERSION" />
+                <ScalarProperty Name="FI_THOIGIANGUIFILE" ColumnName="FI_THOIGIANGUIFILE" />
+                <ScalarProperty Name="FI_SOLANGUIFILE" ColumnName="FI_SOLANGUIFILE" />
+                <ScalarProperty Name="FI_REFID" ColumnName="FI_REFID" />
+                <ScalarProperty Name="FI_IDCHUYENBAY" ColumnName="FI_IDCHUYENBAY" />
+                <ScalarProperty Name="FI_SOCHUYENBAY1" ColumnName="FI_SOCHUYENBAY1" />
+                <ScalarProperty Name="FI_CHITIETLIENHE" ColumnName="FI_CHITIETLIENHE" />
+                <ScalarProperty Name="FI_EMAIL" ColumnName="FI_EMAIL" />
+                <ScalarProperty Name="FI_SODIENTHOAI" ColumnName="FI_SODIENTHOAI" />
+                <ScalarProperty Name="FI_DIACHI" ColumnName="FI_DIACHI" />
+                <ScalarProperty Name="FI_TENKHAC" ColumnName="FI_TENKHAC" />
+                <ScalarProperty Name="FI_TENHANHKHACH" ColumnName="FI_TENHANHKHACH" />
+                <ScalarProperty Name="FI_IDHANHKHACH1" ColumnName="FI_IDHANHKHACH1" />
+                <ScalarProperty Name="FI_MACANGHANGKHONGDEN" ColumnName="FI_MACANGHANGKHONGDEN" />
+                <ScalarProperty Name="FI_MACANGHANGKHONGDI" ColumnName="FI_MACANGHANGKHONGDI" />
+                <ScalarProperty Name="FI_NGAYBAY" ColumnName="FI_NGAYBAY" />
+                <ScalarProperty Name="FI_LICHBAY" ColumnName="FI_LICHBAY" />
+                <ScalarProperty Name="FI_STATUS" ColumnName="FI_STATUS" />
+                <ScalarProperty Name="FI_IDHANHKHACH" ColumnName="FI_IDHANHKHACH" />
+                <ScalarProperty Name="FI_SOCHUYENBAY" ColumnName="FI_SOCHUYENBAY" />
+                <ScalarProperty Name="FI_THANHTOAN" ColumnName="FI_THANHTOAN" />
+                <ScalarProperty Name="FI_LICHSU" ColumnName="FI_LICHSU" />
+                <ScalarProperty Name="FI_SOHANHKHACH" ColumnName="FI_SOHANHKHACH" />
+                <ScalarProperty Name="FI_NHOMCANHAN" ColumnName="FI_NHOMCANHAN" />
+                <ScalarProperty Name="FI_THONGTINAPIKHAC" ColumnName="FI_THONGTINAPIKHAC" />
+                <ScalarProperty Name="FI_DICHVUDACBIET" ColumnName="FI_DICHVUDACBIET" />
+                <ScalarProperty Name="FI_THONGTINBOSUNG" ColumnName="FI_THONGTINBOSUNG" />
+                <ScalarProperty Name="FI_GHICHUCHUNG" ColumnName="FI_GHICHUCHUNG" />
+                <ScalarProperty Name="FI_THONGTINHANHLY" ColumnName="FI_THONGTINHANHLY" />
+                <ScalarProperty Name="FI_SOGHEDADAT" ColumnName="FI_SOGHEDADAT" />
+                <ScalarProperty Name="FI_SOGHEYEUCAU" ColumnName="FI_SOGHEYEUCAU" />
+                <ScalarProperty Name="FI_MATACHCHO" ColumnName="FI_MATACHCHO" />
+                <ScalarProperty Name="FI_MADOANBAY" ColumnName="FI_MADOANBAY" />
+                <ScalarProperty Name="FI_MANGUOIDATCHO" ColumnName="FI_MANGUOIDATCHO" />
+                <ScalarProperty Name="FI_MADAILYBANVE" ColumnName="FI_MADAILYBANVE" />
+                <ScalarProperty Name="FI_HANHKHACHTHUONGXUYEN" ColumnName="FI_HANHKHACHTHUONGXUYEN" />
+                <ScalarProperty Name="FI_LICHTRINHBAY" ColumnName="FI_LICHTRINHBAY" />
+                <ScalarProperty Name="FI_THONGTINVE" ColumnName="FI_THONGTINVE" />
+                <ScalarProperty Name="FI_NGAYDATCHO" ColumnName="FI_NGAYDATCHO" />
+                <ScalarProperty Name="FI_MADATCHO" ColumnName="FI_MADATCHO" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="chuyenbay_tobay">
+            <EntityTypeMapping TypeName="DataXNCModel.chuyenbay_tobay">
+              <MappingFragment StoreEntitySet="chuyenbay_tobay">
+                <ScalarProperty Name="NOIDEN" ColumnName="NOIDEN" />
+                <ScalarProperty Name="NOIDI" ColumnName="NOIDI" />
+                <ScalarProperty Name="NGAYBAY" ColumnName="NGAYBAY" />
+                <ScalarProperty Name="SOHIEU" ColumnName="SOHIEU" />
+                <ScalarProperty Name="SYS_DATE" ColumnName="SYS_DATE" />
+                <ScalarProperty Name="TBVERSION" ColumnName="TBVERSION" />
+                <ScalarProperty Name="NGAYHETHAN" ColumnName="NGAYHETHAN" />
+                <ScalarProperty Name="NOICAP" ColumnName="NOICAP" />
+                <ScalarProperty Name="LOAIGIAYTO" ColumnName="LOAIGIAYTO" />
+                <ScalarProperty Name="SOGIAYTO" ColumnName="SOGIAYTO" />
+                <ScalarProperty Name="NGAYSINH" ColumnName="NGAYSINH" />
+                <ScalarProperty Name="QUOCTICH" ColumnName="QUOCTICH" />
+                <ScalarProperty Name="GIOITINH" ColumnName="GIOITINH" />
+                <ScalarProperty Name="TEN" ColumnName="TEN" />
+                <ScalarProperty Name="TENDEM" ColumnName="TENDEM" />
+                <ScalarProperty Name="HO" ColumnName="HO" />
+                <ScalarProperty Name="IDTOBAY" ColumnName="IDTOBAY" />
+                <ScalarProperty Name="FI_IDTTCHUNG" ColumnName="FI_IDTTCHUNG" />
+                <ScalarProperty Name="IDCHUYENBAY" ColumnName="IDCHUYENBAY" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="chuyenbay_vandon">
+            <EntityTypeMapping TypeName="DataXNCModel.chuyenbay_vandon">
+              <MappingFragment StoreEntitySet="chuyenbay_vandon">
+                <ScalarProperty Name="SYS_DATE" ColumnName="SYS_DATE" />
+                <ScalarProperty Name="H_MOTAHANGHOA" ColumnName="H_MOTAHANGHOA" />
+                <ScalarProperty Name="H_NOIDEN" ColumnName="H_NOIDEN" />
+                <ScalarProperty Name="H_NOIDI" ColumnName="H_NOIDI" />
+                <ScalarProperty Name="H_TRONGLUONG" ColumnName="H_TRONGLUONG" />
+                <ScalarProperty Name="H_SOKIEN" ColumnName="H_SOKIEN" />
+                <ScalarProperty Name="H_TENNGUOINHAN" ColumnName="H_TENNGUOINHAN" />
+                <ScalarProperty Name="H_TENNGUOIGUI" ColumnName="H_TENNGUOIGUI" />
+                <ScalarProperty Name="H_SOHWB" ColumnName="H_SOHWB" />
+                <ScalarProperty Name="H_SOMAWB" ColumnName="H_SOMAWB" />
+                <ScalarProperty Name="M_TENDAILY" ColumnName="M_TENDAILY" />
+                <ScalarProperty Name="M_VERSION" ColumnName="M_VERSION" />
+                <ScalarProperty Name="M_SANBAYDEN" ColumnName="M_SANBAYDEN" />
+                <ScalarProperty Name="M_SANBAYDI" ColumnName="M_SANBAYDI" />
+                <ScalarProperty Name="M_GROSSWEIGHT" ColumnName="M_GROSSWEIGHT" />
+                <ScalarProperty Name="M_SOKIEN" ColumnName="M_SOKIEN" />
+                <ScalarProperty Name="M_MOTAHANGHOA" ColumnName="M_MOTAHANGHOA" />
+                <ScalarProperty Name="M_TENNGUOINHAN" ColumnName="M_TENNGUOINHAN" />
+                <ScalarProperty Name="M_TENNGUOIGUI" ColumnName="M_TENNGUOIGUI" />
+                <ScalarProperty Name="MAWB_NO" ColumnName="MAWB_NO" />
+                <ScalarProperty Name="DESTINATION" ColumnName="DESTINATION" />
+                <ScalarProperty Name="ORIGIN" ColumnName="ORIGIN" />
+                <ScalarProperty Name="FLIGHTNO" ColumnName="FLIGHTNO" />
+                <ScalarProperty Name="CARRIER" ColumnName="CARRIER" />
+                <ScalarProperty Name="FLIGHTDATE" ColumnName="FLIGHTDATE" />
+                <ScalarProperty Name="IDCHUYENBAY" ColumnName="IDCHUYENBAY" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

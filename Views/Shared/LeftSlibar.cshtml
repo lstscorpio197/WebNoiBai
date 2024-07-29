@@ -1,18 +1,30 @@
 ﻿@using WebNoiBai.Common
+@using WebNoiBai.Models
 @{
     var lstMenuParent = AppMenu.ListMenu.Where(x => x.ParentId == null).ToList();
 
     var routeValues = System.Web.HttpContext.Current.Request.RequestContext.RouteData.Values;
     string controller = (string)routeValues["controller"];
+
+    USER us = Session[AppConst.UserSession] as USER;
+    var lstMenuForUS = us.LstPermission.Select(x => x.Controller);
 }
 
 <nav class="mt-2">
     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         @foreach (var item in lstMenuParent)
         {
-            var lstChild = AppMenu.ListMenu.Where(x => x.ParentId == item.Id).ToList();
+            if (item.Type == 1 && !lstMenuForUS.Contains(controller))
+            {
+                continue;
+            }
+            var lstChild = AppMenu.ListMenu.Where(x => x.ParentId == item.Id && lstMenuForUS.Contains(x.Controller)).ToList();
             if (item.Type == 0)
             {
+                if (!lstChild.Any())
+                {
+                    continue;
+                }
                 <li class="nav-item has-treeview @(lstChild.Where(x=>x.Controller == controller).Any() ? "menu-open" : "") ">
                     <a href="#" class="nav-link ">
                         <i class="nav-icon @item.Icon"></i> <p>@item.ControllerName<i class="right fa fa-angle-left"></i></p>

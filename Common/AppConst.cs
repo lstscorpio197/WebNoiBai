@@ -12,6 +12,12 @@ namespace WebNoiBai.Common
 
         public static string KeyGemBoxDocument = "DOVJ-6B74-HTFU-1VVQ";
         public static string KeyGemBoxSpreadsheet = "ETZX-IT28-33Q6-1HA2";
+
+        public static string ZEFExtensionsName = "311;101-AJDHNCJ";
+        public static string ZEFExtensionsKey = "5010A0A-13BF275-DDBF6C2-80CDD0A-4E10";
+
+        public static string ZBulkName = "116;301-DGDSGSR";
+        public static string ZBulkKey = "ADA3D50-121A4FA-B2A4464-306B22D-2B98";
     }
 
     public class ChucVu

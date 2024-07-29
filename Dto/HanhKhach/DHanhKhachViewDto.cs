@@ -27,6 +27,7 @@ namespace WebNoiBai.Dto.HanhKhach
         public string HANHLY { get; set; }
 
         public int SOLAN {  get; set; }
+        public int? SOBT {  get; set; }
 
         public string HOTEN => string.Format("{0} {1} {2}",HO,TENDEM, TEN);
         public string FLIGHTDATE_TXT => FLIGHTDATE?.ToString("dd/MM/yyyy");

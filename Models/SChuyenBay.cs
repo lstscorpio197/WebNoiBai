@@ -15,10 +15,13 @@ namespace WebNoiBai.Models
     public partial class SChuyenBay
     {
         public int Id { get; set; }
+        public System.DateTime Ngay { get; set; }
         public string ChuyenBay { get; set; }
-        public int GioKhoiHanh_Gio { get; set; }
-        public Nullable<int> GioKhoiHanh_Phut { get; set; }
-        public int GioKetThuc_Gio { get; set; }
-        public Nullable<int> GioKetThuc_Phut { get; set; }
+        public string ChangBay { get; set; }
+        public Nullable<int> SOBT { get; set; }
+        public Nullable<int> EOBT { get; set; }
+        public string DaoHanhLy { get; set; }
+        public string CuaSo { get; set; }
+        public string GhiChu { get; set; }
     }
 }

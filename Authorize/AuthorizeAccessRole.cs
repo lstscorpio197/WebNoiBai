@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using WebNoiBai.Common;
 using WebNoiBai.Models;
+using WebNoiBai.WHttpMessage;
 
 namespace WebNoiBai.Authorize
 {
@@ -22,9 +23,9 @@ namespace WebNoiBai.Authorize
                 filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary { { "action", "Logout" }, { "controller", "Login" } });
                 return;
             }
-            using(var db = new SystemEntities())
+            using (var db = new SystemEntities())
             {
-                var user = db.SUsers.AsNoTracking().FirstOrDefault(x=>x.Id == us.Id);
+                var user = db.SUsers.AsNoTracking().FirstOrDefault(x => x.Id == us.Id);
                 if (user == null)
                 {
                     filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary { { "action", "Logout" }, { "controller", "Login" } });
@@ -32,19 +33,33 @@ namespace WebNoiBai.Authorize
                 }
             }
             if (us.ChucVu == UserLevel.Admin) return;
-            if(this.Level > UserLevel.CongChuc || (this.Level != UserLevel.CongChuc && us.ChucVu > this.Level))
+            if (this.Level > UserLevel.CongChuc || (this.Level != UserLevel.CongChuc && us.ChucVu > this.Level))
             {
                 filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary { { "action", "Logout" }, { "controller", "Login" } });
                 return;
             }
-            
-            string controller = filterContext.Controller.ToString();
-            if (controller == "Home" || string.IsNullOrEmpty(TypeHandle)) { 
+
+            var routeValues = HttpContext.Current.Request.RequestContext.RouteData.Values;
+            string controller = routeValues["controller"].ToString();
+            if (controller == "Home" || string.IsNullOrEmpty(TypeHandle))
+            {
                 return;
             }
-            if(!us.LstPermission.Where(x=>x.Controller == controller && x.Action == TypeHandle).Any())
+            if (!us.LstPermission.Where(x => x.Controller == controller && x.Action == TypeHandle).Any())
             {
-                filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary { { "action", "Logout" }, { "controller", "Login" } });
+                if (TypeHandle == "view")
+                {
+                    filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary { { "action", "Logout" }, { "controller", "Login" } });
+                    return;
+                }
+                HttpMessage httpMessage = new HttpMessage(false);
+                httpMessage.Body.MsgNoti = new HttpMessageNoti("403", null,"Bạn không có quyền thực hiện chức năng này. Vui lòng liên hệ quản trị viên nếu muốn phân quyền.");
+                filterContext.Result = new JsonResult
+                {
+                    Data = httpMessage,
+                    JsonRequestBehavior = JsonRequestBehavior.AllowGet
+                };
+                filterContext.HttpContext.Response.StatusCode = 200;
                 return;
             }
             return;
