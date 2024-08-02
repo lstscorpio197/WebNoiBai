@@ -119,7 +119,7 @@ namespace WebNoiBai.Controllers.DanhMucNghiepVu
                     httpMessage.Body.MsgNoti = new HttpMessageNoti("400", null, "Không tìm thấy thông tin");
                     return Json(httpMessage, JsonRequestBehavior.AllowGet);
                 }
-                if (exist.NguoiTao == us.Username && us.ChucVu != UserLevel.Admin) {
+                if (exist.NguoiTao != us.Username && us.ChucVu != UserLevel.Admin) {
                     httpMessage.IsOk = false;
                     httpMessage.Body.MsgNoti = new HttpMessageNoti("400", null, "Chỉ người tạo hoặc admin mới được sửa thông tin");
                     return Json(httpMessage, JsonRequestBehavior.AllowGet);
@@ -156,7 +156,7 @@ namespace WebNoiBai.Controllers.DanhMucNghiepVu
                     httpMessage.Body.MsgNoti = new HttpMessageNoti("400", null, "Không tìm thấy thông tin");
                     return Json(httpMessage, JsonRequestBehavior.AllowGet);
                 }
-                if (item.NguoiTao == us.Username && us.ChucVu != UserLevel.Admin)
+                if (item.NguoiTao != us.Username && us.ChucVu != UserLevel.Admin)
                 {
                     httpMessage.IsOk = false;
                     httpMessage.Body.MsgNoti = new HttpMessageNoti("400", null, "Chỉ người tạo hoặc admin mới được xóa thông tin");

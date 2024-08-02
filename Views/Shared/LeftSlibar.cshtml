@@ -14,6 +14,7 @@
     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         @foreach (var item in lstMenuParent)
         {
+            int i = 0;
             if (item.Type == 1 && !lstMenuForUS.Contains(controller))
             {
                 continue;
@@ -33,9 +34,10 @@
                     <ul class="nav nav-treeview">
                         @foreach (var child in lstChild)
                         {
+                            i++;
                             <li class="nav-item @(controller == child.Controller ? "active" : "")" title="@child.ControllerName">
                                 <a href="/@child.Controller" class="nav-link">
-                                    <p style="padding-left: 26px;line-height: 18px">@child.ControllerName</p>
+                                    <p style="padding-left: 26px;line-height: 18px">@i. @child.ControllerName</p>
                                 </a>
                             </li>
                         }

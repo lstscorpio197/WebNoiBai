@@ -252,6 +252,14 @@
           <Property Name="CuaSo" Type="nvarchar" MaxLength="5" />
           <Property Name="GhiChu" Type="nvarchar" MaxLength="500" />
         </EntityType>
+        <EntityType Name="SDauHieuRuiRo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MaDauHieu" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DauHieu" Type="nvarchar" MaxLength="500" Nullable="false" />
+        </EntityType>
         <EntityType Name="SDoiTuongDaKT">
           <Key>
             <PropertyRef Name="Id" />
@@ -424,6 +432,7 @@
           <EntitySet Name="hang_hang_khong" EntityType="Self.hang_hang_khong" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="mien_thue" EntityType="Self.mien_thue" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SChuyenBay" EntityType="Self.SChuyenBay" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SDauHieuRuiRo" EntityType="Self.SDauHieuRuiRo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SDoiTuongDaKT" EntityType="Self.SDoiTuongDaKT" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SDoiTuongTrongDiem" EntityType="Self.SDoiTuongTrongDiem" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SHanhKhachDiLaiNhieu" EntityType="Self.SHanhKhachDiLaiNhieu" Schema="dbo" store:Type="Tables" />
@@ -583,6 +592,7 @@
           <EntitySet Name="chuyenbay_pnr" EntityType="DataXNCModel.chuyenbay_pnr" />
           <EntitySet Name="chuyenbay_tobay" EntityType="DataXNCModel.chuyenbay_tobay" />
           <EntitySet Name="chuyenbay_vandon" EntityType="DataXNCModel.chuyenbay_vandon" />
+          <EntitySet Name="SDauHieuRuiRoes" EntityType="DataXNCModel.SDauHieuRuiRo" />
         </EntityContainer>
         <EntityType Name="SHanhKhachDiLaiNhieu">
           <Key>
@@ -866,6 +876,14 @@
           <Property Name="H_NOIDEN" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
           <Property Name="H_MOTAHANGHOA" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
           <Property Name="SYS_DATE" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="SDauHieuRuiRo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MaDauHieu" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DauHieu" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1295,6 +1313,15 @@
                 <ScalarProperty Name="FLIGHTDATE" ColumnName="FLIGHTDATE" />
                 <ScalarProperty Name="IDCHUYENBAY" ColumnName="IDCHUYENBAY" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SDauHieuRuiRoes">
+            <EntityTypeMapping TypeName="DataXNCModel.SDauHieuRuiRo">
+              <MappingFragment StoreEntitySet="SDauHieuRuiRo">
+                <ScalarProperty Name="DauHieu" ColumnName="DauHieu" />
+                <ScalarProperty Name="MaDauHieu" ColumnName="MaDauHieu" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

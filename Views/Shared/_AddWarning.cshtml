@@ -19,8 +19,8 @@
                         <div class="mb16 row">
                             <div class="col-md-12">
                                 <select class="wid100" name="Type">
+                                    <option value="SHanhKhachDiLaiNhieu" selected>Hành khách đi lại nhiều lần</option>
                                     <option value="STheoDoi">Đối tượng theo dõi</option>
-                                    <option value="SHanhKhachDiLaiNhieu">Hành khách đi lại nhiều lần</option>
                                     <option value="SDoiTuongTrongDiem">Đối tượng trọng điểm</option>
                                     <option value="STheoDoiDacBiet">Đối tượng theo dõi đặc biệt</option>
                                     <option value="SDoiTuongDaKT">Đối tượng đã kiểm tra</option>
@@ -28,6 +28,21 @@
                                 </select>
                             </div>
                         </div>
+
+                        <div class="row mb6">
+                            <div class="col-md-6">Số giấy tờ <span class="red">*</span></div>
+                            <div class="col-md-3">Loại giấy tờ <span class="red">*</span></div>
+                        </div>
+                        <div class="mb16 row">
+                            <div class="col-md-6">
+                                <input name="SoGiayTo" type="text" placeholder="Nhập nội dung" class="wid100" maxlength="50" value="" autocomplete="off" readonly />
+                            </div>
+                            <div class="col-md-3">
+                                <input name="LoaiGiayTo" type="text" placeholder="Nhập nội dung" class="wid100" maxlength="50" value="" autocomplete="off" readonly />
+                            </div>
+                            
+                        </div>
+
                         <div class="row mb6">
                             <div class="col-md-12">Họ tên<span class="red">*</span></div>
                         </div>
@@ -37,18 +52,6 @@
                             </div>
                         </div>
 
-                        <div class="row mb6">
-                            <div class="col-md-8">Số giấy tờ <span class="red">*</span></div>
-                            <div class="col-md-4">Loại giấy tờ <span class="red">*</span></div>
-                        </div>
-                        <div class="mb16 row">
-                            <div class="col-md-8">
-                                <input name="SoGiayTo" type="text" placeholder="Nhập nội dung" class="wid100" maxlength="50" value="" autocomplete="off" readonly />
-                            </div>
-                            <div class="col-md-4">
-                                <input name="LoaiGiayTo" type="text" placeholder="Nhập nội dung" class="wid100" maxlength="50" value="" autocomplete="off" readonly />
-                            </div>
-                        </div>
 
                         <div class="row mb6">
                             <div class="col-md-4">Ngày sinh</div>
@@ -78,7 +81,13 @@
                         </div>
                         <div class="mt6 mb16 row">
                             <div class="col-md-12">
-                                <textarea name="DauHieuRuiRo" rows="2" class="wid100" maxlength="500"></textarea>
+                                <select name="DauHieuRuiRo" class="wid100">
+                                    <option value="Đi lại nhiều lần" selected>Đi lại nhiều lần</option>
+                                    <option value="Hành lý nhiều">Hành lý nhiều</option>
+                                    <option value="Không mang hành lý">Không mang hành lý</option>
+                                    <option value="Thông tin cơ quan khác">Thông tin cơ quan khác</option>
+                                    <option value="Lý do khác">Lý do khác</option>
+                                </select>
                             </div>
                         </div>
                         <div class="row mb6">

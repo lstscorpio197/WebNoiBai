@@ -44,5 +44,6 @@ namespace WebNoiBai.Models
         public virtual DbSet<chuyenbay_pnr> chuyenbay_pnr { get; set; }
         public virtual DbSet<chuyenbay_tobay> chuyenbay_tobay { get; set; }
         public virtual DbSet<chuyenbay_vandon> chuyenbay_vandon { get; set; }
+        public virtual DbSet<SDauHieuRuiRo> SDauHieuRuiRoes { get; set; }
     }
 }

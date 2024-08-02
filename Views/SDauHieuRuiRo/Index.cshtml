@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Hành khách VIP";
+    ViewBag.Title = "Danh mục dấu hiệu rủi ro";
 }
 
 <div class="mx-ecus">
@@ -14,8 +14,8 @@
         <div class="card-body" style="max-height: 929px;">
             <div class="frame-header">
                 <div class="frame-search">
-                    <input name="Ma" placeholder="Số giấy tờ" class="width180px item-search" autocomplete="off" />
-                    <input name="Ten" placeholder="Họ tên" class="item-search wid240px" autocomplete="off" />
+                    <input name="Ma" placeholder="Mã dấu hiệu" class="width180px item-search" autocomplete="off" />
+                    <input name="Ten" placeholder="Dấu hiệu" class="item-search wid240px" autocomplete="off" />
                     <button class="btn btn-primary btnSearch" type="button"><i class="fa fa-search"></i></button>
                 </div>
             </div>
@@ -23,13 +23,10 @@
                 <table class="width100" id="TBLDANHSACH">
                     <thead>
                         <tr>
-                            <th class="width75px text-center">STT</th>
+                            <th class="width70px text-center">STT</th>
                             <th class="width70px text-center">Thao tác</th>
-                            <th class="text-center">Họ và tên</th>
-                            <th class="text-center">Số giấy tờ</th>
-                            <th class="text-center">Ngày sinh</th>
-                            <th class="text-center">Giới tính</th>
-                            <th class="text-center">Ghi chú</th>
+                            <th class="text-center">Mã dấu hiệu</th>
+                            <th class="text-center">Dấu hiệu</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -48,7 +45,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title" id="exampleModalLabel">
-                    Thông tin hành khách
+                    Thông tin dấu hiệu
                 </h4>
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                     <i class="icon-close-ico-tsd"></i>
@@ -59,56 +56,19 @@
                     <form id="ModalForm">
                         <input name="Id" class="hidden" value="" />
                         <div class="row mb6">
-                            <div class="col-md-12">Họ tên<span class="red">*</span></div>
+                            <div class="col-md-12">Mã dấu hiệu<span class="red">*</span></div>
                         </div>
                         <div class="mb16 row">
                             <div class="col-md-12">
-                                <input name="HoTen" type="text" autocomplete="off" placeholder="Nhập nội dung" class="wid100" value="" />
+                                <input name="MaDauHieu" type="text" autocomplete="off" placeholder="Nhập nội dung" class="wid100" value="" />
                             </div>
                         </div>
-
                         <div class="row mb6">
-                            <div class="col-md-8">Số giấy tờ <span class="red">*</span></div>
-                            <div class="col-md-4">Loại giấy tờ <span class="red">*</span></div>
+                            <div class="col-md-12">Dấu hiệu<span class="red">*</span></div>
                         </div>
                         <div class="mb16 row">
-                            <div class="col-md-8">
-                                <input name="SoGiayTo" type="text" placeholder="Nhập nội dung" class="wid100" maxlength="50" value="" autocomplete="off" />
-                            </div>
-                            <div class="col-md-4">
-                                <input name="LoaiGiayTo" type="text" placeholder="Nhập nội dung" class="wid100" maxlength="50" value="" autocomplete="off" />
-                            </div>
-                        </div>
-
-                        <div class="row mb6">
-                            <div class="col-md-4">Ngày sinh</div>
-                            <div class="col-md-4">Giới tính</div>
-                            <div class="col-md-4">Quốc tịch</div>
-                        </div>
-                        <div class="mb16 row">
-                            <div class="col-md-4">
-                                <div class="inline-block input-group is_Datetimepicker">
-                                    <input name="NgaySinh" placeholder="dd/mm/yyyy" class="w-100 item-search input-date form-control-sm" value="">
-                                    <span class="input-group-addon cursor">
-                                        <span class="icon-calendar-ico-tsd"></span>
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="col-md-4 padTop10px radio-group">
-                                <label class="mr8"><input type="radio" class="ace cb" name="GioiTinh" id="M" data-value="M" checked><span class="lbl">&nbsp;Nam</span></label>
-                                <label class="ml8"><input type="radio" class="ace cb" name="GioiTinh" id="F" data-value="F"><span class="lbl">&nbsp;Nữ</span></label>
-                            </div>
-                            <div class="col-md-4">
-                                <input name="QuocTich" type="text" autocomplete="off" placeholder="Nhập nội dung" class="wid100" value="" />
-                            </div>
-                        </div>
-
-                        <div class="row mb6">
-                            <div class="col-md-12">Ghi chú</div>
-                        </div>
-                        <div class="mt6 mb16 row">
                             <div class="col-md-12">
-                                <textarea name="GhiChu" rows="2" class="wid100" maxlength="500"></textarea>
+                                <input name="DauHieu" type="text" autocomplete="off" placeholder="Nhập nội dung" class="wid100" value="" />
                             </div>
                         </div>
                     </form>
@@ -130,7 +90,7 @@
         const $table = $('#TBLDANHSACH');
         const $tableBody = $table.find('tbody');
         const $modal = $('#CHITIET');
-        const $router = "SHanhKhachVIP";
+        const $router = "SDauHieuRuiRo";
         const $form = $('#ModalForm');
 
 
@@ -151,26 +111,20 @@
                 initValidate: function () {
                     $form.validate({
                         rules: {
-                            HoTen: {
+                            MaDauHieu: {
                                 required: true
                             },
-                            SoGiayTo: {
+                            DauHieu: {
                                 required: true
                             },
-                            LoaiGiayTo: {
-                                required: true
-                            }
                         },
                         messages: {
-                            HoTen: {
-                                required: "Họ tên không được để trống"
+                            MaDauHieu: {
+                                required: "Mã dấu hiệu không được để trống"
                             },
-                            SoGiayTo: {
-                                required: "Số giấy tờ không được để trống"
+                            DauHieu: {
+                                required: "Dấu hiệu không được để trống"
                             },
-                            LoaiGiayTo: {
-                                required: "Loại giấy tờ không được để trống"
-                            }
                         }
                     })
                 },
@@ -189,7 +143,7 @@
                             let data = res.Body.Data || [];
 
                             if (data.length == 0) {
-                                html = `<tr><td class="text-center" colspan="7"><span>Không có bản ghi</span></td></tr>`;
+                                html = `<tr><td class="text-center" colspan="4"><span>Không có bản ghi</span></td></tr>`;
                                 $tableBody.html(html);
                                 return false;
                             }
@@ -203,11 +157,8 @@
                                     `<i class="icon-edit-ico-tsd btn-action btnEdit blue mr10" data-id="${item.Id}" title="Sửa"></i>` +
                                     `<i class="icon-delete-ico-tsd btn-action btnDelete red" data-id="${item.Id}" title="Xóa"></i>` +
                                     `</td>` +
-                                    `<td class="">${item.HoTen}</td>` +
-                                    `<td class="">${item.SoGiayTo}</td>` +
-                                    `<td class="">${formatDateFromServer(item.NgaySinh)}</td>` +
-                                    `<td class="">${item.GioiTinh}</td>` +
-                                    `<td class="">${item.GhiChu}</td>` +
+                                    `<td class="">${item.MaDauHieu}</td>` +
+                                    `<td class="">${item.DauHieu}</td>` +
                                     `</tr>`;
                                 startIndex++;
                             }

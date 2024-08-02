@@ -162,6 +162,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DanhMucNghiepVu\SCangHangKhongController.cs" />
     <Compile Include="Controllers\DanhMucNghiepVu\SChuyenBayController.cs" />
+    <Compile Include="Controllers\DanhMucNghiepVu\SDauHieuRuiRoController.cs" />
     <Compile Include="Controllers\DanhMucNghiepVu\SDoiTuongDaKTController.cs" />
     <Compile Include="Controllers\DanhMucNghiepVu\SDoiTuongTrongDiemController.cs" />
     <Compile Include="Controllers\DanhMucNghiepVu\SHangHangKhongController.cs" />
@@ -185,6 +186,7 @@
     <Compile Include="Dto\DanhMuc\ChuyenBayDto.cs" />
     <Compile Include="Dto\HanhKhach\DHanhKhachSearchDto.cs" />
     <Compile Include="Dto\HanhKhach\DHanhKhachViewDto.cs" />
+    <Compile Include="Dto\ImportDto\SChuyenBayImportDto.cs" />
     <Compile Include="Dto\User\ChangePasswordDto.cs" />
     <Compile Include="Dto\User\CreateOrUpdateUserDto.cs" />
     <Compile Include="Dto\SearchDto.cs" />
@@ -236,6 +238,9 @@
       <DependentUpon>DataXNCModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SChuyenBay.cs">
+      <DependentUpon>DataXNCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SDauHieuRuiRo.cs">
       <DependentUpon>DataXNCModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SDoiTuongDaKT.cs">
@@ -1527,6 +1532,7 @@
     <Content Include="Views\STheoDoi\Index.cshtml" />
     <Content Include="Views\DLocTheoTanSuat\Index.cshtml" />
     <Content Include="Views\SHuongDanVien\Index.cshtml" />
+    <Content Include="Views\SDauHieuRuiRo\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

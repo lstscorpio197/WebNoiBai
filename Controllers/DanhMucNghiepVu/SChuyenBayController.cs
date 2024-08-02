@@ -9,6 +9,7 @@ using WebNoiBai.Authorize;
 using WebNoiBai.Common;
 using WebNoiBai.Dto;
 using WebNoiBai.Dto.DanhMuc;
+using WebNoiBai.Dto.ImportDto;
 using WebNoiBai.Models;
 using WebNoiBai.WHttpMessage;
 
@@ -206,14 +207,22 @@ namespace WebNoiBai.Controllers.DanhMucNghiepVu
                     workbook = ExcelFile.Load(file.InputStream, LoadOptions.XlsDefault);
                 }
                 ExcelFiles excelFiles = new ExcelFiles();
-                List<SChuyenBay> lst_cb_hk = new List<SChuyenBay>();
+                List<SChuyenBayImportDto> lst_cb_hk = new List<SChuyenBayImportDto>();
                 httpMessage = excelFiles.ProcessFileExcel(workbook, GetListColumnImportExcel(), ref lst_cb_hk);
                 if (!httpMessage.IsOk)
                 {
                     return Json(httpMessage, JsonRequestBehavior.AllowGet);
                 }
-
-                dbXNC.SChuyenBays.AddRange(lst_cb_hk);
+                var lst_cb = lst_cb_hk.Select(x => new SChuyenBay
+                {
+                    ChuyenBay = x.ChuyenBay,
+                    ChangBay = x.ChangBay,
+                    SOBT = x.SOBT,
+                    Ngay = x.Ngay,
+                    DaoHanhLy = x.DaoHanhLy,
+                    CuaSo = x.CuaSo
+                });
+                dbXNC.SChuyenBays.AddRange(lst_cb);
                 dbXNC.SaveChanges();
                 return Json(httpMessage, JsonRequestBehavior.AllowGet);
             }
@@ -229,13 +238,12 @@ namespace WebNoiBai.Controllers.DanhMucNghiepVu
         {
             List<ExcelImport> lstExcelImport = new List<ExcelImport>();
             lstExcelImport.Add(new ExcelImport("Ngay", "Ngày bay", "A", true, "datetime"));
-            lstExcelImport.Add(new ExcelImport("ChuyenBay", "Chuyến bay", "B", true, "string"));
-            lstExcelImport.Add(new ExcelImport("ChangBay", "Chặng bay", "C", true, "string"));
-            lstExcelImport.Add(new ExcelImport("SOBT", "SOBT", "D", false, "int"));
-            lstExcelImport.Add(new ExcelImport("EOBT", "EOBT", "E", false, "int"));
-            lstExcelImport.Add(new ExcelImport("DaoHanhLy", "Đảo hành lý", "F", false, "string"));
-            lstExcelImport.Add(new ExcelImport("CuaSo", "Cửa số", "G", false, "string"));
-            lstExcelImport.Add(new ExcelImport("GhiChu", "Ghi chú", "H", false, "string"));
+            lstExcelImport.Add(new ExcelImport("SoHieu", "Chuyến bay", "B", true, "string"));
+            lstExcelImport.Add(new ExcelImport("ChangBay", "Chặng bay", "D", true, "string"));
+            lstExcelImport.Add(new ExcelImport("Gio", "SOBT/EOBT", "C", false, "string"));
+            lstExcelImport.Add(new ExcelImport("DaoHanhLy", "Đảo hành lý", "H", false, "string"));
+            lstExcelImport.Add(new ExcelImport("CuaSo", "Cửa số", "I", false, "string"));
+            lstExcelImport.Add(new ExcelImport("AmPm", "AM/PM", "J", true, "string"));
             return lstExcelImport;
         }
 

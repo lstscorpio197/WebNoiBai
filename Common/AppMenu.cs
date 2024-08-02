@@ -20,6 +20,7 @@ namespace WebNoiBai.Common
             new Menu(0,2,"SHangHangKhong","Danh sách hãng hàng không"),
             new Menu(0,2,"SChuyenBay","Danh mục chuyến bay"),
             new Menu(0,2,"SNuocRuiRo","Danh sách các nước có rủi ro cao"),
+            new Menu(0,2,"SDauHieuRuiRo","Danh mục dấu hiệu rủi ro"),
             new Menu(0,2,"SHuongDanVien","Danh mục hướng dẫn viên du lịch"),
             new Menu(0,2,"SHanhKhachDiLaiNhieu","Hành khách đi lại nhiều"),
             new Menu(0,2,"SHanhKhachVIP","Hành khách VIP"),

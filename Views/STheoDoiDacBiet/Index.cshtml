@@ -23,7 +23,7 @@
                 <table class="width100" id="TBLDANHSACH">
                     <thead>
                         <tr>
-                            <th class="wid50px text-center">STT</th>
+                            <th class="width75px text-center">STT</th>
                             <th class="width70px text-center">Thao tác</th>
                             <th class="text-center">Họ và tên</th>
                             <th class="text-center">Số giấy tờ</th>
@@ -61,24 +61,27 @@
                     <form id="ModalForm">
                         <input name="Id" class="hidden" value="" />
                         <div class="row mb6">
+                            <div class="col-md-6">Số giấy tờ <span class="red">*</span></div>
+                            <div class="col-md-3">Loại giấy tờ <span class="red">*</span></div>
+                        </div>
+                        <div class="mb16 row">
+                            <div class="col-md-6">
+                                <input name="SoGiayTo" type="text" placeholder="Nhập nội dung" class="wid100" maxlength="50" value="" autocomplete="off" />
+                            </div>
+                            <div class="col-md-3">
+                                <input name="LoaiGiayTo" type="text" placeholder="Nhập nội dung" class="wid100" maxlength="50" value="" autocomplete="off" />
+                            </div>
+                            <div class="col-md-3">
+                                <button type="button" class="btn btn-primary" id="btn-getinfo">Lấy thông tin HK</button>
+                            </div>
+                        </div>
+
+                        <div class="row mb6">
                             <div class="col-md-12">Họ tên<span class="red">*</span></div>
                         </div>
                         <div class="mb16 row">
                             <div class="col-md-12">
                                 <input name="HoTen" type="text" autocomplete="off" placeholder="Nhập nội dung" class="wid100" value="" />
-                            </div>
-                        </div>
-
-                        <div class="row mb6">
-                            <div class="col-md-8">Số giấy tờ <span class="red">*</span></div>
-                            <div class="col-md-4">Loại giấy tờ <span class="red">*</span></div>
-                        </div>
-                        <div class="mb16 row">
-                            <div class="col-md-8">
-                                <input name="SoGiayTo" type="text" placeholder="Nhập nội dung" class="wid100" maxlength="50" value="" autocomplete="off" />
-                            </div>
-                            <div class="col-md-4">
-                                <input name="LoaiGiayTo" type="text" placeholder="Nhập nội dung" class="wid100" maxlength="50" value="" autocomplete="off" />
                             </div>
                         </div>
 
@@ -110,7 +113,13 @@
                         </div>
                         <div class="mt6 mb16 row">
                             <div class="col-md-12">
-                                <textarea name="DauHieuRuiRo" rows="2" class="wid100" maxlength="500"></textarea>
+                                <select name="DauHieuRuiRo" class="wid100">
+                                    <option value="Đi lại nhiều lần" selected>Đi lại nhiều lần</option>
+                                    <option value="Hành lý nhiều">Hành lý nhiều</option>
+                                    <option value="Không mang hành lý">Không mang hành lý</option>
+                                    <option value="Thông tin cơ quan khác">Thông tin cơ quan khác</option>
+                                    <option value="Lý do khác">Lý do khác</option>
+                                </select>
                             </div>
                         </div>
                         <div class="row mb6">
@@ -294,6 +303,7 @@
                 init: function () {
                     this.Save();
                     this.ResetForm();
+                    this.GetInfo();
                 },
                 Self: $('#CHITIET'),
                 ResetForm: () => {
@@ -304,6 +314,35 @@
                         $form.find('select').find('option:first-child').prop('selected', true);
                         $form.validate().resetForm();
                         $form.find('.error').removeClass('error');
+                    })
+                },
+
+                GetInfo: () => {
+                    $modal.find('#btn-getinfo').off('click').on('click', function () {
+                        let sgt = $form.find('[name=SoGiayTo]').val();
+                        var getResponse = AjaxConfigHelper.SendRequestToServer(`/DHanhKhach/GetItemBySoGiayTo`, "GET", { 'sogiayto': sgt });
+                        getResponse.then((res) => {
+                            if (res.IsOk) {
+                                let data = res.Body.Data || {};
+                                for (let prop in data) {
+                                    if (prop == 'Enable') {
+                                        $form.find(`[name=${prop}]`).prop('checked', data[prop] == 1);
+                                        continue;
+                                    }
+                                    if (prop.indexOf('Time') > -1 || prop.indexOf('Ngay') > -1) {
+                                        data[prop] = formatDateFromServer(data[prop]);
+                                    }
+                                    if (prop == 'GioiTinh') {
+                                        $form.find(`[type="radio"][name=${prop}][data-value=${data[prop]}]`).prop('checked', true);
+                                        continue;
+                                    }
+                                    $form.find(`[name=${prop}]`).val(data[prop]);
+                                }
+                            }
+                            else {
+
+                            }
+                        })
                     })
                 },
                 GetDataInput: () => {

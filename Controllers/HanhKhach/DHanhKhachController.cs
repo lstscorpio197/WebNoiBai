@@ -78,6 +78,30 @@ namespace WebNoiBai.Controllers.HanhKhach
             }
         }
 
+        public JsonResult GetItemBySoGiayTo(string sogiayto)
+        {
+            HttpMessage httpMessage = new HttpMessage(true);
+            try
+            {
+                var item = dbXNC.chuyenbay_hanhkhach.FirstOrDefault(x => x.SOGIAYTO == sogiayto);
+                if (item == null)
+                {
+                    httpMessage.IsOk = false;
+                    httpMessage.Body.MsgNoti = new HttpMessageNoti("400", null, "Không tìm thấy thông tin");
+                    return Json(httpMessage, JsonRequestBehavior.AllowGet);
+                }
+
+                httpMessage.Body.Data = new { HoTen = (item.HO + " " + item.TENDEM + " " + item.TEN).Trim(), SoGiayTo = item.SOGIAYTO, LoaiGiayTo = item.LOAIGIAYTO, NgaySinh = item.NGAYSINH, GioiTinh = item.GIOITINH, QuocTich = item.QUOCTICH };
+                return Json(httpMessage, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                httpMessage.IsOk = false;
+                httpMessage.Body.MsgNoti = new HttpMessageNoti("500", null, ex.Message);
+                return Json(httpMessage, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         [AuthorizeAccessRole(TypeHandle = "import")]
         public async Task<JsonResult> ImportExcel()
         {
