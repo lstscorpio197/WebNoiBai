@@ -18,7 +18,6 @@ namespace WebNoiBai.Models
         public DataXNCEntities()
             : base("name=DataXNCEntities")
         {
-            this.Database.CommandTimeout = 180;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -36,7 +35,6 @@ namespace WebNoiBai.Models
         public virtual DbSet<SHanhKhachVIP> SHanhKhachVIPs { get; set; }
         public virtual DbSet<SDoiTuongTrongDiem> SDoiTuongTrongDiems { get; set; }
         public virtual DbSet<SDoiTuongDaKT> SDoiTuongDaKTs { get; set; }
-        public virtual DbSet<SNuocRuiRo> SNuocRuiRoes { get; set; }
         public virtual DbSet<STheoDoiDacBiet> STheoDoiDacBiets { get; set; }
         public virtual DbSet<STheoDoi> STheoDois { get; set; }
         public virtual DbSet<SHuongDanVien> SHuongDanViens { get; set; }
@@ -46,5 +44,6 @@ namespace WebNoiBai.Models
         public virtual DbSet<chuyenbay_tobay> chuyenbay_tobay { get; set; }
         public virtual DbSet<chuyenbay_vandon> chuyenbay_vandon { get; set; }
         public virtual DbSet<SDauHieuRuiRo> SDauHieuRuiRoes { get; set; }
+        public virtual DbSet<SNuocRuiRo> SNuocRuiRoes { get; set; }
     }
 }

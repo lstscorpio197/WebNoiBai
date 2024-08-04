@@ -29,7 +29,7 @@ namespace WebNoiBai.Controllers.DanhMucNghiepVu
                 var query = dbXNC.SNuocRuiRoes.AsNoTracking().Where(x => true);
                 if (!string.IsNullOrEmpty(itemSearch.Ma))
                 {
-                    query = query.Where(x => x.MaNuoc == itemSearch.Ma);
+                    query = query.Where(x => x.Nuoc.Contains(itemSearch.Ma));
                 }
                 if (!string.IsNullOrEmpty(itemSearch.Ten))
                 {
@@ -163,9 +163,9 @@ namespace WebNoiBai.Controllers.DanhMucNghiepVu
             HttpMessage httpMessage = new HttpMessage(false);
             try
             {
-                if (string.IsNullOrEmpty(item.MaNuoc))
+                if (string.IsNullOrEmpty(item.Nuoc))
                 {
-                    httpMessage.Body.MsgNoti = new HttpMessageNoti("400", null, "Vui lòng nhập mã quốc gia");
+                    httpMessage.Body.MsgNoti = new HttpMessageNoti("400", null, "Vui lòng nhập quốc gia");
                     return httpMessage;
                 }
                 if (string.IsNullOrEmpty(item.MaSanBay))

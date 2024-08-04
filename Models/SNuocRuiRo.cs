@@ -15,8 +15,9 @@ namespace WebNoiBai.Models
     public partial class SNuocRuiRo
     {
         public int Id { get; set; }
-        public string MaNuoc { get; set; }
+        public string Nuoc { get; set; }
         public string MaSanBay { get; set; }
+        public string MaNuoc { get; set; }
         public string GhiChu { get; set; }
     }
 }

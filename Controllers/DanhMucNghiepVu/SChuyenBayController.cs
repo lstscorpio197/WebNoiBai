@@ -222,6 +222,12 @@ namespace WebNoiBai.Controllers.DanhMucNghiepVu
                     DaoHanhLy = x.DaoHanhLy,
                     CuaSo = x.CuaSo
                 });
+                lst_cb = (from cb in lst_cb
+                         join x in dbXNC.SChuyenBays on new {cb.Ngay, cb.ChuyenBay} equals new {x.Ngay, x.ChuyenBay} into y
+                         from exist in y.DefaultIfEmpty()
+                         where exist == null
+                         select cb).ToList();
+
                 dbXNC.SChuyenBays.AddRange(lst_cb);
                 dbXNC.SaveChanges();
                 return Json(httpMessage, JsonRequestBehavior.AllowGet);

@@ -356,8 +356,9 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="MaNuoc" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="Nuoc" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="MaSanBay" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="MaNuoc" Type="nvarchar" MaxLength="5" />
           <Property Name="GhiChu" Type="nvarchar" MaxLength="2000" />
         </EntityType>
         <EntityType Name="STheoDoi">
@@ -583,7 +584,6 @@
           <EntitySet Name="SHanhKhachVIPs" EntityType="DataXNCModel.SHanhKhachVIP" />
           <EntitySet Name="SDoiTuongTrongDiems" EntityType="DataXNCModel.SDoiTuongTrongDiem" />
           <EntitySet Name="SDoiTuongDaKTs" EntityType="DataXNCModel.SDoiTuongDaKT" />
-          <EntitySet Name="SNuocRuiRoes" EntityType="DataXNCModel.SNuocRuiRo" />
           <EntitySet Name="STheoDoiDacBiets" EntityType="DataXNCModel.STheoDoiDacBiet" />
           <EntitySet Name="STheoDois" EntityType="DataXNCModel.STheoDoi" />
           <EntitySet Name="SHuongDanViens" EntityType="DataXNCModel.SHuongDanVien" />
@@ -593,6 +593,7 @@
           <EntitySet Name="chuyenbay_tobay" EntityType="DataXNCModel.chuyenbay_tobay" />
           <EntitySet Name="chuyenbay_vandon" EntityType="DataXNCModel.chuyenbay_vandon" />
           <EntitySet Name="SDauHieuRuiRoes" EntityType="DataXNCModel.SDauHieuRuiRo" />
+          <EntitySet Name="SNuocRuiRoes" EntityType="DataXNCModel.SNuocRuiRo" />
         </EntityContainer>
         <EntityType Name="SHanhKhachDiLaiNhieu">
           <Key>
@@ -667,15 +668,6 @@
           <Property Name="NguoiTao" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="NgaySua" Type="DateTime" Precision="3" />
           <Property Name="NguoiSua" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="SNuocRuiRo">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MaNuoc" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
-          <Property Name="MaSanBay" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
-          <Property Name="GhiChu" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="STheoDoiDacBiet">
           <Key>
@@ -884,6 +876,16 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="MaDauHieu" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="DauHieu" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="SNuocRuiRo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nuoc" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MaSanBay" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="MaNuoc" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="GhiChu" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1095,16 +1097,6 @@
                 <ScalarProperty Name="LoaiGiayTo" ColumnName="LoaiGiayTo" />
                 <ScalarProperty Name="SoGiayTo" ColumnName="SoGiayTo" />
                 <ScalarProperty Name="HoTen" ColumnName="HoTen" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="SNuocRuiRoes">
-            <EntityTypeMapping TypeName="DataXNCModel.SNuocRuiRo">
-              <MappingFragment StoreEntitySet="SNuocRuiRo">
-                <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
-                <ScalarProperty Name="MaSanBay" ColumnName="MaSanBay" />
-                <ScalarProperty Name="MaNuoc" ColumnName="MaNuoc" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1321,6 +1313,17 @@
               <MappingFragment StoreEntitySet="SDauHieuRuiRo">
                 <ScalarProperty Name="DauHieu" ColumnName="DauHieu" />
                 <ScalarProperty Name="MaDauHieu" ColumnName="MaDauHieu" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SNuocRuiRoes">
+            <EntityTypeMapping TypeName="DataXNCModel.SNuocRuiRo">
+              <MappingFragment StoreEntitySet="SNuocRuiRo">
+                <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
+                <ScalarProperty Name="MaNuoc" ColumnName="MaNuoc" />
+                <ScalarProperty Name="MaSanBay" ColumnName="MaSanBay" />
+                <ScalarProperty Name="Nuoc" ColumnName="Nuoc" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

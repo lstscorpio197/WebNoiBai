@@ -56,17 +56,26 @@
                 <div class="modal-body-content" style="padding: 16px; background-color: #FFFFFF;height: 100%;">
                     <form id="ModalForm">
                         <input name="Id" class="hidden" value="" />
-                        
+
                         <div class="row mb6">
                             <div class="col-md-6">Quốc gia <span class="red">*</span></div>
                             <div class="col-md-6">Mã sân bay <span class="red">*</span></div>
                         </div>
                         <div class="mb16 row">
                             <div class="col-md-6">
-                                <input name="MaNuoc" type="text" placeholder="Nhập nội dung" class="wid100" maxlength="50" value="" autocomplete="off" />
+                                <input name="Nuoc" type="text" placeholder="Nhập nội dung" class="wid100" maxlength="50" value="" autocomplete="off" />
                             </div>
                             <div class="col-md-6">
                                 <input name="MaSanBay" type="text" placeholder="Nhập nội dung" class="wid100" maxlength="50" value="" autocomplete="off" />
+                            </div>
+                        </div>
+
+                        <div class="row mb6">
+                            <div class="col-md-6">Mã nước</div>
+                        </div>
+                        <div class="mb16 row">
+                            <div class="col-md-6">
+                                <input name="MaNuoc" type="text" placeholder="Nhập nội dung" class="wid100" maxlength="50" value="" autocomplete="off" />
                             </div>
                         </div>
                         <div class="row mb6">
@@ -117,7 +126,7 @@
                 initValidate: function () {
                     $form.validate({
                         rules: {
-                            MaNuoc: {
+                            Nuoc: {
                                 required: true
                             },
                             MaSanBay: {
@@ -125,8 +134,8 @@
                             },
                         },
                         messages: {
-                            MaNuoc: {
-                                required: "Mã quốc gia không được để trống"
+                            Nuoc: {
+                                required: "Quốc gia không được để trống"
                             },
                             MaSanBay: {
                                 required: "Mã sân bay không được để trống"
@@ -162,7 +171,7 @@
                                     `<i class="icon-edit-ico-tsd btn-action btnEdit blue mr10" data-id="${item.Id}" title="Sửa"></i>` +
                                     `<i class="icon-delete-ico-tsd btn-action btnDelete red" data-id="${item.Id}" title="Xóa"></i>` +
                                     `</td>` +
-                                    `<td class="">${item.MaNuoc}</td>` +
+                                    `<td class="">${item.Nuoc}</td>` +
                                     `<td class="">${item.MaSanBay}</td>` +
                                     `<td class="">${item.GhiChu}</td>` +
                                     `</tr>`;
