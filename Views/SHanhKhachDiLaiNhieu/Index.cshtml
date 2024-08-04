@@ -1,6 +1,10 @@
-﻿
+﻿@using WebNoiBai.Models
+
 @{
     ViewBag.Title = "Hành khách đi lại nhiều lần";
+
+    var db = new DataXNCEntities();
+    var lstDauHieu = db.SDauHieuRuiRoes.Select(x => x.DauHieu).ToList();
 }
 
 <div class="mx-ecus">
@@ -114,11 +118,10 @@
                         <div class="mt6 mb16 row">
                             <div class="col-md-12">
                                 <select name="DauHieuRuiRo" class="wid100">
-                                    <option value="Đi lại nhiều lần" selected>Đi lại nhiều lần</option>
-                                    <option value="Hành lý nhiều">Hành lý nhiều</option>
-                                    <option value="Không mang hành lý">Không mang hành lý</option>
-                                    <option value="Thông tin cơ quan khác">Thông tin cơ quan khác</option>
-                                    <option value="Lý do khác">Lý do khác</option>
+                                    @foreach (var item in lstDauHieu)
+                                    {
+                                        <option value="@item" >@item</option>
+                                    }
                                 </select>
                             </div>
                         </div>

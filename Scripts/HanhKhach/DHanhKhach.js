@@ -173,6 +173,7 @@ $(function () {
     var $searchModal = {
         init: function () {
             $searchModal.closeModal();
+            $searchModal.btnSearchClick();
         },
         Self: $('#SearchModal'),
         closeModal: function () {
@@ -186,6 +187,12 @@ $(function () {
                     }
                 })
                 $page.Self.find('.badge').text(badge);
+            })
+        },
+        btnSearchClick: function () {
+            $searchModal.Self.find('#btn-search').off('click').on('click', function () {
+                $searchModal.Self.modal('hide');
+                $page.GetList(1);
             })
         },
         getDataSearch: function (dataSearch) {

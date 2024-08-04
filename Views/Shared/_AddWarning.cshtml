@@ -1,4 +1,10 @@
-﻿
+﻿@using WebNoiBai.Models
+
+@{
+    var db = new DataXNCEntities();
+    var lstDauHieu = db.SDauHieuRuiRoes.Select(x => x.DauHieu).ToList();
+}
+
 <div class="modal modal-edit left fade" id="ObjectWarning" role="dialog" aria-labelledby="exampleModalLabel" data-bs-keyboard="true" aria-bs-hidden="true" data-bs-backdrop="static" style="padding-top: 42px !important;">
     <div class="modal-dialog modal-md modal-dialog-slideout" role="document">
         <div class="modal-content">
@@ -40,7 +46,7 @@
                             <div class="col-md-3">
                                 <input name="LoaiGiayTo" type="text" placeholder="Nhập nội dung" class="wid100" maxlength="50" value="" autocomplete="off" readonly />
                             </div>
-                            
+
                         </div>
 
                         <div class="row mb6">
@@ -82,11 +88,10 @@
                         <div class="mt6 mb16 row">
                             <div class="col-md-12">
                                 <select name="DauHieuRuiRo" class="wid100">
-                                    <option value="Đi lại nhiều lần" selected>Đi lại nhiều lần</option>
-                                    <option value="Hành lý nhiều">Hành lý nhiều</option>
-                                    <option value="Không mang hành lý">Không mang hành lý</option>
-                                    <option value="Thông tin cơ quan khác">Thông tin cơ quan khác</option>
-                                    <option value="Lý do khác">Lý do khác</option>
+                                    @foreach (var item in lstDauHieu)
+                                    {
+                                        <option value="@item">@item</option>
+                                    }
                                 </select>
                             </div>
                         </div>
