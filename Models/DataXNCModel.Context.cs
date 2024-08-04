@@ -18,6 +18,7 @@ namespace WebNoiBai.Models
         public DataXNCEntities()
             : base("name=DataXNCEntities")
         {
+            this.Database.CommandTimeout = 300;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

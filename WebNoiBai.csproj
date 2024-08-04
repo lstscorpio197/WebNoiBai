@@ -183,10 +183,12 @@
     <Compile Include="Controllers\Systems\SPhongBanController.cs" />
     <Compile Include="Controllers\Systems\SRoleController.cs" />
     <Compile Include="Controllers\Systems\SUserController.cs" />
+    <Compile Include="Controllers\ToBay\DToBayController.cs" />
     <Compile Include="Dto\DanhMuc\ChuyenBayDto.cs" />
     <Compile Include="Dto\HanhKhach\DHanhKhachSearchDto.cs" />
     <Compile Include="Dto\HanhKhach\DHanhKhachViewDto.cs" />
     <Compile Include="Dto\ImportDto\SChuyenBayImportDto.cs" />
+    <Compile Include="Dto\ToBay\DToBayViewDto.cs" />
     <Compile Include="Dto\User\ChangePasswordDto.cs" />
     <Compile Include="Dto\User\CreateOrUpdateUserDto.cs" />
     <Compile Include="Dto\SearchDto.cs" />
@@ -1421,6 +1423,7 @@
     <Content Include="FileTemp\Mau01.docx" />
     <Content Include="FileTemp\Mau02.docx" />
     <Content Include="FileTemp\ImportTmp\Import_ChuyenBay.xlsx" />
+    <Content Include="FileTemp\ImportTmp\Import_DanhMuc.xlsx" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\core\bootstrap.min.js" />
     <Content Include="Scripts\core\jquery-3.7.1.min.js" />
@@ -1533,6 +1536,7 @@
     <Content Include="Views\DLocTheoTanSuat\Index.cshtml" />
     <Content Include="Views\SHuongDanVien\Index.cshtml" />
     <Content Include="Views\SDauHieuRuiRo\Index.cshtml" />
+    <Content Include="Views\DToBay\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

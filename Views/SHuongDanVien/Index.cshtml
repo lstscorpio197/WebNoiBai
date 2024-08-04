@@ -8,6 +8,7 @@
         <div class="card-header">
             <div class="card-title bold">@ViewBag.Title</div>
             <div class="card-right">
+                <button class="btn btn-success" id="" type="button" data-bs-toggle="modal" data-bs-target="#ImportExcel"><i class="fa fa-file-excel-o"></i><span class="">Import Excel</span></button>
                 <button class="btn btn-primary" id="btn-add" type="button" data-bs-toggle="modal" data-bs-target="#CHITIET"><i class="icon-add-ico-tsd"></i><span class="ml8">Thêm mới</span></button>
             </div>
         </div>
@@ -118,6 +119,42 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa fa-times"></i><span class="ml8">Đóng</span></button>
                 <button type="button" class="btn btn-primary" id="btn-save"><i class="fa fa-save"></i><span class="ml8">Lưu lại</span></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal modal-edit fade" id="ImportExcel" role="dialog" aria-labelledby="exampleModalLabel" data-bs-keyboard="true" aria-bs-hidden="true" data-bs-backdrop="static" style="padding-top: 42px !important;">
+    <div class="modal-dialog modal-md modal-dialog-slideout" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel">
+                    Nhập dữ liệu từ file
+                </h4>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <i class="icon-close-ico-tsd"></i>
+                </button>
+            </div>
+            <div class="modal-body" style="background-color: #FBFBFB">
+                <div class="modal-body-content" style="padding: 16px; background-color: #FFFFFF;height: 100%;">
+                    <div class="row mb16">
+
+                        <div class="col-md-6">
+                            <a href="~/FileTemp/ImportTmp/Import_DanhMuc.xlsx">Tải file mẫu</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <input type="file" name="File" class="hidden" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
+                            <input type="text" class="wid100" name="FileName" readonly disabled />
+                            <button class="btn btn-secondary btnChonFile">Chọn file</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa fa-times"></i><span class="ml8">&nbsp;Đóng</span></button>
+                <button type="button" class="btn btn-primary" id="btn-import"><i class="fa fa-save"></i><span class="ml8">&nbsp;Lưu lại</span></button>
             </div>
         </div>
     </div>
@@ -314,9 +351,51 @@
                 }
             };
 
+            var $import = {
+                init: function () {
+                    $import.ChooseFile();
+                    $import.FileChanged();
+                    $import.Import();
+                },
+                self: $('#ImportExcel'),
+                ChooseFile: function () {
+                    $import.self.find('.btnChonFile').off('click').on('click', function () {
+                        $import.self.find('input[type=file]').trigger('click');
+                    })
+                },
+                FileChanged: function () {
+                    $import.self.find('input[type=file]').on('change', function () {
+                        var files = $import.self.find('input[type=file]')[0].files;
+                        if (files.length) {
+                            let file = files[0];
+                            $import.self.find('input[name=FileName]').val(file.name);
+                        }
+                    })
+                },
+                Import: function () {
+                    $import.self.find('#btn-import').off('click').on('click', function () {
+                        var files = $import.self.find('input[type=file]')[0].files;
+                        if (!files.length) {
+                            return false;
+                        }
+                        let file = files[0];
+
+                        var getResponse = AjaxConfigHelper.SendRequestFileToServer(`/${$router}/ImportExcel`, "POST", file);
+                        getResponse.then((res) => {
+                            if (res.IsOk) {
+                                $page.GetList(1);
+                                ToastSuccess("Import thành công");
+                                $import.self.modal('hide');
+                            }
+                        })
+
+                    })
+                }
+            }
 
             $page.init();
             $ChiTiet.init();
+            $import.init();
         });
     </script>
 }
