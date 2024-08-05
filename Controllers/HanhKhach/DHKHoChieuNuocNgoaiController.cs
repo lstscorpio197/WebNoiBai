@@ -127,6 +127,14 @@ namespace WebNoiBai.Controllers.HanhKhach
             {
                 query = query.Where(x => itemSearch.LstSoHieu.Contains(x.SOHIEU));
             }
+            if (!string.IsNullOrEmpty(itemSearch.HoTen))
+            {
+                var arrHoTen = itemSearch.HoTen.Split(' ');
+                foreach (var item in arrHoTen)
+                {
+                    query = query.Where(x => x.HO.Contains(item) || x.TENDEM.Contains(item) || x.TEN.Contains(item));
+                }
+            }
             if (!string.IsNullOrEmpty(itemSearch.NoiDi))
             {
                 query = query.Where(x => x.NOIDI == itemSearch.NoiDi);
@@ -134,6 +142,18 @@ namespace WebNoiBai.Controllers.HanhKhach
             if (!string.IsNullOrEmpty(itemSearch.NoiDen))
             {
                 query = query.Where(x => x.NOIDEN == itemSearch.NoiDen);
+            }
+            if (!string.IsNullOrEmpty(itemSearch.MaNoiDi))
+            {
+                query = query.Where(x => x.MANOIDI == itemSearch.MaNoiDi);
+            }
+            if (!string.IsNullOrEmpty(itemSearch.MaNoiDen))
+            {
+                query = query.Where(x => x.MANOIDEN == itemSearch.MaNoiDen);
+            }
+            if (!string.IsNullOrEmpty(itemSearch.QuocTich))
+            {
+                query = query.Where(x => x.QUOCTICH == itemSearch.QuocTich);
             }
 
             return query.Select(x => new DHanhKhachViewDto

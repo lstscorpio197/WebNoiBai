@@ -7,17 +7,17 @@ using System.Web;
 using System.Web.Mvc;
 using WebNoiBai.Authorize;
 using WebNoiBai.Common;
-using WebNoiBai.Dto;
 using WebNoiBai.Dto.DanhMuc;
 using WebNoiBai.Dto.ImportDto;
+using WebNoiBai.Dto;
 using WebNoiBai.Models;
 using WebNoiBai.WHttpMessage;
 
 namespace WebNoiBai.Controllers.DanhMucNghiepVu
 {
-    public class SChuyenBayController : BaseController
+    public class SChuyenBayXuatCanhController : BaseController
     {
-        // GET: SChuyenBay
+        // GET: SChuyenBayXuatCanh
         [AuthorizeAccessRole(TypeHandle = "view")]
         public ActionResult Index()
         {
@@ -29,7 +29,7 @@ namespace WebNoiBai.Controllers.DanhMucNghiepVu
             HttpMessage httpMessage = new HttpMessage(true);
             try
             {
-                var query = dbXNC.SChuyenBays.AsNoTracking().Where(x => x.Type == 0);
+                var query = dbXNC.SChuyenBays.AsNoTracking().Where(x => x.Type == 1);
                 if (!string.IsNullOrEmpty(itemSearch.Ma))
                 {
                     query = query.Where(x => x.ChuyenBay.Contains(itemSearch.Ma));
@@ -108,7 +108,7 @@ namespace WebNoiBai.Controllers.DanhMucNghiepVu
                 {
                     return Json(httpMessage, JsonRequestBehavior.AllowGet);
                 }
-                item.Type = 0;
+                item.Type = 1;
                 dbXNC.SChuyenBays.Add(item);
                 dbXNC.SaveChanges();
                 httpMessage.Body.MsgNoti = new HttpMessageNoti("200", null, "Thêm mới thành công");
@@ -136,7 +136,7 @@ namespace WebNoiBai.Controllers.DanhMucNghiepVu
                     httpMessage.Body.MsgNoti = new HttpMessageNoti("400", null, "Không tìm thấy thông tin");
                     return Json(httpMessage, JsonRequestBehavior.AllowGet);
                 }
-                item.Type = 0;
+                item.Type = 1;
                 dbXNC.Entry(exist).State = EntityState.Detached;
                 dbXNC.Entry(item).State = EntityState.Modified;
                 dbXNC.SaveChanges();
@@ -223,13 +223,13 @@ namespace WebNoiBai.Controllers.DanhMucNghiepVu
                     Ngay = x.Ngay,
                     DaoHanhLy = x.DaoHanhLy,
                     CuaSo = x.CuaSo,
-                    Type = 0
+                    Type = 1
                 });
                 lst_cb = (from cb in lst_cb
-                         join x in dbXNC.SChuyenBays on new {cb.Ngay, cb.ChuyenBay} equals new {x.Ngay, x.ChuyenBay} into y
-                         from exist in y.DefaultIfEmpty()
-                         where exist == null
-                         select cb).ToList();
+                          join x in dbXNC.SChuyenBays on new { cb.Ngay, cb.ChuyenBay } equals new { x.Ngay, x.ChuyenBay } into y
+                          from exist in y.DefaultIfEmpty()
+                          where exist == null
+                          select cb).ToList();
 
                 dbXNC.SChuyenBays.AddRange(lst_cb);
                 dbXNC.SaveChanges();

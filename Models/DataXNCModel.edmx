@@ -251,6 +251,7 @@
           <Property Name="DaoHanhLy" Type="nvarchar" MaxLength="5" />
           <Property Name="CuaSo" Type="nvarchar" MaxLength="5" />
           <Property Name="GhiChu" Type="nvarchar" MaxLength="500" />
+          <Property Name="Type" Type="int" />
         </EntityType>
         <EntityType Name="SDauHieuRuiRo">
           <Key>
@@ -737,6 +738,7 @@
           <Property Name="DaoHanhLy" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
           <Property Name="CuaSo" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
           <Property Name="GhiChu" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="Int32" />
         </EntityType>
         <EntityType Name="chuyenbay_hh">
           <Key>
@@ -1162,6 +1164,7 @@
           <EntitySetMapping Name="SChuyenBays">
             <EntityTypeMapping TypeName="DataXNCModel.SChuyenBay">
               <MappingFragment StoreEntitySet="SChuyenBay">
+                <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
                 <ScalarProperty Name="CuaSo" ColumnName="CuaSo" />
                 <ScalarProperty Name="DaoHanhLy" ColumnName="DaoHanhLy" />

@@ -36,6 +36,7 @@ namespace WebNoiBai.Controllers.HanhKhach
             {
                 var query = GetQuery(itemSearch);
                 var result = query.Skip(itemSearch.Skip).Take(itemSearch.PageSize).ToList();
+                result.ForEach(item => item.NgayDiGanNhat = !itemSearch.IsViewNgayDiGanNhat ? null : dbXNC.chuyenbay_hanhkhach.Where(y => y.FLIGHTDATE < item.FLIGHTDATE && y.SOGIAYTO == item.SOGIAYTO).Select(y => y.FLIGHTDATE).OrderByDescending(y => y).FirstOrDefault());
                 httpMessage.Body.Data = result;
                 httpMessage.Body.Pagination = new HttpMessagePagination
                 {
@@ -261,6 +262,14 @@ namespace WebNoiBai.Controllers.HanhKhach
             {
                 query = query.Where(x => x.NOIDEN == itemSearch.NoiDen);
             }
+            if (!string.IsNullOrEmpty(itemSearch.MaNoiDi))
+            {
+                query = query.Where(x => x.MANOIDI == itemSearch.MaNoiDi);
+            }
+            if (!string.IsNullOrEmpty(itemSearch.MaNoiDen))
+            {
+                query = query.Where(x => x.MANOIDEN == itemSearch.MaNoiDen);
+            }
             if (!string.IsNullOrEmpty(itemSearch.QuocTich))
             {
                 query = query.Where(x => x.QUOCTICH == itemSearch.QuocTich);
@@ -294,13 +303,125 @@ namespace WebNoiBai.Controllers.HanhKhach
                     break;
                 case 5://Đối tượng theo dõi
                     query = from a in query
-                            join b in dbXNC.canhbao_hanhkhach on a.SOGIAYTO equals b.so_giay_to
+                            join b in dbXNC.STheoDois on a.SOGIAYTO equals b.SoGiayTo
+                            select a;
+                    break;
+                case 6://Hướng dẫn viên
+                    query = from a in query
+                            join b in dbXNC.SHuongDanViens on a.SOGIAYTO equals b.SoGiayTo
                             select a;
                     break;
                 default:
                     break;
             }
 
+            switch (itemSearch.NotInObject)
+            {
+                case 0://Đi lại nhiều
+                    query = from a in query
+                            join b in dbXNC.SHanhKhachDiLaiNhieux on a.SOGIAYTO equals b.SoGiayTo into c
+                            from d in c.DefaultIfEmpty()
+                            where d == null
+                            select a;
+                    break;
+                case 1://VIP
+                    query = from a in query
+                            join b in dbXNC.SHanhKhachVIPs on a.SOGIAYTO equals b.SoGiayTo into c
+                            from d in c.DefaultIfEmpty()
+                            where d == null
+                            select a;
+                    break;
+                case 2://Trọng điểm
+                    query = from a in query
+                            join b in dbXNC.SDoiTuongTrongDiems on a.SOGIAYTO equals b.SoGiayTo
+                            into c
+                            from d in c.DefaultIfEmpty()
+                            where d == null
+                            select a;
+                    break;
+                case 3://Theo dõi đặc biệt
+                    query = from a in query
+                            join b in dbXNC.STheoDoiDacBiets on a.SOGIAYTO equals b.SoGiayTo
+                            into c
+                            from d in c.DefaultIfEmpty()
+                            where d == null
+                            select a;
+                    break;
+                case 4://Đã kiểm tra
+                    query = from a in query
+                            join b in dbXNC.SDoiTuongDaKTs on a.SOGIAYTO equals b.SoGiayTo
+                            into c
+                            from d in c.DefaultIfEmpty()
+                            where d == null
+                            select a;
+                    break;
+                case 5://Đối tượng theo dõi
+                    query = from a in query
+                            join b in dbXNC.STheoDois on a.SOGIAYTO equals b.SoGiayTo
+                            into c
+                            from d in c.DefaultIfEmpty()
+                            where d == null
+                            select a;
+                    break;
+                case 6://Hướng dẫn viên
+                    query = from a in query
+                            join b in dbXNC.SHuongDanViens on a.SOGIAYTO equals b.SoGiayTo
+                            into c
+                            from d in c.DefaultIfEmpty()
+                            where d == null
+                            select a;
+                    break;
+                default:
+                    break;
+            }
+
+            if (itemSearch.IsViewDiChung)
+            {
+                var queryChung = dbXNC.chuyenbay_hanhkhach.AsNoTracking().Where(x => x.FLIGHTDATE > startDate && x.FLIGHTDATE < endDate);
+                if (itemSearch.LstSoHieu.Any())
+                {
+                    queryChung = queryChung.Where(x => itemSearch.LstSoHieu.Contains(x.SOHIEU));
+                }
+
+                if (!string.IsNullOrEmpty(itemSearch.NoiDi))
+                {
+                    queryChung = queryChung.Where(x => x.NOIDI == itemSearch.NoiDi);
+                }
+                if (!string.IsNullOrEmpty(itemSearch.NoiDen))
+                {
+                    queryChung = queryChung.Where(x => x.NOIDEN == itemSearch.NoiDen);
+                }
+                var lstDiChung = queryChung.Select(x => x.MADATCHO).GroupBy(x => x).Select(x => new { MADATCHO = x.Key, Count = x.Count() });
+
+                return (from x in query
+                        join y in dbXNC.SChuyenBays.Where(x => x.Ngay > startDate && x.Ngay < endDate) on new { Ngay = x.FLIGHTDATE.Value, SoHieu = x.SOHIEU } equals new { Ngay = y.Ngay, SoHieu = y.ChuyenBay } into z
+                        from xxx in z.DefaultIfEmpty()
+                        join n in lstDiChung on x.MADATCHO equals n.MADATCHO into datcho
+                        from dc in datcho.DefaultIfEmpty()
+                        select new DHanhKhachViewDto
+                        {
+                            FLIGHTDATE = x.FLIGHTDATE,
+                            GIOITINH = x.GIOITINH,
+                            HANHLY = x.HANHLY,
+                            HO = x.HO,
+                            IDCHUYENBAY = x.IDCHUYENBAY,
+                            MADATCHO = x.MADATCHO,
+                            MANOIDEN = x.MANOIDEN,
+                            MANOIDI = x.MANOIDI,
+                            NGAYSINH = x.NGAYSINH,
+                            NOIDEN = x.NOIDEN,
+                            NOIDI = x.NOIDI,
+                            QUOCTICH = x.QUOCTICH,
+                            SOGIAYTO = x.SOGIAYTO,
+                            LOAIGIAYTO = x.LOAIGIAYTO,
+                            SOHIEU = x.SOHIEU,
+                            TEN = x.TEN,
+                            TENDEM = x.TENDEM,
+                            SOBT = xxx != null ? xxx.SOBT : null,
+                            SoNguoiDiCung = dc != null ? dc.Count : 0
+                        }).OrderBy(x => x.FLIGHTDATE).ThenBy(x => x.SOBT).ThenBy(x => x.IDCHUYENBAY).ThenBy(x=>x.MADATCHO);
+
+            }
 
             var queryResult = from x in query
                               join y in dbXNC.SChuyenBays.Where(x => x.Ngay > startDate && x.Ngay < endDate) on new { Ngay = x.FLIGHTDATE.Value, SoHieu = x.SOHIEU } equals new { Ngay = y.Ngay, SoHieu = y.ChuyenBay } into z
@@ -324,11 +445,11 @@ namespace WebNoiBai.Controllers.HanhKhach
                                   SOHIEU = x.SOHIEU,
                                   TEN = x.TEN,
                                   TENDEM = x.TENDEM,
-                                  SOBT = xxx != null ? xxx.SOBT : null,
+                                  SOBT = xxx != null ? xxx.SOBT : null
                               };
 
 
-            return queryResult.OrderBy(x => x.FLIGHTDATE).ThenBy(x => x.SOBT).ThenBy(x => x.IDCHUYENBAY);
+            return queryResult.OrderBy(x => x.FLIGHTDATE).ThenBy(x => x.SOBT).ThenBy(x => x.IDCHUYENBAY).ThenBy(x => x.MADATCHO);
         }
 
         private List<ExcelImport> GetListColumnImportExcel()

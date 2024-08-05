@@ -31,10 +31,15 @@
                     <input class="item-search wid100px" autocomplete="off" name="SoHieu" placeholder="Số hiệu chuyến bay" />
                     <input class="item-search wid100px" autocomplete="off" name="NoiDi" placeholder="Nơi đi" />
                     <input class="item-search wid100px" autocomplete="off" name="NoiDen" placeholder="Nơi đến" />
-                    <select class="item-search wid200px" name="ObjectType">
-                        <option value="0">Nối chuyến đến HAN</option>
-                        <option value="1">Nối chuyến qua HAN</option>
-                        <option value="2">Nối chuyến từ HAN đi QT</option>
+                    <select class="item-search width150px" name="ObjectType">
+                        <option value="0">Nối chuyến đến</option>
+                        <option value="1">Nối chuyến qua</option>
+                        <option value="2">Nối chuyến đi từ</option>
+                    </select>
+                    <select class="item-search width75px" name="DiemNoiChuyen">
+                        <option value="HAN">HAN</option>
+                        <option value="SGN">SGN</option>
+                        <option value="DAD">DAD</option>
                     </select>
                     <button class="btn btn-primary btnSearch" type="button"><i class="icon-search-ico-tsd"></i></button>
                 </div>
@@ -89,6 +94,7 @@
             this.NoiDi = $header.find('[name=NoiDi]').val();
             this.NoiDen = $header.find('[name=NoiDen]').val();
             this.ObjectType = $header.find('[name=ObjectType]').val();
+            this.DiemNoiChuyen = $header.find('[name=DiemNoiChuyen]').val();
             this.PageNum = pageNum || $footer.find('[name=PageNumber]').val();
             this.PageSize = $footer.find('[name=PageLength]').val();
         }

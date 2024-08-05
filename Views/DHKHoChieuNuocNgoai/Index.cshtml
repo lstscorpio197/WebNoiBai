@@ -29,6 +29,7 @@
                     </div>
                     <input class="item-search wid200px" autocomplete="off" name="SoGiayTo" placeholder="Số giấy tờ" />
                     <input class="item-search wid200px" autocomplete="off" name="SoHieu" placeholder="Số hiệu chuyến bay" />
+                    <button class="btn btn-secondary" style="height:38px;" id="btn-extend-search" type="button" data-bs-toggle="modal" data-bs-target="#SearchModal"><i class="far fa-filter"></i>&nbsp;Nâng cao&nbsp;<span class="badge">0</span></button>
                     <button class="btn btn-primary btnSearch" type="button"><i class="icon-search-ico-tsd"></i></button>
                 </div>
             </div>
@@ -57,6 +58,79 @@
             </div>
             <div class="frame-footer">
                 @Html.Partial("_PaginationPartial")
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal modal-edit left fade" id="SearchModal" role="dialog" aria-labelledby="exampleModalLabel" data-bs-keyboard="true" aria-bs-hidden="true" data-bs-backdrop="static" style="padding-top: 42px !important;">
+    <div class="modal-dialog modal-sm modal-dialog-slideout" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel">
+                    Tìm kiếm nâng cao
+                </h4>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <i class="icon-close-ico-tsd"></i>
+                </button>
+            </div>
+            <div class="modal-body" style="background-color: #FBFBFB">
+                <div class="modal-body-content" style="padding: 16px; background-color: #FFFFFF;height: 100%;">
+
+                    <div class="row mb16 d-flex align-items-center">
+                        <div class="col-md-3">
+                            Họ tên
+                        </div>
+                        <div class="col-md-9">
+                            <input class="item-search wid100" autocomplete="off" name="HoTen" placeholder="Họ tên" />
+                        </div>
+                    </div>
+                    <div class="row mb16 d-flex align-items-center">
+                        <div class="col-md-3">
+                            Quốc tịch
+                        </div>
+                        <div class="col-md-9">
+                            <input class="item-search wid100" autocomplete="off" name="QuocTich" placeholder="Quốc tịch" />
+                        </div>
+                    </div>
+                    <div class="row mb16 d-flex align-items-center">
+                        <div class="col-md-3">
+                            Điểm xuất phát đầu tiên
+                        </div>
+                        <div class="col-md-9">
+                            <input class="item-search wid100" autocomplete="off" name="NoiDi" placeholder="Mã sân bay" />
+                        </div>
+                    </div>
+                    <div class="row mb16 d-flex align-items-center">
+                        <div class="col-md-3">
+                            Mã sân bay khởi hành
+                        </div>
+                        <div class="col-md-9">
+                            <input class="item-search wid100" autocomplete="off" name="MaNoiDi" placeholder="Mã sân bay" />
+                        </div>
+                    </div>
+                    <div class="row mb16 d-flex align-items-center">
+                        <div class="col-md-3">
+                            Mã sân bay đến
+                        </div>
+                        <div class="col-md-9">
+                            <input class="item-search wid100" autocomplete="off" name="MaNoiDen" placeholder="Mã sân bay" />
+                        </div>
+                    </div>
+                    <div class="row mb16 d-flex align-items-center">
+                        <div class="col-md-3">
+                            Điểm kết thúc
+                        </div>
+                        <div class="col-md-9">
+                            <input class="item-search wid100" autocomplete="off" name="NoiDen" placeholder="Mã sân bay" />
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa fa-times"></i><span class="ml8">&nbsp;Đóng</span></button>
+                <button type="button" class="btn btn-primary" id="btn-search"><i class="fa fa-search"></i><span class="ml8">&nbsp;Tìm kiếm</span></button>
             </div>
         </div>
     </div>
@@ -113,6 +187,7 @@
 
                     let html = '';
                     let search = new DataSearch(pageNum);
+                    search = $searchModal.getDataSearch(search);
 
                     var getResponse = AjaxConfigHelper.SendRequestToServer(`/${$router}/GetTable`, "GET", search);
                     getResponse.then((res) => {
@@ -188,8 +263,50 @@
                 }
             };
 
+            var $searchModal = {
+                init: function () {
+                    $searchModal.closeModal();
+                    $searchModal.btnSearchClick();
+                },
+                Self: $('#SearchModal'),
+                closeModal: function () {
+                    $searchModal.Self.on('hidden.modal.bs', function () {
+                        let badge = 0;
+                        $searchModal.Self.find('input, select').each(function (i, e) {
+                            let name = e.name;
+                            let value = $(e).val() || '';
+                            if (e.type == 'checkbox') {
+                                value = $(e).is(':checked');
+                            }
+                            if (value != '' && value != false) {
+                                badge = badge + 1;
+                            }
+                        })
+                        $page.Self.find('.badge').text(badge);
+                    })
+                },
+                btnSearchClick: function () {
+                    $searchModal.Self.find('#btn-search').off('click').on('click', function () {
+                        $searchModal.Self.modal('hide');
+                        $page.GetList(1);
+                    })
+                },
+                getDataSearch: function (dataSearch) {
+                    $searchModal.Self.find('input, select').each(function (i, e) {
+                        let name = e.name;
+                        let value = $(e).val() || '';
+                        if (e.type == 'checkbox') {
+                            value = $(e).is(':checked');
+                        }
+                        dataSearch[name] = value;
+                    })
+                    return dataSearch;
+                }
+            }
 
             $page.init();
+            $searchModal.init();
+
         });
 
     </script>    

@@ -162,6 +162,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DanhMucNghiepVu\SCangHangKhongController.cs" />
     <Compile Include="Controllers\DanhMucNghiepVu\SChuyenBayController.cs" />
+    <Compile Include="Controllers\DanhMucNghiepVu\SChuyenBayXuatCanhController.cs" />
     <Compile Include="Controllers\DanhMucNghiepVu\SDauHieuRuiRoController.cs" />
     <Compile Include="Controllers\DanhMucNghiepVu\SDoiTuongDaKTController.cs" />
     <Compile Include="Controllers\DanhMucNghiepVu\SDoiTuongTrongDiemController.cs" />
@@ -1537,6 +1538,7 @@
     <Content Include="Views\SHuongDanVien\Index.cshtml" />
     <Content Include="Views\SDauHieuRuiRo\Index.cshtml" />
     <Content Include="Views\DToBay\Index.cshtml" />
+    <Content Include="Views\SChuyenBayXuatCanh\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

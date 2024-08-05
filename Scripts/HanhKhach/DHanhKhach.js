@@ -16,7 +16,6 @@ function DataSearch(pageNum) {
     this.SoHieu = $header.find('[name=SoHieu]').val();
     this.NoiDen = $header.find('[name=NoiDen]').val();
     this.NoiDi = $header.find('[name=NoiDi]').val();
-    this.ObjectType = $header.find('[name=ObjectType]').val();
     this.PageNum = pageNum || $footer.find('[name=PageNumber]').val();
     this.PageSize = $footer.find('[name=PageLength]').val();
 }
@@ -57,9 +56,30 @@ $(function () {
             var getResponse = AjaxConfigHelper.SendRequestToServer(`/${$router}/GetTable`, "GET", search);
             getResponse.then((res) => {
                 if (res.IsOk) {
+                    if (search.IsViewDiChung == false) {
+                        $('.is-view-dichung').addClass('hidden');
+                    }
+                    else {
+                        $('.is-view-dichung').removeClass('hidden');
+                    }
+                    if (search.IsViewNgayDiGanNhat == false) {
+                        $('.is-view-ngaygannhat').addClass('hidden');
+                    }
+                    else {
+                        $('.is-view-ngaygannhat').removeClass('hidden');
+                    }
+
+
                     let data = res.Body.Data || [];
 
                     if (data.length == 0) {
+                        let colCount = 13;
+                        if (search.IsViewDiChung) {
+                            colCount++;
+                        }
+                        if (search.IsViewNgayDiGanNhat) {
+                            colCount++;
+                        }
                         html = `<tr><td class="text-center" colspan="13"><span>Không có bản ghi</span></td></tr>`;
                         $tableBody.html(html);
                         return false;
@@ -80,10 +100,13 @@ $(function () {
                             `<td class="text-center">${item.MANOIDEN}</td>` +
                             `<td class="text-center">${item.NOIDEN}</td>` +
                             `<td class="">${item.HANHLY}</td>` +
+                            (search.IsViewDiChung ? `<td class="text-center is-view-dichung">${item.SoNguoiDiCung}</td>` : '') +
+                            (search.IsViewNgayDiGanNhat ? `<td class="text-center is-view-ngaygannhat">${item.NgayDiGanNhat_TXT}</td>` : '') +
                             `<td class="text-center"><span data-id="${item.SOGIAYTO}" data-chuyenbay="${item.IDCHUYENBAY}" class="fa fa-exclamation-triangle add-warning cursor" style="color:#ffc107;"></span></td>` +
                             `</tr>`;
                         startIndex++;
                     }
+                    
                     $tableBody.html(html);
 
                     $pagination.Set($footer, res.Body.Pagination, $page.GetList);
@@ -182,7 +205,10 @@ $(function () {
                 $searchModal.Self.find('input, select').each(function (i, e) {
                     let name = e.name;
                     let value = $(e).val() || '';
-                    if (value != '') {
+                    if (e.type == 'checkbox') {
+                        value = $(e).is(':checked');
+                    }
+                    if (value != '' && value != false) {
                         badge = badge + 1;
                     }
                 })
@@ -199,9 +225,10 @@ $(function () {
             $searchModal.Self.find('input, select').each(function (i, e) {
                 let name = e.name;
                 let value = $(e).val() || '';
-                if (value != '') {
-                    dataSearch[name] = value;
+                if (e.type == 'checkbox') {
+                    value = $(e).is(':checked');
                 }
+                dataSearch[name] = value;
             })
             return dataSearch;
         }

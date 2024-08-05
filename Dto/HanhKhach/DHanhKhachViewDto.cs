@@ -29,10 +29,14 @@ namespace WebNoiBai.Dto.HanhKhach
         public int SOLAN {  get; set; }
         public int? SOBT {  get; set; }
 
+        public int? SoNguoiDiCung { get; set; }
+        public DateTime? NgayDiGanNhat { get; set; }
+
         public string HOTEN => string.Format("{0} {1} {2}",HO,TENDEM, TEN);
         public string FLIGHTDATE_TXT => FLIGHTDATE?.ToString("dd/MM/yyyy");
         public string NGAYSINH_TXT => NGAYSINH?.ToString("dd/MM/yyyy");
         public string GIOITINH_TXT => GIOITINH == "M" ? "Nam" : (GIOITINH == "F" ? "Nữ" : "");
+        public string NgayDiGanNhat_TXT => NgayDiGanNhat?.ToString("dd/MM/yyyy") ?? "";
 
     }
 }

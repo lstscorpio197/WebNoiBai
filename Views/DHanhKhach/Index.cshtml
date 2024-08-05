@@ -8,7 +8,7 @@
         <div class="card-header">
             <div class="card-title bold">@ViewBag.Title</div>
             <div class="card-right">
-                <button class="btn btn-primary" id="btn-add" type="button" data-bs-toggle="modal" data-bs-target="#ImportExcel"><i class="fa fa-file-excel-o"></i><span class="ml8">Import Excel</span></button>
+                @*<button class="btn btn-primary" id="btn-add" type="button" data-bs-toggle="modal" data-bs-target="#ImportExcel"><i class="fa fa-file-excel-o"></i><span class="ml8">Import Excel</span></button>*@
                 <button class="btn btn-success" id="btn-export" type="button"><i class="fa fa-file-excel"></i><span class="ml8">Export Excel</span></button>
             </div>
         </div>
@@ -31,8 +31,8 @@
                     </div>
                     <input class="item-search wid200px" autocomplete="off" name="SoGiayTo" placeholder="Số giấy tờ" />
                     <input class="item-search wid200px" autocomplete="off" name="SoHieu" placeholder="Số hiệu chuyến bay" />
-                    <input class="item-search wid100px" autocomplete="off" name="NoiDi" placeholder="Điểm xuất phát" />
-                    <input class="item-search wid100px" autocomplete="off" name="NoiDen" placeholder="Điểm kết thúc" />
+                    @*<input class="item-search wid100px" autocomplete="off" name="NoiDi" placeholder="Điểm xuất phát" />
+                    <input class="item-search wid100px" autocomplete="off" name="NoiDen" placeholder="Điểm kết thúc" />*@
 
                     <button class="btn btn-secondary" style="height:38px;" id="btn-extend-search" type="button" data-bs-toggle="modal" data-bs-target="#SearchModal"><i class="far fa-filter"></i>&nbsp;Nâng cao&nbsp;<span class="badge">0</span></button>
 
@@ -57,6 +57,8 @@
                             <th class="text-center">Mã sân bay đến</th>
                             <th class="text-center">Điểm kết thúc</th>
                             <th class="text-center">Hành lý</th>
+                            <th class="text-center is-view-dichung">Số người đi chung</th>
+                            <th class="text-center is-view-ngaygannhat">Ngày đi gần nhất</th>
                             <th class="text-center width70px">#</th>
                         </tr>
                     </thead>
@@ -134,15 +136,48 @@
                             Quốc tịch
                         </div>
                         <div class="col-md-9">
-                            <input class="item-search wid100" autocomplete="off" name="QuocTich" placeholder="QuocTich" />
+                            <input class="item-search wid100" autocomplete="off" name="QuocTich" placeholder="Quốc tịch" />
                         </div>
                     </div>
+                    <div class="row mb16 d-flex align-items-center">
+                        <div class="col-md-3">
+                            Điểm xuất phát đầu tiên
+                        </div>
+                        <div class="col-md-9">
+                            <input class="item-search wid100" autocomplete="off" name="NoiDi" placeholder="Mã sân bay" />
+                        </div>
+                    </div>
+                    <div class="row mb16 d-flex align-items-center">
+                        <div class="col-md-3">
+                            Mã sân bay khởi hành
+                        </div>
+                        <div class="col-md-9">
+                            <input class="item-search wid100" autocomplete="off" name="MaNoiDi" placeholder="Mã sân bay" />
+                        </div>
+                    </div>
+                    <div class="row mb16 d-flex align-items-center">
+                        <div class="col-md-3">
+                            Mã sân bay đến
+                        </div>
+                        <div class="col-md-9">
+                            <input class="item-search wid100" autocomplete="off" name="MaNoiDen" placeholder="Mã sân bay" />
+                        </div>
+                    </div>
+                    <div class="row mb16 d-flex align-items-center">
+                        <div class="col-md-3">
+                            Điểm kết thúc
+                        </div>
+                        <div class="col-md-9">
+                            <input class="item-search wid100" autocomplete="off" name="NoiDen" placeholder="Mã sân bay" />
+                        </div>
+                    </div>
+
                     <div class="row mb16 d-flex align-items-center">
                         <div class="col-md-3">
                             Thuộc danh mục
                         </div>
                         <div class="col-md-9">
-                            <select class="item-search wid200px" name="ObjectType">
+                            <select class="item-search wid100" name="ObjectType">
                                 <option value="">--Là hành khách--</option>
                                 <option value="0">Hành khách đi lại nhiều</option>
                                 <option value="1">Hành khách VIP</option>
@@ -150,7 +185,35 @@
                                 <option value="3">Đối tượng theo dõi đặc biệt</option>
                                 <option value="4">Đối tượng đã kiểm tra</option>
                                 <option value="5">Đối tượng theo dõi</option>
+                                <option value="6">Hướng dẫn viên du lịch</option>
                             </select>
+                        </div>
+                    </div>
+                    <div class="row mb16 d-flex align-items-center">
+                        <div class="col-md-3">
+                            Không thuộc danh mục
+                        </div>
+                        <div class="col-md-9">
+                            <select class="item-search wid100" name="NotInObject">
+                                <option value="">--Là hành khách--</option>
+                                <option value="0">Hành khách đi lại nhiều</option>
+                                <option value="1">Hành khách VIP</option>
+                                <option value="2">Đối tượng trọng điểm</option>
+                                <option value="3">Đối tượng theo dõi đặc biệt</option>
+                                <option value="4">Đối tượng đã kiểm tra</option>
+                                <option value="5">Đối tượng theo dõi</option>
+                                <option value="6">Hướng dẫn viên du lịch</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb16">
+                        <div class="col-md-12">
+                            <label><input type="checkbox" class="ace cb" name="IsViewDiChung"><span class="lbl">&nbsp;Hiển thị số người đi chung</span></label>
+                        </div>
+                    </div>
+                    <div class="row mb16">
+                        <div class="col-md-12">
+                            <label><input type="checkbox" class="ace cb" name="IsViewNgayDiGanNhat"><span class="lbl">&nbsp;Hiển thị ngày đi gần nhất</span></label>
                         </div>
                     </div>
                 </div>

@@ -123,14 +123,14 @@ namespace WebNoiBai.Controllers.HanhKhach
             if (itemSearch.ObjectType.HasValue)
             {
                 switch (itemSearch.ObjectType.Value) {
-                    case 0: //Nối chuyến đến HAN
-                        query = query.Where(x => x.MANOIDEN == "HAN" && x.NOIDI != x.MANOIDI);
+                    case 0: //Nối chuyến đến
+                        query = query.Where(x => /*x.MANOIDEN == itemSearch.DiemNoiChuyen && */x.NOIDI != x.MANOIDI && x.NOIDEN == itemSearch.DiemNoiChuyen);
                         break;
-                    case 1://Nối chuyến qua HAN
-                        query = query.Where(x => x.NOIDEN != "HAN" && x.NOIDI != "HAN");
+                    case 1://Nối chuyến qua
+                        query = query.Where(x => (x.MANOIDEN == itemSearch.DiemNoiChuyen || x.MANOIDI == itemSearch.DiemNoiChuyen) && x.NOIDEN !=itemSearch.DiemNoiChuyen && x.NOIDI != itemSearch.DiemNoiChuyen);
                         break;
-                    case 2://Nối chuyến từ HAN
-                        query = query.Where(x => x.NOIDEN != x.MANOIDEN && x.MANOIDI == "HAN");
+                    case 2://Nối chuyến từ
+                        query = query.Where(x => /*x.MANOIDI == itemSearch.DiemNoiChuyen &&*/ x.NOIDEN != x.MANOIDEN && x.NOIDI == itemSearch.DiemNoiChuyen);
                         break;
                     default:
                         break;

@@ -1,0 +1,410 @@
+﻿
+@{
+    ViewBag.Title = "Danh mục chuyến bay xuất cảnh";
+}
+
+<div class="mx-ecus">
+    <div class="card">
+        <div class="card-header">
+            <div class="card-title bold">@ViewBag.Title</div>
+            <div class="card-right">
+                <button class="btn btn-success" id="" type="button" data-bs-toggle="modal" data-bs-target="#ImportExcel"><i class="fa fa-file-excel-o"></i><span class="ml8">Import Excel</span></button>
+                <button class="btn btn-primary" id="btn-add" type="button" data-bs-toggle="modal" data-bs-target="#CHITIET"><i class="icon-add-ico-tsd"></i><span class="ml8">Thêm mới</span></button>
+            </div>
+        </div>
+        <div class="card-body" style="max-height: 929px;">
+            <div class="frame-header">
+                <div class="frame-search">
+                    <input name="Ma" placeholder="Số hiệu" class="width180px item-search" autocomplete="off" />
+                    <button class="btn btn-primary btnSearch" type="button"><i class="fa fa-search"></i></button>
+                </div>
+            </div>
+            <div class="frame-body has-scroll" style="">
+                <table class="width100" id="TBLDANHSACH">
+                    <thead>
+                        <tr>
+                            <th class="width70px text-center">STT</th>
+                            <th class="width70px text-center">Thao tác</th>
+                            <th class="text-center">Ngày</th>
+                            <th class="text-center">Số hiệu</th>
+                            <th class="text-center">Chặng bay</th>
+                            <th class="text-center">SOBT</th>
+                            <th class="text-center">EOBT</th>
+                            <th class="text-center">Đảo hành lý</th>
+                            <th class="text-center">Cửa số</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <div class="frame-footer">
+                @Html.Partial("_PaginationPartial")
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal modal-edit left fade" id="CHITIET" role="dialog" aria-labelledby="exampleModalLabel" data-bs-keyboard="true" aria-bs-hidden="true" data-bs-backdrop="static" style="padding-top: 42px !important;">
+    <div class="modal-dialog modal-md modal-dialog-slideout" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel">
+                    Thông tin hành khách
+                </h4>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <i class="icon-close-ico-tsd"></i>
+                </button>
+            </div>
+            <div class="modal-body" style="background-color: #FBFBFB">
+                <div class="modal-body-content" style="padding: 16px; background-color: #FFFFFF;height: 100%;">
+                    <form id="ModalForm">
+                        <input name="Id" class="hidden" value="" />
+                        <div class="row mb6">
+                            <div class="col-md-12">Ngày bay<span class="red">*</span></div>
+                        </div>
+                        <div class="mb16 row">
+                            <div class="col-md-12">
+                                <div class="inline-block input-group is_Datetimepicker">
+                                    <input name="Ngay" placeholder="dd/mm/yyyy" class="w-100 item-search input-date form-control-sm" value="">
+                                    <span class="input-group-addon cursor">
+                                        <span class="icon-calendar-ico-tsd"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb6">
+                            <div class="col-md-12">Số hiệu<span class="red">*</span></div>
+                        </div>
+                        <div class="mb16 row">
+                            <div class="col-md-12">
+                                <input name="ChuyenBay" type="text" autocomplete="off" placeholder="Nhập nội dung" class="wid100" value="" />
+                            </div>
+                        </div>
+                        <div class="row mb6">
+                            <div class="col-md-12">Chặng bay<span class="red">*</span></div>
+                        </div>
+                        <div class="mb16 row">
+                            <div class="col-md-12">
+                                <input name="ChangBay" type="text" autocomplete="off" placeholder="Nhập nội dung" class="wid100" value="" />
+                            </div>
+                        </div>
+                        <div class="row mb6">
+                            <div class="col-md-6">SOBT</div>
+                            <div class="col-md-6">EOBT</div>
+                        </div>
+                        <div class="mb16 row">
+                            <div class="col-md-6">
+                                <input name="SOBT" type="text" placeholder="00" class="wid100" maxlength="4" value="0000" autocomplete="off" />
+                            </div>
+                            <div class="col-md-6">
+                                <input name="EOBT" type="text" placeholder="00" class="wid100" maxlength="4" value="0000" autocomplete="off" />
+                            </div>
+                        </div>
+                        <div class="row mb6">
+                            <div class="col-md-6">Đảo hành lý</div>
+                            <div class="col-md-6">Cửa số</div>
+                        </div>
+                        <div class="mb16 row">
+                            <div class="col-md-6">
+                                <input name="DaoHanhLy" type="text" placeholder="00" class="wid100" maxlength="4" value="0000" autocomplete="off" />
+                            </div>
+                            <div class="col-md-6">
+                                <input name="CuaSo" type="text" placeholder="00" class="wid100" maxlength="4" value="0000" autocomplete="off" />
+                            </div>
+                        </div>
+                        <div class="row mb6">
+                            <div class="col-md-12">Ghi chú</div>
+                        </div>
+                        <div class="mb16 row">
+                            <div class="col-md-12">
+                                <textarea name="GhiChu" type="text" rows="2" placeholder="00" class="wid100" maxlength="500" value="" autocomplete="off"></textarea>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa fa-times"></i><span class="ml8">Đóng</span></button>
+                <button type="button" class="btn btn-primary" id="btn-save"><i class="fa fa-save"></i><span class="ml8">Lưu lại</span></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal modal-edit fade" id="ImportExcel" role="dialog" aria-labelledby="exampleModalLabel" data-bs-keyboard="true" aria-bs-hidden="true" data-bs-backdrop="static" style="padding-top: 42px !important;">
+    <div class="modal-dialog modal-md modal-dialog-slideout" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel">
+                    Nhập dữ liệu từ file
+                </h4>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <i class="icon-close-ico-tsd"></i>
+                </button>
+            </div>
+            <div class="modal-body" style="background-color: #FBFBFB">
+                <div class="modal-body-content" style="padding: 16px; background-color: #FFFFFF;height: 100%;">
+                    <div class="row mb16">
+
+                        <div class="col-md-6">
+                            <a href="~/FileTemp/ImportTmp/Import_ChuyenBay.xlsx">Tải file mẫu</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <input type="file" name="File" class="hidden" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
+                            <input type="text" class="wid100" name="FileName" readonly disabled />
+                            <button class="btn btn-secondary btnChonFile">Chọn file</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa fa-times"></i><span class="ml8">&nbsp;Đóng</span></button>
+                <button type="button" class="btn btn-primary" id="btn-import"><i class="fa fa-save"></i><span class="ml8">&nbsp;Lưu lại</span></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        var $header = $('.frame-search');
+        const $footer = $('.frame-footer');
+        const $table = $('#TBLDANHSACH');
+        const $tableBody = $table.find('tbody');
+        const $modal = $('#CHITIET');
+        const $router = "SChuyenBayXuatCanh";
+        const $form = $('#ModalForm');
+
+
+        function DataSearch(pageNum) {
+            this.Ma = $header.find('[name=Ma]').val().trim();
+            this.PageNum = pageNum || $footer.find('[name=PageNumber]').val();;
+            this.PageSize = $footer.find('[name=PageLength]').val();
+        }
+
+        $(function () {
+            var $page = {
+                init: function () {
+                    $page.initValidate();
+                    $page.BtnSearchClick();
+                    $page.GetList(1);
+                },
+                initValidate: function () {
+                    $form.validate({
+                        rules: {
+                            ChuyenBay: {
+                                required: true
+                            },
+                            ChangBay: {
+                                required: true
+                            },
+                            Ngay: {
+                                required: true
+                            }
+                        },
+                        messages: {
+                            ChuyenBay: {
+                                required: "Vui lòng nhập thông tin chuyến bay"
+                            },
+                            ChangBay: {
+                                required: "Vui lòng nhập chặng bay"
+                            },
+                            Ngay: {
+                                required: "Vui lòng nhập giờ ngày bay"
+                            }
+                        }
+                    })
+                },
+                Self: $('.card'),
+                BtnSearchClick: function () {
+                    $header.find('.btnSearch').on('click', function () { $page.GetList(1); });
+                },
+                GetList: function (pageNum = 1) {
+
+                    let html = '';
+                    let search = new DataSearch(pageNum);
+
+                    var getResponse = AjaxConfigHelper.SendRequestToServer(`/${$router}/GetTable`, "GET", search);
+                    getResponse.then((res) => {
+                        if (res.IsOk) {
+                            let data = res.Body.Data || [];
+
+                            if (data.length == 0) {
+                                html = `<tr><td class="text-center" colspan="9"><span>Không có bản ghi</span></td></tr>`;
+                                $tableBody.html(html);
+                                return false;
+                            }
+
+                            let startIndex = res.Body.Pagination.StartIndex || 1;
+                            for (let item of data) {
+                                let htmlShow = item.Enable == 1 ? '<span class="text-center green"><i class="text-center green icon-status-ico-tsd"></i></span>' : '<span class="text-center red"><i class="text-center red icon-exit-ico-tsd"></i></span>';
+                                html += `<tr class="TR_${item.Id}">` +
+                                    `<td class="text-center">${startIndex}</td>` +
+                                    `<td class="text-center event-handle">` +
+                                    `<i class="icon-edit-ico-tsd btn-action btnEdit blue mr10" data-id="${item.Id}" title="Sửa"></i>` +
+                                    `<i class="icon-delete-ico-tsd btn-action btnDelete red" data-id="${item.Id}" title="Xóa"></i>` +
+                                    `</td>` +
+                                    `<td class="">${item.NgayBay}</td>` +
+                                    `<td class="">${item.ChuyenBay}</td>` +
+                                    `<td class="">${item.ChangBay}</td>` +
+                                    `<td class="">${item.SOBT_TXT}</td>` +
+                                    `<td class="">${item.EOBT_TXT}</td>` +
+                                    `<td class="">${item.DaoHanhLy}</td>` +
+                                    `<td class="">${item.CuaSo}</td>` +
+                                    `</tr>`;
+                                startIndex++;
+                            }
+                            $tableBody.html(html);
+
+                            $pagination.Set($footer, res.Body.Pagination, $page.GetList);
+
+                            $page.ViewClick();
+                            $page.DeleteClick();
+                        }
+                        else {
+
+                        }
+                    })
+                },
+                ViewClick: () => {
+                    $page.Self.find('.btnEdit').off('click').on('click', function () {
+                        let id = $(this).data('id');
+
+                        var getResponse = AjaxConfigHelper.SendRequestToServer(`/${$router}/GetItem`, "GET", { 'id': id });
+                        getResponse.then((res) => {
+                            if (res.IsOk) {
+                                let data = res.Body.Data || {};
+                                for (let prop in data) {
+                                    if (prop == 'Enable') {
+                                        $modal.find(`[name=${prop}]`).prop('checked', data[prop] == 1);
+                                        continue;
+                                    }
+                                    if (prop.indexOf('Time') > -1 || prop.indexOf('Ngay') > -1) {
+                                        data[prop] = formatDateFromServer(data[prop]);
+                                    }
+                                    $modal.find(`[name=${prop}]`).val(data[prop]);
+                                }
+                                $modal.modal('show');
+                            }
+                            else {
+
+                            }
+                        })
+                    })
+                },
+                DeleteClick: () => {
+                    $page.Self.find('.btnDelete').off('click').on('click', function () {
+                        let id = $(this).data('id');
+
+                        ConfirmDelete(function () {
+                            var getResponse = AjaxConfigHelper.SendRequestToServer(`/${$router}/Delete`, "POST", { 'id': id });
+                            getResponse.then((res) => {
+                                if (res.IsOk) {
+                                    ToastSuccess("Xóa");
+                                    $page.GetList();
+                                }
+                                else {
+
+                                }
+                            })
+                        })
+                    })
+                }
+            };
+
+            var $ChiTiet = {
+                init: function () {
+                    this.Save();
+                    this.ResetForm();
+                },
+                Self: $('#CHITIET'),
+                ResetForm: () => {
+                    $modal.on('hidden.modal.bs', () => {
+                        $form.find('input').val('');
+                        $form.find('input:checkbox').prop('checked', true);
+                        $form.find('select').find('option:first-child').prop('selected', true);
+                        $form.validate().resetForm();
+                        $form.find('.error').removeClass('error');
+                    })
+                },
+                GetDataInput: () => {
+                    if (!$form.valid()) {
+                        return false;
+                    }
+                    let data = GetFormDataToObject($form);
+                    return data;
+                },
+                Save: () => {
+                    $modal.find('#btn-save').off('click').on('click', () => {
+                        let data = $ChiTiet.GetDataInput();
+                        if (!data)
+                            return false;
+                        let action = data.Id > 0 ? 'Update' : 'Create';
+                        var getResponse = AjaxConfigHelper.SendRequestToServer(`/${$router}/${action}`, "POST", data);
+                        getResponse.then((res) => {
+                            if (res.IsOk) {
+                                let actionSub = data.Id > 0 ? 'Cập nhật' : 'Thêm mới';
+                                ToastSuccess(actionSub);
+                                $page.GetList(data.Id > 0 ? null : 1);
+                                $modal.modal('hide');
+                            }
+                            else {
+
+                            }
+                        })
+                    })
+                }
+            };
+
+            var $import = {
+                init: function () {
+                    $import.ChooseFile();
+                    $import.FileChanged();
+                    $import.Import();
+                },
+                self: $('#ImportExcel'),
+                ChooseFile: function () {
+                    $import.self.find('.btnChonFile').off('click').on('click', function () {
+                        $import.self.find('input[type=file]').trigger('click');
+                    })
+                },
+                FileChanged: function () {
+                    $import.self.find('input[type=file]').on('change', function () {
+                        var files = $import.self.find('input[type=file]')[0].files;
+                        if (files.length) {
+                            let file = files[0];
+                            $import.self.find('input[name=FileName]').val(file.name);
+                        }
+                    })
+                },
+                Import: function () {
+                    $import.self.find('#btn-import').off('click').on('click', function () {
+                        var files = $import.self.find('input[type=file]')[0].files;
+                        if (!files.length) {
+                            return false;
+                        }
+                        let file = files[0];
+
+                        var getResponse = AjaxConfigHelper.SendRequestFileToServer(`/${$router}/ImportExcel`, "POST", file);
+                        getResponse.then((res) => {
+                            if (res.IsOk) {
+                                $page.GetList(1);
+                                ToastSuccess("Import thành công");
+                                $import.self.modal('hide');
+                            }
+                        })
+
+                    })
+                }
+            }
+
+            $page.init();
+            $ChiTiet.init();
+            $import.init();
+        });
+    </script>
+}

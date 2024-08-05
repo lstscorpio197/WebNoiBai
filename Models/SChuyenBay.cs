@@ -23,5 +23,6 @@ namespace WebNoiBai.Models
         public string DaoHanhLy { get; set; }
         public string CuaSo { get; set; }
         public string GhiChu { get; set; }
+        public Nullable<int> Type { get; set; }
     }
 }

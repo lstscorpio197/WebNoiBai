@@ -122,6 +122,19 @@ namespace WebNoiBai.Controllers.HanhKhach
             {
                 query = query.Where(x => x.NOIDEN == itemSearch.NoiDen);
             }
+            if (!string.IsNullOrEmpty(itemSearch.MaNoiDi))
+            {
+                query = query.Where(x => x.MANOIDI == itemSearch.MaNoiDi);
+            }
+            if (!string.IsNullOrEmpty(itemSearch.MaNoiDen))
+            {
+                query = query.Where(x => x.MANOIDEN == itemSearch.MaNoiDen);
+            }
+            if (!string.IsNullOrEmpty(itemSearch.QuocTich))
+            {
+                query = query.Where(x => x.QUOCTICH == itemSearch.QuocTich);
+            }
+
             var queryRes = query.GroupBy(x=>x.SOGIAYTO).Where(x=>x.Count() > itemSearch.SoLan).Select(x=> new DHanhKhachViewDto{
                 SOHIEU = x.OrderByDescending(y=>y.FLIGHTDATE).FirstOrDefault().SOHIEU,
                 FLIGHTDATE = x.OrderByDescending(y => y.FLIGHTDATE).FirstOrDefault().FLIGHTDATE,
