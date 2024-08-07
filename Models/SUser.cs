@@ -32,6 +32,7 @@ namespace WebNoiBai.Models
         public Nullable<int> IsActived { get; set; }
         public string SDT { get; set; }
         public int PhongBan { get; set; }
+        public Nullable<int> NhanEmail { get; set; }
     
         public virtual SPhongBan SPhongBan { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

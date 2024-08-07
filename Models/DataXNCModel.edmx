@@ -204,6 +204,27 @@
           <Property Name="H_MOTAHANGHOA" Type="nvarchar" MaxLength="2000" />
           <Property Name="SYS_DATE" Type="datetime" />
         </EntityType>
+        <EntityType Name="DCanhBao">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HoTen" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="SoGiayTo" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LoaiGiayTo" Type="nvarchar" MaxLength="45" Nullable="false" />
+          <Property Name="QuocTich" Type="nvarchar" MaxLength="50" />
+          <Property Name="NgaySinh" Type="datetime" />
+          <Property Name="GioiTinh" Type="nvarchar" MaxLength="5" />
+          <Property Name="SoHieu" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="NgayBay" Type="datetime" Nullable="false" />
+          <Property Name="HanhLy" Type="nvarchar" MaxLength="500" />
+          <Property Name="SentEmail" Type="int" />
+          <Property Name="Type" Type="int" Nullable="false" />
+          <Property Name="NoiDi" Type="nvarchar" MaxLength="10" />
+          <Property Name="NoiDen" Type="nvarchar" MaxLength="10" />
+          <Property Name="MaNoiDi" Type="nvarchar" MaxLength="10" />
+          <Property Name="MaNoiDen" Type="nvarchar" MaxLength="10" />
+        </EntityType>
         <EntityType Name="hang_hang_khong">
           <Key>
             <PropertyRef Name="id" />
@@ -431,6 +452,7 @@
           <EntitySet Name="chuyenbay_pnr" EntityType="Self.chuyenbay_pnr" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="chuyenbay_tobay" EntityType="Self.chuyenbay_tobay" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="chuyenbay_vandon" EntityType="Self.chuyenbay_vandon" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DCanhBao" EntityType="Self.DCanhBao" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="hang_hang_khong" EntityType="Self.hang_hang_khong" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="mien_thue" EntityType="Self.mien_thue" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SChuyenBay" EntityType="Self.SChuyenBay" Schema="dbo" store:Type="Tables" />
@@ -595,6 +617,7 @@
           <EntitySet Name="chuyenbay_vandon" EntityType="DataXNCModel.chuyenbay_vandon" />
           <EntitySet Name="SDauHieuRuiRoes" EntityType="DataXNCModel.SDauHieuRuiRo" />
           <EntitySet Name="SNuocRuiRoes" EntityType="DataXNCModel.SNuocRuiRo" />
+          <EntitySet Name="DCanhBaos" EntityType="DataXNCModel.DCanhBao" />
         </EntityContainer>
         <EntityType Name="SHanhKhachDiLaiNhieu">
           <Key>
@@ -888,6 +911,27 @@
           <Property Name="MaSanBay" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
           <Property Name="MaNuoc" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
           <Property Name="GhiChu" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="DCanhBao">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HoTen" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SoGiayTo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LoaiGiayTo" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="true" />
+          <Property Name="QuocTich" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NgaySinh" Type="DateTime" Precision="3" />
+          <Property Name="GioiTinh" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="SoHieu" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NgayBay" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="HanhLy" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="SentEmail" Type="Int32" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
+          <Property Name="NoiDi" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="NoiDen" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="MaNoiDi" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="MaNoiDen" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1327,6 +1371,28 @@
                 <ScalarProperty Name="MaNuoc" ColumnName="MaNuoc" />
                 <ScalarProperty Name="MaSanBay" ColumnName="MaSanBay" />
                 <ScalarProperty Name="Nuoc" ColumnName="Nuoc" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DCanhBaos">
+            <EntityTypeMapping TypeName="DataXNCModel.DCanhBao">
+              <MappingFragment StoreEntitySet="DCanhBao">
+                <ScalarProperty Name="MaNoiDen" ColumnName="MaNoiDen" />
+                <ScalarProperty Name="MaNoiDi" ColumnName="MaNoiDi" />
+                <ScalarProperty Name="NoiDen" ColumnName="NoiDen" />
+                <ScalarProperty Name="NoiDi" ColumnName="NoiDi" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="SentEmail" ColumnName="SentEmail" />
+                <ScalarProperty Name="HanhLy" ColumnName="HanhLy" />
+                <ScalarProperty Name="NgayBay" ColumnName="NgayBay" />
+                <ScalarProperty Name="SoHieu" ColumnName="SoHieu" />
+                <ScalarProperty Name="GioiTinh" ColumnName="GioiTinh" />
+                <ScalarProperty Name="NgaySinh" ColumnName="NgaySinh" />
+                <ScalarProperty Name="QuocTich" ColumnName="QuocTich" />
+                <ScalarProperty Name="LoaiGiayTo" ColumnName="LoaiGiayTo" />
+                <ScalarProperty Name="SoGiayTo" ColumnName="SoGiayTo" />
+                <ScalarProperty Name="HoTen" ColumnName="HoTen" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

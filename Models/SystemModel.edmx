@@ -61,6 +61,7 @@
           <Property Name="IsActived" Type="int" />
           <Property Name="SDT" Type="nvarchar" MaxLength="13" />
           <Property Name="PhongBan" Type="int" Nullable="false" />
+          <Property Name="NhanEmail" Type="int" />
         </EntityType>
         <EntityType Name="SUserRole">
           <Key>
@@ -71,7 +72,9 @@
           <Property Name="UserId" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_SRolePermission_SPermission">
-          <End Role="SPermission" Type="Self.SPermission" Multiplicity="0..1" />
+          <End Role="SPermission" Type="Self.SPermission" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="SRolePermission" Type="Self.SRolePermission" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="SPermission">
@@ -229,6 +232,7 @@
           <NavigationProperty Name="SPhongBan" Relationship="Self.FK_SUser_SPhongBan" FromRole="SUser" ToRole="SPhongBan" />
           <NavigationProperty Name="SUserRoles" Relationship="Self.FK_SUserRole_SUser" FromRole="SUser" ToRole="SUserRole" />
           <NavigationProperty Name="SRolePermissions" Relationship="SystemModel.FK_SRolePermission_SUser" FromRole="SUser" ToRole="SRolePermission" />
+          <Property Name="NhanEmail" Type="Int32" />
         </EntityType>
         <EntityType Name="SUserRole">
           <Key>
@@ -410,6 +414,7 @@
           <EntitySetMapping Name="SUsers">
             <EntityTypeMapping TypeName="SystemModel.SUser">
               <MappingFragment StoreEntitySet="SUser">
+                <ScalarProperty Name="NhanEmail" ColumnName="NhanEmail" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="Password" ColumnName="Password" />

@@ -1,4 +1,5 @@
 ﻿using GemBox.Spreadsheet;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -135,8 +136,9 @@ namespace WebNoiBai.Controllers.HanhKhach
                 query = query.Where(x => x.QUOCTICH == itemSearch.QuocTich);
             }
 
-            var queryRes = query.GroupBy(x=>x.SOGIAYTO).Where(x=>x.Count() > itemSearch.SoLan).Select(x=> new DHanhKhachViewDto{
-                SOHIEU = x.OrderByDescending(y=>y.FLIGHTDATE).FirstOrDefault().SOHIEU,
+            var queryRes = query.GroupBy(x => x.SOGIAYTO).Where(x => x.Count() > itemSearch.SoLan).Select(x => new DHanhKhachViewDto
+            {
+                SOHIEU = x.OrderByDescending(y => y.FLIGHTDATE).FirstOrDefault().SOHIEU,
                 FLIGHTDATE = x.OrderByDescending(y => y.FLIGHTDATE).FirstOrDefault().FLIGHTDATE,
                 GIOITINH = x.OrderByDescending(y => y.FLIGHTDATE).FirstOrDefault().GIOITINH,
                 HANHLY = x.OrderByDescending(y => y.FLIGHTDATE).FirstOrDefault().HANHLY,
@@ -155,6 +157,113 @@ namespace WebNoiBai.Controllers.HanhKhach
                 SOLAN = x.Count(),
             });
             return queryRes.OrderByDescending(x => x.SOLAN).ThenBy(x => x.IDCHUYENBAY);
+        }
+
+        public JsonResult InsertToHKDiLaiNhieu(DHanhKhachSearchDto itemSearch, string strSoGiayTo, bool isAll = false)
+        {
+            HttpMessage httpMessage = new HttpMessage(true);
+            try
+            {
+                if (isAll)
+                {
+                    var lstItem = GetListHKDiLaiNhieu(itemSearch);
+                    lstItem = (from a in lstItem
+                               join b in dbXNC.SHanhKhachDiLaiNhieux.Select(x => x.SoGiayTo) on a.SoGiayTo equals b into c
+                               from d in c.DefaultIfEmpty()
+                               where d == null
+                               select a).ToList();
+                    dbXNC.SHanhKhachDiLaiNhieux.AddRange(lstItem);
+                    dbXNC.SaveChanges();
+                }
+                else
+                {
+                    var lstSoGiayTo = JsonConvert.DeserializeObject<List<string>>(strSoGiayTo);
+                    lstSoGiayTo = lstSoGiayTo.GroupBy(x => x).Select(x => x.Key).ToList();
+                    var lstSoGiayToNew = from a in lstSoGiayTo
+                                         join b in dbXNC.SHanhKhachDiLaiNhieux.Select(x => x.SoGiayTo) on a equals b into c
+                                         from d in c.DefaultIfEmpty()
+                                         where d == null
+                                         select a;
+
+                    DateTime startDate = itemSearch.StartDate?.AddDays(-1) ?? DateTime.Today.AddDays(-1);
+                    DateTime endDate = itemSearch.EndDate?.AddDays(1) ?? DateTime.Today.AddDays(1);
+                    var queryHK = dbXNC.chuyenbay_hanhkhach.Where(x => x.FLIGHTDATE > startDate && x.FLIGHTDATE < endDate && lstSoGiayToNew.Contains(x.SOGIAYTO));
+                    var lstItem = (from a in lstSoGiayToNew
+                                   join b in queryHK on a equals b.SOGIAYTO
+                                   select new SHanhKhachDiLaiNhieu
+                                   {
+                                       HoTen = string.Format("{0} {1} {2}", b.HO, b.TENDEM, b.TEN),
+                                       GioiTinh = b.GIOITINH,
+                                       LoaiGiayTo = b.LOAIGIAYTO,
+                                       NgaySinh = b.NGAYSINH,
+                                       SoGiayTo = b.SOGIAYTO,
+                                       QuocTich = b.QUOCTICH,
+                                       NgayTao = DateTime.Now,
+                                       NguoiTao = us.Username
+                                   }).GroupBy(x => x.SoGiayTo)
+                  .Select(g => g.First())
+                  .ToList();
+
+                    dbXNC.SHanhKhachDiLaiNhieux.AddRange(lstItem);
+                    dbXNC.SaveChanges();
+                }
+                return Json(httpMessage, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                httpMessage.IsOk = false;
+                httpMessage.Body.MsgNoti = new HttpMessageNoti("500", null, ex.Message);
+                return Json(httpMessage, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        private List<SHanhKhachDiLaiNhieu> GetListHKDiLaiNhieu(DHanhKhachSearchDto itemSearch)
+        {
+            DateTime startDate = itemSearch.StartDate?.AddDays(-1) ?? DateTime.Today.AddDays(-1);
+            DateTime endDate = itemSearch.EndDate?.AddDays(1) ?? DateTime.Today.AddDays(1);
+            itemSearch.SoLan = itemSearch.SoLan ?? 1;
+            var query = dbXNC.chuyenbay_hanhkhach.AsNoTracking().Where(x => x.FLIGHTDATE > startDate && x.FLIGHTDATE < endDate);
+            if (itemSearch.LstSoGiayTo.Any())
+            {
+                query = query.Where(x => itemSearch.LstSoGiayTo.Contains(x.SOGIAYTO));
+            }
+            if (itemSearch.LstSoHieu.Any())
+            {
+                query = query.Where(x => itemSearch.LstSoHieu.Contains(x.SOHIEU));
+            }
+            if (!string.IsNullOrEmpty(itemSearch.NoiDi))
+            {
+                query = query.Where(x => x.NOIDI == itemSearch.NoiDi);
+            }
+            if (!string.IsNullOrEmpty(itemSearch.NoiDen))
+            {
+                query = query.Where(x => x.NOIDEN == itemSearch.NoiDen);
+            }
+            if (!string.IsNullOrEmpty(itemSearch.MaNoiDi))
+            {
+                query = query.Where(x => x.MANOIDI == itemSearch.MaNoiDi);
+            }
+            if (!string.IsNullOrEmpty(itemSearch.MaNoiDen))
+            {
+                query = query.Where(x => x.MANOIDEN == itemSearch.MaNoiDen);
+            }
+            if (!string.IsNullOrEmpty(itemSearch.QuocTich))
+            {
+                query = query.Where(x => x.QUOCTICH == itemSearch.QuocTich);
+            }
+
+            var queryRes = query.GroupBy(x => x.SOGIAYTO).Where(x => x.Count() > itemSearch.SoLan).Select(x => x.FirstOrDefault()).ToList().Select(b => new SHanhKhachDiLaiNhieu
+            {
+                HoTen = string.Format("{0} {1} {2}", b.HO, b.TENDEM, b.TEN),
+                GioiTinh = b.GIOITINH,
+                LoaiGiayTo = b.LOAIGIAYTO,
+                NgaySinh = b.NGAYSINH,
+                SoGiayTo = b.SOGIAYTO,
+                QuocTich = b.QUOCTICH,
+                NgayTao = DateTime.Now,
+                NguoiTao = us.Username
+            });
+            return queryRes.ToList();
         }
     }
 }

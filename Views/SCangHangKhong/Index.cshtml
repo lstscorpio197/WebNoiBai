@@ -229,24 +229,17 @@
                     $page.Self.find('.btnDelete').off('click').on('click', function () {
                         let id = $(this).data('id');
 
-                        var getResponse = AjaxConfigHelper.SendRequestToServer(`/${$router}/CheckExistUser`, "POST", { 'id': id });
-                        getResponse.then((res) => {
-                            if (res.IsOk) {
-                                ConfirmDeleteWithCondition(res.Body.Data, "Phòng ban đã có tài khoản. Nếu xóa phòng ban thì các tài khoản thuộc phòng ban sẽ bị xóa. Bạn có muốn tiếp tục thực hiện không?", function () {
-                                    ConfirmDelete(function () {
-                                        var getResponse = AjaxConfigHelper.SendRequestToServer(`/${$router}/Delete`, "POST", { 'id': id });
-                                        getResponse.then((res) => {
-                                            if (res.IsOk) {
-                                                ToastSuccess("Xóa");
-                                                $page.GetList();
-                                            }
-                                            else {
+                        ConfirmDelete(function () {
+                            var getResponse = AjaxConfigHelper.SendRequestToServer(`/${$router}/Delete`, "POST", { 'id': id });
+                            getResponse.then((res) => {
+                                if (res.IsOk) {
+                                    ToastSuccess("Xóa");
+                                    $page.GetList();
+                                }
+                                else {
 
-                                            }
-                                        })
-                                    })
-                                })
-                            }
+                                }
+                            })
                         })
 
                     })

@@ -31,6 +31,7 @@ namespace WebNoiBai.Common
             new Menu(0,3,"DHKHoChieuNuocNgoai","Hành khách HC nước ngoài"),
             new Menu(0,3,"DDatCho","Thông tin đặt chỗ"),
             new Menu(0,3,"DNoiChuyen","Hành khách nối chuyến"),
+            new Menu(0,3,"DCanhBao","Danh sách cảnh báo"),
             new Menu(4,null,"TB","Quản lý tổ bay",0,"fa fa-user-pilot"),
             new Menu(0,4,"DToBay","Danh sách tổ bay"),
             new Menu(5,null,"BC","Báo cáo thống kê",0,"fa fa-dashboard"),

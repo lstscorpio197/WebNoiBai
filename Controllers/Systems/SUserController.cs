@@ -109,7 +109,8 @@ namespace WebNoiBai.Controllers.Systems
                     IsActived = item.IsActived,
                     NgaySinh = item.NgaySinh,
                     PhongBan = item.PhongBan,
-                    SDT = item.SDT
+                    SDT = item.SDT,
+                    NhanEmail = item.NhanEmail,
                 };
                 db.SUsers.Add(us);
                 db.SaveChanges();
@@ -148,6 +149,7 @@ namespace WebNoiBai.Controllers.Systems
                 exist.NgaySinh = item.NgaySinh;
                 exist.PhongBan = item.PhongBan;
                 exist.SDT = item.SDT;
+                exist.NhanEmail = item.NhanEmail;
                 db.Entry(exist).State = EntityState.Modified;
                 db.SaveChanges();
                 httpMessage.Body.MsgNoti = new HttpMessageNoti("200", null, "Cập nhập thông tin thành công");

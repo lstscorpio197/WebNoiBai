@@ -173,6 +173,7 @@
     <Compile Include="Controllers\DanhMucNghiepVu\SNuocRuiRoController.cs" />
     <Compile Include="Controllers\DanhMucNghiepVu\STheoDoiController.cs" />
     <Compile Include="Controllers\DanhMucNghiepVu\STheoDoiDacBietController.cs" />
+    <Compile Include="Controllers\HanhKhach\DCanhBaoController.cs" />
     <Compile Include="Controllers\HanhKhach\DDatChoController.cs" />
     <Compile Include="Controllers\HanhKhach\DHanhKhachController.cs" />
     <Compile Include="Controllers\HanhKhach\DHKHoChieuNuocNgoaiController.cs" />
@@ -233,6 +234,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DataXNCModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DCanhBao.cs">
+      <DependentUpon>DataXNCModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\hang_hang_khong.cs">
       <DependentUpon>DataXNCModel.tt</DependentUpon>
@@ -1539,6 +1543,7 @@
     <Content Include="Views\SDauHieuRuiRo\Index.cshtml" />
     <Content Include="Views\DToBay\Index.cshtml" />
     <Content Include="Views\SChuyenBayXuatCanh\Index.cshtml" />
+    <Content Include="Views\DCanhBao\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -19,5 +19,6 @@ namespace WebNoiBai.Dto
         public Nullable<int> IsActived { get; set; }
         public string SDT { get; set; }
         public int PhongBan { get; set; }
+        public int? NhanEmail {  get; set; }
     }
 }

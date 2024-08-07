@@ -34,9 +34,16 @@ namespace WebNoiBai.Controllers.HanhKhach
             HttpMessage httpMessage = new HttpMessage(true);
             try
             {
+                if(itemSearch.IsViewNgayDiGanNhat && itemSearch.StartDate != itemSearch.EndDate)
+                {
+                    httpMessage.IsOk = false;
+                    httpMessage.Body.MsgNoti = new HttpMessageNoti("400", null, "Chức năng hiển thị ngày đi gần nhất chỉ áp dụng khi tìm kiếm trong 1 ngày");
+                    return Json(httpMessage, JsonRequestBehavior.AllowGet);
+                }
                 var query = GetQuery(itemSearch);
                 var result = query.Skip(itemSearch.Skip).Take(itemSearch.PageSize).ToList();
-                result.ForEach(item => item.NgayDiGanNhat = !itemSearch.IsViewNgayDiGanNhat ? null : dbXNC.chuyenbay_hanhkhach.Where(y => y.FLIGHTDATE < item.FLIGHTDATE && y.SOGIAYTO == item.SOGIAYTO).Select(y => y.FLIGHTDATE).OrderByDescending(y => y).FirstOrDefault());
+                DateTime startDate = itemSearch.StartDate?.AddDays(-8) ?? DateTime.Today.AddDays(-8);
+                result.ForEach(item => item.NgayDiGanNhat = !itemSearch.IsViewNgayDiGanNhat ? null : dbXNC.chuyenbay_hanhkhach.Where(y => y.FLIGHTDATE < item.FLIGHTDATE && y.FLIGHTDATE > startDate && y.SOGIAYTO == item.SOGIAYTO).Select(y => y.FLIGHTDATE).OrderByDescending(y => y).FirstOrDefault());
                 httpMessage.Body.Data = result;
                 httpMessage.Body.Pagination = new HttpMessagePagination
                 {
@@ -162,12 +169,50 @@ namespace WebNoiBai.Controllers.HanhKhach
             HttpMessage httpMessage = new HttpMessage(true);
             try
             {
+                if (itemSearch.IsViewNgayDiGanNhat && itemSearch.StartDate != itemSearch.EndDate)
+                {
+                    httpMessage.IsOk = false;
+                    httpMessage.Body.MsgNoti = new HttpMessageNoti("400", null, "Chức năng hiển thị ngày đi gần nhất chỉ áp dụng khi tìm kiếm trong 1 ngày");
+                    return Json(httpMessage, JsonRequestBehavior.AllowGet);
+                }
                 SpreadsheetInfo.SetLicense(AppConst.KeyGemBoxSpreadsheet);
                 var workbook = ExcelFile.Load(Server.MapPath("/FileTemp/DS_HanhKhach.xlsx"));
                 var workSheet = workbook.Worksheets[0];
 
                 var query = GetQuery(itemSearch);
                 var result = query.ToList();
+                if (itemSearch.IsViewNgayDiGanNhat)
+                {
+                    DateTime startDate = itemSearch.StartDate?.AddDays(-8) ?? DateTime.Today.AddDays(-8);
+                    var queryNgayGanNhat = dbXNC.chuyenbay_hanhkhach.Where(x => x.FLIGHTDATE < itemSearch.StartDate && x.FLIGHTDATE > startDate).Select(x => new { x.SOGIAYTO, x.FLIGHTDATE }).GroupBy(x => x.SOGIAYTO).Select(x => x.OrderByDescending(y => y.FLIGHTDATE).FirstOrDefault());
+                    result = (from x in result
+                              join b in queryNgayGanNhat on x.SOGIAYTO equals b.SOGIAYTO into c
+                              from d in c.DefaultIfEmpty()
+                              select new DHanhKhachViewDto
+                              {
+                                  FLIGHTDATE = x.FLIGHTDATE,
+                                  GIOITINH = x.GIOITINH,
+                                  HANHLY = x.HANHLY,
+                                  HO = x.HO,
+                                  IDCHUYENBAY = x.IDCHUYENBAY,
+                                  MADATCHO = x.MADATCHO,
+                                  MANOIDEN = x.MANOIDEN,
+                                  MANOIDI = x.MANOIDI,
+                                  NGAYSINH = x.NGAYSINH,
+                                  NOIDEN = x.NOIDEN,
+                                  NOIDI = x.NOIDI,
+                                  QUOCTICH = x.QUOCTICH,
+                                  SOGIAYTO = x.SOGIAYTO,
+                                  LOAIGIAYTO = x.LOAIGIAYTO,
+                                  SOHIEU = x.SOHIEU,
+                                  TEN = x.TEN,
+                                  TENDEM = x.TENDEM,
+                                  SOBT = x.SOBT,
+                                  SoNguoiDiCung = x.SoNguoiDiCung,
+                                  NgayDiGanNhat = d?.FLIGHTDATE
+                              }).ToList();
+                }
+
                 int row = 5;
                 int stt = 1;
                 if (result.Any())
@@ -189,13 +234,15 @@ namespace WebNoiBai.Controllers.HanhKhach
                         workSheet.Cells["M" + row].SetValue(item.MANOIDEN);
                         workSheet.Cells["N" + row].SetValue(item.NOIDEN);
                         workSheet.Cells["O" + row].SetValue(item.HANHLY);
+                        workSheet.Cells["P" + row].SetValue(item.NgayDiGanNhat_TXT);
+                        workSheet.Cells["Q" + row].SetValue(item.SoNguoiDiCung?.ToString());
 
                         stt++;
                         row++;
                     }
                 }
 
-                var range = workSheet.Cells.GetSubrange("A4", "O" + (row - 1));
+                var range = workSheet.Cells.GetSubrange("A4", "Q" + (row - 1));
                 range.Style.Borders.SetBorders(MultipleBorders.All, SpreadsheetColor.FromName(ColorName.Black), LineStyle.Thin);
                 // xuất tài liệu thành tệp tin
                 string handle = Guid.NewGuid().ToString();
@@ -419,7 +466,7 @@ namespace WebNoiBai.Controllers.HanhKhach
                             TENDEM = x.TENDEM,
                             SOBT = xxx != null ? xxx.SOBT : null,
                             SoNguoiDiCung = dc != null ? dc.Count : 0
-                        }).OrderBy(x => x.FLIGHTDATE).ThenBy(x => x.SOBT).ThenBy(x => x.IDCHUYENBAY).ThenBy(x=>x.MADATCHO);
+                        }).OrderBy(x => x.FLIGHTDATE).ThenBy(x => x.SOBT).ThenBy(x => x.IDCHUYENBAY).ThenBy(x => x.MADATCHO);
 
             }
 

@@ -1,6 +1,5 @@
-﻿
-@{
-    ViewBag.Title = "Lọc theo tần suất bay";
+﻿@{
+    ViewBag.Title = "Danh sách cảnh báo";
 }
 
 <div class="mx-ecus">
@@ -8,7 +7,6 @@
         <div class="card-header">
             <div class="card-title bold">@ViewBag.Title</div>
             <div class="card-right">
-                <button class="btn btn-primary" id="btn-add-warning" type="button"><i class="fa fa-exclamation-triangle"></i><span class="ml8">Thêm vào danh mục đi lại nhiều</span></button>
                 <button class="btn btn-success" id="btn-export" type="button"><i class="fa fa-file-excel"></i><span class="ml8">Export Excel</span></button>
             </div>
         </div>
@@ -31,7 +29,6 @@
                     </div>
                     <input class="item-search wid200px" autocomplete="off" name="SoGiayTo" placeholder="Số giấy tờ" />
                     <input class="item-search wid200px" autocomplete="off" name="SoHieu" placeholder="Số hiệu chuyến bay" />
-                    <input class="item-search wid100px" autocomplete="off" name="SoLan" placeholder="Số lần" value="10" />
                     <button class="btn btn-secondary" style="height:38px;" id="btn-extend-search" type="button" data-bs-toggle="modal" data-bs-target="#SearchModal"><i class="far fa-filter"></i>&nbsp;Nâng cao&nbsp;<span class="badge">0</span></button>
                     <button class="btn btn-primary btnSearch" type="button"><i class="icon-search-ico-tsd"></i></button>
                 </div>
@@ -40,15 +37,13 @@
                 <table class="width100" id="TBLDANHSACH">
                     <thead>
                         <tr>
-                            <th class="text-center width50px"><input type="checkbox" name="add-all" /></th>
                             <th class="text-center width75px">STT</th>
-                            <th class="text-center wid100px">Số hiệu chuyến bay</th>
-                            <th class="text-center wid100px">Ngày bay</th>
-                            <th class="text-center wid200px">Họ tên</th>
+                            <th class="text-center">Số hiệu chuyến bay</th>
+                            <th class="text-center">Ngày bay</th>
+                            <th class="text-center">Họ tên</th>
                             <th class="text-center">Quốc tịch</th>
                             <th class="text-center">Số giấy tờ</th>
                             <th class="text-center">Ngày sinh</th>
-                            <th class="text-center">Số lần</th>
                             <th class="text-center">Điểm xuất phát đầu tiên</th>
                             <th class="text-center">Mã sân bay khởi hành</th>
                             <th class="text-center">Mã sân bay đến</th>
@@ -130,6 +125,7 @@
                             <input class="item-search wid100" autocomplete="off" name="NoiDen" placeholder="Mã sân bay" />
                         </div>
                     </div>
+
                 </div>
             </div>
             <div class="modal-footer">
@@ -148,7 +144,7 @@
         const $tableBody = $table.find('tbody');
         const $modal = $('#CHITIET');
         const $modalUser = $('#UserRole');
-        const $router = "DLocTheoTanSuat";
+        const $router = "DHKHoChieuNuocNgoai";
         const $form = $('#ModalForm');
 
 
@@ -157,9 +153,6 @@
             this.EndDate = formatDateFromClientToServerEN($header.find('[name=EndDate]').val());
             this.SoGiayTo = $header.find('[name=SoGiayTo]').val();
             this.SoHieu = $header.find('[name=SoHieu]').val();
-            this.NoiDen = $header.find('[name=NoiDen]').val();
-            this.NoiDi = $header.find('[name=NoiDi]').val();
-            this.SoLan = $header.find('[name=SoLan]').val();
             this.PageNum = pageNum || $footer.find('[name=PageNumber]').val();
             this.PageSize = $footer.find('[name=PageLength]').val();
         }
@@ -169,8 +162,7 @@
                 init: function () {
                     $page.BtnSearchClick();
                     $page.BtnExportClick();
-                    $page.BtnAddWarningClick();
-                    //$page.GetList(1);
+                    $page.GetList(1);
                 },
                 Self: $('.card'),
                 BtnSearchClick: function () {
@@ -191,60 +183,6 @@
                         })
                     });
                 },
-                BtnAddWarningClick: function () {
-                    $page.Self.find('#btn-add-warning').on('click', function () {
-                        let search = new DataSearch(1);
-                        search = $searchModal.getDataSearch(search);
-
-                        let addAll = $('[name=add-all]').is(':checked');
-                        let lstSoGiayTo = [];
-                        if (addAll) {
-                            ConfirmWithCallBack(function () {
-                                let dataSend = {
-                                    itemSearch: search,
-                                    strSoGiayTo: JSON.stringify(lstSoGiayTo),
-                                    isAll: addAll
-                                }
-                                var getResponse = AjaxConfigHelper.SendRequestToServer(`/${$router}/InsertToHKDiLaiNhieu`, "POST", dataSend);
-                                getResponse.then((res) => {
-                                    if (res.IsOk) {
-                                        ToastSuccess("Thêm vào danh sách");
-                                    }
-                                })
-                            }, "Bạn có chắc chắn muốn thêm tất cả kết quả vào danh mục hành khách đi lại nhiều lần không?")
-                        }
-                        else {
-                            $tableBody.find('input[type=checkbox]').each(function (i, e) {
-                                if (!e.checked) {
-                                }
-                                else {
-                                    let sgt = $(e).data('id');
-                                    lstSoGiayTo.push(sgt);
-                                }
-                                
-                            })
-                            if (lstSoGiayTo.length == 0) {
-                                MessageBoxHelper.Notification(MessageBoxType.ClientError, "Vui lòng chọn những hành khách muốn thêm");
-                                return false;
-                            }
-                            ConfirmWithCallBack(function () {
-                                let dataSend = {
-                                    itemSearch: search,
-                                    strSoGiayTo: JSON.stringify(lstSoGiayTo),
-                                    isAll: addAll
-                                }
-                                var getResponse = AjaxConfigHelper.SendRequestToServer(`/${$router}/InsertToHKDiLaiNhieu`, "POST", dataSend);
-                                getResponse.then((res) => {
-                                    if (res.IsOk) {
-                                        ToastSuccess("Thêm vào danh sách");
-                                    }
-                                })
-                            }, `Bạn có chắc chắn muốn thêm ${lstSoGiayTo.length} hành khách đã chọn vào danh mục hành khách đi lại nhiều lần không?`)
-                        }
-
-                       
-                    });
-                },
                 GetList: function (pageNum = 1) {
 
                     let html = '';
@@ -257,29 +195,27 @@
                             let data = res.Body.Data || [];
 
                             if (data.length == 0) {
-                                html = `<tr><td class="text-center" colspan="15"><span>Không có bản ghi</span></td></tr>`;
+                                html = `<tr><td class="text-center" colspan="13"><span>Không có bản ghi</span></td></tr>`;
                                 $tableBody.html(html);
                                 return false;
                             }
 
                             let startIndex = res.Body.Pagination.StartIndex || 1;
                             for (let item of data) {
-                                html += `<tr class="TR_${item.SOGIAYTO}">` +
-                                    `<td class="text-center"><input type="checkbox" name="warning-${item.SOGIAYTO}" data-id="${item.SOGIAYTO}" data-chuyenbay="${item.IDCHUYENBAY}" /></td>` +
+                                html += `<tr class="TR_${item.SoGiayTo}">` +
                                     `<td class="text-center"><span>${startIndex}</span></td>` +
-                                    `<td class="text-center">${item.SOHIEU}</td>` +
-                                    `<td class="text-center">${item.FLIGHTDATE_TXT}</td>` +
-                                    `<td class="">${(item.HOTEN)}</td>` +
-                                    `<td class="text-center">${item.QUOCTICH}</td>` +
-                                    `<td class="">${item.SOGIAYTO}</td>` +
-                                    `<td class="text-center">${item.NGAYSINH_TXT}</td>` +
-                                    `<td class="text-center">${item.SOLAN}</td>` +
-                                    `<td class="text-center">${item.NOIDI}</td>` +
-                                    `<td class="text-center">${item.MANOIDI}</td>` +
-                                    `<td class="text-center">${item.MANOIDEN}</td>` +
-                                    `<td class="text-center">${item.NOIDEN}</td>` +
-                                    `<td class="">${item.HANHLY}</td>` +
-                                    `<td class="text-center"><span data-id="${item.SOGIAYTO}" data-chuyenbay="${item.IDCHUYENBAY}" class="fa fa-exclamation-triangle add-warning cursor" style="color:#ffc107;"></span></td>` +
+                                    `<td class="text-center">${item.SoHieu}</td>` +
+                                    `<td class="text-center">${formatDateFromServer(item.NgayBay)}</td>` +
+                                    `<td class="">${item.HoTen}</td>` +
+                                    `<td class="text-center">${item.QuocTich}</td>` +
+                                    `<td class="">${item.SoGiayTo}</td>` +
+                                    `<td class="text-center">${formatDateFromServer(item.NgaySinh)}</td>` +
+                                    `<td class="text-center">${item.NoiDi}</td>` +
+                                    `<td class="text-center">${item.MaNoiDi}</td>` +
+                                    `<td class="text-center">${item.MaNoiDen}</td>` +
+                                    `<td class="text-center">${item.NoiDen}</td>` +
+                                    `<td class="">${item.HanhLy}</td>` +
+                                    `<td class=""></td>` +
                                     `</tr>`;
                                 startIndex++;
                             }
@@ -294,37 +230,7 @@
                         }
                     })
                 },
-                AddWarning: function () {
-                    $page.Self.find('.add-warning').off('click').on('click', function () {
-                        let sgt = $(this).data('id');
-                        let cb = $(this).data('chuyenbay');
-                        let dataSend = {
-                            sogiayto: sgt,
-                            idchuyenbay: cb
-                        }
-                        var getResponse = AjaxConfigHelper.SendRequestToServer(`/DHanhKhach/GetItem`, "GET", dataSend);
-                        getResponse.then((res) => {
-                            if (res.IsOk) {
-                                let data = res.Body.Data || {};
-                                for (let prop in data) {
-                                    if (prop == 'Enable') {
-                                        $('#ObjectWarning').find(`[name=${prop}]`).prop('checked', data[prop] == 1);
-                                        continue;
-                                    }
-                                    if (prop.indexOf('Time') > -1 || prop.indexOf('Ngay') > -1) {
-                                        data[prop] = formatDateFromServer(data[prop]);
-                                    }
-                                    if (prop == 'GioiTinh') {
-                                        $('#ObjectWarning').find(`[type="radio"][name=${prop}][data-value=${data[prop]}]`).prop('checked', true);
-                                        continue;
-                                    }
-                                    $('#ObjectWarning').find(`[name=${prop}]`).val(data[prop]);
-                                }
-                                $('#ObjectWarning').modal('show');
-                            }
-                        })
-                    })
-                }
+                
             };
 
             var $searchModal = {
@@ -368,8 +274,10 @@
                 }
             }
 
-            $searchModal.init();
             $page.init();
+            $searchModal.init();
+
         });
-    </script>    
+
+    </script>
 }

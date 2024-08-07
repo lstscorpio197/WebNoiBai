@@ -274,7 +274,7 @@ function ConfirmWithCallBack(callBack, action = null, typeColor = null, containe
     action = action || "thực hiện thao tác";
     typeColor = typeColor || "orange";
     container = container || $('.content-wrapper');
-    btnClassCallBack = btnClassCallBack || "btn-success";
+    btnClassCallBack = btnClassCallBack || "btn-primary";
 
 
     $.confirm({

@@ -134,7 +134,7 @@ $(function () {
                     if (res.IsOk) {
                         let data = res.Body.Data || {};
                         for (let prop in data) {
-                            if (prop == 'Enable') {
+                            if (prop == 'NhanEmail' || prop == 'IsActived') {
                                 $modal.find(`[name=${prop}]`).prop('checked', data[prop] == 1);
                                 continue;
                             }
@@ -218,6 +218,7 @@ $(function () {
             $modal.on('hidden.modal.bs', () => {
                 $form.find('input').val('');
                 $form.find('input:checkbox').prop('checked', true);
+                $form.find('input[name=NhanEmail]').prop('checked', false);
                 $form.find('select').find('option:first-child').prop('selected', true);
                 $form.validate().resetForm();
                 $form.find('.error').removeClass('error');
