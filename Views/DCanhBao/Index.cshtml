@@ -1,4 +1,5 @@
-﻿@{
+﻿@using WebNoiBai.Dto.HanhKhach
+@{
     ViewBag.Title = "Danh sách cảnh báo";
 }
 
@@ -27,6 +28,16 @@
                             <span class="icon-calendar-ico-tsd"></span>
                         </span>
                     </div>
+                    <select name="ObjectType" class="item-search wid200px">
+                        <option value="">--Tất cả loại--</option>
+                        <option value="@DoiTuongType.DiLaiNhieu">Hành khách đi lại nhiều</option>
+                        <option value="@DoiTuongType.TrongDiem">Đối tượng trọng điểm</option>
+                        <option value="@DoiTuongType.DaKiemTra">Đối tượng đã kiểm tra</option>
+                        <option value="@DoiTuongType.HanhKhachVIP">Hành khách VIP</option>
+                        <option value="@DoiTuongType.HuongDanVien">Hướng dẫn viên</option>
+                        <option value="@DoiTuongType.TheoDoi">Đối tượng theo dõi</option>
+                        <option value="@DoiTuongType.TheoDoiDacBiet">Đối tượng theo dõi đặc biệt</option>
+                    </select>
                     <input class="item-search wid200px" autocomplete="off" name="SoGiayTo" placeholder="Số giấy tờ" />
                     <input class="item-search wid200px" autocomplete="off" name="SoHieu" placeholder="Số hiệu chuyến bay" />
                     <button class="btn btn-secondary" style="height:38px;" id="btn-extend-search" type="button" data-bs-toggle="modal" data-bs-target="#SearchModal"><i class="far fa-filter"></i>&nbsp;Nâng cao&nbsp;<span class="badge">0</span></button>
@@ -49,7 +60,6 @@
                             <th class="text-center">Mã sân bay đến</th>
                             <th class="text-center">Điểm kết thúc</th>
                             <th class="text-center">Hành lý</th>
-                            <th class="text-center width70px">#</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -144,7 +154,7 @@
         const $tableBody = $table.find('tbody');
         const $modal = $('#CHITIET');
         const $modalUser = $('#UserRole');
-        const $router = "DHKHoChieuNuocNgoai";
+        const $router = "DCanhBao";
         const $form = $('#ModalForm');
 
 
@@ -153,6 +163,7 @@
             this.EndDate = formatDateFromClientToServerEN($header.find('[name=EndDate]').val());
             this.SoGiayTo = $header.find('[name=SoGiayTo]').val();
             this.SoHieu = $header.find('[name=SoHieu]').val();
+            this.ObjectType = $header.find('[name=ObjectType]').val();
             this.PageNum = pageNum || $footer.find('[name=PageNumber]').val();
             this.PageSize = $footer.find('[name=PageLength]').val();
         }
@@ -195,7 +206,7 @@
                             let data = res.Body.Data || [];
 
                             if (data.length == 0) {
-                                html = `<tr><td class="text-center" colspan="13"><span>Không có bản ghi</span></td></tr>`;
+                                html = `<tr><td class="text-center" colspan="12"><span>Không có bản ghi</span></td></tr>`;
                                 $tableBody.html(html);
                                 return false;
                             }
@@ -210,12 +221,11 @@
                                     `<td class="text-center">${item.QuocTich}</td>` +
                                     `<td class="">${item.SoGiayTo}</td>` +
                                     `<td class="text-center">${formatDateFromServer(item.NgaySinh)}</td>` +
-                                    `<td class="text-center">${item.NoiDi}</td>` +
-                                    `<td class="text-center">${item.MaNoiDi}</td>` +
-                                    `<td class="text-center">${item.MaNoiDen}</td>` +
-                                    `<td class="text-center">${item.NoiDen}</td>` +
-                                    `<td class="">${item.HanhLy}</td>` +
-                                    `<td class=""></td>` +
+                                    `<td class="text-center">${item.NoiDi || ''}</td>` +
+                                    `<td class="text-center">${item.MaNoiDi || ''}</td>` +
+                                    `<td class="text-center">${item.MaNoiDen || ''}</td>` +
+                                    `<td class="text-center">${item.NoiDen || ''}</td>` +
+                                    `<td class="">${item.HanhLy || ''}</td>` +
                                     `</tr>`;
                                 startIndex++;
                             }

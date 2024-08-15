@@ -189,6 +189,7 @@
     <Compile Include="Dto\DanhMuc\ChuyenBayDto.cs" />
     <Compile Include="Dto\HanhKhach\DHanhKhachSearchDto.cs" />
     <Compile Include="Dto\HanhKhach\DHanhKhachViewDto.cs" />
+    <Compile Include="Dto\HanhKhach\DoiTuongType.cs" />
     <Compile Include="Dto\ImportDto\SChuyenBayImportDto.cs" />
     <Compile Include="Dto\ToBay\DToBayViewDto.cs" />
     <Compile Include="Dto\User\ChangePasswordDto.cs" />
@@ -1429,6 +1430,7 @@
     <Content Include="FileTemp\Mau02.docx" />
     <Content Include="FileTemp\ImportTmp\Import_ChuyenBay.xlsx" />
     <Content Include="FileTemp\ImportTmp\Import_DanhMuc.xlsx" />
+    <Content Include="FileTemp\DanhSachCanhBao.xlsx" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\core\bootstrap.min.js" />
     <Content Include="Scripts\core\jquery-3.7.1.min.js" />

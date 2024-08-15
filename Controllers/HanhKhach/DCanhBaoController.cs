@@ -54,40 +54,48 @@ namespace WebNoiBai.Controllers.HanhKhach
             try
             {
                 SpreadsheetInfo.SetLicense(AppConst.KeyGemBoxSpreadsheet);
-                var workbook = ExcelFile.Load(Server.MapPath("/FileTemp/DS_HanhKhach.xlsx"));
-                var workSheet = workbook.Worksheets[0];
-
+                var workbook = ExcelFile.Load(Server.MapPath("/FileTemp/DanhSachCanhBao.xlsx"));
                 var query = GetQuery(itemSearch);
                 var result = query.ToList();
-                int row = 5;
-                int stt = 1;
-                if (result.Any())
-                {
-                    foreach (var item in result)
-                    {
-                        //workSheet.Cells["A" + row].SetValue(stt);
-                        //workSheet.Cells["B" + row].SetValue(item.FLIGHTDATE_TXT);
-                        //workSheet.Cells["C" + row].SetValue(item.SOHIEU);
-                        //workSheet.Cells["D" + row].SetValue(item.MADATCHO);
-                        //workSheet.Cells["E" + row].SetValue(item.HOTEN);
-                        //workSheet.Cells["F" + row].SetValue(item.GIOITINH_TXT);
-                        //workSheet.Cells["G" + row].SetValue(item.QUOCTICH);
-                        //workSheet.Cells["H" + row].SetValue(item.NGAYSINH_TXT);
-                        //workSheet.Cells["I" + row].SetValue(item.LOAIGIAYTO);
-                        //workSheet.Cells["J" + row].SetValue(item.SOGIAYTO);
-                        //workSheet.Cells["K" + row].SetValue(item.NOIDI);
-                        //workSheet.Cells["L" + row].SetValue(item.MANOIDI);
-                        //workSheet.Cells["M" + row].SetValue(item.MANOIDEN);
-                        //workSheet.Cells["N" + row].SetValue(item.NOIDEN);
-                        //workSheet.Cells["O" + row].SetValue(item.HANHLY);
 
-                        stt++;
-                        row++;
+                List<DoiTuongType_Sheet> lstDoiTuong_Sheet = new List<DoiTuongType_Sheet>
+                {
+                    new DoiTuongType_Sheet(DoiTuongType.DiLaiNhieu, 0),
+                    new DoiTuongType_Sheet(DoiTuongType.TrongDiem, 1),
+                    new DoiTuongType_Sheet(DoiTuongType.HanhKhachVIP, 2),
+                    new DoiTuongType_Sheet(DoiTuongType.TheoDoi, 3),
+                    new DoiTuongType_Sheet(DoiTuongType.TheoDoiDacBiet, 4),
+                    new DoiTuongType_Sheet(DoiTuongType.HuongDanVien, 5),
+                    new DoiTuongType_Sheet(DoiTuongType.DaKiemTra, 6),
+                };
+
+                foreach (var sheet in lstDoiTuong_Sheet)
+                {
+                    var lstDoiTuong = result.Where(x => x.Type == sheet.Type).ToList();
+                    if (lstDoiTuong.Any())
+                    {
+                        var workSheet = workbook.Worksheets[sheet.Sheet];
+                        int row = 3;
+                        int stt = 1;
+                        foreach (var item in lstDoiTuong)
+                        {
+                            workSheet.Cells["A" + row].SetValue(stt);
+                            workSheet.Cells["B" + row].SetValue(item.SoHieu);
+                            workSheet.Cells["C" + row].SetValue(item.NgayBay.ToString("dd/MM/yyyy"));
+                            workSheet.Cells["D" + row].SetValue(item.SoGiayTo);
+                            workSheet.Cells["E" + row].SetValue(item.HoTen);
+                            workSheet.Cells["F" + row].SetValue(item.GioiTinh);
+                            workSheet.Cells["G" + row].SetValue(item.QuocTich);
+                            workSheet.Cells["H" + row].SetValue(item.NgaySinh?.ToString("dd/MM/yyyy"));
+                            workSheet.Cells["I" + row].SetValue(item.HanhLy);
+
+                            stt++;
+                            row++;
+                        }
+                        var range = workSheet.Cells.GetSubrange("A2", "I" + (row - 1));
+                        range.Style.Borders.SetBorders(MultipleBorders.All, SpreadsheetColor.FromName(ColorName.Black), LineStyle.Thin);
                     }
                 }
-
-                var range = workSheet.Cells.GetSubrange("A4", "O" + (row - 1));
-                range.Style.Borders.SetBorders(MultipleBorders.All, SpreadsheetColor.FromName(ColorName.Black), LineStyle.Thin);
                 // xuất tài liệu thành tệp tin
                 string handle = Guid.NewGuid().ToString();
                 var stream = new MemoryStream();
@@ -96,7 +104,7 @@ namespace WebNoiBai.Controllers.HanhKhach
                 System.Web.HttpContext.Current.Cache.Insert(handle, stream.ToArray());
                 byte[] data = stream.ToArray() as byte[];
 
-                httpMessage.Body.Data = new { FileGuid = handle, FileName = string.Format("DS_HanhKhach_{0}_{1}.xlsx", itemSearch.StartDate?.ToString("yyyyMMdd"), itemSearch.EndDate?.ToString("yyyyMMdd")) };
+                httpMessage.Body.Data = new { FileGuid = handle, FileName = string.Format("DS_CanhBao_{0}_{1}.xlsx", itemSearch.StartDate?.ToString("yyyyMMdd"), itemSearch.EndDate?.ToString("yyyyMMdd")) };
                 return Json(httpMessage, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -144,7 +152,10 @@ namespace WebNoiBai.Controllers.HanhKhach
             {
                 query = query.Where(x => x.QuocTich == itemSearch.QuocTich);
             }
-
+            if (itemSearch.ObjectType.HasValue)
+            {
+                query = query.Where(x=>x.Type == itemSearch.ObjectType);
+            }
             return query.OrderBy(x => x.NgayBay).ThenBy(x => x.SoHieu).ThenBy(x=>x.HoTen);
         }
     }
