@@ -214,37 +214,44 @@ namespace WebNoiBai.Controllers.DanhMucNghiepVu
                     httpMessage.Body.MsgNoti = new HttpMessageNoti("400", null, "File tải lên không có dữ liệu");
                     return Json(httpMessage, JsonRequestBehavior.AllowGet);
                 }
-                var lstSoGiayTo = new List<string>();
+                var lstItem = new List<STheoDoi>();
                 for (int i = 2; i <= rows; i++)
                 {
                     string value = workSheet.Cells["A" + i].Value?.ToString();
+                    string ghichu = workSheet.Cells["B" + i].Value?.ToString();
                     if (string.IsNullOrEmpty(value))
                     {
                         continue;
                     }
                     value = value.Replace(";", "");
-                    lstSoGiayTo.Add(value);
+                    lstItem.Add(new STheoDoi
+                    {
+                        SoGiayTo = value,
+                        GhiChu = ghichu
+                    });
                 }
-                lstSoGiayTo = lstSoGiayTo.GroupBy(x => x).Select(x => x.Key).ToList();
-                var lstSoGiayToNew = from a in lstSoGiayTo
-                                     join b in dbXNC.STheoDois.Select(x => x.SoGiayTo) on a equals b into c
-                                     from d in c.DefaultIfEmpty()
-                                     where d == null
-                                     select a;
+                var lstSoGiayTo = lstItem.GroupBy(x => x.SoGiayTo).Select(x => x.Key).ToList();
+                var lstItemNew = from a in lstItem
+                                 join b in dbXNC.STheoDois.Select(x => x.SoGiayTo) on a.SoGiayTo equals b into c
+                                 from d in c.DefaultIfEmpty()
+                                 where d == null
+                                 select a;
+                var lstSoGiayToNew = lstItemNew.Select(x => x.SoGiayTo);
                 var queryHK = dbXNC.chuyenbay_hanhkhach.Where(x => lstSoGiayToNew.Contains(x.SOGIAYTO));
-                var lstItem = (from a in lstSoGiayToNew
-                               join b in queryHK on a equals b.SOGIAYTO
-                               select new STheoDoi
-                               {
-                                   HoTen = string.Format("{0} {1} {2}", b.HO, b.TENDEM, b.TEN),
-                                   GioiTinh = b.GIOITINH,
-                                   LoaiGiayTo = b.LOAIGIAYTO,
-                                   NgaySinh = b.NGAYSINH,
-                                   SoGiayTo = b.SOGIAYTO,
-                                   QuocTich = b.QUOCTICH,
-                                   NgayTao = DateTime.Now,
-                                   NguoiTao = us.Username
-                               }).GroupBy(x => x.SoGiayTo)
+                lstItem = (from a in lstItemNew
+                           join b in queryHK on a.SoGiayTo equals b.SOGIAYTO
+                           select new STheoDoi
+                           {
+                               HoTen = string.Format("{0} {1} {2}", b.HO, b.TENDEM, b.TEN),
+                               GioiTinh = b.GIOITINH,
+                               LoaiGiayTo = b.LOAIGIAYTO,
+                               NgaySinh = b.NGAYSINH,
+                               SoGiayTo = b.SOGIAYTO,
+                               QuocTich = b.QUOCTICH,
+                               NgayTao = DateTime.Now,
+                               NguoiTao = us.Username,
+                               GhiChu = a.GhiChu
+                           }).GroupBy(x => x.SoGiayTo)
               .Select(g => g.First())
               .ToList();
 

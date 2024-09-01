@@ -19,6 +19,8 @@ namespace WebNoiBai.Dto.HanhKhach
 
         public int? NotInObject { get; set; }
 
+        public bool IsDiTuNuocRuiRo {  get; set; }
+        public bool IsViewSoKien {  get; set; }
         public bool IsViewDiChung {  get; set; }
         public bool IsViewNgayDiGanNhat {  get; set; }
 

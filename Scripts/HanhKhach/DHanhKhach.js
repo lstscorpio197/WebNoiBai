@@ -68,6 +68,12 @@ $(function () {
                     else {
                         $('.is-view-ngaygannhat').removeClass('hidden');
                     }
+                    if (search.IsViewSoKien == false) {
+                        $('.is-view-sokien').addClass('hidden');
+                    }
+                    else {
+                        $('.is-view-sokien').removeClass('hidden');
+                    }
 
 
                     let data = res.Body.Data || [];
@@ -99,6 +105,7 @@ $(function () {
                             `<td class="text-center">${item.MANOIDI}</td>` +
                             `<td class="text-center">${item.MANOIDEN}</td>` +
                             `<td class="text-center">${item.NOIDEN}</td>` +
+                            (search.IsViewSoKien ? `<td class="text-center is-view-sokien">${item.SoKien}</td>` : '') +
                             `<td class="">${item.HANHLY}</td>` +
                             (search.IsViewDiChung ? `<td class="text-center is-view-dichung">${item.SoNguoiDiCung}</td>` : '') +
                             (search.IsViewNgayDiGanNhat ? `<td class="text-center is-view-ngaygannhat">${item.NgayDiGanNhat_TXT}</td>` : '') +
