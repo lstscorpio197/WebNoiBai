@@ -42,6 +42,38 @@ namespace WebNoiBai.Controllers.HanhKhach
                 }
                 var query = GetQuery(itemSearch);
                 var result = query.Skip(itemSearch.Skip).Take(itemSearch.PageSize).ToList();
+                if (itemSearch.IsViewNgayDiGanNhat) {
+                    var lstSGT = result.Select(x => x.SOGIAYTO).ToList();
+                    var queryNGN = GetQueryNgayGanNhat(itemSearch, lstSGT);
+                    result = (from x in result
+                             join b in queryNGN on x.SOGIAYTO equals b.SOGIAYTO into c
+                             from d in c.DefaultIfEmpty()
+                             select new DHanhKhachViewDto
+                             {
+                                 FLIGHTDATE = x.FLIGHTDATE,
+                                 GIOITINH = x.GIOITINH,
+                                 HANHLY = x.HANHLY,
+                                 HO = x.HO,
+                                 IDCHUYENBAY = x.IDCHUYENBAY,
+                                 MADATCHO = x.MADATCHO,
+                                 MANOIDEN = x.MANOIDEN,
+                                 MANOIDI = x.MANOIDI,
+                                 NGAYSINH = x.NGAYSINH,
+                                 NOIDEN = x.NOIDEN,
+                                 NOIDI = x.NOIDI,
+                                 QUOCTICH = x.QUOCTICH,
+                                 SOGIAYTO = x.SOGIAYTO,
+                                 LOAIGIAYTO = x.LOAIGIAYTO,
+                                 SOHIEU = x.SOHIEU,
+                                 TEN = x.TEN,
+                                 TENDEM = x.TENDEM,
+                                 SoKien = x.SoKien,
+                                 SoNguoiDiCung = x.SoNguoiDiCung,
+                                 NgayDiGanNhat = d != null? d.FLIGHTDATE : null,
+                                 SOBT = x.SOBT
+                             }).ToList();
+
+                }
                 httpMessage.Body.Data = result;
                 httpMessage.Body.Pagination = new HttpMessagePagination
                 {
@@ -179,7 +211,39 @@ namespace WebNoiBai.Controllers.HanhKhach
 
                 var query = GetQuery(itemSearch);
                 var result = query.ToList();
-                
+                if (itemSearch.IsViewNgayDiGanNhat)
+                {
+                    var lstSGT = result.Select(x => x.SOGIAYTO).ToList();
+                    var queryNGN = GetQueryNgayGanNhat(itemSearch, lstSGT);
+                    result = (from x in result
+                              join b in queryNGN on x.SOGIAYTO equals b.SOGIAYTO into c
+                              from d in c.DefaultIfEmpty()
+                              select new DHanhKhachViewDto
+                              {
+                                  FLIGHTDATE = x.FLIGHTDATE,
+                                  GIOITINH = x.GIOITINH,
+                                  HANHLY = x.HANHLY,
+                                  HO = x.HO,
+                                  IDCHUYENBAY = x.IDCHUYENBAY,
+                                  MADATCHO = x.MADATCHO,
+                                  MANOIDEN = x.MANOIDEN,
+                                  MANOIDI = x.MANOIDI,
+                                  NGAYSINH = x.NGAYSINH,
+                                  NOIDEN = x.NOIDEN,
+                                  NOIDI = x.NOIDI,
+                                  QUOCTICH = x.QUOCTICH,
+                                  SOGIAYTO = x.SOGIAYTO,
+                                  LOAIGIAYTO = x.LOAIGIAYTO,
+                                  SOHIEU = x.SOHIEU,
+                                  TEN = x.TEN,
+                                  TENDEM = x.TENDEM,
+                                  SoKien = x.SoKien,
+                                  SoNguoiDiCung = x.SoNguoiDiCung,
+                                  NgayDiGanNhat = d != null ? d.FLIGHTDATE : null,
+                                  SOBT = x.SOBT
+                              }).ToList();
+
+                }
                 int row = 5;
                 int stt = 1;
                 if (result.Any())
@@ -414,8 +478,8 @@ namespace WebNoiBai.Controllers.HanhKhach
             }
             var lstDiChung = queryChung.Select(x => x.MADATCHO).GroupBy(x => x).Select(x => new { MADATCHO = x.Key, Count = x.Count() });
 
-            var date = itemSearch.StartDate?.AddDays(-5);
-            var ngayGanNhat = dbXNC.chuyenbay_hanhkhach.Where(x =>itemSearch.IsViewNgayDiGanNhat && x.FLIGHTDATE < itemSearch.StartDate && x.FLIGHTDATE > date).Select(x => new { x.FLIGHTDATE, x.SOGIAYTO }).GroupBy(x => x.SOGIAYTO).Select(x => new { SOGIAYTO = x.Key, FLIGHTDATE = x.Max(y => y.FLIGHTDATE) });
+            //var date = itemSearch.StartDate?.AddDays(-5);
+            //var ngayGanNhat = dbXNC.chuyenbay_hanhkhach.Where(x => itemSearch.IsViewNgayDiGanNhat && x.FLIGHTDATE < itemSearch.StartDate && x.FLIGHTDATE > date).Select(x => new { x.FLIGHTDATE, x.SOGIAYTO }).GroupBy(x => x.SOGIAYTO).Select(x => new { SOGIAYTO = x.Key, FLIGHTDATE = x.Max(y => y.FLIGHTDATE) });
 
 
             var queryResult = from x in query
@@ -425,8 +489,8 @@ namespace WebNoiBai.Controllers.HanhKhach
                               from hl in tthl.DefaultIfEmpty()
                               join n in lstDiChung on x.MADATCHO equals n.MADATCHO into datcho
                               from dc in datcho.DefaultIfEmpty()
-                              join ngn in ngayGanNhat on x.SOGIAYTO equals ngn.SOGIAYTO into hk
-                              from hk_ngn in hk.DefaultIfEmpty()
+                              //join ngn in ngayGanNhat on x.SOGIAYTO equals ngn.SOGIAYTO into hk
+                              //from hk_ngn in hk.DefaultIfEmpty()
                               select new DHanhKhachViewDto
                               {
                                   FLIGHTDATE = x.FLIGHTDATE,
@@ -448,11 +512,137 @@ namespace WebNoiBai.Controllers.HanhKhach
                                   TENDEM = x.TENDEM,
                                   SoKien = hl != null ? hl.FI_THONGTINHANHLY : "",
                                   SoNguoiDiCung = dc != null ? dc.Count : 0,
-                                  NgayDiGanNhat = hk_ngn != null? hk_ngn.FLIGHTDATE : null,
+                                  //NgayDiGanNhat = hk_ngn != null? hk_ngn.FLIGHTDATE : null,
                                   SOBT = xxx != null ? xxx.SOBT : null
                               };
             return queryResult.OrderBy(x => x.FLIGHTDATE).ThenBy(x => x.SOBT).ThenBy(x => x.IDCHUYENBAY).ThenBy(x => x.MADATCHO);
         }
+
+        private IQueryable<chuyenbay_hanhkhach> GetQueryNgayGanNhat(DHanhKhachSearchDto itemSearch, List<string> lstSGT)
+        {
+            var startDate = itemSearch.StartDate?.AddDays(-5);
+            var query = dbXNC.chuyenbay_hanhkhach.AsNoTracking().Where(x => x.FLIGHTDATE > startDate && x.FLIGHTDATE < itemSearch.StartDate);
+            if (itemSearch.LstSoGiayTo.Any())
+            {
+                query = query.Where(x => itemSearch.LstSoGiayTo.Contains(x.SOGIAYTO));
+            }
+            if (!string.IsNullOrEmpty(itemSearch.HoTen))
+            {
+                var arrHoTen = itemSearch.HoTen.Split(' ');
+                foreach (var item in arrHoTen)
+                {
+                    query = query.Where(x => x.HO.Contains(item) || x.TENDEM.Contains(item) || x.TEN.Contains(item));
+                }
+            }
+            if (!string.IsNullOrEmpty(itemSearch.QuocTich))
+            {
+                query = query.Where(x => x.QUOCTICH == itemSearch.QuocTich);
+            }
+            switch (itemSearch.ObjectType)
+            {
+                case 0://Đi lại nhiều
+                    query = from a in query
+                            join b in dbXNC.SHanhKhachDiLaiNhieux on a.SOGIAYTO equals b.SoGiayTo
+                            select a;
+                    break;
+                case 1://VIP
+                    query = from a in query
+                            join b in dbXNC.SHanhKhachVIPs on a.SOGIAYTO equals b.SoGiayTo
+                            select a;
+                    break;
+                case 2://Trọng điểm
+                    query = from a in query
+                            join b in dbXNC.SDoiTuongTrongDiems on a.SOGIAYTO equals b.SoGiayTo
+                            select a;
+                    break;
+                case 3://Theo dõi đặc biệt
+                    query = from a in query
+                            join b in dbXNC.STheoDoiDacBiets on a.SOGIAYTO equals b.SoGiayTo
+                            select a;
+                    break;
+                case 4://Đã kiểm tra
+                    query = from a in query
+                            join b in dbXNC.SDoiTuongDaKTs on a.SOGIAYTO equals b.SoGiayTo
+                            select a;
+                    break;
+                case 5://Đối tượng theo dõi
+                    query = from a in query
+                            join b in dbXNC.STheoDois on a.SOGIAYTO equals b.SoGiayTo
+                            select a;
+                    break;
+                case 6://Hướng dẫn viên
+                    query = from a in query
+                            join b in dbXNC.SHuongDanViens on a.SOGIAYTO equals b.SoGiayTo
+                            select a;
+                    break;
+                default:
+                    break;
+            }
+
+            switch (itemSearch.NotInObject)
+            {
+                case 0://Đi lại nhiều
+                    query = from a in query
+                            join b in dbXNC.SHanhKhachDiLaiNhieux on a.SOGIAYTO equals b.SoGiayTo into c
+                            from d in c.DefaultIfEmpty()
+                            where d == null
+                            select a;
+                    break;
+                case 1://VIP
+                    query = from a in query
+                            join b in dbXNC.SHanhKhachVIPs on a.SOGIAYTO equals b.SoGiayTo into c
+                            from d in c.DefaultIfEmpty()
+                            where d == null
+                            select a;
+                    break;
+                case 2://Trọng điểm
+                    query = from a in query
+                            join b in dbXNC.SDoiTuongTrongDiems on a.SOGIAYTO equals b.SoGiayTo
+                            into c
+                            from d in c.DefaultIfEmpty()
+                            where d == null
+                            select a;
+                    break;
+                case 3://Theo dõi đặc biệt
+                    query = from a in query
+                            join b in dbXNC.STheoDoiDacBiets on a.SOGIAYTO equals b.SoGiayTo
+                            into c
+                            from d in c.DefaultIfEmpty()
+                            where d == null
+                            select a;
+                    break;
+                case 4://Đã kiểm tra
+                    query = from a in query
+                            join b in dbXNC.SDoiTuongDaKTs on a.SOGIAYTO equals b.SoGiayTo
+                            into c
+                            from d in c.DefaultIfEmpty()
+                            where d == null
+                            select a;
+                    break;
+                case 5://Đối tượng theo dõi
+                    query = from a in query
+                            join b in dbXNC.STheoDois on a.SOGIAYTO equals b.SoGiayTo
+                            into c
+                            from d in c.DefaultIfEmpty()
+                            where d == null
+                            select a;
+                    break;
+                case 6://Hướng dẫn viên
+                    query = from a in query
+                            join b in dbXNC.SHuongDanViens on a.SOGIAYTO equals b.SoGiayTo
+                            into c
+                            from d in c.DefaultIfEmpty()
+                            where d == null
+                            select a;
+                    break;
+                default:
+                    break;
+            }
+            query = query.Where(x => lstSGT.Contains(x.SOGIAYTO));
+            query = query.GroupBy(x => x.SOGIAYTO).Select(x => x.OrderByDescending(y => y.FLIGHTDATE).FirstOrDefault());
+            return query;
+        }
+
 
         private List<ExcelImport> GetListColumnImportExcel()
         {

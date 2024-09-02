@@ -116,7 +116,12 @@
                         </div>
                         <div class="mt6 mb16 row">
                             <div class="col-md-12">
-                                <textarea name="DauHieuRuiRo" rows="2" class="wid100" maxlength="500"></textarea>
+                                <select name="DauHieuRuiRo" class="wid100">
+                                    @foreach (var item in lstDauHieu)
+                                    {
+                                        <option value="@item">@item</option>
+                                    }
+                                </select>
                             </div>
                         </div>
                         <div class="row mb6">
@@ -124,12 +129,7 @@
                         </div>
                         <div class="mt6 mb16 row">
                             <div class="col-md-12">
-                                <select name="DauHieuRuiRo" class="wid100">
-                                    @foreach (var item in lstDauHieu)
-                                    {
-                                        <option value="@item">@item</option>
-                                    }
-                                </select>
+                                <textarea name="YeuCauNghiepVu" rows="2" class="wid100" maxlength="500"></textarea>
                             </div>
                         </div>
 

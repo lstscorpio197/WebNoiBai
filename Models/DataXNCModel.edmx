@@ -237,6 +237,17 @@
           <Property Name="FI_MAHANGHK" Type="nvarchar" MaxLength="45" />
           <Property Name="FI_HOATDONG" Type="int" />
         </EntityType>
+        <EntityType Name="LichSuKiemTra">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="decimal" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DoiTuongId" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="KetQuaKT" Type="nvarchar" MaxLength="4000" />
+          <Property Name="NgayKT" Type="datetime" />
+          <Property Name="NguoiTao" Type="nvarchar" MaxLength="50" />
+          <Property Name="NgayTao" Type="datetime" />
+        </EntityType>
         <EntityType Name="mien_thue">
           <Key>
             <PropertyRef Name="id" />
@@ -444,6 +455,20 @@
           <Property Name="mail_status" Type="int" />
           <Property Name="is_trong_diem" Type="int" />
         </EntityType>
+        <Association Name="FK_LichSuKiemTra_SDoiTuongDaKT">
+          <End Role="SDoiTuongDaKT" Type="Self.SDoiTuongDaKT" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="LichSuKiemTra" Type="Self.LichSuKiemTra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SDoiTuongDaKT">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LichSuKiemTra">
+              <PropertyRef Name="DoiTuongId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="DataXNCModelStoreContainer">
           <EntitySet Name="cang_hang_khong" EntityType="Self.cang_hang_khong" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="canhbao_hanhkhach" EntityType="Self.canhbao_hanhkhach" Schema="dbo" store:Type="Tables" />
@@ -454,6 +479,7 @@
           <EntitySet Name="chuyenbay_vandon" EntityType="Self.chuyenbay_vandon" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DCanhBao" EntityType="Self.DCanhBao" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="hang_hang_khong" EntityType="Self.hang_hang_khong" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LichSuKiemTra" EntityType="Self.LichSuKiemTra" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="mien_thue" EntityType="Self.mien_thue" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SChuyenBay" EntityType="Self.SChuyenBay" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SDauHieuRuiRo" EntityType="Self.SDauHieuRuiRo" Schema="dbo" store:Type="Tables" />
@@ -466,6 +492,10 @@
           <EntitySet Name="STheoDoi" EntityType="Self.STheoDoi" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="STheoDoiDacBiet" EntityType="Self.STheoDoiDacBiet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="warning_history" EntityType="Self.warning_history" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_LichSuKiemTra_SDoiTuongDaKT" Association="Self.FK_LichSuKiemTra_SDoiTuongDaKT">
+            <End Role="SDoiTuongDaKT" EntitySet="SDoiTuongDaKT" />
+            <End Role="LichSuKiemTra" EntitySet="LichSuKiemTra" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -618,6 +648,11 @@
           <EntitySet Name="SDauHieuRuiRoes" EntityType="DataXNCModel.SDauHieuRuiRo" />
           <EntitySet Name="SNuocRuiRoes" EntityType="DataXNCModel.SNuocRuiRo" />
           <EntitySet Name="DCanhBaos" EntityType="DataXNCModel.DCanhBao" />
+          <EntitySet Name="LichSuKiemTras" EntityType="DataXNCModel.LichSuKiemTra" />
+          <AssociationSet Name="FK_LichSuKiemTra_SDoiTuongDaKT" Association="DataXNCModel.FK_LichSuKiemTra_SDoiTuongDaKT">
+            <End Role="SDoiTuongDaKT" EntitySet="SDoiTuongDaKTs" />
+            <End Role="LichSuKiemTra" EntitySet="LichSuKiemTras" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="SHanhKhachDiLaiNhieu">
           <Key>
@@ -692,6 +727,7 @@
           <Property Name="NguoiTao" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="NgaySua" Type="DateTime" Precision="3" />
           <Property Name="NguoiSua" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="LichSuKiemTras" Relationship="DataXNCModel.FK_LichSuKiemTra_SDoiTuongDaKT" FromRole="SDoiTuongDaKT" ToRole="LichSuKiemTra" />
         </EntityType>
         <EntityType Name="STheoDoiDacBiet">
           <Key>
@@ -933,6 +969,32 @@
           <Property Name="MaNoiDi" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="MaNoiDen" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="LichSuKiemTra">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DoiTuongId" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="KetQuaKT" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="NgayKT" Type="DateTime" Precision="3" />
+          <Property Name="NguoiTao" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NgayTao" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="SDoiTuongDaKT" Relationship="DataXNCModel.FK_LichSuKiemTra_SDoiTuongDaKT" FromRole="LichSuKiemTra" ToRole="SDoiTuongDaKT" />
+        </EntityType>
+        <Association Name="FK_LichSuKiemTra_SDoiTuongDaKT">
+          <End Type="DataXNCModel.SDoiTuongDaKT" Role="SDoiTuongDaKT" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DataXNCModel.LichSuKiemTra" Role="LichSuKiemTra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SDoiTuongDaKT">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LichSuKiemTra">
+              <PropertyRef Name="DoiTuongId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1393,6 +1455,18 @@
                 <ScalarProperty Name="LoaiGiayTo" ColumnName="LoaiGiayTo" />
                 <ScalarProperty Name="SoGiayTo" ColumnName="SoGiayTo" />
                 <ScalarProperty Name="HoTen" ColumnName="HoTen" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LichSuKiemTras">
+            <EntityTypeMapping TypeName="DataXNCModel.LichSuKiemTra">
+              <MappingFragment StoreEntitySet="LichSuKiemTra">
+                <ScalarProperty Name="NgayTao" ColumnName="NgayTao" />
+                <ScalarProperty Name="NguoiTao" ColumnName="NguoiTao" />
+                <ScalarProperty Name="NgayKT" ColumnName="NgayKT" />
+                <ScalarProperty Name="KetQuaKT" ColumnName="KetQuaKT" />
+                <ScalarProperty Name="DoiTuongId" ColumnName="DoiTuongId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

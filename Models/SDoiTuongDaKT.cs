@@ -14,6 +14,12 @@ namespace WebNoiBai.Models
     
     public partial class SDoiTuongDaKT
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public SDoiTuongDaKT()
+        {
+            this.LichSuKiemTras = new HashSet<LichSuKiemTra>();
+        }
+    
         public decimal Id { get; set; }
         public string HoTen { get; set; }
         public string SoGiayTo { get; set; }
@@ -28,5 +34,8 @@ namespace WebNoiBai.Models
         public string NguoiTao { get; set; }
         public Nullable<System.DateTime> NgaySua { get; set; }
         public string NguoiSua { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LichSuKiemTra> LichSuKiemTras { get; set; }
     }
 }

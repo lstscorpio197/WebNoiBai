@@ -19,6 +19,8 @@ namespace WebNoiBai.Models
             : base("name=SystemEntities")
         {
             Configuration.LazyLoadingEnabled = false;
+            var objectContext = (this as IObjectContextAdapter).ObjectContext;
+            objectContext.CommandTimeout = 120;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

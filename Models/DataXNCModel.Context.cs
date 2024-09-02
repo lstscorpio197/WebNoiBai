@@ -18,6 +18,9 @@ namespace WebNoiBai.Models
         public DataXNCEntities()
             : base("name=DataXNCEntities")
         {
+            Configuration.LazyLoadingEnabled = false;
+            var objectContext = (this as IObjectContextAdapter).ObjectContext;
+            objectContext.CommandTimeout = 120;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -46,5 +49,6 @@ namespace WebNoiBai.Models
         public virtual DbSet<SDauHieuRuiRo> SDauHieuRuiRoes { get; set; }
         public virtual DbSet<SNuocRuiRo> SNuocRuiRoes { get; set; }
         public virtual DbSet<DCanhBao> DCanhBaos { get; set; }
+        public virtual DbSet<LichSuKiemTra> LichSuKiemTras { get; set; }
     }
 }

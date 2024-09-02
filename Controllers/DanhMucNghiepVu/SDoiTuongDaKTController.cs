@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -92,6 +93,15 @@ namespace WebNoiBai.Controllers.DanhMucNghiepVu
                 }
                 item.NgayTao = DateTime.Now;
                 item.NguoiTao = us.Username;
+                item.LichSuKiemTras = new List<LichSuKiemTra>
+                { new LichSuKiemTra
+                    {
+                        KetQuaKT = item.KetQuaKT,
+                        NgayKT = item.NgayKT,
+                        NgayTao = DateTime.Now,
+                        NguoiTao= us.Username
+                    }
+                };
                 dbXNC.SDoiTuongDaKTs.Add(item);
                 dbXNC.SaveChanges();
                 httpMessage.Body.MsgNoti = new HttpMessageNoti("200", null, "Thêm mới thành công");
@@ -110,36 +120,57 @@ namespace WebNoiBai.Controllers.DanhMucNghiepVu
         public JsonResult Update(SDoiTuongDaKT item)
         {
             HttpMessage httpMessage = new HttpMessage(true);
-            try
+            using (var trans = dbXNC.Database.BeginTransaction())
             {
-                var exist = dbXNC.SDoiTuongDaKTs.Find(item.Id);
-                if (exist == null)
+                try
                 {
-                    httpMessage.IsOk = false;
-                    httpMessage.Body.MsgNoti = new HttpMessageNoti("400", null, "Không tìm thấy thông tin");
+                    var exist = dbXNC.SDoiTuongDaKTs.Find(item.Id);
+                    if (exist == null)
+                    {
+                        httpMessage.IsOk = false;
+                        httpMessage.Body.MsgNoti = new HttpMessageNoti("400", null, "Không tìm thấy thông tin");
+                        return Json(httpMessage, JsonRequestBehavior.AllowGet);
+                    }
+                    if (exist.NguoiTao != us.Username && us.ChucVu != UserLevel.Admin)
+                    {
+                        httpMessage.IsOk = false;
+                        httpMessage.Body.MsgNoti = new HttpMessageNoti("400", null, "Chỉ người tạo hoặc admin mới được sửa thông tin");
+                        return Json(httpMessage, JsonRequestBehavior.AllowGet);
+                    }
+                    var existHis = dbXNC.LichSuKiemTras.Any(x => x.DoiTuongId == exist.Id);
+                    bool updateKQ = exist.KetQuaKT != item.KetQuaKT || exist.NgayKT != item.NgayKT || (!existHis && !string.IsNullOrEmpty(item.KetQuaKT));
+
+                    item.NguoiTao = exist.NguoiTao;
+                    item.NgayTao = exist.NgayTao;
+                    item.NgaySua = DateTime.Now;
+                    item.NguoiSua = us.Username;
+                    dbXNC.Entry(exist).State = EntityState.Detached;
+                    dbXNC.Entry(item).State = EntityState.Modified;
+                    dbXNC.SaveChanges();
+
+                    if (updateKQ) {
+                        var newHis = new LichSuKiemTra
+                        {
+                            DoiTuongId = exist.Id,
+                            KetQuaKT = item.KetQuaKT,
+                            NgayKT = item.NgayKT,
+                            NgayTao = DateTime.Now,
+                            NguoiTao = us.Username
+                        };
+                        dbXNC.LichSuKiemTras.Add(newHis);
+                        dbXNC.SaveChanges();
+                    }
+                    trans.Commit();
+                    httpMessage.Body.MsgNoti = new HttpMessageNoti("200", null, "Cập nhật thông tin thành công");
                     return Json(httpMessage, JsonRequestBehavior.AllowGet);
                 }
-                if (exist.NguoiTao != us.Username && us.ChucVu != UserLevel.Admin)
+                catch (Exception ex)
                 {
+                    trans.Rollback();
                     httpMessage.IsOk = false;
-                    httpMessage.Body.MsgNoti = new HttpMessageNoti("400", null, "Chỉ người tạo hoặc admin mới được sửa thông tin");
+                    httpMessage.Body.MsgNoti = new HttpMessageNoti("500", null, ex.Message);
                     return Json(httpMessage, JsonRequestBehavior.AllowGet);
-                }
-                item.NguoiTao = exist.NguoiTao;
-                item.NgayTao = exist.NgayTao;
-                item.NgaySua = DateTime.Now;
-                item.NguoiSua = us.Username;
-                dbXNC.Entry(exist).State = EntityState.Detached;
-                dbXNC.Entry(item).State = EntityState.Modified;
-                dbXNC.SaveChanges();
-                httpMessage.Body.MsgNoti = new HttpMessageNoti("200", null, "Cập nhật thông tin thành công");
-                return Json(httpMessage, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                httpMessage.IsOk = false;
-                httpMessage.Body.MsgNoti = new HttpMessageNoti("500", null, ex.Message);
-                return Json(httpMessage, JsonRequestBehavior.AllowGet);
+                } 
             }
         }
 
@@ -267,6 +298,23 @@ namespace WebNoiBai.Controllers.DanhMucNghiepVu
             }
         }
 
+
+        public JsonResult GetListHistory(decimal id)
+        {
+            HttpMessage httpMessage = new HttpMessage(true);
+            try
+            {
+                var lstHis = dbXNC.LichSuKiemTras.Where(x=>x.DoiTuongId == id).ToList();
+                httpMessage.Body.Data = lstHis;
+                return Json(httpMessage, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                httpMessage.IsOk = false;
+                httpMessage.Body.MsgNoti = new HttpMessageNoti("500", null, ex.Message);
+                return Json(httpMessage, JsonRequestBehavior.AllowGet);
+            }
+        }
         private HttpMessage CheckValid(SDoiTuongDaKT item)
         {
             HttpMessage httpMessage = new HttpMessage(false);

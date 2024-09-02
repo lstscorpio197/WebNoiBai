@@ -242,6 +242,9 @@
     <Compile Include="Models\hang_hang_khong.cs">
       <DependentUpon>DataXNCModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\LichSuKiemTra.cs">
+      <DependentUpon>DataXNCModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\mien_thue.cs">
       <DependentUpon>DataXNCModel.tt</DependentUpon>
     </Compile>

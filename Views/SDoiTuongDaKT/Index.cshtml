@@ -144,6 +144,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa fa-times"></i><span class="ml8">Đóng</span></button>
+                <button type="button" class="btn btn-success" id="btn-viewhistory"><i class="fa fa-eye"></i><span class="ml8">Lịch sử cập nhật KQ</span></button>
                 <button type="button" class="btn btn-primary" id="btn-save"><i class="fa fa-save"></i><span class="ml8">Lưu lại</span></button>
             </div>
         </div>
@@ -181,6 +182,41 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa fa-times"></i><span class="ml8">&nbsp;Đóng</span></button>
                 <button type="button" class="btn btn-primary" id="btn-import"><i class="fa fa-save"></i><span class="ml8">&nbsp;Lưu lại</span></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal modal-edit left fade" id="HISTORY" role="dialog" aria-labelledby="exampleModalLabel" data-bs-keyboard="true" aria-bs-hidden="true" data-bs-backdrop="static" style="padding-top: 42px !important;">
+    <div class="modal-dialog modal-md modal-dialog-slideout" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel">
+                    Lịch sử cập nhật kết quả kiểm tra
+                </h4>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <i class="icon-close-ico-tsd"></i>
+                </button>
+            </div>
+            <div class="modal-body" style="background-color: #FBFBFB">
+                <div class="modal-body-content" style="padding: 16px; background-color: #FFFFFF;height: 100%;">
+                    <table class="wid100">
+                        <thead>
+                            <tr>
+                                <th class="text-center width70px">STT</th>
+                                <th class="text-center">Ngày KT</th>
+                                <th class="text-center">Kết quả</th>
+                                <th class="text-center">Ngày tạo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa fa-times"></i><span class="ml8">Đóng</span></button>
             </div>
         </div>
     </div>
@@ -348,6 +384,7 @@
             var $ChiTiet = {
                 init: function () {
                     this.Save();
+                    this.ViewHistory();
                     this.ResetForm();
                 },
                 Self: $('#CHITIET'),
@@ -384,6 +421,34 @@
                             }
                             else {
 
+                            }
+                        })
+                    })
+                },
+                ViewHistory: () => {
+                    $modal.find('#btn-viewhistory').off('click').on('click', () => {
+                        let id = $form.find('input[name=Id]').val();
+                        var getResponse = AjaxConfigHelper.SendRequestToServer(`/${$router}/GetListHistory`, "GET", {"id":id});
+                        getResponse.then((res) => {
+                            if (res.IsOk) {
+                                let data = res.Body.Data || [];
+                                html = '';
+                                if (data.length == 0) {
+                                    html = `<tr><td class="text-center" colspan="4"><span>Không có bản ghi</span></td></tr>`;
+                                    $tableBody.html(html);
+                                    return false;
+                                }
+                                for (let i = 0; i < data.length; i++) {
+                                    let item = data[i]
+                                    html += `<tr class="">` +
+                                        `<td class="text-center">${(i+1)}</td>` +
+                                        `<td class="">${formatDateFromServer(item.NgayKT)}</td>` +
+                                        `<td class="">${item.KetQuaKT}</td>` +
+                                        `<td class="">${formatDateFromServer(item.NgayTao)}</td>` +
+                                        `</tr>`;
+                                }
+                                $('.modal#HISTORY').find('table tbody').html(html);
+                                $('.modal#HISTORY').modal('show');
                             }
                         })
                     })
