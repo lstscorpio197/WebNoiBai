@@ -162,24 +162,17 @@ $(function () {
             $page.Self.find('.btnDelete').off('click').on('click', function () {
                 let id = $(this).data('id');
 
-                var getResponse = AjaxConfigHelper.SendRequestToServer(`/${$router}/CheckExistUser`, "POST", { 'id': id });
-                getResponse.then((res) => {
-                    if (res.IsOk) {
-                        ConfirmDeleteWithCondition(res.Body.Data, "Phòng ban đã có tài khoản. Nếu xóa phòng ban thì các tài khoản thuộc phòng ban sẽ bị xóa. Bạn có muốn tiếp tục thực hiện không?", function () {
-                            ConfirmDelete(function () {
-                                var getResponse = AjaxConfigHelper.SendRequestToServer(`/${$router}/Delete`, "POST", { 'id': id });
-                                getResponse.then((res) => {
-                                    if (res.IsOk) {
-                                        ToastSuccess("Xóa");
-                                        $page.GetList();
-                                    }
-                                    else {
+                ConfirmDelete(function () {
+                    var getResponse = AjaxConfigHelper.SendRequestToServer(`/${$router}/Delete`, "POST", { 'id': id });
+                    getResponse.then((res) => {
+                        if (res.IsOk) {
+                            ToastSuccess("Xóa tài khoản thành công");
+                            $page.GetList();
+                        }
+                        else {
 
-                                    }
-                                })
-                            })
-                        })
-                    }
+                        }
+                    })
                 })
 
             })
@@ -212,6 +205,7 @@ $(function () {
         init: function () {
             this.Save();
             this.ResetForm();
+            this.ResetPass();
         },
         Self: $('#CHITIET'),
         ResetForm: () => {
@@ -243,7 +237,7 @@ $(function () {
                 getResponse.then((res) => {
                     if (res.IsOk) {
                         let actionSub = data.Id > 0 ? 'Cập nhật' : 'Thêm mới';
-                        ToastSuccess(actionSub);
+                        ToastSuccess(actionSub + ' thành công');
                         $page.GetList(data.Id > 0 ? null : 1);
                         $modal.modal('hide');
                     }
@@ -251,6 +245,29 @@ $(function () {
 
                     }
                 })
+            })
+        },
+        ResetPass: () => {
+            $modal.find('#btn-resetpass').off('click').on('click', () => {
+                let data = $ChiTiet.GetDataInput();
+                if (!data)
+                    return false;
+
+                ConfirmWithCallBack(function () {
+                    var getResponse = AjaxConfigHelper.SendRequestToServer(`/${$router}/ResetPassword`, "POST", { 'id': data.Id });
+                    getResponse.then((res) => {
+                        if (res.IsOk) {
+                            let des = res.Body.Description;
+                            ToastSuccess(des);
+                            $page.GetList(data.Id > 0 ? null : 1);
+                            $modal.modal('hide');
+                        }
+                        else {
+
+                        }
+                    })
+                }, "Bạn có chắc chắn muốn reset mật khẩu cho tài khoản này không?");
+                
             })
         }
     };
@@ -316,7 +333,7 @@ $(function () {
                 lstPermissNotGranted.push(id);
             })
             return {
-                strRoleId : JSON.stringify(lstRole),
+                strRoleId: JSON.stringify(lstRole),
                 strPermissionId: JSON.stringify(lstPermissNotGranted),
                 id: $roleModal.find('[name=Id]').val()
             }
@@ -330,7 +347,7 @@ $(function () {
                 var getResponse = AjaxConfigHelper.SendRequestToServer(`/${$router}/UpdatePermission`, "POST", data);
                 getResponse.then((res) => {
                     if (res.IsOk) {
-                        ToastSuccess("Phân quyền");
+                        ToastSuccess("Phân quyền thành công");
                         $roleModal.modal('hide');
                     }
                 })

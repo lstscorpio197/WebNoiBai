@@ -233,7 +233,7 @@
                             var getResponse = AjaxConfigHelper.SendRequestToServer(`/${$router}/Delete`, "POST", { 'id': id });
                             getResponse.then((res) => {
                                 if (res.IsOk) {
-                                    ToastSuccess("Xóa");
+                                    ToastSuccess("Xóa thành công");
                                     $page.GetList();
                                 }
                                 else {
@@ -277,7 +277,7 @@
                         var getResponse = AjaxConfigHelper.SendRequestToServer(`/${$router}/${action}`, "POST", data);
                         getResponse.then((res) => {
                             if (res.IsOk) {
-                                let actionSub = data.FI_ID > 0 ? 'Cập nhật' : 'Thêm mới';
+                                let actionSub = data.FI_ID > 0 ? 'Cập nhật thành công' : 'Thêm mới thành công';
                                 ToastSuccess(actionSub);
                                 $page.GetList(data.FI_ID > 0 ? null : 1);
                                 $modal.modal('hide');

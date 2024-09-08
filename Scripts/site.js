@@ -158,7 +158,7 @@ $(document).ready(function () {
                 var getResponse = AjaxConfigHelper.SendRequestToServer(`/Account/UpdateUserInfo`, "POST", { 'itemUpdate': data });
                 getResponse.then((res) => {
                     if (res.IsOk) {
-                        ToastSuccess("Cập nhật");
+                        ToastSuccess("Cập nhật thành công");
 
                         $('#UsFullName').text(data.FullName);
                         $('#UsFullName').closest('div').attr('title', data.FullName);
@@ -239,7 +239,7 @@ $(document).ready(function () {
                 var getResponse = AjaxConfigHelper.SendRequestToServer(`/Account/ChangePassword`, "POST", { 'itemPass': data });
                 getResponse.then((res) => {
                     if (res.IsOk) {
-                        ToastSuccess("Đổi mật khẩu");
+                        ToastSuccess("Đổi mật khẩu thành công");
                         $changePass.self.modal('hide');
                     }
                 })
@@ -285,7 +285,7 @@ $(document).ready(function () {
                     var getResponse = AjaxConfigHelper.SendRequestToServer(`/${$router}/Create`, "POST", data);
                     getResponse.then((res) => {
                         if (res.IsOk) {
-                            ToastSuccess("Thêm");
+                            ToastSuccess("Thêm thành công");
                             $modalWarning.modal('hide');
                         }
                         else {

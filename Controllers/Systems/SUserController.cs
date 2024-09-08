@@ -283,6 +283,35 @@ namespace WebNoiBai.Controllers.Systems
                 } 
             }
         }
+
+        [HttpPost]
+        [AuthorizeAccessRole(TypeHandle = "update")]
+        public JsonResult ResetPassword(int id)
+        {
+            HttpMessage httpMessage = new HttpMessage(true);
+            try
+            {
+                var item = db.SUsers.Find(id);
+                if (item == null)
+                {
+                    httpMessage.IsOk = false;
+                    httpMessage.Body.MsgNoti = new HttpMessageNoti("400", null, "Không tìm thấy thông tin");
+                    return Json(httpMessage, JsonRequestBehavior.AllowGet);
+                }
+
+                item.Password = BCrypt.Net.BCrypt.HashPassword(item.Username);
+                db.Entry(item).State = EntityState.Modified;
+                db.SaveChanges();
+                httpMessage.Body.Description = string.Format("Reset mật khẩu thành công, mật khẩu của tài khoản sau khi thay đổi là \"<b>{0}</b>\"", item.Username);
+                return Json(httpMessage, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                httpMessage.IsOk = false;
+                httpMessage.Body.MsgNoti = new HttpMessageNoti("500", null, ex.Message);
+                return Json(httpMessage, JsonRequestBehavior.AllowGet);
+            }
+        }
         private HttpMessage CheckValid(CreateOrUpdateUserDto item)
         {
             HttpMessage httpMessage = new HttpMessage(false);

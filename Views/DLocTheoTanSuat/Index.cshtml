@@ -208,7 +208,7 @@
                                 var getResponse = AjaxConfigHelper.SendRequestToServer(`/${$router}/InsertToHKDiLaiNhieu`, "POST", dataSend);
                                 getResponse.then((res) => {
                                     if (res.IsOk) {
-                                        ToastSuccess("Thêm vào danh sách");
+                                        ToastSuccess("Thêm vào danh sách thành công");
                                     }
                                 })
                             }, "Bạn có chắc chắn muốn thêm tất cả kết quả vào danh mục hành khách đi lại nhiều lần không?")
@@ -236,7 +236,7 @@
                                 var getResponse = AjaxConfigHelper.SendRequestToServer(`/${$router}/InsertToHKDiLaiNhieu`, "POST", dataSend);
                                 getResponse.then((res) => {
                                     if (res.IsOk) {
-                                        ToastSuccess("Thêm vào danh sách");
+                                        ToastSuccess("Thêm vào danh sách thành công");
                                     }
                                 })
                             }, `Bạn có chắc chắn muốn thêm ${lstSoGiayTo.length} hành khách đã chọn vào danh mục hành khách đi lại nhiều lần không?`)

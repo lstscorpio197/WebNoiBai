@@ -302,8 +302,8 @@ function ConfirmWithCallBack(callBack, action = null, typeColor = null, containe
     });
 }
 
-function ToastSuccess(action = '', container = null) {
-    let description = action != '' ? action + ' thành công' : 'Thành công';
+function ToastSuccess(description = '', container = null) {
+    description = description != '' ? description : 'Thành công';
     $.confirm({
         title: '<i class="fa fa-bell-o"></i> THÔNG BÁO',
         content: '<i class="fa fa-check" style="color:green"></i>&nbsp;' + description,

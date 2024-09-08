@@ -70,15 +70,18 @@
                         </div>
 
                         <div class="row mb6">
-                            <div class="col-md-8">Số giấy tờ <span class="red">*</span></div>
-                            <div class="col-md-4">Loại giấy tờ <span class="red">*</span></div>
+                            <div class="col-md-6">Số giấy tờ <span class="red">*</span></div>
+                            <div class="col-md-3">Loại giấy tờ <span class="red">*</span></div>
                         </div>
                         <div class="mb16 row">
-                            <div class="col-md-8">
+                            <div class="col-md-6">
                                 <input name="SoGiayTo" type="text" placeholder="Nhập nội dung" class="wid100" maxlength="50" value="" autocomplete="off" />
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <input name="LoaiGiayTo" type="text" placeholder="Nhập nội dung" class="wid100" maxlength="50" value="" autocomplete="off" />
+                            </div>
+                            <div class="col-md-3">
+                                <button type="button" class="btn btn-primary" id="btn-getinfo">Lấy thông tin HK</button>
                             </div>
                         </div>
 
@@ -369,7 +372,7 @@
                             var getResponse = AjaxConfigHelper.SendRequestToServer(`/${$router}/Delete`, "POST", { 'id': id });
                             getResponse.then((res) => {
                                 if (res.IsOk) {
-                                    ToastSuccess("Xóa");
+                                    ToastSuccess("Xóa thành công");
                                     $page.GetList();
                                 }
                                 else {
@@ -386,6 +389,7 @@
                     this.Save();
                     this.ViewHistory();
                     this.ResetForm();
+                    this.GetInfo();
                 },
                 Self: $('#CHITIET'),
                 ResetForm: () => {
@@ -396,6 +400,34 @@
                         $form.find('select').find('option:first-child').prop('selected', true);
                         $form.validate().resetForm();
                         $form.find('.error').removeClass('error');
+                    })
+                },
+                GetInfo: () => {
+                    $modal.find('#btn-getinfo').off('click').on('click', function () {
+                        let sgt = $form.find('[name=SoGiayTo]').val();
+                        var getResponse = AjaxConfigHelper.SendRequestToServer(`/DHanhKhach/GetItemBySoGiayTo`, "GET", { 'sogiayto': sgt });
+                        getResponse.then((res) => {
+                            if (res.IsOk) {
+                                let data = res.Body.Data || {};
+                                for (let prop in data) {
+                                    if (prop == 'Enable') {
+                                        $form.find(`[name=${prop}]`).prop('checked', data[prop] == 1);
+                                        continue;
+                                    }
+                                    if (prop.indexOf('Time') > -1 || prop.indexOf('Ngay') > -1) {
+                                        data[prop] = formatDateFromServer(data[prop]);
+                                    }
+                                    if (prop == 'GioiTinh') {
+                                        $form.find(`[type="radio"][name=${prop}][data-value=${data[prop]}]`).prop('checked', true);
+                                        continue;
+                                    }
+                                    $form.find(`[name=${prop}]`).val(data[prop]);
+                                }
+                            }
+                            else {
+
+                            }
+                        })
                     })
                 },
                 GetDataInput: () => {
@@ -414,7 +446,7 @@
                         var getResponse = AjaxConfigHelper.SendRequestToServer(`/${$router}/${action}`, "POST", data);
                         getResponse.then((res) => {
                             if (res.IsOk) {
-                                let actionSub = data.Id > 0 ? 'Cập nhật' : 'Thêm mới';
+                                let actionSub = data.Id > 0 ? 'Cập nhật thành công' : 'Thêm mới thành công';
                                 ToastSuccess(actionSub);
                                 $page.GetList(data.Id > 0 ? null : 1);
                                 $modal.modal('hide');

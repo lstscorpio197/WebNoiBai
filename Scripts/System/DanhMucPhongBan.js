@@ -126,7 +126,7 @@ $(function () {
                                 var getResponse = AjaxConfigHelper.SendRequestToServer(`/${$router}/Delete`, "POST", { 'id': id });
                                 getResponse.then((res) => {
                                     if (res.IsOk) {
-                                        ToastSuccess("Xóa");
+                                        ToastSuccess("Xóa thành công");
                                         $page.GetList();
                                     }
                                     else {
@@ -174,7 +174,7 @@ $(function () {
                 getResponse.then((res) => {
                     if (res.IsOk) {
                         let actionSub = data.Id > 0 ? 'Cập nhật' : 'Thêm mới';
-                        ToastSuccess(actionSub);
+                        ToastSuccess(actionSub + ' thành công');
                         $page.GetList(data.Id > 0 ? null : 1);
                         $modal.modal('hide');
                     }

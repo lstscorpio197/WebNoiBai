@@ -258,7 +258,8 @@ namespace WebNoiBai.Controllers.DanhMucNghiepVu
                     lstItem.Add(new SDoiTuongDaKT
                     {
                         SoGiayTo = value,
-                        GhiChu = ghichu
+                        GhiChu = ghichu,
+                        KetQuaKT = ghichu,
                     });
                 }
                 var lstSoGiayTo = lstItem.GroupBy(x => x.SoGiayTo).Select(x => x.Key).ToList();
@@ -281,7 +282,9 @@ namespace WebNoiBai.Controllers.DanhMucNghiepVu
                                QuocTich = b.QUOCTICH,
                                NgayTao = DateTime.Now,
                                NguoiTao = us.Username,
-                               GhiChu = a.GhiChu
+                               GhiChu = a.GhiChu,
+                               KetQuaKT = a.KetQuaKT,
+                               NgayKT = DateTime.Now,
                            }).GroupBy(x => x.SoGiayTo)
               .Select(g => g.First())
               .ToList();

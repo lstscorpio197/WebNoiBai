@@ -122,7 +122,7 @@ $(function () {
                     var getResponse = AjaxConfigHelper.SendRequestToServer(`/${$router}/Delete`, "POST", { 'id': id });
                     getResponse.then((res) => {
                         if (res.IsOk) {
-                            ToastSuccess("Xóa");
+                            ToastSuccess("Xóa thành công");
                             $page.GetList();
                         }
                         else {

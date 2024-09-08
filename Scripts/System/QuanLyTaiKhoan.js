@@ -243,7 +243,7 @@ $(function () {
                     var getResponse = AjaxConfigHelper.SendRequestToServer(`/${$router}/DeleteUser`, "POST", { 'id': id });
                     getResponse.then((res) => {
                         if (res.IsOk) {
-                            ToastSuccess("Xóa");
+                            ToastSuccess("Xóa thành công");
                             $pageUser.GetList();
                         }
                         else {
