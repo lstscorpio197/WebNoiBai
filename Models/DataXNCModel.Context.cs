@@ -50,5 +50,8 @@ namespace WebNoiBai.Models
         public virtual DbSet<SNuocRuiRo> SNuocRuiRoes { get; set; }
         public virtual DbSet<DCanhBao> DCanhBaos { get; set; }
         public virtual DbSet<LichSuKiemTra> LichSuKiemTras { get; set; }
+        public virtual DbSet<SMienThue> SMienThues { get; set; }
+        public virtual DbSet<SThanhVienToBay> SThanhVienToBays { get; set; }
+        public virtual DbSet<STrongDiem_LichSu> STrongDiem_LichSu { get; set; }
     }
 }

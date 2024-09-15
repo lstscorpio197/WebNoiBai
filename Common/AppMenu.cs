@@ -25,15 +25,18 @@ namespace WebNoiBai.Common
             new Menu(0,2,"STheoDoi","Đối tượng theo dõi"),
             new Menu(0,2,"STheoDoiDacBiet","Đối tượng theo dõi đặc biệt"),
             new Menu(0,2,"SDoiTuongDaKT","Đối tượng đã kiểm tra"),
+            new Menu(0,2,"SHanhKhachToBay","Hành khách thuộc tổ bay"),
             new Menu(3,null,"HK","Quản lý hành khách",0,"fa fa-users"),
             new Menu(0,3,"DLocTheoTanSuat","Lọc theo tần suất bay"),
             new Menu(0,3,"DHanhKhach","Danh sách hành khách"),
+            new Menu(0,3,"DHanhKhachNghiVan","HK nghi vấn nhiều hộ chiếu"),
             new Menu(0,3,"DHKHoChieuNuocNgoai","Hành khách HC nước ngoài"),
             new Menu(0,3,"DDatCho","Thông tin đặt chỗ"),
             new Menu(0,3,"DNoiChuyen","Hành khách nối chuyến"),
             new Menu(0,3,"DCanhBao","Danh sách cảnh báo"),
             new Menu(4,null,"TB","Quản lý tổ bay",0,"fa fa-user-pilot"),
             new Menu(0,4,"DToBay","Danh sách tổ bay"),
+            new Menu(0,4,"SMienThue","Danh sách hưởng miễn thuế"),
             new Menu(5,null,"BC","Báo cáo thống kê",0,"fa fa-dashboard"),
         };
 

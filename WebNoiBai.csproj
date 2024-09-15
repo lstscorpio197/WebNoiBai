@@ -168,6 +168,7 @@
     <Compile Include="Controllers\DanhMucNghiepVu\SDoiTuongTrongDiemController.cs" />
     <Compile Include="Controllers\DanhMucNghiepVu\SHangHangKhongController.cs" />
     <Compile Include="Controllers\DanhMucNghiepVu\SHanhKhachDiLaiNhieuController.cs" />
+    <Compile Include="Controllers\DanhMucNghiepVu\SHanhKhachToBayController.cs" />
     <Compile Include="Controllers\DanhMucNghiepVu\SHanhKhachVIPController.cs" />
     <Compile Include="Controllers\DanhMucNghiepVu\SHuongDanVienController.cs" />
     <Compile Include="Controllers\DanhMucNghiepVu\SNuocRuiRoController.cs" />
@@ -176,6 +177,7 @@
     <Compile Include="Controllers\HanhKhach\DCanhBaoController.cs" />
     <Compile Include="Controllers\HanhKhach\DDatChoController.cs" />
     <Compile Include="Controllers\HanhKhach\DHanhKhachController.cs" />
+    <Compile Include="Controllers\HanhKhach\DHanhKhachNghiVanController.cs" />
     <Compile Include="Controllers\HanhKhach\DHKHoChieuNuocNgoaiController.cs" />
     <Compile Include="Controllers\HanhKhach\DLocTheoTanSuatController.cs" />
     <Compile Include="Controllers\HanhKhach\DNoiChuyenController.cs" />
@@ -189,6 +191,7 @@
     <Compile Include="Dto\DanhMuc\ChuyenBayDto.cs" />
     <Compile Include="Dto\HanhKhach\DHanhKhachSearchDto.cs" />
     <Compile Include="Dto\HanhKhach\DHanhKhachViewDto.cs" />
+    <Compile Include="Dto\HanhKhach\DoiTuongCompareDto.cs" />
     <Compile Include="Dto\HanhKhach\DoiTuongType.cs" />
     <Compile Include="Dto\ImportDto\SChuyenBayImportDto.cs" />
     <Compile Include="Dto\ToBay\DToBayViewDto.cs" />
@@ -269,13 +272,22 @@
     <Compile Include="Models\SHuongDanVien.cs">
       <DependentUpon>DataXNCModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SMienThue.cs">
+      <DependentUpon>DataXNCModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\SNuocRuiRo.cs">
+      <DependentUpon>DataXNCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SThanhVienToBay.cs">
       <DependentUpon>DataXNCModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\STheoDoi.cs">
       <DependentUpon>DataXNCModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\STheoDoiDacBiet.cs">
+      <DependentUpon>DataXNCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\STrongDiem_LichSu.cs">
       <DependentUpon>DataXNCModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\warning_history.cs">
@@ -1445,6 +1457,7 @@
     <Content Include="Scripts\dto\MessageDto.js" />
     <Content Include="Scripts\dto\RawDataSignDto.js" />
     <Content Include="Scripts\HanhKhach\DHanhKhach.js" />
+    <Content Include="Scripts\HanhKhach\DHanhKhachNghiVan.js" />
     <Content Include="Scripts\helper\AjaxConfigHelper.js" />
     <Content Include="Scripts\helper\FileHelper.js" />
     <Content Include="Scripts\helper\FormatInputHelper.js" />
@@ -1549,6 +1562,8 @@
     <Content Include="Views\DToBay\Index.cshtml" />
     <Content Include="Views\SChuyenBayXuatCanh\Index.cshtml" />
     <Content Include="Views\DCanhBao\Index.cshtml" />
+    <Content Include="Views\SHanhKhachToBay\Index.cshtml" />
+    <Content Include="Views\DHanhKhachNghiVan\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

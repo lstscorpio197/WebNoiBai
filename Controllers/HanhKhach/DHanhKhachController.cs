@@ -316,7 +316,29 @@ namespace WebNoiBai.Controllers.HanhKhach
         {
             DateTime startDate = itemSearch.StartDate?.AddDays(-1) ?? DateTime.Today.AddDays(-1);
             DateTime endDate = itemSearch.EndDate?.AddDays(1) ?? DateTime.Today.AddDays(1);
-            var query = dbXNC.chuyenbay_hanhkhach.AsNoTracking().Where(x => x.FLIGHTDATE > startDate && x.FLIGHTDATE < endDate);
+            var query = dbXNC.chuyenbay_hanhkhach.AsNoTracking().Select(x=> new DHanhKhachViewDto
+            {
+                FLIGHTDATE = x.FLIGHTDATE,
+                GIOITINH = x.GIOITINH,
+                HANHLY = x.HANHLY,
+                HO = x.HO,
+                IDCHUYENBAY = x.IDCHUYENBAY,
+                MADATCHO = x.MADATCHO,
+                MANOIDEN = x.MANOIDEN,
+                MANOIDI = x.MANOIDI,
+                NGAYSINH = x.NGAYSINH,
+                NOIDEN = x.NOIDEN,
+                NOIDI = x.NOIDI,
+                QUOCTICH = x.QUOCTICH,
+                SOGIAYTO = x.SOGIAYTO,
+                LOAIGIAYTO = x.LOAIGIAYTO,
+                SOHIEU = x.SOHIEU,
+                TEN = x.TEN,
+                TENDEM = x.TENDEM,
+                SoKien = "",
+                SoNguoiDiCung = 0,
+                SOBT = null
+            }).Where(x => x.FLIGHTDATE > startDate && x.FLIGHTDATE < endDate);
             if (itemSearch.LstSoGiayTo.Any())
             {
                 query = query.Where(x => itemSearch.LstSoGiayTo.Contains(x.SOGIAYTO));
@@ -395,6 +417,11 @@ namespace WebNoiBai.Controllers.HanhKhach
                             join b in dbXNC.SHuongDanViens on a.SOGIAYTO equals b.SoGiayTo
                             select a;
                     break;
+                case 7://Phi hành đoàn
+                    query = from a in query
+                            join b in dbXNC.SThanhVienToBays on a.SOGIAYTO equals b.SoGiayTo
+                            select a;
+                    break;
                 default:
                     break;
             }
@@ -455,6 +482,14 @@ namespace WebNoiBai.Controllers.HanhKhach
                             where d == null
                             select a;
                     break;
+                case 7://Phi hành đoàn
+                    query = from a in query
+                            join b in dbXNC.SThanhVienToBays on a.SOGIAYTO equals b.SoGiayTo
+                            into c
+                            from d in c.DefaultIfEmpty()
+                            where d == null
+                            select a;
+                    break;
                 default:
                     break;
             }
@@ -478,9 +513,6 @@ namespace WebNoiBai.Controllers.HanhKhach
             }
             var lstDiChung = queryChung.Select(x => x.MADATCHO).GroupBy(x => x).Select(x => new { MADATCHO = x.Key, Count = x.Count() });
 
-            //var date = itemSearch.StartDate?.AddDays(-5);
-            //var ngayGanNhat = dbXNC.chuyenbay_hanhkhach.Where(x => itemSearch.IsViewNgayDiGanNhat && x.FLIGHTDATE < itemSearch.StartDate && x.FLIGHTDATE > date).Select(x => new { x.FLIGHTDATE, x.SOGIAYTO }).GroupBy(x => x.SOGIAYTO).Select(x => new { SOGIAYTO = x.Key, FLIGHTDATE = x.Max(y => y.FLIGHTDATE) });
-
 
             var queryResult = from x in query
                               join y in dbXNC.SChuyenBays.Where(x => x.Ngay > startDate && x.Ngay < endDate) on new { Ngay = x.FLIGHTDATE.Value, SoHieu = x.SOHIEU } equals new { Ngay = y.Ngay, SoHieu = y.ChuyenBay } into z
@@ -489,8 +521,6 @@ namespace WebNoiBai.Controllers.HanhKhach
                               from hl in tthl.DefaultIfEmpty()
                               join n in lstDiChung on x.MADATCHO equals n.MADATCHO into datcho
                               from dc in datcho.DefaultIfEmpty()
-                              //join ngn in ngayGanNhat on x.SOGIAYTO equals ngn.SOGIAYTO into hk
-                              //from hk_ngn in hk.DefaultIfEmpty()
                               select new DHanhKhachViewDto
                               {
                                   FLIGHTDATE = x.FLIGHTDATE,
@@ -512,7 +542,6 @@ namespace WebNoiBai.Controllers.HanhKhach
                                   TENDEM = x.TENDEM,
                                   SoKien = hl != null ? hl.FI_THONGTINHANHLY : "",
                                   SoNguoiDiCung = dc != null ? dc.Count : 0,
-                                  //NgayDiGanNhat = hk_ngn != null? hk_ngn.FLIGHTDATE : null,
                                   SOBT = xxx != null ? xxx.SOBT : null
                               };
             return queryResult.OrderBy(x => x.FLIGHTDATE).ThenBy(x => x.SOBT).ThenBy(x => x.IDCHUYENBAY).ThenBy(x => x.MADATCHO);

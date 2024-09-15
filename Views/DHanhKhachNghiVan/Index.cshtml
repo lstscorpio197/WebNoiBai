@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Danh sách hành khách";
+    ViewBag.Title = "Danh sách hành khách nghi vấn nhiều hộ chiếu";
 }
 
 <div class="mx-ecus">
@@ -15,24 +15,17 @@
         <div class="card-body" style="max-height: 929px;">
             <div class="frame-header">
                 <div class="frame-search">
-                    Từ ngày&nbsp;
                     <div class="inline-block input-group is_Datetimepicker">
                         <input name="StartDate" placeholder="dd/mm/yyyy" class="wid100px item-search input-date form-control-sm" value="@DateTime.Today.ToString("dd/MM/yyyy")">
                         <span class="input-group-addon cursor">
                             <span class="icon-calendar-ico-tsd"></span>
                         </span>
                     </div>
-                    &nbsp;đến&nbsp;
-                    <div class="inline-block input-group is_Datetimepicker">
-                        <input name="EndDate" placeholder="dd/mm/yyyy" class="wid100px item-search input-date form-control-sm" value="@DateTime.Today.ToString("dd/MM/yyyy")">
-                        <span class="input-group-addon cursor">
-                            <span class="icon-calendar-ico-tsd"></span>
-                        </span>
-                    </div>
+                    
                     <input class="item-search wid200px" autocomplete="off" name="SoGiayTo" placeholder="Số giấy tờ" />
                     <input class="item-search wid200px" autocomplete="off" name="SoHieu" placeholder="Số hiệu chuyến bay" />
                     @*<input class="item-search wid100px" autocomplete="off" name="NoiDi" placeholder="Điểm xuất phát" />
-                    <input class="item-search wid100px" autocomplete="off" name="NoiDen" placeholder="Điểm kết thúc" />*@
+                        <input class="item-search wid100px" autocomplete="off" name="NoiDen" placeholder="Điểm kết thúc" />*@
 
                     <button class="btn btn-secondary" style="height:38px;" id="btn-extend-search" type="button" data-bs-toggle="modal" data-bs-target="#SearchModal"><i class="far fa-filter"></i>&nbsp;Nâng cao&nbsp;<span class="badge">0</span></button>
 
@@ -56,10 +49,7 @@
                             <th class="text-center">Mã sân bay khởi hành</th>
                             <th class="text-center">Mã sân bay đến</th>
                             <th class="text-center">Điểm kết thúc</th>
-                            <th class="text-center wid100px is-view-sokien">Thông tin hành lý</th>
                             <th class="text-center">Hành lý</th>
-                            <th class="text-center is-view-dichung">Số người đi chung</th>
-                            <th class="text-center is-view-ngaygannhat">Ngày đi gần nhất</th>
                             <th class="text-center width70px">#</th>
                         </tr>
                     </thead>
@@ -88,14 +78,14 @@
             <div class="modal-body" style="background-color: #FBFBFB">
                 <div class="modal-body-content" style="padding: 16px; background-color: #FFFFFF;height: 100%;">
                     <div class="row mb16">
-                        
+
                         <div class="col-md-6">
                             <a href="#">Tải file mẫu</a>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <input type="file" name="File" class="hidden" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"/>
+                            <input type="file" name="File" class="hidden" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
                             <input type="text" class="wid100" name="FileName" readonly disabled />
                             <button class="btn btn-secondary btnChonFile">Chọn file</button>
                         </div>
@@ -172,63 +162,6 @@
                             <input class="item-search wid100" autocomplete="off" name="NoiDen" placeholder="Mã sân bay" />
                         </div>
                     </div>
-
-                    <div class="row mb16 d-flex align-items-center">
-                        <div class="col-md-3">
-                            Thuộc danh mục
-                        </div>
-                        <div class="col-md-9">
-                            <select class="item-search wid100" name="ObjectType">
-                                <option value="">--Là hành khách--</option>
-                                <option value="0">Hành khách đi lại nhiều</option>
-                                <option value="1">Hành khách VIP</option>
-                                <option value="2">Đối tượng trọng điểm</option>
-                                <option value="3">Đối tượng theo dõi đặc biệt</option>
-                                <option value="4">Đối tượng đã kiểm tra</option>
-                                <option value="5">Đối tượng theo dõi</option>
-                                <option value="6">Hướng dẫn viên du lịch</option>
-                                <option value="7">Hành khách thuộc tổ bay</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row mb16 d-flex align-items-center">
-                        <div class="col-md-3">
-                            Không thuộc danh mục
-                        </div>
-                        <div class="col-md-9">
-                            <select class="item-search wid100" name="NotInObject">
-                                <option value="">--Là hành khách--</option>
-                                <option value="0">Hành khách đi lại nhiều</option>
-                                <option value="1">Hành khách VIP</option>
-                                <option value="2">Đối tượng trọng điểm</option>
-                                <option value="3">Đối tượng theo dõi đặc biệt</option>
-                                <option value="4">Đối tượng đã kiểm tra</option>
-                                <option value="5">Đối tượng theo dõi</option>
-                                <option value="6">Hướng dẫn viên du lịch</option>
-                                <option value="7">Hành khách thuộc tổ bay</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row mb16">
-                        <div class="col-md-12">
-                            <label><input type="checkbox" class="ace cb" name="IsDiTuNuocRuiRo"><span class="lbl">&nbsp;Đi từ các nước rủi ro</span></label>
-                        </div>
-                    </div>
-                    <div class="row mb16">
-                        <div class="col-md-12">
-                            <label><input type="checkbox" class="ace cb" name="IsViewSoKien"><span class="lbl">&nbsp;Hiển thị số kiện</span></label>
-                        </div>
-                    </div>
-                    <div class="row mb16">
-                        <div class="col-md-12">
-                            <label><input type="checkbox" class="ace cb" name="IsViewDiChung"><span class="lbl">&nbsp;Hiển thị số người đi chung</span></label>
-                        </div>
-                    </div>
-                    <div class="row mb16">
-                        <div class="col-md-12">
-                            <label><input type="checkbox" class="ace cb" name="IsViewNgayDiGanNhat"><span class="lbl">&nbsp;Hiển thị ngày đi gần nhất</span></label>
-                        </div>
-                    </div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -240,5 +173,5 @@
 </div>
 
 @section scripts{
-    <script src="~/Scripts/HanhKhach/DHanhKhach.js"></script>
+    <script src="~/Scripts/HanhKhach/DHanhKhachNghiVan.js"></script>
 }

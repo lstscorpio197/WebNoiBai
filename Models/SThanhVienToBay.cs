@@ -12,14 +12,8 @@ namespace WebNoiBai.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class SDoiTuongTrongDiem
+    public partial class SThanhVienToBay
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public SDoiTuongTrongDiem()
-        {
-            this.STrongDiem_LichSu = new HashSet<STrongDiem_LichSu>();
-        }
-    
         public decimal Id { get; set; }
         public string HoTen { get; set; }
         public string SoGiayTo { get; set; }
@@ -32,10 +26,5 @@ namespace WebNoiBai.Models
         public string NguoiTao { get; set; }
         public Nullable<System.DateTime> NgaySua { get; set; }
         public string NguoiSua { get; set; }
-        public string DauHieuRuiRo { get; set; }
-        public string YeuCauNghiepVu { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<STrongDiem_LichSu> STrongDiem_LichSu { get; set; }
     }
 }
